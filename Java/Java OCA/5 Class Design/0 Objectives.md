@@ -1,0 +1,22 @@
+# Objetives
+
+**Be able to write code that extends other classes**. A Java class that extends another class inherits all of its public and protected methods and variables. The first line of every constructor is a call to another constructor within the class using this() or a call to a constructor of the parent class using the super() call. If the parent class doesn’t contain a noargument constructor, an explicit call to the parent constructor must be provided. Parent methods and objects can be accessed explicitly using the super keyword. Finally, all classes in Java extend java.lang.Object either directly or from a superclass.
+
+**Understand the rules for method overriding.** The Java compiler allows methods to be overridden in subclasses if certain rules are followed: a method must have the same signature, be at least as accessible as the parent method, must not declare any new or broader exceptions, and must use covariant return types.
+
+**Understand the rules for hiding methods and variables.** When a static method is recreated in a subclass, it is referred to as method hiding. Likewise, variable hiding is when a variable name is reused in a subclass. In both situations, the original method or variable still exists and is used in methods that reference the object in the parent class. For method hiding, the use of static in the method declaration must be the same between the parent and child class.
+
+**Recognize the difference between method overriding and method overloading**. Both method overloading and overriding involve creating a new method with the same name as an existing method. When the method signature is the same, it is referred to as method overriding and must follow a specifc set of override rules to compile. When the method signature is different, with the method taking different inputs, it is referred to as method overloading and none of the override rules are required.
+
+**Be able to write code that creates and extends abstract classes.** In Java, classes and methods can be declared as abstract. Abstract classes cannot be instantiated and require a concrete subclass to be accessed. Abstract classes can include any number, including zero, of abstract and nonabstract methods. Abstract methods follow all the method override rules and may only be defined within abstract classes. The first concrete subclass of an abstract class must implement all the inherited methods. Abstract classes and methods may not be marked as final or private.
+
+**Be able to write code that creates, extends, and implements interfaces.** Interfaces are similar to a specialized abstract class in which only abstract methods and constant static final variables are allowed. New to Java 8, an interface can also define default and static methods with method bodies. All members of an interface are assumed to be public. Methods are assumed to be abstract if not explicitly marked as default or static. An interface that extends another interface inherits all its abstract methods. An interface cannot extend a class, nor can a class extend an interface. Finally, classes may implement any number of interfaces.
+
+**Be able to write code that uses default and static interface methods.** A default method allows a developer to add a new method to an interface used in existing implementations, without forcing other developers using the interface to recompile their code. A developer using the interface may override the default method or use the provided one. A static method in an interface follows the same rules for a static method in a class.
+
+**Understand polymorphism.** An object in Java may take on a variety of forms, in part depending on the reference used to access the object. Methods that are overridden will be replaced everywhere they are used, whereas methods and variables that are hidden will only be replaced in the classes and subclasses that they are defned. It is common to rely on polymorphic parameters—the ability of methods to be automatically passed as a superclass or interface reference—when creating method defnitions.
+
+**Recognize valid reference casting.** An instance can be automatically cast to a superclass
+or interface reference without an explicit cast. Alternatively, an explicit cast is required if
+the reference is being narrowed to a subclass of the object. The Java compiler doesn’t permit casting to unrelated types. You should be able to discern between compiler-time casting
+errors and those that will not occur until runtime and that throw a CastClassException.

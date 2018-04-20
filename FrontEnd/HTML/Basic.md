@@ -1,0 +1,37 @@
+# Introduction to html
+
+## Anatomy of an HTML element
+
+!["HTML element"](resources/grumpy-cat-small.png)
+
+## Attributes
+
+!["Attributes"](resources/grumpy-cat-attribute-small.png)
+
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>My test page</title>
+  </head>
+  <body>
+    <img src="images/firefox-icon.png" alt="My test image">
+  </body>
+</html>
+````
+Here we have:
+
+- `<!DOCTYPE html>` — the doctype is just a historical artefact that needs to be included for everything to work right.
+
+- `<html></html>` — the `<html>` element. This element wraps all the content on the entire page, and is sometimes known as the **root element**.
+
+- `<head></head>` — the `<head>` element. This element acts as a container for all the stuff you want to include on the HTML page that isn't the content you are showing to your page's viewers.
+
+- `<body></body>` — the `<body>` element. This contains all the content that you want to show to web users when they visit your page.
+
+- `<meta charset="utf-8">` — this element sets the character set your document should use to UTF-8, which includes most characters from the vast majority of human written languages.
+
+- `<title></title>` — the `<title>` element. This sets the title of your page, which is the title that appears in the browser tab the page is loaded in. It is also used to describe the page when you bookmark/favourite it.
+

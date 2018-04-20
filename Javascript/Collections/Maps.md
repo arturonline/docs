@@ -1,0 +1,31 @@
+# Keyed collections
+
+## Maps
+
+A Map object is a simple key/value map and can iterate its elements in insertion order.
+
+```Javascript
+var sayings = new Map();
+sayings.set('dog', 'woof');
+sayings.set('cat', 'meow');
+sayings.set('elephant', 'toot');
+sayings.size; // 3
+
+sayings.get('fox'); // undefined
+sayings.has('bird'); // false
+sayings.delete('dog');
+sayings.has('dog'); // false
+
+for (var [key, value] of sayings) {
+  console.log(key + ' goes ' + value);
+}
+// "cat goes meow"
+// "elephant goes toot"
+
+sayings.clear();
+sayings.size; // 0
+```
+
+## WeakMap object
+
+The WeakMap object is a collection of key/value pairs in which the keys are objects only and the values can be arbitrary values.
