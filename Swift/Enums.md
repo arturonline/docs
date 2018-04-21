@@ -14,7 +14,7 @@ enum Airport {
 
 Traditionally, each enum case was only a label for an Integer value. These labels were only necessary to make the code readable for humans while the computer itself was internally working with those Integers.
 
-First of all, you’re not bound to use Integers for the value that is represented by a particular case. You can use Strings, Characters or even Floats instead.
+In swift, you’re not bound to use Integers for the value that is represented by a particular case. You can use Strings, Characters or even Floats instead.
 
 ```Swift
 enum Airport: String {

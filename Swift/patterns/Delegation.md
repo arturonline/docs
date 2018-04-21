@@ -3,7 +3,7 @@
 [http://marinbenc.com/why-you-shouldnt-use-delegates-in-swift
 ](link)
 
-```Swift
+```swift
 protocol NetworkServiceDelegate {
     func didCompleteRequest(result: String)
 }
