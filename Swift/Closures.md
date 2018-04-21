@@ -1,5 +1,7 @@
 # Closures
 
+## Function vs Closure
+
 ```Swift
 // Function syntax:
 func sum(numbers: [Int]) -> Int {
@@ -19,9 +21,14 @@ let sum = sumClosure([1, 2, 3, 4])
 print(sum)
 ```
 
-## Syntax
+## Closure Syntax
 
 ```Swift
+{ (params) -> returnType in
+statements
+}
+
+// Example:
 reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in
     return s1 > s2
 })

@@ -1,6 +1,6 @@
 # High order functions
 
-[Kight order functions](https://useyourloaf.com/blog/swift-guide-to-map-filter-reduce/)
+[Hight order functions](https://useyourloaf.com/blog/swift-guide-to-map-filter-reduce/)
 
 ## Quick Summary
 
