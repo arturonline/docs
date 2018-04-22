@@ -83,3 +83,39 @@ enum Airport {
     }
 }
 ```
+
+## Enum Extensions
+
+```Swift
+enum AppColor:String {
+    case AppClearColor
+    case AppGrayColor
+    case AppWhiteColor
+    case PrimaryColor
+    case PrimaryColor1
+    case PrimaryColor2
+    case PrimaryColor3
+    case SecondaryColor1
+    case ThemeColor
+}
+
+extension AppColor {
+    var color: UIColor {
+        get {
+            return UIColor(named: self.rawValue)!
+        }
+    }
+}
+
+self.view.backgroundColor = AppColor.PrimaryColor.color
+```
+
+or if you want to add a property to all enums whose raw value is a string:
+
+```Swift
+extension RawRepresentable where RawValue == String {
+    var description: String {
+        return rawValue
+    }
+}
+```

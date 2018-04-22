@@ -57,20 +57,74 @@ for number in numbers {
 return lista.reduce(0, { $0 + $1.weight })
 ```
 
-## FlatMap
+## compactMap
 
 The simplest use is as the name suggests to `flatten a collection` of collections.
 
 ```Swift
 let collections = [[5,2,7],[4,8],[9,1,3]]
-let flat = collections.flatMap { $0 }
+let flat = collections.compactMap { $0 }
 // [5, 2, 7, 4, 8, 9, 1, 3]
 ```
 
-Even more usefully it `remove optionals`  from a collection.
+Even more usefully it remove `optionals`  from a collection:
 
 ```Swift
 let people: [String?] = ["Tom",nil,"Peter",nil,"Harry"]
-let valid = people.flatMap {$0}
+let valid = people.compactMap {$0}
 // ["Tom", "Peter", "Harry"]
+```
+
+## sorted
+
+`sorted` is used to rearrange the elements in the Array:
+
+### sorted Numbers
+
+```Swift
+let randomNumbers:[Int] = [1 ,3,45,6743,4673,435,4162,6657,2431,658,686,56,3456,8875,325,46,2,66537,6]
+
+let sortednumber = randomNumbers.sorted()
+print(sortednumber)
+
+// [1, 2, 3, 6, 45, 46, 56, 325, 435, 658, 686, 2431, 3456, 4162, 4673, 6657, 6743, 8875, 66537]
+```
+
+### sorted Strings
+
+Note: The strings are sorted based on their ASCII Value A-Z(65–90 ) and a-z(97–122)
+
+```Swift
+let alphabets:[Character] = [“V” ,”I” ,”S” , “H” ,”W” ,”A” ,”S” , “v” ,”i” ,”s” ,”h” , “w” ,”a” ,”s”]
+
+let sortedAlphabets = alphabets.sorted()
+print(sortedAlphabets)
+
+// [“A”, “H”, “I”, “S”, “S”, “V”, “W”, “a”, “h”, “i”, “s”, “s”, “v”, “w”]
+```
+
+sorting can be done based on `<` (lesser than), `>` (greater than)
+
+```Swift
+let greaterThanArray = randomNumbers.sorted(by: >)
+let lesserThanArray = randomNumbers.sorted(by: <)
+print(greaterThanArray)
+print(lesserThanArray)
+
+// greater than
+[66537, 8875, 6743, 6657, 4673, 4162, 3456, 2431, 686, 658, 435, 325, 56, 46, 45, 6, 3, 2, 1]
+
+// lesser than
+[1, 2, 3, 6, 45, 46, 56, 325, 435, 658, 686, 2431, 3456, 4162, 4673, 6657, 6743, 8875, 66537]
+```
+
+### custom sorted
+
+```Swift
+let evenFirstSorted = randomNumbers.sorted 
+{ (a, b) -> Bool in
+    return a % 2 == 0
+}
+print(evenFirstSorted)
+// [6, 2, 46, 3456, 56, 686, 658, 4162, 1, 3, 45, 6743, 4673, 435, 6657, 2431, 8875, 325, 66537]
 ```
