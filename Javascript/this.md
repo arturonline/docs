@@ -1,5 +1,7 @@
 # This
 
+[Original link](https://dmitripavlutin.com/gentle-explanation-of-this-in-javascript/)
+
 In JavaScript `this` is the current execution context of a function. The language has 4 function invocation types:
 
 1. **Function** invocation: `alert('Hello World!')`
