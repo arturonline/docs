@@ -2,7 +2,7 @@
 
 [Original link](https://dmitripavlutin.com/gentle-explanation-of-this-in-javascript/)
 
-In JavaScript `this` is the current execution context of a function. The language has 4 function invocation types:
+In JavaScript `this` is the current execution context of a function. There is 4 invocation types:
 
 1. **Function** invocation: `alert('Hello World!')`
 1. **Method** invocation: `console.log('Hello World!')`
@@ -70,7 +70,7 @@ var numbers = {
 numbers.sum(); // => NaN or throws TypeError in strict mode
 ```
 
-## Method invocation
+## 2. Method invocation
 
 >When invoking a method on an object, this becomes the object itself.
 
@@ -92,7 +92,7 @@ calc.increment(); // => 2
 
 Calling `calc.increment()` makes the context of increment function to be calc object. So using `this.num` to increment the number property is working well.
 
-## Separating the method from this object
+### Separating the method from this object
 
 In Javascript methods are separated from its objects when passed as a parameter:
 
