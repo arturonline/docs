@@ -6,7 +6,7 @@ Adding Activity2:
 <application
 ...
 
-    <activity 
+    <activity
                 android:name=".Activity2"
                 android:label="@string/title_activity2" >
     </activity>

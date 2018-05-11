@@ -1,4 +1,4 @@
-# Adding Architecture components 
+# Adding Architecture components
 
 To use architecture components in your project follow 2 steps:
 

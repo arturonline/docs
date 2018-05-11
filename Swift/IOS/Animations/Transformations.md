@@ -56,6 +56,7 @@ UIView.animate(withDuration: 2.0, animations: {
 
     square.transform = comboTransform
 }) { (_) in
+
     UIView.animate(withDuration: 2.0, animations: { 
         square.transform = CGAffineTransform.identity
     })
