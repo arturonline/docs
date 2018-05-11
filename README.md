@@ -1,14 +1,22 @@
-# docs
+# Snippets
 
-[Android](Android)<br>
+## Index
+
+### Programming languages
+
 [Swift](Swift)<br>
-[IOs](Ios)
-[I'm an inline-style link](https://www.google.com)
-[I'm an inline-style link](https://www.google.com)
-[I'm an inline-style link](https://www.google.com)
-[I'm an inline-style link](https://www.google.com)
-[I'm an inline-style link](https://www.google.com)
-[I'm an inline-style link](https://www.google.com)
-[I'm an inline-style link](https://www.google.com)
+[Javascript](Javascript)<br>
+[Kotlin](kotlin)<br>
+[Markdown](Markdown)
+[Java](Java)<br>
 
-Swift
+### Operating Systems
+
+[IOs](IOS)<br>
+[Android](Android)<br>
+[FrontEnd](FrontEnd)
+
+### Other
+
+[PowerShell](PowerShell)<br>
+[Brew](Brew)
