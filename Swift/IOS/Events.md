@@ -2,7 +2,7 @@
 
 When you touch a view, an event is created. This touch event is tied to a specific location in the view controller's view. That location determines which view in the hierarchy the touch event is delivered to.
 
-When your app receives an event, UIKit automatically directs that event to the most appropriate responder object. However, views in your application can also respond to events without being touched. In order to respond to this touch events they need to become the `first responder`.
+When your app receives an event, UIKit automatically directs that event to the most appropriate responder object. However, views in your application can also respond to events without being touched. In order to respond to this events they need to become the `first responder`.
 
 First responder it's a property of the `window`. The window has at all times no more than one first responder. Any UIResponder can claim first responder status by being sent `becomeFirstResponder`.
 

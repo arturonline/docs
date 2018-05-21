@@ -2,7 +2,14 @@
 
 [Original link](https://dmitripavlutin.com/gentle-explanation-of-this-in-javascript/)
 
-In JavaScript `this` is the current execution context of a function. There are 4 invocation types:
+In JavaScript `this` is the current execution context of a function.
+
+The object that is executing the current function:
+
+If that function is a `method` of an Obj -> `this` is the Obj
+If that `function` is not part of an Obj -> `this` is window, global
+
+There are 4 invocation types:
 
 1. **Function** invocation: `alert('Hello World!')`
 1. **Method** invocation: `console.log('Hello World!')`
