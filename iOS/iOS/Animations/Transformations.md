@@ -2,8 +2,8 @@
 
 The transform property can be used to change the scale, rotate, or move the view without calculating changes to the view's frame.
 
-| Type      | Initializer                            | Parameter Description                                                                   |
-| --------- | -------------------------------------- | --------------------------------------------------------------------------------------- |
+| Type      | Initializer                                             | Parameter Description                                                                   |
+| --------- | ------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | Scale     | `CGAffineTransform(scaleX: CGFloat, y: CGFloat)`        | The factors by which to scale your view                                                 |
 | Rotate    | `CGAffineTransform(rotationAngle: CGFloat)`             | The angle (in radians) by which to rotate your view. Positive value = Counterclockwise. |
 | Translate | `CGAffineTransform(translationsX: CGFloat, y: CGFloat)` | The value by which to move (shift) your view.                                           |
