@@ -42,3 +42,36 @@ let task = session.dataTask(with: url, completionHandler: { [weak self] (data: D
 })
 task.resume()
 ```
+
+inside a function:
+
+```Swift
+func fetchPhotoInfo(completion: @escaping (PhotoInfo?) -> Void) {
+    let baseURL = URL(string: "https://api.nasa.gov/planetary/apod")!
+    let query: [String: String] = [
+        "api_key": "DEMO_KEY"
+    ]
+
+    let url = baseURL.withQueries(query)!
+    let decoder = JSONDecoder()
+
+    let configuration = URLSessionConfiguration.default
+    let session = URLSession(configuration: configuration)
+    let task = session.dataTask(with: url) { (data, response, error) in
+        if let data = data,
+            let photoInfo = try? decoder.decode(PhotoInfo.self, from: data) {
+            completion(photoInfo)
+        } else {
+            print("Either no data was returned, or data was not properly decoded.")
+            completion(nil)
+        }
+    }
+
+    task.resume()
+}
+// invoque function:
+
+fetchPhotoInfo{ (fetchedInfo) in
+        print(fetchedInfo)
+}
+```

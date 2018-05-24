@@ -5,31 +5,42 @@ import PlaygroundSupport
 
 PlaygroundPage.current.needsIndefiniteExecution = true
 
-let baseURL = URL(string: "https://itunes.apple.com/search")!
+struct PhotoInfo: Codable {
+    var title: String
+    var description: String
+    var url: URL
+    var copyright: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case title
+        case description = "explanation"
+        case url
+        case copyright
+    }
+}
 
 extension URL {
     func withQueries(_ queries: [String: String]) -> URL? {
-    var components = URLComponents(url: self, resolvingAgainstBaseURL: true)
+        
+        var components = URLComponents(url: self, resolvingAgainstBaseURL: true)
         components?.queryItems = queries.compactMap { URLQueryItem(name: $0.0, value: $0.1)}
-    return components?.url
+        return components?.url
     }
 }
 
-let query: [String: String] = [
-    "media":"movie",
-    "term":"ironman",
-    "limit":"5"
-]
-
-let url = baseURL.withQueries(query)!
-let configuration = URLSessionConfiguration.default
-let session = URLSession(configuration: configuration)
-
-let task = session.dataTask(with: url) {
-    (data, response, error) in
-    if let data = data, let string = String(data: data, encoding: .utf8) {
-        print(string)
-    }
-}
-
-task.resume()
+    let baseURL = URL(string: "https://api.nasa.gov/planetary/apod?")!
+    let query: [String: String] = [
+        "api_key": "DEMO_KEY"
+    ]
+    
+    let url = baseURL.withQueries(query)!
+    let decoder = JSONDecoder()
+    
+    URLSession.shared.dataTask(with: url) { (data, response, error) in
+        if let data = data,
+            let photoInfo = try? decoder.decode(PhotoInfo.self, from: data) {
+            print(photoInfo)
+        } else {
+            print("Error \(String(describing: error))")
+        }
+    }.resume()
