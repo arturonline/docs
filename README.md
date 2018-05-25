@@ -4,7 +4,7 @@
 
 ### Programming languages
 
-[Swift](iOS/Swif)<br>
+[Swift](iOS/Swift)<br>
 [Javascript](Javascript)<br>
 [Kotlin](kotlin)<br>
 [Markdown](Markdown)
