@@ -4,7 +4,7 @@
 
 ### Programming languages
 
-[Swift](Swift)<br>
+[Swift](iOS/Swif)<br>
 [Javascript](Javascript)<br>
 [Kotlin](kotlin)<br>
 [Markdown](Markdown)
@@ -12,7 +12,8 @@
 
 ### Operating Systems
 
-[IOs](IOS)<br>
+[IOs](iOS/iOS)<br>
+
 [Android](Android)<br>
 [FrontEnd](FrontEnd)
 

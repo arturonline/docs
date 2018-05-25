@@ -1,12 +1,12 @@
 # Completion Handler
 
-A network request is a long-running operation that runs asynchronously, in the background queue.
+A network request is a long-running operation that runs asynchronously in the background queue.
 
 When you create a network request, you add a completion handler to the shared `URLSession` instance. When the network request is completed, the `URLSession` instance executes your block of code inside the completion handler.
 
 ## Implement your Completion Handlers
 
-To write code that takes a completion handler and executes it after a long-running operation is completed we use a escaping notation:
+To write code that takes a completion handler and executes it after a long-running operation is completed we use a closure with escaping notation:
 
 ```Swift
 func performLongRunningOperation(completion: @escaping () -> Void) {
@@ -57,10 +57,10 @@ func fetchPhotoInfo(completion: @escaping (PhotoInfo?) -> Void) {
     let query: [String: String] = [
         "api_key": "DEMO_KEY"
     ]
-    
+
     let url = baseURL.withQueries(query)!
     let decoder = JSONDecoder()
-    
+
     let configuration = URLSessionConfiguration.default
     let session = URLSession(configuration: configuration)
     let task = session.dataTask(with: url) { (data, response, error) in
