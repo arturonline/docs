@@ -78,6 +78,18 @@ func fetchPhotoInfo(completion: @escaping (PhotoInfo?) -> Void) {
 fetchPhotoInfo{ (fetchedInfo) in
         print(fetchedInfo)
 }
+```
 
+## The Main Thread
 
+Modern processors have multiple cores that enable them to run multiple chunks of code simultaneously. These computations proceed in parallel, so this is referred to as parallel computing or concurrency.
+
+By default, `URLSessionDataTask`  runs the completion handler on a background thread. YOu need a way to force code to run on the main thread to update the photoView. You can do that with `OperationQueue` class.
+
+```Swift
+        if let data = data,
+            let photoInfo = try? decoder.decode(PhotoInfo.self, from: data){
+            OperationQueue.main.addOperation {
+                completion(photoInfo)6
+        } else {
 ```
