@@ -28,19 +28,27 @@ extension URL {
     }
 }
 
-    let baseURL = URL(string: "https://api.nasa.gov/planetary/apod?")!
+func fetchPhotoInfo(completion: @escaping (PhotoInfo?) -> Void) {
+    let baseURL = URL(string: "https://api.nasa.gov/planetary/apod")!
     let query: [String: String] = [
         "api_key": "DEMO_KEY"
     ]
     
     let url = baseURL.withQueries(query)!
     let decoder = JSONDecoder()
-    
-    URLSession.shared.dataTask(with: url) { (data, response, error) in
-        if let data = data,
-            let photoInfo = try? decoder.decode(PhotoInfo.self, from: data) {
-            print(photoInfo)
-        } else {
-            print("Error \(String(describing: error))")
+        
+    let configuration = URLSessionConfiguration.default
+    let session = URLSession(configuration: configuration)
+    let task = session.dataTask(with: url) { (data, response, error) in
+            if let data = data,
+                let photoInfo = try? decoder.decode(PhotoInfo.self, from: data) {
+                completion(photoInfo)
+                print("Fetch Photo Succes!")
+                print(photoInfo)
+            } else {
+                print("Either no data was returned, or data was not properly decoded.")
+            }
         }
-    }.resume()
+    task.resume()
+}
+
