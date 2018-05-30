@@ -2,28 +2,64 @@
 
 JavaScript is single threaded, meaning that two bits of script cannot run at the same time; they have to run one after another.
 
-The `Promise object` represents the eventual completion (or failure) of an asynchronous operation, and its resulting value.
+The `Promise object` represents the eventual completion (or failure) of an asynchronous operation. It is a placeholder into which the successful result value or reason for failure will materialize.
 
 ```Javascript
-new Promise(/* executor */ function(resolve, reject) {...});
-```
+var promise = new Promise(function(resolve, reject) {
+  // do a thing, possibly async, then…
 
-Observe that the constructor accepts a function with two parameters. This function is called an `executor function` and it describes the computation to be done. The parameters conventionally named `resolve` and `reject` are functions themselves and are used to send back values to the promise object. When the computation is successful or the future value is ready, we send the value back using the resolve function.
-
-If the computation fails or encounters an error, we signal that by passing the error object in the reject function. reject accepts any value. However, it is recommended to pass an Error object since it helps in debugging by viewing the stacktrace.
-
-```Javascript
-const myPromise = new Promise((resolve, reject) => {
-    if (Math.random() * 100 <= 90) {
-        resolve('Hello, Promises!');
-    }
-    reject(new Error('In 10% of the cases, I fail. Miserably.'));
+  if (/* everything turned out fine */) {
+    resolve("Stuff worked!");
+  }
+  else {
+    reject(Error("It broke"));
+  }
 });
 ```
 
-## Using promises
+Observe that the constructor accepts a function with two parameters. The parameters conventionally named `resolve` and `reject` are functions themselves and are used to send back values to the promise object.
 
-All Promise instances have a `.then()` method on them. `.then()` accepts two callbacks. The first callback is invoked when the promise is resolved. The second callback is executed when the promise is rejected.
+When the computation is successful or the future value is ready, we send the value back using the `resolve function`.
+
+If the computation fails or encounters an error, we signal that by passing the error object in the `reject function`. reject accepts any value. However, it is recommended to pass an Error object since it helps in debugging by viewing the stacktrace.
+
+Here's how you use that promise:
+
+```Javascript
+promise.then(function(result) {
+  console.log(result); // "Stuff worked!"
+}, function(err) {
+  console.log(err); // Error: "It broke"
+});
+```
+
+`then()` takes two arguments, a callback for a success case, and another for the failure case. Both are optional, so you can add a callback for the success or failure case only.
+
+```Javascript
+function doSomethingOldStyle(successCallback, failureCallback) {
+  console.log("It is done.");
+  // Succeed half of the time.
+  if (Math.random() > .5) {
+    successCallback("SUCCESS")
+  } else {
+    failureCallback("FAILURE")
+  }
+}
+
+function successCallback(result) {
+  console.log("It succeeded with " + result);
+}
+
+function failureCallback(error) {
+  console.log("It failed with " + error);
+}
+
+doSomethingOldStyle(successCallback, failureCallback);
+```
+
+## Chaining
+
+A common need is to execute two or more asynchronous operations back to back, where each subsequent operation starts when the previous operation succeeds, with the result from the previous step. We accomplish this by creating a promise chain.
 
 ```Javascript
 const myPromise = new Promise((resolve, reject) => {
@@ -34,10 +70,11 @@ const myPromise = new Promise((resolve, reject) => {
     reject(new Error('In 10% of the cases, I fail. Miserably.'));
 });
 
-// Two functions
+// we create two functions
 const onResolved = (resolvedValue) => console.log(resolvedValue);
 const onRejected = (error) => console.log(error);
 
+// and we use them as parameters
 myPromise.then(onResolved, onRejected);
 
 // Same as above, written concisely
@@ -103,6 +140,7 @@ In this example, we are using a function to wrap our promise so that it does not
 ```Javascript
 delay(5000).then(() => console.log('Resolved after 5 seconds'));
 ```
+
 The statements in the .then callback will run only after delay(5000)resolves. When you run the above code, you’ll see Resolved after 5 secondsprinted five seconds later.
 
 Here’s how we can chain multiple .then() calls:
@@ -168,6 +206,5 @@ promiseThatResolves()
 Line 1 creates a promise that always resolves. When you have a .then with two callbacks, onResolved and onRejected, you can only handle errors and rejections of the executor function. Suppose that the handler in .then also throws an error. It won’t lead to the execution of onRejected callback as shown on lines 6–9.
 
 But if you have a .catch a level below the .then, then the .catch catches errors of executor function and the errors of .then handler too. It makes sense because .then always returns a promise. It is shown on line 12–16.
-
 
 to continues: https://codeburst.io/a-simple-guide-to-es6-promises-d71bacd2e13a

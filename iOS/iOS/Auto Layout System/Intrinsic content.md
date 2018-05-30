@@ -1,6 +1,6 @@
 # Intrinsic content size
 
-## Intrinsic content size
+## Content size
 
 All views have an intrinsic content size, which refers to the amount of space the view needs for its content to appear in an ideal state. For example, the intrinsic content size of a UILabel will be the size of the text it contains using whatever font you have configured it to use.
 
