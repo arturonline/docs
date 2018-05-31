@@ -1,12 +1,14 @@
 # Selectors
 
-| Name          | selector    | selection                  |
-| ------------- |-------------|----------------------------|
-| element       | p           | `<p>`                      |
-| ID            | `#my-id`    | `<p id="my-id">`           |
-| Class         | `.my-class` | `<p class="my-class">`     | 
-| Attribute     | `img[src]`  | `<img src="image.png">`    | 
-| Pseudo-class  | `a:hover`   | `<a>` (when mouse is hover)|
+https://www.w3schools.com/cssref/css_selectors.asp
+
+| Name         | selector    | selection                   |
+| ------------ | ----------- | --------------------------- |
+| element      | p           | `<p>`                       |
+| ID           | `#my-id`    | `<p id="my-id">`            |
+| Class        | `.my-class` | `<p class="my-class">`      |  |
+| Attribute    | `img[src]`  | `<img src="image.png">`     |  |
+| Pseudo-class | `a:hover`   | `<a>` (when mouse is hover) |
 
 ## Fonts and text
 
