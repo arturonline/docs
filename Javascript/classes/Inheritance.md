@@ -1,34 +1,41 @@
 # Inheritance
 
 ```Javascript
-function Animal() {}
-Animal.prototype.eat = function() {
-  console.log('eating');
-};
-
-function Cat() {}
-Cat.prototype = new Animal();
-Cat.prototype.constructor = Cat;
-Cat.prototype.meow = function() {
-  console.log('meowing');
-};
-```
-
-## ES6
-
-```Javascript
-class Animal {
-  eat() {
-    console.log('eating');
-  }
+// Initialize construtor functions
+function Hero(name, level) {
+  this.name = name;
+  this.level = level;
 }
 
-class Cat extends Animal {
-  constructor() {
-    super();
-  }
-  meow() {
-    console.log('meowing');
-  }
+function Warrior(name, level, weapon) {
+  Hero.call(this, name, level);
+
+  this.weapon = weapon;
 }
+
+function Healer(name, level, spell) {
+  Hero.call(this, name, level);
+
+  this.spell = spell;
+}
+
+// Link prototypes and add prototype methods
+Warrior.prototype = Object.create(Hero.prototype);
+Healer.prototype = Object.create(Hero.prototype);
+
+Hero.prototype.greet = function () {
+  return `${this.name} says hello.`;
+}
+
+Warrior.prototype.attack = function () {
+  return `${this.name} attacks with the ${this.weapon}.`;
+}
+
+Healer.prototype.heal = function () {
+  return `${this.name} casts ${this.spell}.`;
+}
+
+// Initialize individual character instances
+const hero1 = new Warrior('Bjorn', 1, 'axe');
+const hero2 = new Healer('Kanin', 1, 'cure');
 ```

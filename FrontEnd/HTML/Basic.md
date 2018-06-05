@@ -21,6 +21,7 @@
   </body>
 </html>
 ````
+
 Here we have:
 
 - `<!DOCTYPE html>` — the doctype is just a historical artefact that needs to be included for everything to work right.

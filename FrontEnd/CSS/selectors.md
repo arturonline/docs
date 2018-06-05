@@ -6,9 +6,11 @@ https://www.w3schools.com/cssref/css_selectors.asp
 | ------------ | ----------- | --------------------------- |
 | element      | p           | `<p>`                       |
 | ID           | `#my-id`    | `<p id="my-id">`            |
-| Class        | `.my-class` | `<p class="my-class">`      |  |
-| Attribute    | `img[src]`  | `<img src="image.png">`     |  |
+| Class        | `.my-class` | `<p class="my-class">`      |  
+| Attribute    | `img[src]`  | `<img src="image.png">`     |  
 | Pseudo-class | `a:hover`   | `<a>` (when mouse is hover) |
+
+* The only difference between class and ID is that one ID can be assigned to only one HTML element.
 
 ## Fonts and text
 
