@@ -4,8 +4,6 @@ Almost all objects in JavaScript are instances of `Object`.
 
 Objects in Javascript act as wrappers for properties, meaning that the object directly contains them. When trying to access a property it does not own, the `prototype chain` is traversed.
 
-
-
 ## Prototype chain
 
 When you attempt to access a property or method of an object, JavaScript will first search on the object itself, and if it is not found, it will search the object's `[[Prototype]]`.
