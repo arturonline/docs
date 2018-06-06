@@ -15,26 +15,6 @@ var human = {
 }
 ```
 
-To add a property to an instance of an object:
-
-```Javascript
-myHuman.nationality = 'English';
-```
-
-To delete a property from an object. `‘delete’` operator returns true if the delete was successful. It also return true if the property to delete was non-existent or the property could not be deleted.
-
-```Javascript
-delete human.firstName; // return true
-```
-
-To add a Method to an instance of an object
-
-```Javascript
-myHuman.name = function () {
-    return this.firstName + " " + this.lastName;
-};
-```
-
 ## Factory Functions
 
 ```Javascript
@@ -58,4 +38,26 @@ function Person(name) {
 }
 
 var person = new Person("Jack Johnson");
+```
+
+## Properties
+
+To add a property to an instance of an object:
+
+```Javascript
+myHuman.nationality = 'English';
+```
+
+To delete a property from an object. `‘delete’` operator returns true if the delete was successful. It also return true if the property to delete was non-existent or the property could not be deleted.
+
+```Javascript
+delete human.firstName; // return true
+```
+
+To add a Method to an instance of an object
+
+```Javascript
+myHuman.name = function () {
+    return this.firstName + " " + this.lastName;
+};
 ```

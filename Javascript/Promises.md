@@ -9,21 +9,51 @@ var promise = new Promise(function(resolve, reject) {
   // do a thing, possibly async, then…
 
   if (/* everything turned out fine */) {
-    resolve("Stuff worked!");
+    resolve("Stuff worked!"); // invoque a resolve function created by you
   }
   else {
-    reject(Error("It broke"));
+    reject(Error("It broke")); // invoque a reject function created by you
   }
 });
 ```
 
-Observe that the constructor accepts a function with two parameters. The parameters conventionally named `resolve` and `reject` are functions themselves and are used to send back values to the promise object.
+Observe that the constructor accepts a function with two parameters. The parameters conventionally named `resolve` and `reject` are functions themselves and are used to send back values.
 
-When the computation is successful or the future value is ready, we send the value back using the `resolve function`.
+When the computation is successful or the future value is ready, we send the value back using the first function, in our case the `resolve()`.
 
-If the computation fails or encounters an error, we signal that by passing the error object in the `reject function`. reject accepts any value. However, it is recommended to pass an Error object since it helps in debugging by viewing the stacktrace.
+If the computation fails or encounters an error, we signal that by passing the error object in the second function, the `reject()`. reject accepts any value. However, it is recommended to pass an Error object since it helps in debugging by viewing the stacktrace.
 
-Here's how you use that promise:
+Example:
+
+```Javascript
+function resolve(result) {
+  console.log("It succeeded with " + result);
+}
+
+function reject(error) {
+  console.log("It failed with " + error);
+}
+
+var doSomethingOldStyle = new Promise(function(resolve, reject) {
+  console.log("It is done.");
+  // Succeed half of the time.
+  if (Math.random() > .5) {
+    resolve("SUCCESS")
+  } else {
+    reject("FAILURE")
+  }
+});
+
+doSomethingOldStyle(resolve, reject);
+```
+
+## Chaining
+
+A common need is to execute two or more asynchronous operations back to back, where each subsequent operation starts when the previous operation succeeds, with the result from the previous step. We accomplish this by creating a promise chain.
+
+For than we use the `then()` function. `then()` takes two arguments, a callback for a success case, and another for the failure case. Both are optional, so you can add a callback for the success or failure case only.
+
+Example:
 
 ```Javascript
 promise.then(function(result) {
@@ -33,33 +63,7 @@ promise.then(function(result) {
 });
 ```
 
-`then()` takes two arguments, a callback for a success case, and another for the failure case. Both are optional, so you can add a callback for the success or failure case only.
-
-```Javascript
-function doSomethingOldStyle(successCallback, failureCallback) {
-  console.log("It is done.");
-  // Succeed half of the time.
-  if (Math.random() > .5) {
-    successCallback("SUCCESS")
-  } else {
-    failureCallback("FAILURE")
-  }
-}
-
-function successCallback(result) {
-  console.log("It succeeded with " + result);
-}
-
-function failureCallback(error) {
-  console.log("It failed with " + error);
-}
-
-doSomethingOldStyle(successCallback, failureCallback);
-```
-
-## Chaining
-
-A common need is to execute two or more asynchronous operations back to back, where each subsequent operation starts when the previous operation succeeds, with the result from the previous step. We accomplish this by creating a promise chain.
+Example:
 
 ```Javascript
 const myPromise = new Promise((resolve, reject) => {

@@ -8,7 +8,7 @@ Objects in Javascript act as wrappers for properties, meaning that the object di
 
 When you attempt to access a property or method of an object, JavaScript will first search on the object itself, and if it is not found, it will search the object's `[[Prototype]]`.
 
->When a function is created in JavaScript, JavaScript engine adds a new object know as `[[prototype]]` to the function.
+>When a function is created in JavaScript, JavaScript engine adds a new object know as `[[prototype]]` to the function. This object is linked to another object.
 
 If after consulting both the object and its `[[Prototype]]` still no match is found, JavaScript will check the prototype of the linked object, and continue searching until the end of the prototype chain is reached.
 
@@ -25,7 +25,7 @@ function Hero(name, level) {
 
 The this keyword will refer to the new instance that is created, so setting `this.name` to the name parameter ensures the new object will have a name property set.
 
-## Methods and inheritance
+## Methods
 
 Every Javascript function has a `prototype property`, that points to the `[[Prototype]]` object. We can attach properties and methods on this `prototype property`.
 
