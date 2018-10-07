@@ -1,5 +1,11 @@
 # List of useful commands
 
+dir /p
+
+dir | more
+
+Update-Help -Force
+
 Search recursively for a certain string within files:
 
 `dir –r | select string "searchforthis"`

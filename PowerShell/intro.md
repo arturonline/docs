@@ -1,11 +1,59 @@
 # Intro
 
-- PowerShell is a professional automation scripting language
-- Each PowerShell command called cmdlet contains a verb and a noun, separated by a hyphen.
-- A dotted comma enables you to enter more than one command. The commands will be executed one after the other.
+Windows PowerShell is Microsoft's task automation framework, consisting of a command-line shell and associated scripting language built on top of .NET Framework. PowerShell provides full access to COM and WMI, enabling administrators to perform administrative tasks on both local and remote Windows systems.
 
-## Fundamentals of Parameters
+PowerShell commands are called Cmdlets. This Cmdlets are .NET Framework class objects; and not just stand-alone executables. Cmdlets process works on objects not on text stream and objects can be passed as output for pipelining.
 
-### Mandatory Parameters (Required)
+## How to use it
 
-Parameters are different. There are required, positional, switched, mandatory and not mandatory parameters. Get-Help can help you exploring all parameters of a command. To do this run Get-Help Your-Command -Parameter *. Use TAB whenever possible.
+PowerShell introduces over a hundred commands, and that is a lot to learn. However, it includes a comprehensive help system that can help you find commands to accomplish tasks, and it explains how to use those commands.
+
+## cmdlets
+
+Cmdlets are organized in the form of a verb-noun string. Once you understand this template, you can practically guess the meaning of any cmdlet.
+
+* `Get` — To get something
+* `Set` — To define something
+* `Start` — To run something
+* `Stop` — To stop something that is running
+* `Out` — To output something
+* `New` — To create something (“new” is not a verb, of course, but it functions as one)
+
+To learn what a cmdlet does use `-?`:
+
+```PowerShell
+get-service -?
+```
+
+## Finding your way around: Discoverability
+
+### 1. Get-Command
+
+You use get-command to find commands you’ll want to work with.
+
+```PowerShell
+get-command s*
+get-command -verb get
+get-command -verb start
+get-command -verb stop
+get-command -noun service
+```
+
+### 2. Get-Help
+
+After discovering which cmdlet accomplishes a task, you can learn more about the cmdlet by using the Get-Help cmdlet. For example, to display help about the Get-Service cmdlet, type:
+
+```PowerShell
+get-help *
+get-help get-service
+get-help get-service – examples
+Get-Help about_*
+```
+
+### Get-Member
+
+To see what the get-member can do, type:
+
+```PowerShell
+get-help get-member -examples
+```
