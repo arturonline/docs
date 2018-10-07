@@ -5,27 +5,6 @@ JavaScript is single threaded, meaning that two bits of script cannot run at the
 The `Promise object` represents the eventual completion (or failure) of an asynchronous operation. It is a placeholder into which the successful result value or reason for failure will materialize.
 
 ```Javascript
-var promise = new Promise(function(resolve, reject) {
-  // do a thing, possibly async, then…
-
-  if (/* everything turned out fine */) {
-    resolve("Stuff worked!"); // invoque a resolve function created by you
-  }
-  else {
-    reject(Error("It broke")); // invoque a reject function created by you
-  }
-});
-```
-
-Observe that the constructor accepts a function with two parameters. The parameters conventionally named `resolve` and `reject` are functions themselves and are used to send back values.
-
-When the computation is successful or the future value is ready, we send the value back using the first function, in our case the `resolve()`.
-
-If the computation fails or encounters an error, we signal that by passing the error object in the second function, the `reject()`. reject accepts any value. However, it is recommended to pass an Error object since it helps in debugging by viewing the stacktrace.
-
-Example:
-
-```Javascript
 function resolve(result) {
   console.log("It succeeded with " + result);
 }
@@ -34,7 +13,7 @@ function reject(error) {
   console.log("It failed with " + error);
 }
 
-var doSomethingOldStyle = new Promise(function(resolve, reject) {
+var myPromise = new Promise(function(resolve, reject) {
   console.log("It is done.");
   // Succeed half of the time.
   if (Math.random() > .5) {
@@ -44,8 +23,14 @@ var doSomethingOldStyle = new Promise(function(resolve, reject) {
   }
 });
 
-doSomethingOldStyle(resolve, reject);
+myPromise(resolve, reject);
 ```
+
+Observe that the constructor accepts a function with two parameters. The parameters conventionally named `resolve` and `reject` are functions themselves and are used to send back values.
+
+When the computation is successful or the future value is ready, we send the value back using the first function, in our case the `resolve()`.
+
+If the computation fails or encounters an error, we signal that by passing the error object in the second function, the `reject()`. reject accepts any value. However, it is recommended to pass an Error object since it helps in debugging by viewing the stacktrace.
 
 ## Chaining
 

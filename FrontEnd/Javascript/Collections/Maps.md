@@ -25,7 +25,3 @@ for (var [key, value] of sayings) {
 sayings.clear();
 sayings.size; // 0
 ```
-
-## WeakMap object
-
-The WeakMap object is a collection of key/value pairs in which the keys are objects only and the values can be arbitrary values.

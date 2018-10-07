@@ -35,14 +35,3 @@ Array.from(mySet);
 
 mySet2 = new Set([1, 2, 3, 4]);
 ```
-
-## WeakSet object
-
-* WeakSet objects are collections of objects.
-* An object in the WeakSet may only occur once;
-* it is unique in the WeakSet's collection and objects are not enumerable.
-
-The main differences to the Set object are:
-
-In contrast to Sets, WeakSets are collections of objects only and not of arbitrary values of any type.
-The WeakSet is weak: References to objects in the collection are held weakly. 

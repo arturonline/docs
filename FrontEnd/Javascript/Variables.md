@@ -1,4 +1,4 @@
-# Introduction to Javascript
+# Variables
 
 | Type  | Scope    | Reassignable | Mutable |
 | ----- | -------- | ------------ | ------- |
