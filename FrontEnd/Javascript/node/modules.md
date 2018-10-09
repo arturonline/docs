@@ -1,10 +1,10 @@
 # Modules
 
-## 1
-
 In the Node.js module system, each file is treated as a separate module. Functions and objects are added to the root of a module by specifying additional properties on the special exports object. Variables local to the module will be private. In this example, the variable PI is private to circle.js.
 
 On the first line, bar.js loads the module circle.js that is in the same directory as foo.js:
+
+Example: 
 
 ```Javascript
 // circle.js
@@ -23,7 +23,7 @@ const circle = require('./circle.js');
 console.log(`The area of a circle of radius 4 is ${circle.area(4)}`);
 ```
 
-## 2
+Example 2:
 
 ```Javascript
 // foo.js
@@ -54,16 +54,17 @@ module.exports = class Square {
 In node there exists a shorthand way of exporting things from modules. This shorthand uses just `exports` insted of `module.exports`.
 
 ```Javascript
-exports = module.exports
+module { exports{} };
+exports = module.exports;
 ```
 
 The key thing to notice here, however, is that like any variable, you should assign your new values as properties of the shortcut export object, and not assign objects directly to overwrite the value of export itself.
 
 ```Javascript
-// Good
+// Good: assign as properties
 exports.film01 = film01
 
-// Wrong
+// Wrong: assign as object, reference to module lost.
 exports = film01
 ```
 
