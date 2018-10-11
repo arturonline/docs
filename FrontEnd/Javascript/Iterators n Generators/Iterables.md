@@ -1,6 +1,10 @@
 # Iterables
 
-Objects that can be used in `for..of` loop are called iterables.
+In JavaScript an iterator is an object which defines a sequence and potentially a return value upon its termination. Objects that can be used in `for..of` loop are called iterables.
+
+More specifically an iterator is any object which implements the `Iterator protocol` by having a `next()` method which returns an object with two properties: `value`, the next value in the sequence; and `done`, which is true if the last value in the sequence has already been consumed. If value is present alongside done, it is the iterator's return value.
+
+## How to
 
 To make an object iterable (and thus let `for..of` work) we need to add a method to the object named `Symbol.iterator`.
 
