@@ -10,7 +10,7 @@
 
 ## Operating Systems
 
-[FrontEnd](FrontEnd)<br>
+[Web](Web)<br>
 [IOs](iOS/iOS)<br>
 [Android](Android)<br>
 
