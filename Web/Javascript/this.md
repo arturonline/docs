@@ -1,5 +1,13 @@
 # This
 
+## TLDR:
+
+If called in the form `obj.func()` "this" equals `"obj"`
+
+else "this" equals `"global"`
+
+## Long story
+
 [Original link](https://dmitripavlutin.com/gentle-explanation-of-this-in-javascript/)
 
 The object that is executing the current function:
