@@ -14,14 +14,14 @@ npm install -g typescript
 
 ## Running
 
-Create a file called hello.ts.
+Create a file called `hello.ts`.
 We can compile a typescript file into a javascript file by calling:
 
 ```Typescript
 tsc hello.ts
 ```
 
-This generates a file called hello.js And we can execute that file by using node.
+This generates a file called `hello.js` And we can execute that file by using node.
 
 We can watch a typescript file for changes and compile it automatically with:
 
