@@ -1,8 +1,8 @@
 # Strings
 
-Strings are represented by the type String. Strings are immutable. Elements of a string are characters that can be accessed by the indexing operation: `s[i]`.
+Strings are represented by the type `String`. Elements of a string are characters that can be accessed by the indexing operation: `s[i]`.
 
-Like Java, strings are immutable in Kotlin. This means, you cannot change individual character of a string.
+Like Java, strings are **immutable** in Kotlin. This means, you cannot change individual character of a string.
 
 However, you can reassign a string variable again if you declared the variable using keyword var:
 

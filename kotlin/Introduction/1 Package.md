@@ -18,7 +18,7 @@ Unlike Java, Kotlin does not have a separate "import static" syntax; all of thes
 
 If two different packages each use the same name, then we can use the as keyword to alias the name:
 
-```Java
+```Kotlin
 import foo.Bar // Bar is accessible
 import bar.Bar as bBar // bBar stands for 'bar.Bar'
 ```
