@@ -23,8 +23,7 @@ To work with files in your app directory we use a `FileManager`.
 ### Getting the Documents directory url
 
 ```Swift
-documentsDirectory =
-    FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
+documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
 
 // Documents/
 ```
@@ -36,8 +35,7 @@ documentsDirectory =
 ### Getting the full path for the file
 
 ```Swift
-let archiveURL =
-    documentsDirectory.appendingPathComponent("test").appendingPathExtension("plist")
+let archiveURL = documentsDirectory.appendingPathComponent("test").appendingPathExtension("plist")
 
 // Documents/test.plist
 ```
