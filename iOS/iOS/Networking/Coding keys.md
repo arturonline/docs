@@ -11,7 +11,7 @@ struct Address: Codable {
     var city: String
     var state: String
 }
-... the compiler automatically generates a nested enum that conforms to CodingKey protocol for you.
+//... the compiler automatically generates a nested enum that conforms to CodingKey protocol for you.
 
 struct Address: Codable {
     var street: String
