@@ -2,21 +2,17 @@
 
 ## UITableViewController vs tableView
 
-In Xcode when create a new view controller to contais a tableview you have two options:
+There are two ways to add a table view to your projects, depending on how you use the table view.
 
-1. Create a new `UITableViewController`
-2. Create a new `UIViewController` and embed the tableview.
+* One approach is to add a table view instance directly inside a view controller's view. Here, you may have other views your view controller manages, and the table view is only part of the view. In this case, you're responsible for the auto layout of the table view and therefore can position it any way you'd like. You're also responsible for setting the data source object and the delegate object. (You'll learn about the data source object and the delegate object later in this lesson.)
+* The second approach is to add a table view controller to your storyboard. A table view controller is a view controller subclass that manages a single table view instance. Here, the table view takes up the entire view, and you can't adjust the table view's size. The table view controller also acts as the data source and delegate of the table view.
 
-You have to write the delegate and protocol methods regardless of which of the two approaches you take.
+If you just want to display grocery items list with some header and footer, then `tableviewcontroller` should be priority. But if you want to display mail items in tableview, you would need some additional buttons for altering items in mail(tableview). For later case, you will use `viewcontroller`.
 
 There are only two possible reasons you should choose to use `UIViewController` over `UITableViewController` when you need a view controller with a table view:
 
 1. You need the table view to be smaller than the view controller's view.
 2. You need to add additional views to the view controller that don't scroll with the table view (though there are ways to solve this with UITableViewController).
-
-Example:
-
-If you just want to display grocery items list with some header and footer, then `tableviewcontroller` should be priority. But if you want to display mail items in tableview, you would need some additional buttons for altering items in mail(tableview). For later case, you will use `viewcontroller`.
 
 Here are all of the things that UITableViewController does for you that you would need to replicate:
 
@@ -30,13 +26,17 @@ Here are all of the things that UITableViewController does for you that you woul
 * Adjusts the table view's contentInset (as of iOS 7).
 * Scrolls the table view as needed when the keyboard appears.
 
-## How to
+## Table View Protocols
 
 ![UITableView diagram](tableView.png)
 
+A dynamic table view object must have a data source object—and may or may not have a delegate object. The data source mediates between the table view and your app's data model and the optional delegate manages the appearance (minus the actual cells) and the behavior of the table view.
+
 When a `UITableViewController` creates its view, the *dataSource* and *delegate* properties of the `UITableView` are automatically set to point at the `UITableViewController`.
 
-When a `UITableView` wants to know what to display, it calls methods from `UITableViewDataSource` protocol. There are two required methods:
+### Table View Data Source
+
+When a table view wants to know what to display, it calls methods from `UITableViewDataSource` protocol. There are two required methods:
 
 ```Swift
 tableView(_:numberOfRowsInSection:)
@@ -48,15 +48,7 @@ tableView(_:cellForRowAt:)
 // This method tells the table view what content to display in each row
 ```
 
-## UITableViewCells
-
-Each row of a table view is a view. These views are instances of `UITableViewCell`.
-
-## Reusing cells
-
-```Swift
-dequeueReusableCell(withIdentifier: "xxx", for: indexPath)
-```
+When the table view loads or reloads its data, it queries the data source by calling each of these methods (sometimes multiple times) to request information for the visible rows. Based on the parameters of these calls, it's the data source's job to return the requested info. As the user scrolls through the table view and different rows become visible, the table view also queries the data source for information to fill the rows about to be displayed.
 
 ## content Insets, avoid underlaping status bar
 
