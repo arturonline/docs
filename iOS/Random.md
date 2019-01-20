@@ -25,6 +25,14 @@ let stayOrGo = Bool.random()```
 ```
 
 ```swift
+// Pick a random element from an Array
+
+let names = ["Ford", "Zaphod", "Trillian", "Arthur", "Marvin"]
+
+let randomName = names.randomElement()
+```
+
+```swift
 // Randomizing the order of an array
 
 let names = ["Ford", "Zaphod", "Trillian", "Arthur", "Marvin"]
