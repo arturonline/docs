@@ -18,9 +18,7 @@ git branch name
 ```bash
 # Delete a branch
 git branch -d name
-```
 
-```bash
 # Force delete the specified branch
 git branch -D name
 ```
