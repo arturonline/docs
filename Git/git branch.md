@@ -1,9 +1,6 @@
 # Branching
 
-
-```bash
-
-```
+## List and create branches
 
 ```bash
 # list all branches in your repository
