@@ -41,11 +41,6 @@ When a table view wants to know what to display, it calls methods from `UITableV
 ```Swift
 tableView(_:numberOfRowsInSection:)
 // This method tells the tableView how many rows it should display
-    if section == 0 {
-        return something.count
-    } else {
-        return 0
-    }
 ```
 
 ```Swift
