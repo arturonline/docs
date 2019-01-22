@@ -41,6 +41,11 @@ When a table view wants to know what to display, it calls methods from `UITableV
 ```Swift
 tableView(_:numberOfRowsInSection:)
 // This method tells the tableView how many rows it should display
+    if section == 0 {
+        return something.count
+    } else {
+        return 0
+    }
 ```
 
 ```Swift
@@ -67,4 +72,22 @@ The `content inset` is the padding for all four sides of the view.
         tableView.contentInset = insets
         tableView.scrollIndicatorInsets = insets
     }
+```
+
+## Reorder Cells
+
+Table views provide a manageable way for users to control the order of cells. The UITableViewCell class defines a property `showsReorderControl` of type `Bool`. If this property is true, the table is in editing mode, and the data source method `tableView(_:moveRowAt:to:)` is implemented, the cell will display the reorder control to the right of its content.
+
+```Swift
+tableView(_:cellForRowAt:)
+
+cell.showsReorderControl = true
+```
+
+```swift
+override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
+    let movedEmoji = emojisArray.remove(at: fromIndexPath.row)
+    emojisArray.insert(movedEmoji, at: to.row)
+    tableView.reloadData()
+}
 ```
