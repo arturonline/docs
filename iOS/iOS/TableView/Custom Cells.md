@@ -2,7 +2,9 @@
 
 In addition to the four styles (*Basic*, *Subtitle*, *Right Detail*, and *Left Detail*) covered in the previous lesson, Interface Builder provides a fifth option: **Custom**.
 
-1. To do so, open `Main.storyboard` and select the table view cell. In the Attributes Inspector, make sure the Style is set to *Custom*. You should now have a blank cell to work with.
+## How to create and use a custom Cell
+
+1. Open `Main.storyboard` and select the table view cell. In the Attributes Inspector, make sure the Style is set to *Custom*. You should now have a blank cell to work with.
 2. Personalize the cell with labels, buttons, views...
 3. Create a cocoa touch subclass of `UITableViewCell` (ex: EmojiTableViewCell.swift)
 4. Back in the storyboard, update the identity of the cell to be of that type (ex: EmojiTableViewCell)
