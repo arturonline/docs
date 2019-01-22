@@ -5,13 +5,13 @@
 [Javascript](FrontEnd/Javascript)<br>
 [Typescript](FrontEnd/Typescript)<br>
 [Kotlin](Android/kotlin)<br>
-[Swift](iOS/Swift)<br>
+[Swift](Apple/Swift)<br>
 [Java](Android/Java)<br>
 
 ## Operating Systems
 
 [Web](Web)<br>
-[IOs](iOS/iOS)<br>
+[IOs](Apple/iOS)<br>
 [Android](Android)<br>
 
 ## Other
