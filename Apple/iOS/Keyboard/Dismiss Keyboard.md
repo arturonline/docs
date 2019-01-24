@@ -1,5 +1,11 @@
 # Dismiss Keyboard
 
+## Responder chain
+
+In ios there is the concept of the responder chain. This is how the operating systems routes events to views. When a control becomes the 1st responder you have to resign his 1st responder status manually.
+
+In the case of a textField when the keyboard is present the textField is the first responder.
+
 ## Approach #1: resignFirstResponder
 
 When a text field is tapped, the method `becomeFirstResponder()` is called on it. This is the method that, among other things, causes the keyboard to appear. To dismiss the keyboard, you call the method `resignFirstResponder()` on the that text field.
