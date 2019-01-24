@@ -32,7 +32,7 @@ Here are all of the things that UITableViewController does for you that you woul
 
 A dynamic table view object must have a data source object—and may or may not have a delegate object. The data source mediates between the table view and your app's data model and the optional delegate manages the appearance (minus the actual cells) and the behavior of the table view.
 
-When a `UITableViewController` creates its view, the *dataSource* and *delegate* properties of the `UITableView` are automatically set to point at the `UITableViewController`.
+`UITableViewController` is a `UIViewController` that implements a `UITableViewDataSource` and `UITableViewDelegate` protocol.
 
 ### Table View Data Source
 
