@@ -1,10 +1,10 @@
 # Most used delegate methods
 
-## How to know if a cell is selected
+## What to do when a cell is selected
 
 ```swift
 override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+    // Here what to do when the cell is selected
 }
 ```
 
