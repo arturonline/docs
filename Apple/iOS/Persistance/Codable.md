@@ -2,17 +2,13 @@
 
 ## Encodable Protocol
 
-A type that can encode itself to an external representation.
-
-It contains a single method:
+A type that can encode itself to an external representation. It contains a single method:
 
 `encode(to:)` — Encodes this value into the given encoder.
 
 ## Decodable Protocol
 
-A type that can decode itself from an external representation.
-
-It also contains a single method:
+A type that can decode itself from an external representation. It also contains a single method:
 
 `init(from:)` — Creates a new instance by decoding from the given decoder.
 

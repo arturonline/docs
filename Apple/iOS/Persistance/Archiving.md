@@ -1,6 +1,6 @@
 # Archiving
 
-An object should be responsible for encoding and decoding its own instance variables. For an object to be encoded or decoded, it mus adopt and conform to a codable protocol
+An object should be responsible for encoding and decoding its own instance variables. For an object to be encoded or decoded, it must adopt and conform to a codable protocol
 
 ## Codable protocols
 
@@ -10,11 +10,11 @@ Once an object conforms to a codable protocol, an `Encoder` object can be used t
 
 ## Data
 
-`Data` is a swift structure that represents data stored as bytes. `Data` provides instance methods for writing to and reading from a file.
+`Data` is a swift structure that represents data stored as bytes and provides instance methods for writing to and reading from a file.
 
 ## Writing data to a file
 
-iOS apps work in the sandbox model. Your app has a few directories that it can use to save data. One, of those directories is called the `Documents` directory, and it's where you're allowed to save and modify information related to your app.
+IOS apps work in a sandbox model. Your app has a few directories that it can use to save data. One, of those directories is called the `Documents` directory, and it's where you're allowed to save and modify information related to your app.
 
 As parat of the sandbox model, the file path to the Documents directory will change each time your app is loaded into memory for security reasons.
 
