@@ -13,6 +13,10 @@ extension AddItemTableViewController: UITextFieldDelegate {
 
 ## Enable a Button only if something is entered on the textField
 
+1. We create an *"add Button"*
+2. we disable the button in interface builder.
+3. To check if the user has entered something in the textfield:
+
 ```swift
     // Examine what the user is entering in the textField
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
