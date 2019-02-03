@@ -57,7 +57,7 @@ It would be great if the user could tap the Return key on the keyboard to dismis
 Control-drag from the text field to the view controller source file. Create an action that will fire when Return is tapped. When the action occurs, resign the text field from its role as the first responder:
 
 ```swift
-“@IBAction func returnPressed(_ sender: UITextField) {
+@IBAction func returnPressed(_ sender: UITextField) {
     titleTextField.resignFirstResponder()
 }
 ```
