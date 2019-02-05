@@ -1,5 +1,7 @@
 # Cell methods
 
+## Insert row
+
 ```swift
 // get number of items
 let rowIndex = items.count
