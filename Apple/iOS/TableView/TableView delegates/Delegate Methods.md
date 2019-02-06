@@ -14,9 +14,9 @@ override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: Inde
 tableView.deselectRow(at: indexPath, animated: true)
 ```
 
-## Move cells
+## Enter edit mode
 
-In order to move cells you need to enter editing mode. Typically, but not necessarily, a table view will enter editing mode when the user taps an Edit button in the navigation bar.
+In order to move or delete cells you need to enter editing mode. Typically, but not necessarily, a table view will enter editing mode when the user taps an Edit button in the navigation bar.
 
 ### case #1 You are in a UITableViewController
 
@@ -55,4 +55,10 @@ But maybe you want to remove the delete indicator. If so, you could add the foll
 override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
     return .none
 }
+```
+
+## Allow select multiple rows
+
+```swift
+
 ```
