@@ -46,7 +46,7 @@ guard let dataResponse = data,
 task.resume()
 ```
 
-To print a title:
+Example 1: To print a title
 
 ```swift
 guard let jsonArray = jsonResponse as? [[String: Any]] else { return }
@@ -56,7 +56,7 @@ guard let title = jsonArray[0]["title"] as? String else { return }
 print(title) // delectus aut autem
 ```
 
-To print all title keys:
+Exxample 2: To print all title keys
 
 ```swift
 for dic in jsonArray{
@@ -65,7 +65,9 @@ for dic in jsonArray{
 }
 ```
 
-## Case #2 Use model to handle JSON
+## Case #2 Use a model to handle JSON
+
+User struct for data handling:
 
 ```swift
 struct User: Codable{
@@ -75,6 +77,8 @@ struct User: Codable{
        var completed: Bool
 }
 ```
+
+Example: Getting a userId
 
 ```swift
 var model = [User]() //Initialising Model Array
@@ -106,7 +110,9 @@ model = jsonArray.flatMap(User.init)
 print(model[0].userId) // 1211
 ```
 
-Parsing with JSONDecoder
+## Parsing with JSONDecoder
+
+Parsing an Array:
 
 ```swift
 do {
@@ -114,6 +120,20 @@ do {
     let decoder = JSONDecoder()
     let model = try decoder.decode([User].self, from: dataResponse)
     print(model)
+} catch let parsingError {
+    print("Error", parsingError)
+}
+```
+
+Parsing a Dictionary:
+
+```swift
+do {
+    //here dataResponse received from a network request
+    let decoder = JSONDecoder()
+    let model = try decoder.decode(User.self, from:
+                 dataResponse) //Decode JSON Response Data 
+    print(model.userId) //Output - 1221
 } catch let parsingError {
     print("Error", parsingError)
 }
