@@ -91,26 +91,38 @@ If you implement a *willSet* observer, it’s passed the new property value as a
 Similarly, if you implement a *didSet* observer, it’s passed a constant parameter containing the old property value. You can name the parameter or use the default parameter name of oldValue. If you assign a value to a property within its own didSet observer, the new value that you assign replaces the one that was just set.
 
 ```swift
-class StepCounter {
-    var totalSteps: Int = 0 {
-        willSet(newTotalSteps) {
-            print("About to set totalSteps to \(newTotalSteps)")
-        }
-        didSet {
-            if totalSteps > oldValue  {
-                print("Added \(totalSteps - oldValue) steps")
-            }
+var pizzaInInches: Int = 14 {
+    willSet{
+        print(pizzaInInches)
+        print(newValue)
+    }
+    didSet {
+        print(oldValue)
+        print(pizzaInInches)
+    }
+}
+
+pizzaInInches = 8
+
+// 14
+// 8
+// 14
+// 8
+```
+
+```swift
+var pizzaInInches: Int = 14 {
+    willSet{
+    }
+    didSet {
+        if pizzaInInches >= 18 {
+            print("Invalid size, pizzaInInches set to 18.")
+            pizzaInInches = 18
         }
     }
 }
-let stepCounter = StepCounter()
-stepCounter.totalSteps = 200
-// About to set totalSteps to 200
-// Added 200 steps
-stepCounter.totalSteps = 360
-// About to set totalSteps to 360
-// Added 160 steps
-stepCounter.totalSteps = 896
-// About to set totalSteps to 896
-// Added 536 steps
+
+pizzaInInches = 33
+
+// Invalid size, pizzaInInches set to 18.
 ```
