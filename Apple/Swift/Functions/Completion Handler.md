@@ -12,7 +12,9 @@ By using a completion handler, we can fire off the network call and not wait aro
 
 tl,dr:
 
-A completion handler is a closure, a self-contained block of functionality that can be passed as an argument to a function and then called when that function is done.
+A completion handler is a closure that can be passed as an argument to a function and then called when that function is done.
+
+Example #1:
 
 ```swift
 // Function called from the completion reference
@@ -32,6 +34,40 @@ func computeValue(start: Int, completion: (Int) -> Void) {
 
 // Compute a value and then send the finished value to the function completion handler
 computeValue(start: 1, completion: completionHandler)
+```
+
+Example #2:
+
+```swift
+func search(query: String, completionHandler: ([String], Error?) -> Void) {
+
+ // ... setup code omitted ...
+
+  var error: Error?
+  var result = [String]()
+
+  // Perform the search operation and
+  // set result and error depending
+  // on success of the operation
+
+  // Pass the result and error back to the caller
+  completionHandler(result, error)
+}
+```
+
+```swift
+class SearchViewController: UIViewController {
+  var searchTitles = [String]()
+  let searchEngine = SearchEngine()
+
+  func search(title: String) {
+    searchEngine.search(query: title, completionHandler: { (result, error) in
+      if error != nil {
+        self.searchTitles = result
+      }
+    })
+  }
+}
 ```
 
 ## Implement your Completion Handlers
