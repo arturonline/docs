@@ -24,7 +24,7 @@ This enumeration extends Error and defines three types of errors: `.insufficient
 
 ## Throwing Errors
 
-When a scenario that should result in an error occurs in your code, you can throw an error.
+When a scenario that should result in an error occurs in your code, you can throw an error:
 
 ```Swift
 throw VendingMachineError.insufficientFunds(coinsNeeded)
@@ -46,11 +46,11 @@ do {
 
 Handling errors with do-try-catch has three important aspects:
 
-* The function or expression that can produce an error is prepended with the try keyword
-* The block of code that includes the try keyword is wrapped within do { ... }
-* One or more catch { ... } blocks can be attached to the do { ... } block, to handle all or individual error cases
+* The function or expression that can produce an error is prepended with the `try` keyword
+* The block of code that includes the try keyword is wrapped within `do { ... }`
+* One or more `catch { ... }` blocks can be attached to the `do { ... }` block, to handle all or individual error cases
 
-Interestingly, in most other programming languages this error handling mechanism is called try/catch, and the error-producing expression isn’t marked with try. Swift makes this explicit.
+Interestingly, in most other programming languages this error handling mechanism is called `try/catch`, and the error-producing expression isn’t marked with `try`. Swift makes this explicit.
 
 #### Multiple catch clauses
 
@@ -64,13 +64,15 @@ do {
 }
 ```
 
-If an error is thrown by the code in the `do` clause, execution immediately transfers to the `catch` clauses. If no pattern is matched, the error gets caught by the final `catch` clause and is bound to a local error constant. If no error is thrown, the remaining statements in the do statement are executed.
+If an error is thrown by the code in the `do` clause, execution immediately transfers to the `catch` clauses. If no pattern inside the catch clauses is matched, the error gets caught by the final empty `catch` clause and is bound to a local error constant. If no error is thrown, the remaining statements in the `do` statement are executed.
 
-The catch clauses don’t have to handle every possible error that the code in the do clause can throw. However, the propagated error must be handled by some surrounding `catch`.
+The `catch` clauses don’t have to handle every possible error that the code in the do clause can throw. However, the propagated error must be handled by some surrounding `catch`.
 
 ### Converting Errors to Optional Values
 
-You use `try?` to handle an error by converting it to an optional value. If an error is thrown while evaluating the `try?` expression, the value of the expression is `nil`. When you use `try?`, you don’t have to use the complete `do-try-catch block`.
+You use `try?` to handle an error by converting it to an optional value. If an error is thrown while evaluating the `try?` expression, the value of the expression becomes `nil`. When you use `try?`, you don’t have to use the complete `do-try-catch block`.
+
+Example:
 
 ```Swift
 let result = try? calculateValue(for: 42)
@@ -91,7 +93,7 @@ if let result = try? calculateValue(for: 99) {
 }
 ```
 
-And using nil-coalescing operator ?? to provide a default value:
+And using `nil-coalescing` operator `??` to provide a default value:
 
 ```swift
 let result = try? calculateValue(for: 123) ?? 101
@@ -99,7 +101,7 @@ let result = try? calculateValue(for: 123) ?? 101
 
 ### Disabling Error Propagation
 
-Sometimes you know a throwing function or method won’t, in fact, throw an error at runtime. On those occasions, you can write try! before the expression to disable error propagation and wrap the call in a runtime assertion that no error will be thrown. When you use `try!`, you don’t have to use the complete `do-try-catch block`.
+Sometimes you know a throwing function or method won’t, in fact, throw an error at runtime. On those occasions, you can write `try!` before the expression to disable error propagation and wrap the call in a runtime assertion that no error will be thrown. When you use `try!`, you don’t have to use the complete `do-try-catch block`.
 
 ```Swift
 let photo = try! loadImage(atPath: "./Resources/John Appleseed.jpg")
