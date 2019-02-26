@@ -1,6 +1,6 @@
 # Error Handling
 
-Error handling is the process of responding to and recovering from error conditions in your program. Some operations aren’t guaranteed to always complete execution or produce a useful output.
+Error handling is the process of responding to and recovering from error conditions in your program.
 
 In practical iOS development, not all errors are bad. Some errors are part of an app’s lifecycle, such as an “Insufficient funds” message when you try to pay with your credit card.
 
@@ -30,11 +30,11 @@ When a scenario that should result in an error occurs in your code, you can thro
 throw VendingMachineError.insufficientFunds(coinsNeeded)
 ```
 
-## Handling Errors
+### Handling Errors
 
 When an error is thrown, some code must be responsible for handling that error.
 
-### Propagating Errors Using Throwing Functions
+#### Propagating Errors Using Throwing Functions
 
 When a function `throw` an Error, any code that calls that function must either handle the error using a `do-catch` statement, `try?`, or `try!` - or continue to propagate them.
 
@@ -45,7 +45,7 @@ func vend(itemNamed name: String) throws {
 }
 ```
 
-### Handling Errors Using Do-Catch
+#### Handling Errors Using Do-Catch
 
 Error handling in Swift is done with a so-called `do-try-catch` block:
 
@@ -65,7 +65,7 @@ Handling errors with do-try-catch has three important aspects:
 
 Interestingly, in most other programming languages this error handling mechanism is called try/catch, and the error-producing expression isn’t marked with try. Swift makes this explicit.
 
-#### Multiple catch clauses
+##### Multiple catch clauses
 
 ```swift
 do {
@@ -81,7 +81,7 @@ If an error is thrown by the code in the `do` clause, execution immediately tran
 
 The catch clauses don’t have to handle every possible error that the code in the do clause can throw. However, the propagated error must be handled by some surrounding `catch`.
 
-### Converting Errors to Optional Values
+#### Converting Errors to Optional Values
 
 You use `try?` to handle an error by converting it to an optional value. If an error is thrown while evaluating the `try?` expression, the value of the expression is `nil`. When you use `try?`, you don’t have to use the complete `do-try-catch block`.
 
@@ -110,7 +110,7 @@ And using nil-coalescing operator ?? to provide a default value:
 let result = try? calculateValue(for: 123) ?? 101
 ```
 
-### Disabling Error Propagation
+#### Disabling Error Propagation
 
 Sometimes you know a throwing function or method won’t, in fact, throw an error at runtime. On those occasions, you can write try! before the expression to disable error propagation and wrap the call in a runtime assertion that no error will be thrown. When you use `try!`, you don’t have to use the complete `do-try-catch block`.
 
