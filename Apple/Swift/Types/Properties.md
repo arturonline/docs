@@ -9,6 +9,33 @@ Stored properties are provided only by classes and structures.
 If you create an instance of a structure, which is a value type, and assign that instance to a constant, you cannot modify the instance’s properties, even if they were declared as variable properties.
 The same is not true for classes, which are reference types. If you assign an instance of a reference type to a constant, you can still change that instance’s variable properties.
 
+### Public getter, private setter
+
+In my blog post on Constructor Injection, I had an example of a struct with a property that needed to be read externally but written only internally. I initially wrote the code like this:
+
+```swift
+struct Counter {
+    // `count` here has to be a var
+    // but I never want to set the `count` externally,
+    // so I made it private
+    private var count: Int
+
+    // so this is the only way to access the count externally
+    func getCount() {
+        return count
+    }
+}
+```
+
+Luckily, there is a better way! I can choose to make only the setter private in Swift Like this:
+
+```swift
+public struct Counter {
+    // I specify that only the setter is private!
+    public private(set) var count: Int
+}
+```
+
 ### Lazy Stored Properties
 
 A lazy stored property is a property whose initial value is not calculated until the first time it is used.
