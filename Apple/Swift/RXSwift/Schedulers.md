@@ -1,0 +1,52 @@
+# RXSwift: Schedulers
+
+Schedulers abstract away the mechanism for performing work in RxSwift. In iOS we have different mechanisms like current thread, main queue, dispatch queues, operation queues etc. which helps us to achieve concurrency or perform some task. `Schedulers` is basically a wrapper on these mechanisms to perform the work in RxSwift.
+
+There are two main operators that work with schedulers, `observeOn` and `subscribeOn`.
+
+## ObserveOn
+
+This operator is used if want to observe the result of some computation on different thread or perform some task on different thread. If we don’t use observeOn then the task will be performed on the current thread. Most of the times we will be using observeOn to perform the tasks in RxSwift.
+
+Below is the example on how to use observeOn:
+
+```swift
+import Foundation
+import RxSwift
+
+let observable = Observable<Int>.of(1, 2, 3)
+let disposeBag = DisposeBag()
+let backgroundScheduler = ConcurrentDispatchQueueScheduler(qos: .default)
+
+observable
+    .observeOn(backgroundScheduler)
+    .filter { $0 > 1 }
+    .observeOn(MainScheduler.instance)
+    .subscribe(onNext: { (value) in
+        print("next: \(value)")
+    }).disposed(by: disposeBag)
+```
+
+## SubscribeOn
+
+This method is used when we want to create observable sequence on some specific scheduler. When we use subscribeOn the subscription will happen on the specified scheduler given in the subscribeOn method so that it will starts to create observable sequence and also call dispose on this specific scheduler.
+
+In case subscribeOn isn't explicitly specified, the subscribe closure (closure passed to Observable.create) will be called on the same thread/scheduler on which subscribe(onNext:) or subscribe is called.
+
+In case subscribeOn isn't explicitly specified, the dispose method will be called on the same thread/scheduler that initiated disposing.
+
+we can simply change the loadPost example above by using subscribeOn and observeOn like below:
+
+```swift
+func getTodoList() {
+  let postsObservable:Observable<[String]> = NetworkService.loadTodoList()
+  postsObservable
+    .subscribeOn(ConcurrentDispatchQueueScheduler(qos: .default))
+    .observeOn(MainScheduler.instance)
+    .subscribe(onNext: { todoList in
+       print("TodoList: \(todoList)")
+    }, onError: { (error) in
+       print(error.localizedDescription)
+    }).disposed(by: disposeBag)
+}
+```
