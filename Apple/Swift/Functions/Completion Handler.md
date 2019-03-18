@@ -14,7 +14,7 @@ tl,dr:
 
 A completion handler is a closure that can be passed as an argument to a function and then called when that function is done.
 
-Example #1:
+### Example #1:
 
 ```swift
 // Function called from the completion reference
@@ -36,7 +36,7 @@ func computeValue(start: Int, completion: (Int) -> Void) {
 computeValue(start: 1, completion: completionHandler)
 ```
 
-Example #2:
+### Example #2:
 
 ```swift
 func search(query: String, completionHandler: ([String], Error?) -> Void) {
@@ -70,8 +70,124 @@ class SearchViewController: UIViewController {
 }
 ```
 
-## Implement your Completion Handlers
+## weak self stuff
 
-## What’s all this weak self stuff I keep hearing about?
+`weak self` is a technique used in closures to avoid retain cycles. Since a closure is an object it can own or retain other objects. This ownership can create a problem if an object that owns the closure is also owned by the closure. If that happens then we won’t ever deallocate that object or the closure because they’ll always be owned by something. 
 
-weak self is a technique used in closures to avoid retain cycles. Since a closure is an object it can own or retain other objects. This ownership can create a problem if an object that owns the closure is also owned by the closure. If that happens then we won’t ever deallocate that object or the closure because they’ll always be owned by something. The most common case is for the closure to end up owning the class that it’s declared in.
+The most common case is for the closure to end up owning the class that it’s declared in.
+
+```swift
+import Foundation
+
+func testRetainCyle() {
+    class A {
+        deinit {
+            print("Bye bye A")
+        }
+    }
+    class B {
+        deinit{
+            print("Bye bye B")
+        }
+    }
+    let a = A()
+    let b = B()
+}
+testRetainCycle()
+
+// Bye bye A
+// Bye bye B
+```
+
+## One way reference
+
+One objects point to another.
+
+```swift
+import Foundation
+
+func testRetainCyle() {
+    class A {
+        var b = B?
+        deinit {
+            print("Bye bye A")
+        }
+    }
+    class B {
+        deinit{
+            print("Bye bye B")
+        }
+    }
+    let a = A()
+    let b = B()
+
+    a.b = b // one way reference
+}
+testRetainCycle()
+
+// Bye bye A
+// Bye bye B
+```
+
+## Retain cycle
+
+Two objects point to each other
+
+```swift
+import Foundation
+
+func testRetainCyle() {
+    class A {
+        var b = B?
+        deinit {
+            print("Bye bye A")
+        }
+    }
+    class B {
+        var a = A?
+        deinit{
+            print("Bye bye B")
+        }
+    }
+    let a = A()
+    let b = B()
+
+    // retain cyle:
+    a.b = b
+    b.a = a
+}
+testRetainCycle()
+
+// -nothing-
+```
+
+To adress that we use the `weak` keyword:
+
+```swift
+import Foundation
+
+func testRetainCyle() {
+    class A {
+        weak var b = B?
+        deinit {
+            print("Bye bye A")
+        }
+    }
+    class B {
+        weak var a = A?
+        deinit{
+            print("Bye bye B")
+        }
+    }
+    let a = A()
+    let b = B()
+
+    // retain cyle:
+    a.b = b
+    b.a = a
+}
+testRetainCycle()
+
+// Bye bye A
+// Bye bye B
+```
