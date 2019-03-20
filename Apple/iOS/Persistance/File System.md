@@ -15,8 +15,6 @@ let completeUrl = URL(fileURLWithPath: completePath)
 
 ## FileManager Class
 
-You’ve used a String to specify a file `path` and converted it to a `URL`. But while this is a valid `URL`, it won’t work — unless your user name also happens to be *sarah*. Therefore, the next step is to create a `URL` that works on anyone’s computer.
-
 ```Swift
 let home = FileManager.default.homeDirectoryForCurrentUser
 let desktopPath = "test2/test.txt"
