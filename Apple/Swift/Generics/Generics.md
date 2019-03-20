@@ -1,5 +1,7 @@
 # Generics
 
+> Original [Source](https://learnappmaking.com/generics-swift-how-to/)
+
 Here’s a standard, nongeneric function called `swapTwoInts(_:_:)`, which swaps two Int values:
 
 ```swift
@@ -56,10 +58,8 @@ The hypothetical function above has two type parameters:
 Let’s look at another example. Here’s a generic function that can find the index of a value in an array:
 
 ```swift
-func findIndex<T>(of foundItem: T, in items: [T]) -> Int?
-{
-    for (index, item) in items.enumerated()
-    {
+func findIndex<T>(of foundItem: T, in items: [T]) -> Int? {
+    for (index, item) in items.enumerated() {
         if item == foundItem {
             return index
         }
@@ -105,17 +105,14 @@ protocol Storage
 Any class can adopt the Storage protocol to store and retrieve books, such as Bookcase and Booktrunk classes. Like this:
 
 ```swift
-class Bookcase: Storage
-{
+class Bookcase: Storage {
     var books = [Book]()
 
-    func store(item: Book)
-    {
+    func store(item: Book) {
         books.append(item)
     }
 
-    func retrieve(index: Int)
-    {
+    func retrieve(index: Int) {
         return books[index]
     }
 }
@@ -141,13 +138,11 @@ class Trunk<Item>: Storage
 {
     var items:[Item] = [Item]()
 
-    func store(item: Item)
-    {
+    func store(item: Item) {
         items.append(item)
     }
 
-    func retrieve(index: Int) -> Item
-    {
+    func retrieve(index: Int) -> Item {
         return items[index]
     }
 }
