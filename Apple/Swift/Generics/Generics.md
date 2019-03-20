@@ -30,7 +30,9 @@ var anotherInt = 107
 
 swapTwoValues(&someInt, &anotherInt)
 // someInt is now 107, and anotherInt is now 3
+```
 
+```swift
 var someString = "hello"
 var anotherString = "world"
 
