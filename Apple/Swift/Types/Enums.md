@@ -31,22 +31,14 @@ Whatever the type you choose, the value you assign to a case is called a rawValu
 Swift allows you to bind one (or several) additional values to an enum case. These values are called associated values.
 
 ```Swift
-enum Airport {
-    case munich
-    case sanFrancisco
-    case singapore
-    case london(airportName: LondonAirportName)
+enum Activity {
+    case bored
+    case running(destination: String)
+    case talking(topic: String)
+    case singing(volume: Int)
 }
 
-enum LondonAirportName {
-    case stansted
-    case heathrow
-    case gatwick
-}
-
-var airport: Airport
-
-airport = .london(.heathrow)
+let talking = Activity.talking(topic: "football")
 ```
 
 ## Working with enums

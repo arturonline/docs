@@ -42,7 +42,10 @@ swapTwoValues(&someString, &anotherString)
 
 ## Type Constraints
 
-Type constraints specify that a type parameter must inherit from a specific **class**, or conform to a particular **protocol** or **protocol composition**.
+Type constraints specify that a type parameter must:
+
+* inherit from a specific **class**
+* conform to a particular **protocol** or **protocol composition**.
 
 ### Syntax
 
@@ -54,8 +57,8 @@ func someFunction<T: SomeClass, U: SomeProtocol>(someT: T, someU: U) {
 
 The hypothetical function above has two type parameters:
 
-- The first type parameter, `T`, has a type constraint that requires `T` to be a subclass of `SomeClass`.
-- The second type parameter, `U`, has a type constraint that requires `U` to conform to the protocol `SomeProtocol`.
+* The first type parameter, `T`, has a type constraint that requires `T` to be a subclass of `SomeClass`.
+* The second type parameter, `U`, has a type constraint that requires `U` to conform to the protocol `SomeProtocol`.
 
 Let’s look at another example. Here’s a generic function that can find the index of a value in an array:
 
@@ -172,4 +175,59 @@ shoeTrunk.store(item: Shoe(size: 99, brand: "Adidas"))
 print(shoeTrunk.retrieve(index: 0).brand)
 
 // Output: Nike
+```
+
+## Adding Constraints to an Associated Type
+
+You can add type constraints to an associated type in a protocol to require that conforming types satisfy those constraints. For example, the following code defines a version of Container that requires the items in the container to be equatable.
+
+```swift
+protocol Container {
+    associatedtype Item: Equatable
+    mutating func append(_ item: Item)
+    var count: Int { get }
+    subscript(i: Int) -> Item { get }
+}
+```
+
+## Generic Where Clauses
+
+ A generic where clause enables you to require that an associated type must conform to a certain protocol, or that certain type parameters and associated types must be the same. A generic where clause starts with the where keyword, followed by constraints for associated types or equality relationships between types and associated types. You write a generic where clause right before the opening curly brace of a type or function’s body.
+
+```swift
+func allItemsMatch<C1: Container, C2: Container>
+    (_ someContainer: C1, _ anotherContainer: C2) -> Bool
+    where C1.Item == C2.Item, C1.Item: Equatable {
+
+        // Check that both containers contain the same number of items.
+        if someContainer.count != anotherContainer.count {
+            return false
+        }
+
+        // Check each pair of items to see if they're equivalent.
+        for i in 0..<someContainer.count {
+            if someContainer[i] != anotherContainer[i] {
+                return false
+            }
+        }
+
+        // All items match, so return true.
+        return true
+}
+```
+
+```swift
+var stackOfStrings = Stack<String>()
+stackOfStrings.push("uno")
+stackOfStrings.push("dos")
+stackOfStrings.push("tres")
+
+var arrayOfStrings = ["uno", "dos", "tres"]
+
+if allItemsMatch(stackOfStrings, arrayOfStrings) {
+    print("All items match.")
+} else {
+    print("Not all items match.")
+}
+// Prints "All items match."
 ```
