@@ -1,11 +1,16 @@
 # Closures
 
+## Syntax
+
 ```Swift
 { (params) -> returnType in
 statements
 }
+```
 
-// Example:
+Example:
+
+```swift
 reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in
     return s1 > s2
 })
@@ -97,7 +102,7 @@ Because the body of the closure is so short, it can even be written on a single 
 reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in return s1 > s2 } )
 ```
 
-## Inferring Type from Context
+### Inferring Type from Context
 
 Because all of the types can be inferred, the return arrow `(->)` and the parentheses around the names of the parameters can also be omitted:
 
@@ -105,7 +110,7 @@ Because all of the types can be inferred, the return arrow `(->)` and the parent
 reversedNames = names.sorted(by: { s1, s2 in return s1 > s2 } )
 ```
 
-## Implicit Returns from Single-Expression Closures
+### Implicit Returns from Single-Expression Closures
 
 Single-expression closures can implicitly return the result of their single expression by omitting the return keyword from their declaration, as in this version of the previous example:
 
@@ -113,7 +118,7 @@ Single-expression closures can implicitly return the result of their single expr
 reversedNames = names.sorted(by: { s1, s2 in s1 > s2 } )
 ```
 
-## Shorthand Argument Names
+### Shorthand Argument Names
 
 Swift automatically provides shorthand argument names to inline closures, which can be used to refer to the values of the closure’s arguments by the names $0, $1, $2, and so on.
 
@@ -123,15 +128,14 @@ reversedNames = names.sorted(by: { $0 > $1 } )
 
 Here, $0 and $1 refer to the closure’s first and second String arguments.
 
-## Trailing Closure
+### Trailing Closure
 
 If you need to pass a closure expression to a function as the function’s final argument and the closure expression is long, it can be useful to write it as a trailing closure instead. A trailing closure is written after the function call’s parentheses, even though it is still an argument to the function. When you use the trailing closure syntax, you don’t write the argument label for the closure as part of the function call.
 
 ```swift
 reversedNames = names.sorted() { $0 > $1 }
-```
 
-```swift
+// With Trailing:
 reversedNames = names.sorted { $0 > $1 }
 ```
 
