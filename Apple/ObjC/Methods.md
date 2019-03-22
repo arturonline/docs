@@ -57,10 +57,22 @@ Methods are called using bracket syntax: `[self someMethod];` or `[self sometMet
 
 At times, it is necessary to call a method in the superclass using `[super someMethod];`.
 
-Under the hood, methods are implemented via message sending and they are turned into a variation of one of these two C functions:
+Example:
 
 ```objc
-id objc_msgSend(id self, SEL op, ...);
-id objc_msgSendSuper(struct objc_super *super, SEL op, ...);
+NSString *emailAddress = @"ben@objectivecfun.com"
+int stringLength = [name length];
+// stringLength will equal 21!
 ```
 
+The example above shows how a method is used. Here we are calling the length message on the emailAddress variable, or more accurately, sending the length message to the emailAddress object.
+
+## Method vs Message
+
+In Objective-C any message can be sent to any object. It’s up to the object to handle the message or not. If it doesn’t handle the message, then nothing bad will happen; it will just return nil to the sender, or caller. This is different than the method model because, If a method is called on an object that doesn’t define the method, we end up with compile-time or run-time errors that stop us dead in our tracks.
+
+```objc
+NSString *testString = [emailAddress addSparkles];
+// testString will equal "nil" because, believe it or not,
+// "addSparkles" is not a valid NSString method.
+```
