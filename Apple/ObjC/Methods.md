@@ -1,13 +1,39 @@
 # Methods
 
-## Declaring syntax
-
-For methods without a return type, use void:
+## Single parameter declaration
 
 ```objc
-// Does not return anything or take any arguments
-- (void)someMethod;
+// a C# method
+void DriveCar(Car car);
 ```
+
+```objc
+// objc version
+- (void)driveCar:(Car *)car;
+```
+
+## More than one paremeter
+
+Parameters and return types are declared using type casting syntax after colons `:` and the method signature should describe the argument type:
+
+```objc
+// C# version
+void DriveCar(Car car, Person person);
+```
+
+```objc
+// ObjC version
+- (void)driveCar:(Car *)car withPerson:(Person *)person;
+```
+
+Another example:
+
+```objc
+// Returns an NSString object for the given NSObject arguments
+- (NSString *)stringFromObject:(NSObject *)object andSomeOtherObject:(NSObject *)otherObject;
+```
+
+## Class vs Instance Methods
 
 A plus sign precedes declarations of class methods:
 
@@ -21,20 +47,6 @@ A minus sign precedes declarations of class instance methods:
 ```objc
 // Called on an instance of a class (e.g. [[NSString alloc] init]);
 - (void)someClassInstanceMethod;
-```
-
-Method arguments are declared after colons : and the method signature should describe the argument type:
-
-```objc
-// Does something with an NSObject argument
-- (void)doWorkWithObject:(NSObject *)object;
-```
-
-Argument and return types are declared using type casting syntax:
-
-```objc
-// Returns an NSString object for the given NSObject arguments
-- (NSString *)stringFromObject:(NSObject *)object andSomeOtherObject:(NSObject *)otherObject;
 ```
 
 ## Calling Methods
