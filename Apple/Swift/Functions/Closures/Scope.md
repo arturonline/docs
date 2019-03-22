@@ -1,46 +1,8 @@
-# Closures
+# Closures Scope
 
-## Function vs Closure
+If you use any external values inside your closure, Swift captures them – stores them alongside the closure, so they can be modified even if they don’t exist any more.
 
-### Function
-
-```Swift
-// Function syntax:
-func sum(numbers: [Int]) -> Int {
-  // Code that adds together the numbers array.
-  return total
-}
-```
-
-### Closure
-
-```Swift
-// Closure syntax:
-let sumClosure = { (numbers: [Int]) -> Int in
-  // Code that adds together the numbers array.
-  return total
-}
-
-let sum = sumClosure([1, 2, 3, 4])
-print(sum)
-```
-
-## Closure Syntax
-
-```Swift
-{ (params) -> returnType in
-statements
-}
-
-// Example:
-reversedNames = names.sorted(by: { (s1: String, s2: String) -> Bool in
-    return s1 > s2
-})
-```
-
-## Scope
-
-A closure can capture constants and variables from the `surrounding context` in which it is defined. In Swift, the simplest form of a closure that can capture values is a nested function, written within the body of another function. A nested function can capture any of its outer function’s arguments and can also capture any constants and variables defined within the outer function.
+In Swift, the simplest form of a closure that can capture values is a nested function, written within the body of another function. 
 
 ```Swift
 func makeIncrementer(forIncrement amount: Int) -> () -> Int {
