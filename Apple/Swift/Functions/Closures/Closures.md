@@ -128,7 +128,6 @@ reversedNames = names.sorted(by: { $0 > $1 } )
 
 Here, $0 and $1 refer to the closure’s first and second String arguments.
 
-
 ### Operator Methods
 
 There’s actually an even shorter way to write the closure expression above. Swift’s String type defines its string-specific implementation of the greater-than operator (>) as a method that has two parameters of type String, and returns a value of type Bool. This exactly matches the method type needed by the sorted(by:) method. Therefore, you can simply pass in the greater-than operator, and Swift will infer that you want to use its string-specific implementation:
@@ -142,9 +141,17 @@ reversedNames = names.sorted(by: >)
 If you need to pass a closure expression to a function as the function’s final argument and the closure expression is long, it can be useful to write it as a trailing closure instead. A trailing closure is written after the function call’s parentheses, even though it is still an argument to the function. When you use the trailing closure syntax, you don’t write the argument label for the closure as part of the function call.
 
 ```swift
-reversedNames = names.sorted() { $0 > $1 }
+func someFunctionThatTakesAClosure(closure: () -> ()) {
+    // function body goes here
+}
 
-// With Trailing:
-reversedNames = names.sorted { $0 > $1 }
+// Instead of calling like this:
+someFunctionThatTakesAClosure({
+    // closure's body goes here
+})
+
+// You can use trailing closure like this:
+someFunctionThatTakesAClosure() {
+    // trailing closure's body goes here
+}
 ```
-

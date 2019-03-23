@@ -1,6 +1,8 @@
 # Methods
 
-## Single parameter declaration
+## Syntax
+
+### Single parameter declaration
 
 ```objc
 // a C# method
@@ -12,7 +14,7 @@ void DriveCar(Car car);
 - (void)driveCar:(Car *)car;
 ```
 
-## More than one paremeter
+### More than one paremeter
 
 Parameters and return types are declared using type casting syntax after colons `:` and the method signature should describe the argument type:
 
@@ -33,7 +35,7 @@ Another example:
 - (NSString *)stringFromObject:(NSObject *)object andSomeOtherObject:(NSObject *)otherObject;
 ```
 
-## Class vs Instance Methods
+### Class vs Instance Methods
 
 A plus sign precedes declarations of class methods:
 
