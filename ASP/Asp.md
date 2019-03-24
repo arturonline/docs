@@ -1,10 +1,27 @@
 # Overview
 
-The route is the file structure.
-If you only specify the folder, ASP trys to open a file named "index" or "Index".
+## Recommended Learning path
 
-You don't need to build after changing a Razor page, just refresh the browser. But you must if you change a csharp file.
+We recommend the following sequence of tutorials and articles for an introduction to developing ASP.NET Core apps:
 
-startup
-pages
-appsettings
+1. Follow a tutorial for the type of app you want to develop or maintain:
+
+    App type | Scenario | Tutorial
+    -|-|-|-
+    Web app | For new development | [Get started with Razor Pages](https://docs.microsoft.com/en-us/aspnet/core/tutorials/razor-pages/razor-pages-start?view=aspnetcore-2.2)
+    Web app | For maintaining an MVC app | [Get started with MVC](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-mvc-app/start-mvc?view=aspnetcore-2.2)
+    Web API |  | [Create a web API*](https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api?view=aspnetcore-2.2)
+    Real-time app |  | [Get started with SignalR](https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-2.2)
+
+2. Follow a tutorial that shows how to do basic data access:
+
+    Scenario | Tutorial
+    -|-|-
+    For new development | [Razor Pages with Entity Framework Core](https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-2.2)
+    For maintaining an MVC app | [MVC with Entity Framework Core](https://docs.microsoft.com/en-us/aspnet/core/data/ef-mvc/intro?view=aspnetcore-2.2)
+
+3. Read an overview of ASP.NET Core features that apply to all app types:
+
+    * [Fundamentals](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/index?view=aspnetcore-2.2)
+
+4. Browse the Table of Contents for other topics of interest.
