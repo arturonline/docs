@@ -15,6 +15,7 @@ For example, to access a `Slider` in your canvas from code:
     ```swift
     @IBOutlet weak var toggle: UISlider!
     ```
+
 2. Open Main.Storyboard
 3. Drag the Slider to the scene
 4. Drag-Control from the View Controller in the document outline to the view (slider) and select the `togle` property.

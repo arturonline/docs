@@ -7,7 +7,8 @@ Making a script is easy. Begin by making a new file, and put this on the first l
 ```bash
 #!/bin/bash
 ```
-or 
+
+or
 
 ```bash
 #!/usr/bin/env bash
@@ -16,12 +17,12 @@ or
 Once the script file has been created, it can be executed by doing:
 
 ```bash
-$ bash myscript
+bash myscript
 ```
 
 Alternatively, we can give our scripts executable permissions. With this method, instead of calling Bash manually, we can execute the script as an application:
 
 ```bash
-$ chmod +x myscript  # Mark the file as executable.
-$ ./myscript  # Now, myscript can be executed directly instead of having to pass it to bash.
+chmod +x myscript  # Mark the file as executable.
+./myscript  # Now, myscript can be executed directly instead of having to pass it to bash.
 ```

@@ -1,7 +1,9 @@
 # Bash
 
-- BASH reads commands from its input.
-- Bash divides each line into words that are demarcated by a whitespace character (spaces and tabs). The first word of the line is the name of the command to be executed. All the remaining words become arguments to that command (options, filenames, etc.).
+BASH reads commands from its input and divides each line into words that are demarcated by a whitespace character (spaces and tabs):
+
+- The first word of the line is the name of the command to be executed.
+- All the remaining words become arguments to that command (options, filenames, etc.).
 
 ## Comments
 
@@ -37,7 +39,7 @@ double quotes gives you sometext
 single quotes gives you $MYVAR
 ```
 
-Double quotes group everything inside them into a single argument:
+⚠️ Double quotes group everything inside them into a single argument:
 
 ```bash
 The secret voice in your head.mp3    # a mp3 file
@@ -106,13 +108,19 @@ rm: My: No such file or directory
 rm: song.mp3: No such file or directory
 ```
 
-Why did this not work? Because Bash replaced your $song by its contents, being My song.mp3; then it performed word splitting; and only THEN executed the command. It was as if you had typed this:
+Why did this not work? Because Bash replaced your `$song` by its contents, being `My song.mp3`; then it performed word splitting; and only THEN executed the command. It was as if you had typed this:
 
 ```bash
 rm My song.mp3
 ```
 
-And according to the rules of word splitting, Bash thought you meant for My and song.mp3 to mean two different files, because there is white space between them and it wasn't quoted. How do we fix this? We remember to put double quotes around every parameter expansion!
+And according to the rules of word splitting, `Bash` thought you meant for `My` and `song.mp3` to mean two different files, because there is white space between them and it wasn't quoted. How do we fix this? 
+
+```bash
+rm "My song.mp3"
+```
+
+⚠️ Remember to put double quotes around every parameter expansion!
 
 ### Variable Types
 
