@@ -2,7 +2,7 @@
 
 Windows PowerShell is Microsoft's task automation framework, consisting of a command-line shell and associated scripting language built on top of .NET Framework. PowerShell provides full access to COM and WMI, enabling administrators to perform administrative tasks on both local and remote Windows systems.
 
-PowerShell commands are called Cmdlets. This Cmdlets are .NET Framework class objects; and not just stand-alone executables. Cmdlets process works on objects not on text stream and objects can be passed as output for pipelining.
+PowerShell commands are called **Cmdlets**. This Cmdlets are .NET Framework class objects; and not just stand-alone executables. Cmdlets process works on objects not on text stream and objects can be passed as output for pipelining.
 
 ## How to use it
 

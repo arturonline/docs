@@ -20,7 +20,7 @@
 ```HTML
 /* Unordered list: <ul> */
 /* Ordered list: <ol> */
-<ul> 
+<ul>
   <li>technologists</li>
   <li>thinkers</li>
   <li>builders</li>

@@ -1,6 +1,6 @@
 # This
 
-## TLDR:
+## TLDR
 
 If called in the form `obj.func()` "this" equals `"obj"`
 
