@@ -6,9 +6,7 @@ In PowerShell, variable names start with the `$` character. You can assign a val
 $myName = "Ferb"
 ```
 
-In the above example, the double quotes (" ") indicate that a string value is being assigned to the variable.
-
-PowerShell variables are really objects. You can access both properties and methods using a dot (.) after the variable name. Properties don't use parentheses ( ), but methods do.
+In the above example, the double quotes (" ") indicate that a string value is being assigned to the variable. PowerShell variables are really objects. You can access both properties and methods using a dot (.) after the variable name. Properties don't use parentheses ( ), but methods do.
 
 ```powershell
 $myName.Length
@@ -42,7 +40,7 @@ When you include a variable's name inside a double-quoted string, PowerShell rep
 $myName = "Ferb"
 "Hello, $myName"
 
-Hello, Ferb.
+# Hello, Ferb.
 ```
 
 PowerShell doesn't perform variable interpolation for single-quoted strings:
@@ -51,7 +49,7 @@ PowerShell doesn't perform variable interpolation for single-quoted strings:
 $myName = "Ferb"
 'Hello, $myName'
 
-Hello, $myName
+# Hello, $myName
 ```
 
 A common problem when using variable interpolation is when you want to include an object's property (or the result of an object's method) in the string. Using the standard dot notation to retrieve the property doesn't quite work as expected. For example, the command:
@@ -59,7 +57,7 @@ A common problem when using variable interpolation is when you want to include a
 ```powershell
 "$myName is $myName.Length characters"
 
-Ferb.Length characters
+# Ferb.Length characters
 ```
 
 To work around this problem, PowerShell provides the subexpression operator, `$( )`, which you can use within the string to get the desired result. For example, the command:
@@ -67,7 +65,7 @@ To work around this problem, PowerShell provides the subexpression operator, `$(
 ```powershell
 "$myName is $($myName.Length) characters"
 
-Ferb is 4 characters
+# Ferb is 4 characters
 ```
 
 In general, if PowerShell isn't replacing a variable in a double-quoted string like you expect it to, you can put the variable inside `$( )` to work around the problem.
