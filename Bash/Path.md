@@ -5,9 +5,9 @@ To decide where to put the script, a couple alternatives exists. Generally, peop
 To use a personal directory:
 
 ```bash
-$ mkdir -p "$HOME/bin"
-$ echo 'PATH="$HOME/bin:$PATH"' >> "$HOME/.bashrc"
-$ source "$HOME/.bashrc"
+mkdir -p "$HOME/bin"
+echo 'PATH="$HOME/bin:$PATH"' >> "$HOME/.bashrc"
+source "$HOME/.bashrc"
 ```
 
 - The first command will make a directory called bin inside your home directory.

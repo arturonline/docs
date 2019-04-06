@@ -52,6 +52,9 @@ This is what we should have done:
 mysong="The secret void in your head.mp3"
 
 rm $mysong
+
+# or
+
 rm "The secret voice in your head.mp3"
 ```
 
@@ -63,8 +66,6 @@ Arguments are separated from the command name and from each other by a whitespac
 [-f file]     # wrong: We want the command [ (a synonym for test) to be separated from the arguments: -f, file, and ]
 
 [ -f file ]    # correct
-
-[ -f "my file" ] # if our filename contains whitespace or other special characters, it should also be quoted
 ```
 
 ## Variables
@@ -114,7 +115,7 @@ Why did this not work? Because Bash replaced your `$song` by its contents, being
 rm My song.mp3
 ```
 
-And according to the rules of word splitting, `Bash` thought you meant for `My` and `song.mp3` to mean two different files, because there is white space between them and it wasn't quoted. How do we fix this? 
+And according to the rules of word splitting, `Bash` thought you meant for `My` and `song.mp3` to mean two different files, because there is white space between them and it wasn't quoted. How do we fix this?
 
 ```bash
 rm "My song.mp3"
