@@ -5,7 +5,7 @@
 Example:
 
 ```bash
-Schtasks /create /tn "Desktop Cleanup" /sc daily /st 07:00 /tr "PowerShell python c:\Users\Matt\Documents\GitHub\baseball_statistics\local_rawdata_stat_get.py"
+PS C:\> Schtasks /create /tn "Desktop Cleanup" /sc daily /st 07:00 /tr "PowerShell python c:\Users\Matt\Documents\GitHub\baseball_statistics\local_rawdata_stat_get.py"
 ```
 
 So what do each of these thingies mean?
@@ -21,5 +21,16 @@ What if I want to change the time?
 Suppose you created this task and after a few months decide that you wanted to run it at 10:00 AM instead of 07:00 AM. You can simply use `schtasks` to change the time by entering the following at the PowerShell command line:
 
 ```bash
-Schtasks /change /tn "Desktop Cleanup" /st 10:00
+PS C:\> Schtasks /change /tn "Desktop Cleanup" /st 10:00
+```
+
+## I/O
+
+### read-host
+
+```powershell
+PS C:\> $var=read-host "Enter a computerName"
+PS C:\> Enter a computerName: server01
+PS C:\> $var
+PS C:\> server01
 ```
