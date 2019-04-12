@@ -39,16 +39,27 @@ PS C:\> [byte]('0x' + 'FF')
 When assigning a value to a variable, you can cast either side of the expression so
 
 ```powershell
-$variable = [int]0123
+PS C:\> $variable = [int]0123
 ```
 
 is not quite the same as:
 
 ```powershell
-[int]$variable = 0123
+PS C:\> [int]$variable = 0123
 ```
 
 >💡 Notice that `Get-Member` and `GetType()` will display the current datatype but do not indicate if it is static or variant.
+
+Example with dates:
+
+```powershell
+PS C:\> [datetime]$val = "1/1/2019"
+PS C:\> $val.Day
+1
+
+PS C:\> $val.DayOfWeek
+Tuesday
+```
 
 ## Testing DataTypes
 
