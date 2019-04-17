@@ -79,6 +79,8 @@ Place `{0}` `{1}` etc. into the string as placemarkers where you want the variab
 Get-ChildItem c:\ | ForEach-Object {'File {0} Created {1}' -f $_.fullname,$_.creationtime}
 ```
 
+>💡 For more information, see the [String.Format](http://go.microsoft.com/fwlink/?LinkID=166450) method, [Composite Formatting](http://go.microsoft.com/fwlink/?LinkID=166451) and [ss64](https://ss64.com/ps/syntax-f-operator.html) site.
+
 Optional format string(s) can be included to add padding/alignment and display dates/times/percentages/hex etc correctly, see the `-f` format page for full details.
 
 ## `..` Range operator
@@ -88,4 +90,16 @@ Produce a sequence of numbers:
 ```powershell
 10..20
 5..25
+```
+
+## `[ ]` Index operator
+
+Selects objects from indexed collections, such as arrays and hash tables. Array indexes are zero-based, so the first object is indexed as `[0]`. For arrays (only), you can also use negative indexes to get the last values. Hash tables are indexed by key value.
+
+```powershell
+C:\PS> $a = 1, 2, 3
+C:\PS> $a[0]
+1
+C:\PS> $a[-1]
+3
 ```
