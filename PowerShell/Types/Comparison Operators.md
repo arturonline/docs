@@ -10,3 +10,15 @@ The comparison operators include:
 - **containment** operators (`-in`, `-notin`, `-contains`, `-notcontains`), which determine whether a test value appears in a reference set.
 
 > 💡 about_Comparison_Operators
+
+## Example
+
+```powershell
+# Replace characters in a string:
+PS C:\> "abcdef" -replace "dEf","xyz"
+
+# Replace characters in a variable:
+PS C:\> $demo = "abcdef"
+PS C:\> $demo.replace("dEf","xyz")
+abcxyz
+```
