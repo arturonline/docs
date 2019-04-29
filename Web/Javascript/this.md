@@ -24,7 +24,7 @@ Each invocation type defines the context in its own way, so this behaves slight 
 
 >`this` is the global object in a function invocation:
 
-<img src="resources/funcinvocation.png" width="400">
+<img src="resources/funcInvocation.png" width="400">
 
 ```Javascript
 function sum(a, b) {
@@ -41,7 +41,7 @@ window.myNumber; // => 20
 
 >`this` is **undefined** in a function invocation in strict mode:
 
-<img src="resources/funcinvocation2.png" width="400">
+<img src="resources/funcInvocation2.png" width="400">
 
 ```Javascript
 function multiply(a, b) {
@@ -79,7 +79,7 @@ numbers.sum(); // => NaN or throws TypeError in strict mode
 
 >When invoking a method on an object, this becomes the object itself.
 
-<img src="resources/method_invocation.png" width="400">
+<img src="resources/Method_invocation.png" width="400">
 
 ```Javascript
 var calc = {
