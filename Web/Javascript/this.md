@@ -26,7 +26,7 @@ Each invocation type defines the context in its own way, so this behaves slight 
 
 >`this` is the global object in a function invocation:
 
-![Normal Mode](resources/funcinvocation.png)
+<img src="resources/funcinvocation.png" width="400">
 
 ```Javascript
 function sum(a, b) {
@@ -43,7 +43,7 @@ window.myNumber; // => 20
 
 >`this` is **undefined** in a function invocation in strict mode:
 
-<img src=resources/funcinvocation2.png>
+<img src="resources/funcinvocation2.png" width="400">
 
 ```Javascript
 function multiply(a, b) {
@@ -81,7 +81,7 @@ numbers.sum(); // => NaN or throws TypeError in strict mode
 
 >When invoking a method on an object, this becomes the object itself.
 
-<img src=resources/method_invocation.png>
+<img src="resources/method_invocation.png" width="400">
 
 ```Javascript
 var calc = {
@@ -133,7 +133,7 @@ setTimout(extractedLogInfo);
 
 >Constructor invocation is performed when `new` keyword is followed by an expression that evaluates to a function object. `this` is the newly created object in a constructor invocation
 
-<img src=resources/constructor_invocation.png>
+<img src="resources/constructor_invocation.png" width="400">
 
 ```Javascript
 function Foo () {
@@ -168,7 +168,7 @@ In the above example `this` is window object in a function invocation, as result
 
 Indirect invocation is performed when a function is called using `myFun.call()` or `myFun.apply()` methods.
 
-<img src=resources/Indirect_invocation.png>
+<img src="resources/Indirect_invocation.png" width="400">
 
 ```Javascript
 var rabbit = { name: 'White Rabbit' };
@@ -199,7 +199,7 @@ double(3);  // => 6
 double(10); // => 20
 ```
 
-<img src=resources/bound_function.png>
+<img src="resources/bound_function.png" width="400">
 
 ```Javascript
 var numbers = {
@@ -222,7 +222,7 @@ simpleGetNumbers(); // => undefined or throws an error in strict mode
 
 >`this` is the enclosing context where the arrow function is defined
 
-<img src=resources/arrow_function.png>
+<img src="resources/arrow_function.png" width="400">
 
 ```Javascript
 class Point {
