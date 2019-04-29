@@ -1,10 +1,6 @@
 # This
 
-## TLDR
-
-If called in the form `obj.func()` "this" equals `"obj"`
-
-else "this" equals `"global"`
+>⚠️ tl,dr: If called in the form `obj.func()` "this" equals `"obj"` else "this" equals `"global"`
 
 ## Long story
 
@@ -30,7 +26,7 @@ Each invocation type defines the context in its own way, so this behaves slight 
 
 >`this` is the global object in a function invocation:
 
-![Function invocation in normal mode](resources/funcinvocation.png)
+<img src=resources/funcinvocation.png>
 
 ```Javascript
 function sum(a, b) {
@@ -47,7 +43,7 @@ window.myNumber; // => 20
 
 >`this` is **undefined** in a function invocation in strict mode:
 
-![Function invocation in strict mode](resources/funcinvocation2.png)
+<img src=resources/funcinvocation2.png>
 
 ```Javascript
 function multiply(a, b) {
@@ -85,7 +81,7 @@ numbers.sum(); // => NaN or throws TypeError in strict mode
 
 >When invoking a method on an object, this becomes the object itself.
 
-![Method invocation](resources/method_invocation.png)
+<img src=resources/method_invocation.png>
 
 ```Javascript
 var calc = {
@@ -137,7 +133,7 @@ setTimout(extractedLogInfo);
 
 >Constructor invocation is performed when `new` keyword is followed by an expression that evaluates to a function object. `this` is the newly created object in a constructor invocation
 
-![Constructor invocation](resources/constructor_invocation.png)
+<img src=resources/constructor_invocation.png>
 
 ```Javascript
 function Foo () {
@@ -172,7 +168,7 @@ In the above example `this` is window object in a function invocation, as result
 
 Indirect invocation is performed when a function is called using `myFun.call()` or `myFun.apply()` methods.
 
-![Indirect Invocation](resources/Indirect_invocation.png)
+<img src=resources/Indirect_invocation.png>
 
 ```Javascript
 var rabbit = { name: 'White Rabbit' };
@@ -203,7 +199,7 @@ double(3);  // => 6
 double(10); // => 20
 ```
 
-![Bound Function](resources/bound_function.png)
+<img src=resources/bound_function.png>
 
 ```Javascript
 var numbers = {
@@ -226,7 +222,7 @@ simpleGetNumbers(); // => undefined or throws an error in strict mode
 
 >`this` is the enclosing context where the arrow function is defined
 
-![Arrow Function](resources/arrow_function.png)
+<img src=resources/arrow_function.png>
 
 ```Javascript
 class Point {
