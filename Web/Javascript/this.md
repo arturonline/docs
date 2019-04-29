@@ -1,8 +1,8 @@
 # This
 
->⚠️ tl,dr: If called in the form `obj.func()` "this" equals `"obj"` else "this" equals `"global"`
-
 [Original link](https://dmitripavlutin.com/gentle-explanation-of-this-in-javascript/)
+
+>⚠️ tl,dr: If called in the form `obj.func()` **this** equals **obj** else **this** equals **global**
 
 `This` is the object that is executing the current function:
 
@@ -14,7 +14,7 @@ There are 4 invocation types:
 1. **Function** invocation: `alert('Hello World!')`
 1. **Method** invocation: `console.log('Hello World!')`
 1. **Constructor** invocation: `new RegExp('\\d')`
-1. **Indirect** invocation: `alert.call(undefined, 'Hello World!'`)
+1. **Indirect** invocation: `alert.call(undefined, 'Hello World!')`
 
 Each invocation type defines the context in its own way, so this behaves slight different than developer expects.
 
@@ -109,8 +109,8 @@ Why?
 
 Looking closely, we may notice two operations in `myObj.method()` statement:
 
-- First, the dot '.' retrieves the property `myObj.method` (detached from the object)
-- Then parentheses () execute it.
+- First, the dot `.` retrieves the property `myObj.method` (detached from the object)
+- Then parentheses `()` execute it.
 
 When the method is called without an object a `function invocation` happens: where `this` is the _global object window_ or _undefined_ in strict mode.
 
@@ -118,7 +118,9 @@ When the method is called without an object a `function invocation` happens: whe
 setTimeout(myCat.logInfo, 1000);
 ```
 
-You might think that setTimout will call the `myCat.logInfo()`, which should log the information about myCat object. Unfortunately the method is separated from its object when passed as a parameter: `setTimout(myCat.logInfo)`. The following cases are equivalent:
+You might think that setTimout will call the `myCat.logInfo()`, which should log the information about myCat object. Unfortunately the method is separated from its object when passed as a parameter: `setTimout(myCat.logInfo)`. 
+
+The following cases are equivalent:
 
 ```Javascript
 setTimout(myCat.logInfo);
