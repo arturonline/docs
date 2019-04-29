@@ -2,11 +2,9 @@
 
 >⚠️ tl,dr: If called in the form `obj.func()` "this" equals `"obj"` else "this" equals `"global"`
 
-## Long story
-
 [Original link](https://dmitripavlutin.com/gentle-explanation-of-this-in-javascript/)
 
-The object that is executing the current function:
+`This` is the object that is executing the current function:
 
 If that function is a `method` of an Obj -> `this` is the Obj
 If that `function` is not part of an Obj -> `this` is window, global
@@ -16,7 +14,7 @@ There are 4 invocation types:
 1. **Function** invocation: `alert('Hello World!')`
 1. **Method** invocation: `console.log('Hello World!')`
 1. **Constructor** invocation: `new RegExp('\\d')`
-1. **Indirect** invocation: `alert.call(undefined, 'Hello` World!')
+1. **Indirect** invocation: `alert.call(undefined, 'Hello World!'`)
 
 Each invocation type defines the context in its own way, so this behaves slight different than developer expects.
 
