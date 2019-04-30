@@ -8,7 +8,7 @@ Objects in Javascript act as wrappers for properties, meaning that the object di
 
 When you attempt to access a property or method of an object, JavaScript will first search on the object itself, and if it is not found, it will search the object's `[[Prototype]]`.
 
->When a function is created in JavaScript, JavaScript engine adds a new object know as `[[prototype]]` to the function. This object is linked to another object.
+>💡 When a function is created in JavaScript, JavaScript engine adds a new object know as `[[prototype]]` to the function. This object is linked to another object.
 
 If after consulting both the object and its `[[Prototype]]` still no match is found, JavaScript will check the prototype of the linked object, and continue searching until the end of the prototype chain is reached.
 

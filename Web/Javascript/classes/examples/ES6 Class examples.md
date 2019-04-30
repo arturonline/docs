@@ -3,6 +3,7 @@
 - https://googlechrome.github.io/samples/classes-es6/
 
 - https://scotch.io/tutorials/better-javascript-with-es6-pt-ii-a-deep-dive-into-classes
+
 ## ES6 class
 
 Normal function class:
