@@ -48,14 +48,19 @@ Strings are inmutable.
 spam = 'Hello world!'
 spam[0]
 >>> 'H'
+
 spam[4]
 >>> 'o'
+
 spam[-1]
 >>> '!'
+
 spam[0:5]
 >>> 'Hello'
+
 spam[:5]
 >>> 'Hello'
+
 spam[6:]
 >>> 'world!'
 ```
@@ -65,12 +70,16 @@ spam[6:]
 ```python
 'Hello' in 'Hello World'
 >>> True
+
 'Hello' in 'Hello'
 >>> True
+
 'HELLO' in 'Hello World'
 >>> False
+
 '' in 'spam'
 >>> True
+
 'cats' not in 'cats and dogs'
 >>> False
 ```
@@ -93,14 +102,19 @@ spam
 spam = 'Hello world!'
 spam.islower()
 >>> False
+
 spam.isupper()
 False
+
 'HELLO'.isupper()
 >>> True
+
 'abc12345'.islower()
 >>> True
+
 '12345'.islower()
 >>> False
+
 '12345'.isupper()
 >>> False
 ```
@@ -110,14 +124,19 @@ False
 ```python
 'Hello world!'.startswith('Hello')
 >>> True
+
 'Hello world!'.endswith('world!')
 >>> True
+
 'abc123'.startswith('abcdef')
 >>> False
+
 'abc123'.endswith('12')
 >>> False
+
 'Hello world!'.startswith('Hello world!')
 >>> True
+
 'Hello world!'.endswith('Hello world!')
 >>> True
 ```
@@ -133,22 +152,31 @@ False
 ```python
 'hello'.isalpha()
 >>> True
+
 'hello123'.isalpha()
 >>> False
+
 'hello123'.isalnum()
 >>> True
+
 'hello'.isalnum()
 >>> True
+
 '123'.isdecimal()
 >>> True
+
 '    '.isspace()
 >>> True
+
 'This Is Title Case'.istitle()
 >>> True
+
 'This Is Title Case 123'.istitle()
 >>> True
+
 'This Is not Title Case'.istitle()
 >>> False
+
 'This Is NOT Title Case Either'.istitle()
 >>> False
 ```
@@ -225,6 +253,7 @@ spam.strip('ampS')
 
 ```python
 import pyperclip
+
 pyperclip.copy('Hello world!')
 pyperclip.paste()
 >>> 'Hello world!'
