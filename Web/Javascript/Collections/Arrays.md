@@ -13,17 +13,6 @@ var arr = [element0, element1, ..., elementN];
 ## Array without elements
 
 ```Javascript
-var arr = new Array(arrayLength);
-var arr = Array(arrayLength);
-
-// This has exactly the same effect
-var arr = [];
-arr.length = arrayLength;
-
-// arrayLength must be a Number
-```
-
-```Javascript
 var arr = [42];      // Creates an array with only one element:
                      // the number 42.
 
@@ -59,7 +48,7 @@ arr['length'];  // 3
 
 ## Understanding length
 
-At the implementation level, JavaScript's arrays actually store their elements as standard object properties, using the array index as the property name. The length property is special; it always returns the index of the last element plus one (in the following example, Dusty is indexed at 30, so cats.length returns 30 + 1). Remember, JavaScript Array indexes are 0-based: they start at 0, not 1. This means that the length property will be one more than the highest index stored in the array:
+JavaScript Array indexes are 0-based: they start at 0, not 1.
 
 ```Javascript
 var cats = [];
