@@ -7,14 +7,11 @@ let single = "single-quoted";
 let double = "double-quoted";
 ```
 
-## String interpolation
+## Template literals
 
 ```javascript
-function sum(a, b) {
-  return a + b;
-}
-
-alert(`1 + 2 = ${sum(1, 2)}.`); // 1 + 2 = 3.
+let age = 3
+console.log(`I'm ${age} years old!`)
 ```
 
 ## multiple lines
@@ -40,12 +37,6 @@ str.charAt(0); // H
 
 // the last character
 str[str.length - 1]; // o
-for (let char of "Hello") {
-  char; // H,e,l,l,o (char becomes "H", then "e", then "l" etc)
-}
-```
-
-```javascript
 for (let char of "Hello") {
   char; // H,e,l,l,o (char becomes "H", then "e", then "l" etc)
 }
@@ -86,7 +77,7 @@ let str = "stringify";
 str.slice(-4, -1); // gif
 ```
 
->💡 Slice is probably the better option.
+>💡 `Slice()` method is probably the best option.
 
 ## Methods
 
