@@ -1,10 +1,10 @@
 # Modules
 
-In the Node.js module system, each file is treated as a separate module. Functions and objects are added to the root of a module by specifying additional properties on the special exports object. Variables local to the module will be private. In this example, the variable PI is private to circle.js.
+In the Node module system, each file is treated as a separate module. Functions and objects are added to the root of a module by specifying additional properties on the special exports object. Variables local to the module will be private. In this example, the variable `PI` is private to `circle.js`.
 
-On the first line, bar.js loads the module circle.js that is in the same directory as foo.js:
+On the first line, `bar.js` loads the module `circle.js` that is in the same directory as `foo.js`:
 
-Example: 
+Example:
 
 ```Javascript
 // circle.js
