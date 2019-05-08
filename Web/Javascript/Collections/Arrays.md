@@ -93,123 +93,123 @@ The Array object has the following methods:
 
 - `concat()` joins two arrays and returns a new array.
 
-```Javascript
-var myArray = new Array('1', '2', '3');
-myArray = myArray.concat('a', 'b', 'c'); 
-// myArray is now ["1", "2", "3", "a", "b", "c"]
-```
+  ```Javascript
+  var myArray = new Array('1', '2', '3');
+  myArray = myArray.concat('a', 'b', 'c'); 
+  // myArray is now ["1", "2", "3", "a", "b", "c"]
+  ```
 
 - `join(deliminator = ',')` joins all elements of an array into a string.
 
-```Javascript
-var myArray = new Array('Wind', 'Rain', 'Fire');
-var list = myArray.join(' - '); // list is "Wind - Rain - Fire"
-```
+  ```Javascript
+  var myArray = new Array('Wind', 'Rain', 'Fire');
+  var list = myArray.join(' - '); // list is "Wind - Rain - Fire"
+  ```
 
 - `push()` adds one or more elements to the end of an array and returns the resulting length of the array.
 
-```Javascript
-var myArray = new Array('1', '2');
-myArray.push('3'); // myArray is now ["1", "2", "3"]
-```
+  ```Javascript
+  var myArray = new Array('1', '2');
+  myArray.push('3'); // myArray is now ["1", "2", "3"]
+  ```
 
 - `pop()` removes the last element from an array and returns that element.
 
-```Javascript
-var myArray = new Array('1', '2', '3');
-var last = myArray.pop(); 
-// myArray is now ["1", "2"], last = "3"
-```
+  ```Javascript
+  var myArray = new Array('1', '2', '3');
+  var last = myArray.pop(); 
+  // myArray is now ["1", "2"], last = "3"
+  ```
 
 - `shift()` removes the first element from an array and returns that element.
 
-```Javascript
-var myArray = new Array('1', '2', '3');
-var first = myArray.shift();
-// myArray is now ["2", "3"], first is "1"
-```
+  ```Javascript
+  var myArray = new Array('1', '2', '3');
+  var first = myArray.shift();
+  // myArray is now ["2", "3"], first is "1"
+  ```
 
 - `unshift()` adds one or more elements to the front of an array and returns the new length of the array.
 
-```Javascript
-var myArray = new Array('1', '2', '3');
-myArray.unshift('4', '5'); 
-// myArray becomes ["4", "5", "1", "2", "3"]
-```
+  ```Javascript
+  var myArray = new Array('1', '2', '3');
+  myArray.unshift('4', '5'); 
+  // myArray becomes ["4", "5", "1", "2", "3"]
+  ```
 
 - `slice(start_index, upto_index)` extracts a section of an array and returns a new array.
 
-```Javascript
-var myArray = new Array('a', 'b', 'c', 'd', 'e');
-myArray = myArray.slice(1, 4); // starts at index 1 and extracts all elements
-                               // until index 3, returning [ "b", "c", "d"]
-```
+  ```Javascript
+  var myArray = new Array('a', 'b', 'c', 'd', 'e');
+  myArray = myArray.slice(1, 4); // starts at index 1 and extracts all elements
+                                // until index 3, returning [ "b", "c", "d"]
+  ```
 
 - `splice(index, count_to_remove, addElement1, addElement2, ...)` removes elements from an array and (optionally) replaces them. It returns the items which were removed from the array.
 
-```Javascript
-var myArray = new Array('1', '2', '3', '4', '5');
-myArray.splice(1, 3, 'a', 'b', 'c', 'd'); 
-// myArray is now ["1", "a", "b", "c", "d", "5"]
-// This code started at index one (or where the "2" was), 
-// removed 3 elements there, and then inserted all consecutive
-// elements in its place.
-```
+  ```Javascript
+  var myArray = new Array('1', '2', '3', '4', '5');
+  myArray.splice(1, 3, 'a', 'b', 'c', 'd'); 
+  // myArray is now ["1", "a", "b", "c", "d", "5"]
+  // This code started at index one (or where the "2" was), 
+  // removed 3 elements there, and then inserted all consecutive
+  // elements in its place.
+  ```
 
 - `reverse()` transposes the elements of an array, in place: the first array element becomes the last and the last becomes the first. It returns a reference to the array.
 
-```Javascript
-var myArray = new Array('1', '2', '3');
-myArray.reverse();
-// transposes the array so that myArray = ["3", "2", "1"]
-```
+  ```Javascript
+  var myArray = new Array('1', '2', '3');
+  myArray.reverse();
+  // transposes the array so that myArray = ["3", "2", "1"]
+  ```
 
 - `sort()` sorts the elements of an array in place, and returns a reference to the array.
 
-```Javascript
-var myArray = new Array('Wind', 'Rain', 'Fire');
-myArray.sort();
-// sorts the array so that myArray = ["Fire", "Rain", "Wind"]
-```
+  ```Javascript
+  var myArray = new Array('Wind', 'Rain', 'Fire');
+  myArray.sort();
+  // sorts the array so that myArray = ["Fire", "Rain", "Wind"]
+  ```
 
-`sort()` can also take a callback function to determine how array elements are compared.
+  `sort()` can also take a callback function to determine how array elements are compared.
 
-The sort method and other methods below that take a callback are known as iterative methods, because they iterate over the entire array in some fashion. Each one takes an optional second argument called `thisObject`. If provided, `thisObject` becomes the value of the this keyword inside the body of the callback function. If not provided, as with other cases where a function is invoked outside of an explicit object context, this will refer to the global object (window).
+  The sort method and other methods below that take a callback are known as iterative methods, because they iterate over the entire array in some fashion. Each one takes an optional second argument called `thisObject`. If provided, `thisObject` becomes the value of the this keyword inside the body of the callback function. If not provided, as with other cases where a function is invoked outside of an explicit object context, this will refer to the global object (window).
 
-The callback function is called with two arguments, that are array's elements.
+  The callback function is called with two arguments, that are array's elements.
 
-The function below compares two values and returns one of three values:
+  The function below compares two values and returns one of three values:
 
-```Javascript
-var sortFn = function(a, b) {
-  if (a[a.length - 1] < b[b.length - 1]) return -1;
-  if (a[a.length - 1] > b[b.length - 1]) return 1;
-  if (a[a.length - 1] == b[b.length - 1]) return 0;
-}
-myArray.sort(sortFn);
-// sorts the array so that myArray = ["Wind","Fire","Rain"]
-```
+  ```Javascript
+  var sortFn = function(a, b) {
+    if (a[a.length - 1] < b[b.length - 1]) return -1;
+    if (a[a.length - 1] > b[b.length - 1]) return 1;
+    if (a[a.length - 1] == b[b.length - 1]) return 0;
+  }
+  myArray.sort(sortFn);
+  // sorts the array so that myArray = ["Wind","Fire","Rain"]
+  ```
 
-if a is less than b by the sorting system, return -1 (or any negative number)
-if a is greater than b by the sorting system, return 1 (or any positive number)
-if a and b are considered equivalent, return 0.
+  if a is less than b by the sorting system, return -1 (or any negative number)
+  if a is greater than b by the sorting system, return 1 (or any positive number)
+  if a and b are considered equivalent, return 0.
 
 - `indexOf(searchElement[, fromIndex])` searches the array for searchElement and returns the index of the first match.
 
-```Javascript
-var a = ['a', 'b', 'a', 'b', 'a'];
-console.log(a.indexOf('b')); // logs 1
-// Now try again, starting from after the last match
-console.log(a.indexOf('b', 2)); // logs 3
-console.log(a.indexOf('z')); // logs -1, because 'z' was not found
-```
+  ```Javascript
+  var a = ['a', 'b', 'a', 'b', 'a'];
+  console.log(a.indexOf('b')); // logs 1
+  // Now try again, starting from after the last match
+  console.log(a.indexOf('b', 2)); // logs 3
+  console.log(a.indexOf('z')); // logs -1, because 'z' was not found
+  ```
 
 - `lastIndexOf(searchElement[, fromIndex])` works like indexOf, but starts at the end and searches backwards.
 
-```Javascript
-var a = ['a', 'b', 'c', 'd', 'a', 'b'];
-console.log(a.lastIndexOf('b')); // logs 5
-// Now try again, starting from before the last match
-console.log(a.lastIndexOf('b', 4)); // logs 1
-console.log(a.lastIndexOf('z')); // logs -1
-```
+  ```Javascript
+  var a = ['a', 'b', 'c', 'd', 'a', 'b'];
+  console.log(a.lastIndexOf('b')); // logs 5
+  // Now try again, starting from before the last match
+  console.log(a.lastIndexOf('b', 4)); // logs 1
+  console.log(a.lastIndexOf('z')); // logs -1
+  ```
