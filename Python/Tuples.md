@@ -1,4 +1,4 @@
-# Tuples
+# Sequences: Tuples
 
 The tuple data type is almost identical to the list data type, except in two ways. First, tuples are typed with parentheses, ( and ), instead of square brackets, [ and ]. For example, enter the following into the interactive shell:
 

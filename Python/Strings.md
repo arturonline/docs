@@ -1,4 +1,4 @@
-# Strings
+# Sequences: Strings
 
 String in Python begin and end with single or double quotes.
 
