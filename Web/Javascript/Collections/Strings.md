@@ -3,7 +3,7 @@
 In JavaScript, the textual data is stored as strings. There is no separate type for a single character. Javascript strings are inmutable.
 
 ```javascript
-let single = "single-quoted";
+let single = 'single-quoted';
 let double = "double-quoted";
 ```
 
