@@ -67,6 +67,8 @@ sound/                          Top-level package
               ...
 ```
 
+Example:
+
 ```python
 import sound.effects.echo
 ```
