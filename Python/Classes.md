@@ -30,7 +30,7 @@ x.r, x.i
 
 ## Properties: `@property`
 
-This is Python's way of creating getters, setters, and deleters (or mutator methods) for a property in a class:
+The `@property` lets a method to be accessed as an attribute instead of as a method with a '`()`'
 
 ```python
 class Person(object):
