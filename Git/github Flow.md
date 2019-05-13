@@ -6,7 +6,7 @@
     git clone https://github.com/arturonline/exam-70483.git
     ```
 
-2. After finishing job, upload changes
+2. After finishing job, upload changes:
 
     ```bash
     git push origin master
