@@ -8,6 +8,7 @@
 
 ## Other
 
+[JVM](JVM)<br>
 [Git](Git)<br>
 [PowerShell](PowerShell)<br>
 [Brew](Brew)<br>
