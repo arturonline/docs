@@ -15,3 +15,9 @@
     # master = git branch
 
     ```
+
+3. To get latest changes
+
+    ```bash
+    git pull origin master
+    ```
