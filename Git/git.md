@@ -39,16 +39,6 @@ Whenever you add, edit, or delete a file, you're making a commit, and adding the
 
 Commits also create a transparent history of your work that others can follow to understand what you've done and why. Each commit has an associated commit message, which is a description explaining why a particular change was made.
 
-commands:
+## commands
 
  `Git log` is a journal that remembers all the changes we've committed so far, in the order we committed them.
-
-## Creating a Branch
-
-A `branch` basically is an independent mini repository that usually focuses on one feature. It’s independent from all of your teammate’s work. This means, if you mess something up in a branch, it won’t mess up all the other code in the project.
-
-The new branch has all the code from the project, but you can work on it independently. When you commit changes, you commit to the new branch instead of the master branch. Once you are done, you can `merge` it back to the master branch.
-
-If your team decided to forgot the feature, you can just remove the branch and no harm is done. Using branches is a much more organized way to add features to your app and it’s much safer also since it’s harder to mess up your whole project by accident.
-
-To merge those new features to the master branch you use the command `merge`
