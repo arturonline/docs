@@ -2,7 +2,7 @@
 
 **pip** is a package manager for Python, used by many projects to manage dependencies.
 
-## Installing with get-pip.py
+## Installing with `get-pip.py`
 
 To install pip, securely download `get-pip.py`:
 
@@ -27,7 +27,7 @@ pip install XXX>=1.0.4    # minimum version
 pip uninstall XXX
 ```
 
-## freeze
+## `freeze`
 
 `pip freeze` will produce a similar list of the installed packages, but the output uses the format that pip install expects. A common convention is to put this list in a requirements.txt file:
 

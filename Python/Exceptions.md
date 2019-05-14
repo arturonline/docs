@@ -1,6 +1,6 @@
 # Exceptions
 
-## Raising an Exception
+## `Raise` an Exception
 
 `raise` allows you to throw an exception at any time.
 
@@ -10,7 +10,7 @@ if x > 5:
     raise Exception('x should not exceed 5.')
 ```
 
-## The AssertionError Exception
+## The `AssertionError` Exception
 
 Instead of waiting for a program to crash midway, you can also start by making an assertion in Python. `assert` enables you to verify if a certain condition is met and throw an exception if it isn’t.
 
