@@ -1,19 +1,30 @@
 # pip
 
-You can install, upgrade, and remove packages using a program called **pip**. By default pip will install packages from the Python Package Index, <https://pypi.org>.
+**pip** is a package manager for Python, used by many projects to manage dependencies.
+
+## Installing with get-pip.py
+
+To install pip, securely download `get-pip.py`:
+
+```bash
+> curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+
+> python get-pip.py
+```
 
 ## Commands
 
 ```python
-python -m pip search XXX
-python -m pip show XXX
-python -m pip list
+pip help
+pip search XXX YYY
+pip show XXX
+pip list
 
-python -m pip install XXX
-python -m pip install --upgrade XXX
-python -m pip install XXX==1.0.4    # specific version
-python -m pip install XXX>=1.0.4    # minimum version
-python -m pip uninstall XXX
+pip install XXX
+pip install --upgrade XXX
+pip install XXX==1.0.4    # specific version
+pip install XXX>=1.0.4    # minimum version
+pip uninstall XXX
 ```
 
 ## freeze
