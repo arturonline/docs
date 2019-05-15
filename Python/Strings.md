@@ -40,6 +40,48 @@ def spam():
     print('Hello!')
 ```
 
+## Formating
+
+### `%-formatting`
+
+```python
+name = "Eric"
+age = 74
+"Hello, %s. You are %s." % (name, age)
+>>> 'Hello Eric. You are 74.'
+```
+
+### `str.format()`
+
+```python
+"Hello, {}. You are {}.".format(name, age)
+>>> 'Hello Eric. You are 74.'
+```
+
+### `f-strings`
+
+```python
+f"Hello, {name}. You are {age}."
+'Hello, Eric. You are 74.'
+```
+
+#### Multiline `f-strings`
+
+```python
+name = "Eric"
+profession = "comedian"
+affiliation = "Monty Python"
+message = (
+    f"Hi {name}. "
+    f"You are a {profession}. "
+    f"You were in {affiliation}."
+)
+message
+>>>'Hi Eric. You are a comedian. You were in Monty Python.'
+```
+
+>⚠️ watch out when you are working with dictionaries. If you are going to use single quotation marks for the keys of the dictionary, then remember to make sure you’re using double quotation marks for the f-strings containing the keys.
+
 ## Indexing and Slicing
 
 Strings are inmutable.
@@ -86,7 +128,7 @@ spam[6:]
 
 ## Methods
 
-### `lower()` `upper()`
+### `.lower()` `.upper()`
 
 ```python
 spam = 'Hello world!'
@@ -119,7 +161,7 @@ False
 >>> False
 ```
 
-### `startswith()` and `endswith()`
+### `.startswith()` and `.endswith()`
 
 ```python
 'Hello world!'.startswith('Hello')
@@ -141,7 +183,7 @@ False
 >>> True
 ```
 
-### The `isX` String Methods
+### The `.isX` String Methods
 
 - `isalpha()` returns True if the string consists only of letters and is not blank.
 - `isalnum()` returns True if the string consists only of letters and numbers and is not blank.
@@ -181,7 +223,7 @@ False
 >>> False
 ```
 
-### `join()` `split()`
+### `.join()` `.split()`
 
 ```python
 ', '.join(['cats', 'rats', 'bats'])
@@ -203,7 +245,7 @@ False
 >>> ['My na', 'e is Si', 'on']
 ```
 
-### Justifying Text with `rjust()`, `ljust()`, and `center()`
+### Justifying Text with `.rjust()`, `.ljust()`, and `.center()`
 
 ```python
 'Hello'.rjust(10)
@@ -231,7 +273,7 @@ False
 >>> '=======Hello========'
 ```
 
-### Removing Whitespace with `strip()`, `rstrip()`, and `lstrip()`
+### Removing Whitespace with `.strip()`, `.rstrip()`, and `.lstrip()`
 
 ```python
 spam = '    Hello World     '
