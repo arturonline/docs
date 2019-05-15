@@ -11,13 +11,13 @@
     1. [%-formatting](#Formatting)
     1. [str.format()](#str.format())
     1. [f-strings](#f-strings)
-        1. [Multiline f-strings](#Multiline-`f-strings`)
+        1. [Multiline f-strings](#Multiline-f-strings)
 1. [Indexing and Slicing](#Indexing-and-Slicing)
-1. [in and not in operators](#`in`-and-`not-in`-operators)
+1. [in and not in operators](#in-and-not-in-operators)
 1. [Methods](#Methods)
     1. [.lower(), .upper()](#.lower()-.upper())
     1. [.startswith() and .endswith()](#.startswith()-and-.endswith())
-    1. [.isX String Methods](#`.isX`-String-Methods)
+    1. [.isX String Methods](#.isX-String-Methods)
     1. [.join() .split()](#.join()-.split())
     1. [Justifying Text with .rjust(), .ljust(), and .center()](#Justifying-Text-with-.rjust(),-.ljust(),-and-.center())
     1. [Removing Whitespace with .strip(), .rstrip(), and .lstrip()](#Removing-Whitespace-with-.strip(),-.rstrip(),-and-.lstrip())
@@ -69,7 +69,7 @@ def spam():
 
 ## Formating
 
-### `%-formatting`
+### %-formatting
 
 ```python
 name = "Eric"
@@ -78,21 +78,21 @@ age = 74
 >>> 'Hello Eric. You are 74.'
 ```
 
-### `str.format()`
+### str.format()
 
 ```python
 "Hello, {}. You are {}.".format(name, age)
 >>> 'Hello Eric. You are 74.'
 ```
 
-### `f-strings`
+### f-strings
 
 ```python
 f"Hello, {name}. You are {age}."
 'Hello, Eric. You are 74.'
 ```
 
-#### Multiline `f-strings`
+#### Multiline f-strings
 
 ```python
 name = "Eric"
@@ -138,7 +138,7 @@ spam[6:]
 
 [Back to Top](#Index)
 
-## `in` and `not in` operators
+## in and not in operators
 
 ```python
 'Hello' in 'Hello World'
@@ -161,7 +161,7 @@ spam[6:]
 
 ## Methods
 
-### `.lower()` `.upper()`
+### .lower() .upper()
 
 ```python
 spam = 'Hello world!'
@@ -196,7 +196,7 @@ False
 
 [Back to Top](#Index)
 
-### `.startswith()` and `.endswith()`
+### .startswith() and .endswith()
 
 ```python
 'Hello world!'.startswith('Hello')
@@ -220,7 +220,7 @@ False
 
 [Back to Top](#Index)
 
-### `.isX` String Methods
+### .isX String Methods
 
 - `isalpha()` returns True if the string consists only of letters and is not blank.
 - `isalnum()` returns True if the string consists only of letters and numbers and is not blank.
@@ -262,7 +262,7 @@ False
 
 [Back to Top](#Index)
 
-### `.join()` `.split()`
+### .join() .split()
 
 ```python
 ', '.join(['cats', 'rats', 'bats'])
@@ -286,7 +286,7 @@ False
 
 [Back to Top](#Index)
 
-### Justifying Text with `.rjust()`, `.ljust()`, and `.center()`
+### Justifying Text with .rjust(), .ljust(), and .center()
 
 ```python
 'Hello'.rjust(10)
@@ -316,7 +316,7 @@ False
 
 [Back to Top](#Index)
 
-### Removing Whitespace with `.strip()`, `.rstrip()`, and `.lstrip()`
+### Removing Whitespace with .strip(), .rstrip(), and .lstrip()
 
 ```python
 spam = '    Hello World     '
@@ -336,7 +336,7 @@ spam.strip('ampS')
 
 [Back to Top](#Index)
 
-## Copying and Pasting Strings with the `pyperclip` Module
+## Copying and Pasting Strings with the pyperclip Module
 
 ```python
 import pyperclip
@@ -345,3 +345,5 @@ pyperclip.copy('Hello world!')
 pyperclip.paste()
 >>> 'Hello world!'
 ```
+
+[Back to Top](#Index)
