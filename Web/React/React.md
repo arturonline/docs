@@ -1,0 +1,34 @@
+# React Overview
+
+## Rendering Views
+
+```javascript
+import React from 'react';
+import ReactDOM from 'react-dom';
+
+// This is just an example, switch to app.js for the exercise.
+ReactDOM.render(<h1>Hello world</h1>, document.getElementById('app'));
+```
+
+- `ReactDOM` is the name of a JavaScript library that contains several React-specific methods, all of which deal with the DOM in some way or another.
+
+- `ReactDOM.render()` is the most common way to render JSX. It takes a JSX expression, creates a corresponding tree of DOM nodes, and adds that tree to the DOM.
+
+  - The 1st argument should always be a JSX expression, and it will be rendered to the screen.
+  - The 2nd argument act as a container for `ReactDOM.render()`‘s first argument.
+
+The first argument is appended to whatever element is selected by the second argument.
+
+## Virtual DOM
+
+In React, for every DOM object, there is a corresponding “virtual DOM object.” A virtual DOM object is a representation of a DOM object. It has the same properties as a real DOM object, but it lacks the real thing’s power to directly change what’s on the screen.
+
+When you render a JSX element, every single virtual DOM object gets updated.
+
+This sounds incredibly inefficient, but the cost is insignificant because the virtual DOM can update so quickly.
+
+Once the virtual DOM has updated, then React compares the virtual DOM with a virtual DOM snapshot that was taken right before the update.
+
+By comparing the new virtual DOM with a pre-update version, React figures out exactly which virtual DOM objects have changed. This process is called “diffing.”
+
+Once React knows which virtual DOM objects have changed, then React updates those objects, and only those objects, on the real DOM.
