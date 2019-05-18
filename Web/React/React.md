@@ -10,14 +10,10 @@ import ReactDOM from 'react-dom';
 ReactDOM.render(<h1>Hello world</h1>, document.getElementById('app'));
 ```
 
-- `ReactDOM` is the name of a JavaScript library that contains several React-specific methods, all of which deal with the DOM in some way or another.
-
 - `ReactDOM.render()` is the most common way to render JSX. It takes a JSX expression, creates a corresponding tree of DOM nodes, and adds that tree to the DOM.
 
   - The 1st argument should always be a JSX expression, and it will be rendered to the screen.
-  - The 2nd argument act as a container for `ReactDOM.render()`‘s first argument.
-
-The first argument is appended to whatever element is selected by the second argument.
+  - The first argument is appended to whatever element is selected by the second argument.
 
 ## Virtual DOM
 
