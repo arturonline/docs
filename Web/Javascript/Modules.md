@@ -9,7 +9,7 @@ There are a two kinds of exports: **named exports**  and **default exports**:
 ## Named exports (several per module)
 
 ```javascript
-//------ lib.js ------
+// lib.js
 export const sqrt = Math.sqrt;
 export function square(x) {
     return x * x;
@@ -17,8 +17,9 @@ export function square(x) {
 export function diag(x, y) {
     return sqrt(square(x) + square(y));
 }
+```
 
-//------ main.js ------
+```javascript
 import { square, diag } from 'lib';
 console.log(square(11)); // 121
 console.log(diag(4, 3)); // 5
@@ -27,7 +28,6 @@ console.log(diag(4, 3)); // 5
 You can also import the complete module:
 
 ```javascript
-//------ main.js ------
 import * as lib from 'lib';
 console.log(lib.square(11)); // 121
 console.log(lib.diag(4, 3)); // 5
@@ -38,7 +38,7 @@ console.log(lib.diag(4, 3)); // 5
 `export default` is used to export a single class, function or primitive from a script file.
 
 ```javascript
-//------- uppercase.js-----
+// uppercase.js
 export default str => str.toUpperCase()
 ```
 
