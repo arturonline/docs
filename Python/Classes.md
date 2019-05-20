@@ -65,7 +65,7 @@ class Dog:
 'Buddy'
 ```
 
-## Properties: `@property`
+### Properties: `@property`
 
 The `@property` lets a method to be accessed as an attribute instead of as a method with a '`()`'
 
@@ -91,7 +91,7 @@ class Person(object):
         del self.last_name
 ```
 
-## `@classmethod`
+### `@classmethod` (static)
 
 ```python
 >>> class A():
