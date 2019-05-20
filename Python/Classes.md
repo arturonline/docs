@@ -2,9 +2,8 @@
 
 - class members are public
 - All member functions are virtual.
-- The method function is declared with an explicit first argument representing the object, which is provided implicitly by the call.
 
-## Declaration
+## Class Declaration
 
 ```python
 class MyClass:
@@ -26,6 +25,44 @@ class Complex:
 x = Complex(3.0, -4.5)
 x.r, x.i
 >>> (3.0, -4.5)
+```
+
+## Attributes
+
+### Instance Attributes
+
+An instance attribute is a Python variable belonging to one, and only one, object. This variable is only accessible in the scope of this object and it is defined inside the constructor function, `__init__(self,..)` of the class.
+
+```python
+
+class ExampleClass(object):
+
+  def __init__(self, instance_attr):
+    self.instance_attr = instance_attr
+```
+
+### Class Attributes
+
+A class attribute is a Python variable that belongs to a class rather than a particular object. It is shared between all the objects of this class and it is defined outside the constructor function, `__init__(self,...)`, of the class.
+
+```python
+class Dog:
+
+    kind = 'canine'         # class variable shared by all instances
+
+    def __init__(self, name):
+        self.name = name    # instance variable unique to each instance
+
+>>> d = Dog('Fido')
+>>> e = Dog('Buddy')
+>>> d.kind                  # shared by all dogs
+'canine'
+>>> e.kind                  # shared by all dogs
+'canine'
+>>> d.name                  # unique to d
+'Fido'
+>>> e.name                  # unique to e
+'Buddy'
 ```
 
 ## Properties: `@property`
@@ -52,28 +89,6 @@ class Person(object):
     def full_name(self):
         del self.first_name
         del self.last_name
-```
-
-## class var
-
-```python
-class Dog:
-
-    kind = 'canine'         # class variable shared by all instances
-
-    def __init__(self, name):
-        self.name = name    # instance variable unique to each instance
-
->>> d = Dog('Fido')
->>> e = Dog('Buddy')
->>> d.kind                  # shared by all dogs
-'canine'
->>> e.kind                  # shared by all dogs
-'canine'
->>> d.name                  # unique to d
-'Fido'
->>> e.name                  # unique to e
-'Buddy'
 ```
 
 ## `@classmethod`
@@ -123,10 +138,10 @@ Python classes provide all the standard features of Object Oriented Programming:
 
 Python has two built-in functions that work with inheritance:
 
-- Use `isinstance()` to check an instance’s type: isinstance(obj, int) will be True only if obj.__class__ is int or some class derived from int.
-- Use `issubclass()` to check class inheritance: issubclass(bool, int) is True since bool is a subclass of int. However, issubclass(float, int) is False since float is not a subclass of int.
+- Use `isinstance()` to check an instance’s type: isinstance(obj, int) will be True only if `obj.__class__` is int or some class derived from int.
+- Use `issubclass()` to check class inheritance: issubclass(bool, int) is True since bool is a subclass of int. However, `issubclass(float, int)` is False since float is not a subclass of int.
 
-### Declaration
+### Inheritance Declaration
 
 ```python
 class Car():
