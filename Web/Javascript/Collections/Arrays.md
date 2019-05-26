@@ -1,6 +1,10 @@
 # Arrays
 
-An array is an ordered set of values that you refer to with a name and an index. Array objects grow and shrink dynamically and can have any JavaScript value.
+In Javascript Array is:
+
+- Grow and shrink dynamically
+- Can store different data types.
+- Arrays are passed by reference.
 
 ## Creating an Array
 
@@ -43,6 +47,21 @@ emp[2] = 'August West';
 var arr = ['one', 'two', 'three'];
 arr[2];  // three
 arr['length'];  // 3
+```
+
+## Assign array
+
+You may recall that you can declare variables with both the `let` and `const` keywords. Variables declared with let can be reassigned.
+
+Variables declared with the const keyword cannot be reassigned. However, elements in an array declared with `const` remain mutable. Meaning that we can change the contents of a const array, but cannot reassign a new array or a different value.
+
+```javascript
+let condiments = ['Ketchup', 'Mustard', 'Soy Sauce', 'Sriracha'];
+condiments[0] = 'Mayo';
+console.log(condiments);
+
+condiments = ['Mayo'];
+console.log(condiments);
 ```
 
 ## Understanding length
