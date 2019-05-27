@@ -1,6 +1,6 @@
 # The package.json file
 
-The package.json file is kind of a manifest for your project. It can do a lot of things, completely unrelated.
+The `package.json` file is kind of a manifest for your project. It can do a lot of things, completely unrelated.
 
 ## Properties
 
@@ -9,7 +9,7 @@ The package.json file is kind of a manifest for your project. It can do a lot of
 - **description** is a brief description of the app/package
 - **main** set the entry point for the application
 - **private** if set to true prevents the app/package to be accidentally published on npm
-- **scripts** defines a set of node scripts you can run
+- **scripts** defines a set of node scripts you can run by calling `npm run XXXX` or `yarn XXXX`
 - **dependencies** sets a list of npm packages installed as dependencies
 - **devDependencies** sets a list of npm packages installed as development dependencies
 - **engines** sets which versions of Node this package/app works on
@@ -17,7 +17,9 @@ The package.json file is kind of a manifest for your project. It can do a lot of
 
 All those properties are used by either npm or other tools that we can use.
 
-Example:
+>🚀 [More info](https://flaviocopes.com/package-json/)
+
+## Example
 
 ```json
 {
