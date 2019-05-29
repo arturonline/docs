@@ -6,31 +6,50 @@ Everything declared inside a module is local to the module, by default. If you w
 
 There are a two kinds of exports: **named exports**  and **default exports**:
 
-## Named exports (several per module)
+## Named exports
+
+Named exports allow us to export data through the use of variables:
 
 ```javascript
-// lib.js
-export const sqrt = Math.sqrt;
-export function square(x) {
-    return x * x;
-}
-export function diag(x, y) {
-    return sqrt(square(x) + square(y));
-}
+let specialty = '';
+function isVegetarian() {
+};
+function isLowSodium() {
+};
+
+export { specialty, isVegetarian };
 ```
 
+`export { specialty, isVegetarian };` exports objects by their variable names. `isLowSodium` is not exported, since it is not specified.
+
+To import objects stored in a variable, we use the import keyword and include the variables in a set of {}.
+
 ```javascript
-import { square, diag } from 'lib';
-console.log(square(11)); // 121
-console.log(diag(4, 3)); // 5
+import { specialty, isVegetarian } from './menu';
+
+console.log(specialty);
 ```
 
-You can also import the complete module:
+Here **specialty** and **isVegetarian** are imported. We can then use these objects as in within our code, so we would use `specialty` instead of `Menu.specialty`.
+
+### Export before declarations
+
+Named exports are also distinct in that they can be exported as soon as they are declared, by placing the keyword **export** in front of variable declarations.
 
 ```javascript
-import * as lib from 'lib';
-console.log(lib.square(11)); // 121
-console.log(lib.diag(4, 3)); // 5
+export let specialty = '';
+export function isVegetarian() {
+};
+function isLowSodium() {
+};
+```
+
+We no longer need an export statement at the bottom of our file, since this behavior is handled above.
+
+To import variables that are declared, we simply use the original syntax that describes the variable name. In other words, exporting upon declaration does not have an impact on how we import the variables.
+
+```javascript
+import { specialty, isVegetarian } from 'menu';
 ```
 
 ## Default exports (one per module)
@@ -45,29 +64,68 @@ export default str => str.toUpperCase()
 In this example, the `uppercase.js` module defines a `default export`, so when we import it, we can assign it a name we prefer:
 
 ```javascript
-import toUpperCase from './uppercase.js'
+import toUpper from './uppercase.js'
 ```
 
 and we can use it:
 
 ```javascript
-toUpperCase('test') //'TEST'
+toUpper('test') //'TEST'
 ```
 
 You can also use an absolute path for the module import, to reference modules defined on another domain:
 
 ```javascript
-import toUpperCase from 'https://flavio-es-modules-example.glitch.me/uppercase.js'
+import toUpper from 'https://flavio-es-modules-example.glitch.me/uppercase.js'
 ```
 
 Or you can use a relative path:
 
 ```javascript
-import { toUpperCase } from '/uppercase.js'
-import { toUpperCase } from '../uppercase.js'
+import { toUpper } from '/uppercase.js'
+import { toUpper } from '../uppercase.js'
 ```
 
-## Export list
+## Combining Export Statements
+
+```javascript
+let specialty = '';
+function isVegetarian() {
+};
+function isLowSodium() {
+};
+function isGlutenFree() {
+};
+
+export { specialty as chefsSpecial, isVegetarian as isVeg };
+export default isGlutenFree;
+```
+
+or:
+
+```javascript
+export let Menu = {};
+
+export let specialty = '';
+export let isVegetarian = function() {
+};
+export let isLowSodium = function() {
+};
+let isGlutenFree = function() {
+};
+
+export default isGlutenFree;
+```
+
+We can import both types of variables as such:
+
+```javascript
+import { specialty, isVegetarian, isLowSodium } from './menu';
+
+import GlutenFree from './menu';
+```
+
+## Export lists
 
 ```javascript
 const a = 1
@@ -118,17 +176,16 @@ export {
 };
 ```
 
-## CommonJS
+## Node case: CommonJS
 
 It's easiest to just look at what the three different ES6 import/export styles compile down to in CommonJS:
 
 ```javascript
-// Three different export styles
+// ES6
 export foo;
 export default foo;
 export = foo;
 
-// The three matching import styles
 import {foo} from 'blah';
 import foo from 'blah';
 import * as foo from 'blah';
@@ -137,6 +194,7 @@ import * as foo from 'blah';
 Roughly compiles to:
 
 ```javascript
+// CommonJS
 exports.foo = foo;
 exports['default'] = foo;
 module.exports = foo;
