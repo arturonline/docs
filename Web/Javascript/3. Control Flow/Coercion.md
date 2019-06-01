@@ -1,10 +1,11 @@
 # Type Coercion
 
-Coercion is the process of converting a value from one type into another. Type coercion can be *explicit* and *implicit*.
+Coercion is the process of converting a value from one type into another.
 
-When a developer expresses the intention to convert between types by writing the appropriate code, like Number(value), it’s called **explicit type coercion** (or type casting).
+Type coercion can be *explicit* and *implicit*:
 
-Since JavaScript is a weakly-typed language, values can also be converted between different types automatically, and it is called **implicit type coercion**.
+- When a developer expresses the intention to convert between types by writing the appropriate code, like Number(value), it’s called **explicit type coercion** (or type casting).
+- Since JavaScript is a weakly-typed language, values can also be converted between different types automatically, and it is called **implicit type coercion**.
 
 ```javascript
 String(123) // explicit
@@ -166,24 +167,21 @@ There are two special rules to remember:
 ## Examples of type Coercion
 
 ```javascript
-let a = true + 1 // 1 + 1
-let b = true + true // 1 + 1
-let c = true + false // 1 + 0
-let d = "hello" + " " + "there." // "hello there."
-let e = "Username" + 12345 // Username12345
-let f = 1 / "strintg" // NaN
-let g = NaN === NaN // false
-let h = [1] + [2] //"12"<String>
-let i = Infinity // Infinity
-let j = [] + [] // "" <String>
-let k = [] + {} // [Object Object]
+true + 1 // 1 + 1
+true + true // 1 + 1
+true + false // 1 + 0
+"hello" + " " + "there." // "hello there."
+"Username" + 12345 // Username12345
+1 / "strintg" // NaN
+NaN === NaN // false
+[1] + [2] //"12"<String>
+Infinity // Infinity
+[] + [] // "" <String>
+[] + {} // [Object Object]
 ```
 
 ```javascript
-true + false             // 1
 12 / "6"                 // 2
-"number" + 15 + 3        // 'number153'
-15 + 3 + "number"        // '18number'
 [1] > null               // true
 "foo" + + "bar"          // 'fooNaN'
 'true' == true           // false
