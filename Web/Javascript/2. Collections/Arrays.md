@@ -11,7 +11,7 @@ In Javascript Array is:
 ```Javascript
 var arr = new Array(1, 2, 3);
 var arr = Array('casa', 'piso', '1,10');
-var arr = [true, 'log', NaN];
+var arr = [true, 'log', NaN, new Date(), {a:1, b:2}];
 ```
 
 ## Array without elements
@@ -51,17 +51,14 @@ arr['length'];  // 3
 
 ## Assign array
 
-You may recall that you can declare variables with both the `let` and `const` keywords. Variables declared with let can be reassigned.
-
-Variables declared with the const keyword cannot be reassigned. However, elements in an array declared with `const` remain mutable. Meaning that we can change the contents of a const array, but cannot reassign a new array or a different value.
+Elements in an array declared with `const` can change the contents of a const array, but cannot reassign a new array.
 
 ```javascript
-let condiments = ['Ketchup', 'Mustard', 'Soy Sauce', 'Sriracha'];
-condiments[0] = 'Mayo';
-console.log(condiments);
+const numbers = [1, 2, 3];
+const letters = ['a', 'b', 'c'];
 
-condiments = ['Mayo'];
-console.log(condiments);
+numbers.push('a') // [1, 2, 3, "a"]
+numbers = letters; // TypeError: Attempted to assign to readonly property.
 ```
 
 ## Understanding length
@@ -78,16 +75,30 @@ console.log(cats); // logs "Dusty, Misty" - Twiggy has been removed
 
 ## Iterating over an array
 
-Since JavaScript elements are saved as standard object properties, it is not advisable to iterate through JavaScript arrays using `for...in` loops because normal elements and all enumerable properties will be listed.
-
 ```Javascript
+// Sequential for loop
 var colors = ['red', 'green', 'blue'];
 for (var i = 0; i < colors.length; i++) {
   console.log(colors[i]);
 }
+// red
+// green
+// blue
 ```
 
 ```Javascript
+// with ES6 for...of
+var colors = ['red', 'green', 'blue'];
+for (const color of colors) {
+  console.log(color);
+});
+// red
+// green
+// blue
+```
+
+```Javascript
+// with ES6 forEach
 var colors = ['red', 'green', 'blue'];
 colors.forEach(function(color) {
   console.log(color);
@@ -104,6 +115,18 @@ colors.forEach(color => console.log(color));
 // red
 // green
 // blue
+```
+
+> ⚠️ for...in doesn't work as expected!
+
+```javascript
+var colors = ['red', 'green', 'blue'];
+for (const color in colors) {
+  console.log(color);
+});
+// 0
+// 1
+// 2
 ```
 
 ## Array methods
