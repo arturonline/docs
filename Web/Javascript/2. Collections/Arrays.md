@@ -131,9 +131,7 @@ for (const color in colors) {
 
 ## Array methods
 
-The Array object has the following methods:
-
-- `concat()` joins two arrays and returns a new array.
+`concat()` joins two arrays and returns a new array.
 
   ```Javascript
   var myArray = new Array('1', '2', '3');
@@ -141,21 +139,21 @@ The Array object has the following methods:
   // myArray is now ["1", "2", "3", "a", "b", "c"]
   ```
 
-- `join(deliminator = ',')` joins all elements of an array into a string.
+`join(deliminator = ',')` joins all elements of an array into a string.
 
   ```Javascript
   var myArray = new Array('Wind', 'Rain', 'Fire');
   var list = myArray.join(' - '); // list is "Wind - Rain - Fire"
   ```
 
-- `push()` adds one or more elements to the end of an array and returns the resulting length of the array.
+`push()` adds one or more elements to the end of an array and returns the resulting length of the array.
 
   ```Javascript
   var myArray = new Array('1', '2');
   myArray.push('3'); // myArray is now ["1", "2", "3"]
   ```
 
-- `pop()` removes the last element from an array and returns that element.
+`pop()` removes the last element from an array and returns that element.
 
   ```Javascript
   var myArray = new Array('1', '2', '3');
@@ -163,7 +161,7 @@ The Array object has the following methods:
   // myArray is now ["1", "2"], last = "3"
   ```
 
-- `shift()` removes the first element from an array and returns that element.
+`shift()` removes the first element from an array and returns that element.
 
   ```Javascript
   var myArray = new Array('1', '2', '3');
@@ -171,7 +169,7 @@ The Array object has the following methods:
   // myArray is now ["2", "3"], first is "1"
   ```
 
-- `unshift()` adds one or more elements to the front of an array and returns the new length of the array.
+`unshift()` adds one or more elements to the front of an array and returns the new length of the array.
 
   ```Javascript
   var myArray = new Array('1', '2', '3');
@@ -179,7 +177,7 @@ The Array object has the following methods:
   // myArray becomes ["4", "5", "1", "2", "3"]
   ```
 
-- `slice(start_index, upto_index)` extracts a section of an array and returns a new array.
+`slice(start_index, upto_index)` extracts a section of an array and returns a new array.
 
   ```Javascript
   var myArray = new Array('a', 'b', 'c', 'd', 'e');
@@ -187,7 +185,7 @@ The Array object has the following methods:
                                 // until index 3, returning [ "b", "c", "d"]
   ```
 
-- `splice(index, count_to_remove, addElement1, addElement2, ...)` removes elements from an array and (optionally) replaces them. It returns the items which were removed from the array.
+`splice(index, count_to_remove, addElement1, addElement2, ...)` removes elements from an array and (optionally) replaces them. It returns the items which were removed from the array.
 
   ```Javascript
   var myArray = new Array('1', '2', '3', '4', '5');
@@ -198,7 +196,7 @@ The Array object has the following methods:
   // elements in its place.
   ```
 
-- `reverse()` transposes the elements of an array, in place: the first array element becomes the last and the last becomes the first. It returns a reference to the array.
+`reverse()` transposes the elements of an array, in place: the first array element becomes the last and the last becomes the first. It returns a reference to the array.
 
   ```Javascript
   var myArray = new Array('1', '2', '3');
@@ -206,7 +204,7 @@ The Array object has the following methods:
   // transposes the array so that myArray = ["3", "2", "1"]
   ```
 
-- `sort()` sorts the elements of an array in place, and returns a reference to the array.
+`sort()` sorts the elements of an array in place, and returns a reference to the array.
 
   ```Javascript
   var myArray = new Array('Wind', 'Rain', 'Fire');
@@ -236,7 +234,8 @@ The Array object has the following methods:
   if a is greater than b by the sorting system, return 1 (or any positive number)
   if a and b are considered equivalent, return 0.
 
-- `indexOf(searchElement[, fromIndex])` searches the array for searchElement and returns the index of the first match.
+
+`indexOf(searchElement[, fromIndex])` searches the array for searchElement and returns the index of the first match.
 
   ```Javascript
   var a = ['a', 'b', 'a', 'b', 'a'];
@@ -246,7 +245,7 @@ The Array object has the following methods:
   console.log(a.indexOf('z')); // logs -1, because 'z' was not found
   ```
 
-- `lastIndexOf(searchElement[, fromIndex])` works like indexOf, but starts at the end and searches backwards.
+`lastIndexOf(searchElement[, fromIndex])` works like indexOf, but starts at the end and searches backwards.
 
   ```Javascript
   var a = ['a', 'b', 'c', 'd', 'a', 'b'];
