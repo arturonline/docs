@@ -117,7 +117,7 @@ colors.forEach(color => console.log(color));
 // blue
 ```
 
-> ⚠️ for...in doesn't work as expected!
+> ⚠️ `for...in` doesn't work as expected!
 
 ```javascript
 var colors = ['red', 'green', 'blue'];
@@ -189,9 +189,9 @@ for (const color in colors) {
 
   ```Javascript
   var myArray = new Array('1', '2', '3', '4', '5');
-  myArray.splice(1, 3, 'a', 'b', 'c', 'd'); 
+  myArray.splice(1, 3, 'a', 'b', 'c', 'd');
   // myArray is now ["1", "a", "b", "c", "d", "5"]
-  // This code started at index one (or where the "2" was), 
+  // This code started at index one (or where the "2" was),
   // removed 3 elements there, and then inserted all consecutive
   // elements in its place.
   ```
@@ -233,7 +233,6 @@ for (const color in colors) {
   if a is less than b by the sorting system, return -1 (or any negative number)
   if a is greater than b by the sorting system, return 1 (or any positive number)
   if a and b are considered equivalent, return 0.
-
 
 `indexOf(searchElement[, fromIndex])` searches the array for searchElement and returns the index of the first match.
 
