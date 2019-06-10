@@ -1,6 +1,6 @@
 # Control Flow
 
-## if else statement
+## if-else statement
 
 ```javascript
 if (stopLight === 'green' && pedestrians === 0) {
@@ -10,7 +10,7 @@ if (stopLight === 'green' && pedestrians === 0) {
 }
 ```
 
-## if else if else statement
+## else-if statement
 
 ```javascript
 let season = 'summer';
