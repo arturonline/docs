@@ -29,3 +29,36 @@ npm run dev
 ```
 
 Then open `http://localhost:3000` from your favourite browser.
+
+## Navigate Between Pages
+
+In order to support client-side navigation, we need to use Next.js's **Link API**, which is exported via `next/link`.
+
+`<Link />` will prefetch the page and navigation will happen without a page refresh:
+
+```jsx
+// imagine we have an about.js page in the same folder
+
+import Link from 'next/link';
+
+const Index = () => (
+  <div>
+    <Link href="/about">
+      <a>About Page</a>
+    </Link>
+    <p>Hello Next.js</p>
+  </div>
+);
+
+export default Index;
+```
+
+### Link With a Button
+
+Let's say that we need to use a "button" instead of an anchor for our link. Then we need to edit our navigation code like this:
+
+```jsx
+<Link href="/about">
+  <button>Go to About Page</button>
+</Link>
+```
