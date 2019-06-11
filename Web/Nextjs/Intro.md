@@ -55,8 +55,6 @@ export default Index;
 
 ### Link With a Button
 
-Let's say that we need to use a "button" instead of an anchor for our link. Then we need to edit our navigation code like this:
-
 ```jsx
 <Link href="/about">
   <button>Go to About Page</button>
