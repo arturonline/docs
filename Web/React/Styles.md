@@ -77,7 +77,7 @@ React will automatically append a “px” suffix to certain numeric inline styl
 
 Specifying “px” with a string will still work, although it’s redundant.
 
-## Share Styles Across Multiple Components
+## #2. Share Styles Across Multiple Components
 
 What if you want to reuse styles for several different components?
 
@@ -118,3 +118,35 @@ export class Wow extends React.Component {
 ReactDOM.render(<Wow />, document.getElementById('app')
 );
 ```
+
+## #3 External CSS Stylesheet
+
+Writing styles in an external CSS file and importing them in your components is another approach used in React, through which we can create a separate stylesheet for each component.
+
+```css
+.roundedButton {
+  color: #fff;
+  background-color: rgb(225, 0, 80);
+  border-radius: 10px;
+  padding: 10px 20px;
+  border: 0;
+  cursor: pointer;
+
+}
+
+.roundedButton:hover {
+  background-color: rgb(181, 2, 66);
+}
+```
+
+```jsx
+import React from "react";
+import "./RoundedButton.css";
+
+const RoundedButton = props => (
+<button className="roundedButton">{props.children}</button>
+);
+
+export default RoundedButton;
+```
+
