@@ -1,10 +1,10 @@
-# State
+# Class component State
 
-A React component should use state to store information that the component itself can change. Unlike props, a component’s **state** is not passed in from the outside. A component decides its own **state**.
+A React class component should use state to store information that the component itself can change. Unlike props, a component’s **state** is not passed in from the outside. A component decides its own **state**.
 
 ## Declaration
 
-To make a component have **state**, give the component a *state property*. This property should be declared inside of a constructor method, like this:
+To make a class component have **state**, give the component a *state property*. This property should be declared inside of a constructor method, like this:
 
 ```jsx
 class Example extends React.Component {
@@ -44,7 +44,7 @@ class TodayImFeeling extends React.Component {
 
 ## Update state: `this.setState`
 
-A component changes its state by calling the function `this.setState()`.
+A class component changes its state by calling the function `this.setState()`.
 
 Any time that you call `this.setState()`, `this.setState()` AUTOMATICALLY calls `.render()` as soon as the state has changed.
 
@@ -77,13 +77,13 @@ Notice that `<Example />` has a state of:
 }
 ```
 
-Now, let’s say that <Example /> were to call:
+Now, let’s say that `<Example />` were to call:
 
 ```jsx
 this.setState({ hungry: true });
 ```
 
-After that call, here is what <Example />‘s state would be:
+After that call, here is what `<Example />`‘s state would be:
 
 ```jsx
 {
@@ -94,7 +94,7 @@ After that call, here is what <Example />‘s state would be:
 
 The mood part of the state remains unaffected!
 
-`this.setState()` takes an object, and merges that object with the component’s current state. If there are properties in the current state that aren’t part of that object, then those properties remain how they were.
+`this.setState()` takes an object, and merges that object with the class component’s current state. If there are properties in the current state that aren’t part of that object, then those properties remain how they were.
 
 ## Call `this.setState` from another function
 
