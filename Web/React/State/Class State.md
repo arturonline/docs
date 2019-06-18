@@ -4,24 +4,24 @@ A React class component should use state to store information that the component
 
 ## Declaration
 
-To make a class component have **state**, give the component a *state property*. This property should be declared inside of a constructor method, like this:
+To make a class component have **state**, give the component a _state property_. This property should be declared inside of a constructor method, like this:
 
 ```jsx
 class Example extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { mood: 'decent' };
+    this.state = { mood: "decent" };
   }
 
   render() {
-    return <div></div>;
+    return <div />;
   }
 }
 
-<Example />
+<Example />;
 ```
 
-- `this.state` should be equal to an object. This object represents the initial *state* of any component instance.
+- `this.state` should be equal to an object. This object represents the initial _state_ of any component instance.
 
 ## Access a Component's state
 
@@ -29,15 +29,11 @@ class Example extends React.Component {
 class TodayImFeeling extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { mood: 'decent' };
+    this.state = { mood: "decent" };
   }
 
   render() {
-    return (
-      <h1>
-        I'm feeling {this.state.mood}!
-      </h1>
-    );
+    return <h1>I'm feeling {this.state.mood}!</h1>;
   }
 }
 ```
@@ -49,23 +45,23 @@ A class component changes its state by calling the function `this.setState()`.
 Any time that you call `this.setState()`, `this.setState()` AUTOMATICALLY calls `.render()` as soon as the state has changed.
 
 ```jsx
-import React from 'react';
+import React from "react";
 
 class Example extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      mood:   'great',
+      mood: "great",
       hungry: false
     };
   }
 
   render() {
-    return <div></div>;
+    return <div />;
   }
 }
 
-<Example />
+<Example />;
 ```
 
 Notice that `<Example />` has a state of:
@@ -99,20 +95,20 @@ The mood part of the state remains unaffected!
 ## Call `this.setState` from another function
 
 ```jsx
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
 class Mood extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { mood: 'good' };
+    this.state = { mood: "good" };
 
     // This binding is necessary to make `this` work in the callback
     this.toggleMood = this.toggleMood.bind(this);
   }
 
   toggleMood() {
-    const newMood = this.state.mood == 'good' ? 'bad' : 'good';
+    const newMood = this.state.mood == "good" ? "bad" : "good";
     this.setState({ mood: newMood });
   }
 
@@ -120,15 +116,13 @@ class Mood extends React.Component {
     return (
       <div>
         <h1>I'm feeling {this.state.mood}!</h1>
-        <button onClick={this.toggleMood}>
-          Click Me
-        </button>
+        <button onClick={this.toggleMood}>Click Me</button>
       </div>
     );
   }
 }
 
-ReactDOM.render(<Mood />, document.getElementById('app'));
+ReactDOM.render(<Mood />, document.getElementById("app"));
 ```
 
 ### About binding `this`
@@ -141,27 +135,27 @@ If calling bind annoys you, there are **two** ways you can get around this:
 
 1. Public class fields syntax:
 
-    ```jsx
-    class Mood extends React.Component {
-    constructor(props) {
-      super(props);
-      this.state = { mood: 'good' };
-      };
+   ```jsx
+   class Mood extends React.Component {
+   constructor(props) {
+     super(props);
+     this.state = { mood: 'good' };
+     };
 
-    // This syntax ensures `this` is bound within toggleMood
-      toggleMood() = () => {
-          const newMood = this.state.mood == 'good' ? 'bad' : 'good';
-          this.setState({ mood: newMood });
-      }
-    ```
+   // This syntax ensures `this` is bound within toggleMood
+     toggleMood() = () => {
+         const newMood = this.state.mood == 'good' ? 'bad' : 'good';
+         this.setState({ mood: newMood });
+     }
+   ```
 
 2. Arrow Function syntax:
 
-    ```jsx
-    render() {
-      return(
-        // This syntax ensures `this` is bound within toggleMood(e)
-        <button onClick={(e) => this.toggleMood(e) }>
-      )
-    }
-    ```
+   ```jsx
+   render() {
+     return(
+       // This syntax ensures `this` is bound within toggleMood(e)
+       <button onClick={(e) => this.toggleMood(e) }>
+     )
+   }
+   ```

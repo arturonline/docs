@@ -1,10 +1,10 @@
 # Func component state: Hooks
 
-Hooks are functions that let you *“hook into”* React state and lifecycle features from function components. Hooks don’t work inside classes — they let you use React without classes.
+Hooks are functions that let you _“hook into”_ React state and lifecycle features from function components. Hooks don’t work inside classes — they let you use React without classes.
 
 ```jsx
-import React from 'react';
-import './App.css';
+import React from "react";
+import "./App.css";
 
 const App = () => {
   return (
@@ -12,7 +12,7 @@ const App = () => {
       <h1>Hello, World!</h1>
     </div>
   );
-}
+};
 
 export default App;
 ```
@@ -20,20 +20,20 @@ export default App;
 Adding state:
 
 ```jsx
-import React, { useState } from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 const App = () => {
-  const [name, setName] = useState('World');
+  const [name, setName] = useState("World");
   return (
     <div className="App">
       <h1>Hello, {name}!</h1>
-      <button onClick={() => setName('James')}>
+      <button onClick={() => setName("James")}>
         Click me to change the name
       </button>
     </div>
   );
-}
+};
 
 export default App;
 ```
@@ -41,10 +41,10 @@ export default App;
 How it works:
 
 - Importing the `useState` hook from React.
-- Creating a new constant that returns a pair of objects: *name* and *setName* from *useState*.
-- Initializing the *useState* hook with a value of *‘World’*.
-- Using the *‘name’* state property by inserting it after *‘Hello’*, `{name}`.
-- Adding a button with an `onClick` handler that calls the `setName` function of useState with the value, *‘James’*.
+- Creating a new constant that returns a pair of objects: _name_ and _setName_ from _useState_.
+- Initializing the _useState_ hook with a value of _‘World’_.
+- Using the _‘name’_ state property by inserting it after _‘Hello’_, `{name}`.
+- Adding a button with an `onClick` handler that calls the `setName` function of useState with the value, _‘James’_.
 
 ## Using the Effect Hook
 
