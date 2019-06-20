@@ -1,0 +1,161 @@
+# Class component State
+
+A React class component should use state to store information that the component itself can change. Unlike props, a component’s **state** is not passed in from the outside. A component decides its own **state**.
+
+## Declaration
+
+To make a class component have **state**, give the component a _state property_. This property should be declared inside of a constructor method, like this:
+
+```jsx
+class Example extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { mood: "decent" };
+  }
+
+  render() {
+    return <div />;
+  }
+}
+
+<Example />;
+```
+
+- `this.state` should be equal to an object. This object represents the initial _state_ of any component instance.
+
+## Access a Component's state
+
+```jsx
+class TodayImFeeling extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { mood: "decent" };
+  }
+
+  render() {
+    return <h1>I'm feeling {this.state.mood}!</h1>;
+  }
+}
+```
+
+## Update state: `this.setState`
+
+A class component changes its state by calling the function `this.setState()`.
+
+Any time that you call `this.setState()`, `this.setState()` AUTOMATICALLY calls `.render()` as soon as the state has changed.
+
+```jsx
+import React from "react";
+
+class Example extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      mood: "great",
+      hungry: false
+    };
+  }
+
+  render() {
+    return <div />;
+  }
+}
+
+<Example />;
+```
+
+Notice that `<Example />` has a state of:
+
+```jsx
+{
+  mood:   'great',
+  hungry: false
+}
+```
+
+Now, let’s say that `<Example />` were to call:
+
+```jsx
+this.setState({ hungry: true });
+```
+
+After that call, here is what `<Example />`‘s state would be:
+
+```jsx
+{
+  mood:   'great',
+  hungry: true
+}
+```
+
+The mood part of the state remains unaffected!
+
+`this.setState()` takes an object, and merges that object with the class component’s current state. If there are properties in the current state that aren’t part of that object, then those properties remain how they were.
+
+## Call `this.setState` from another function
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+
+class Mood extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { mood: "good" };
+
+    // This binding is necessary to make `this` work in the callback
+    this.toggleMood = this.toggleMood.bind(this);
+  }
+
+  toggleMood() {
+    const newMood = this.state.mood == "good" ? "bad" : "good";
+    this.setState({ mood: newMood });
+  }
+
+  render() {
+    return (
+      <div>
+        <h1>I'm feeling {this.state.mood}!</h1>
+        <button onClick={this.toggleMood}>Click Me</button>
+      </div>
+    );
+  }
+}
+
+ReactDOM.render(<Mood />, document.getElementById("app"));
+```
+
+### About binding `this`
+
+`this.toggleMood()` loses its `this` when it is used on line 20… unless you have already bound the correct this to `this.toggleMood`. That is why we must **bind** `this.toggleMood` to `this` on line 8.
+
+In React, whenever you define an event handler that uses `this`, you need to add `this.methodName = this.methodName.bind(this)` to your constructor function.
+
+If calling bind annoys you, there are **two** ways you can get around this:
+
+1. Public class fields syntax:
+
+   ```jsx
+   class Mood extends React.Component {
+   constructor(props) {
+     super(props);
+     this.state = { mood: 'good' };
+     };
+
+   // This syntax ensures `this` is bound within toggleMood
+     toggleMood() = () => {
+         const newMood = this.state.mood == 'good' ? 'bad' : 'good';
+         this.setState({ mood: newMood });
+     }
+   ```
+
+2. Arrow Function syntax:
+
+   ```jsx
+   render() {
+     return(
+       // This syntax ensures `this` is bound within toggleMood(e)
+       <button onClick={(e) => this.toggleMood(e) }>
+     )
+   }
+   ```
