@@ -16,21 +16,19 @@ Using the style attribute as the primary means of styling elements is generally 
 
   ```jsx
   // and then injected on line 11.
-  import React from 'react';
+  import React from "react";
 
   // style object:
   const styles = {
-    color: 'darkcyan',
-    background: 'mintcream'
+    color: "darkcyan",
+    background: "mintcream"
   };
 
   export class StyledClass extends React.Component {
     render() {
       return (
         // Injecte styled variable
-        <h1 style={styles}>
-          Hello world
-        </h1>
+        <h1 style={styles}>Hello world</h1>
       );
     }
   }
@@ -45,8 +43,8 @@ In regular JavaScript, style names are written in hyphenated-lowercase:
 ```jsx
 //css example
 const styles = {
-  'margin-top':       "20px",
-  'background-color': "green"
+  "margin-top": "20px",
+  "background-color": "green"
 };
 ```
 
@@ -55,7 +53,7 @@ In React, those same names are instead written in camelCase:
 ```jsx
 // react css
 const styles = {
-  marginTop:       "20px",
+  marginTop: "20px",
   backgroundColor: "green"
 };
 ```
@@ -67,12 +65,16 @@ This has zero effect on style property values, only on style property names.
 React will automatically append a “px” suffix to certain numeric inline style properties. If you want to use units other than “px”, specify the value as a string with the desired unit.
 
 ```css
-{ font-Size: "30px" }
+ {
+  font-size: "30px";
+}
 ```
 
 ```jsx
 // react:
-{ fontSize: 30 }
+{
+  fontSize: 30;
+}
 ```
 
 Specifying “px” with a string will still work, although it’s redundant.
@@ -87,18 +89,19 @@ Example:
 
 ```jsx
 // styles.js
-const fontFamily = 'Comic Sans MS, Lucida Handwriting, cursive';
-const background = 'pink url("https://media.giphy.com/media/oyr89uTOBNVbG/giphy.gif") fixed';
-const fontSize = '4em';
-const padding = '45px 0';
-const color = 'green';
+const fontFamily = "Comic Sans MS, Lucida Handwriting, cursive";
+const background =
+  'pink url("https://media.giphy.com/media/oyr89uTOBNVbG/giphy.gif") fixed';
+const fontSize = "4em";
+const padding = "45px 0";
+const color = "green";
 ```
 
 ```jsx
 // Component.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { colorStyles } from './facebookStyles';
+import React from "react";
+import ReactDOM from "react-dom";
+import { colorStyles } from "./facebookStyles";
 
 let divStyle = {
   backgroundColor: styles.darkBlue,
@@ -107,16 +110,11 @@ let divStyle = {
 
 export class Wow extends React.Component {
   render() {
-    return (
-      <div style={divStyle}>
-        Wow, I stole these colors from Facebook!
-      </div>
-    );
+    return <div style={divStyle}>Wow, I stole these colors from Facebook!</div>;
   }
 }
 
-ReactDOM.render(<Wow />, document.getElementById('app')
-);
+ReactDOM.render(<Wow />, document.getElementById("app"));
 ```
 
 ## #3 External CSS Stylesheet
@@ -131,7 +129,6 @@ Writing styles in an external CSS file and importing them in your components is 
   padding: 10px 20px;
   border: 0;
   cursor: pointer;
-
 }
 
 .roundedButton:hover {
@@ -144,9 +141,8 @@ import React from "react";
 import "./RoundedButton.css";
 
 const RoundedButton = props => (
-<button className="roundedButton">{props.children}</button>
+  <button className="roundedButton">{props.children}</button>
 );
 
 export default RoundedButton;
 ```
-
