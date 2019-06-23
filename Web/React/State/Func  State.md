@@ -76,3 +76,41 @@ const App = () => {
 ```
 
 Everytime the button clicks the state is modified and the `useEffect` method runs.
+
+### Multiple effects
+
+Just like you can use the State Hook more than once, you can also use several effects. This lets us separate unrelated logic into different effects:
+
+```jsx
+function FriendStatusWithCounter(props) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    document.title = `You clicked ${count} times`;
+  });
+
+  const [isOnline, setIsOnline] = useState(null);
+  useEffect(() => {
+    function handleStatusChange(status) {
+      setIsOnline(status.isOnline);
+    }
+
+    ChatAPI.subscribeToFriendStatus(props.friend.id, handleStatusChange);
+    return () => {
+      ChatAPI.unsubscribeFromFriendStatus(props.friend.id, handleStatusChange);
+    };
+  });
+  // ...
+}
+```
+
+You can tell React to skip applying an effect if certain values haven’t changed between re-renders. To do so, pass an array as an optional second argument to useEffect:
+
+```jsx
+useEffect(() => {
+  document.title = `You clicked ${count} times`;
+}, [count]); // Only re-run the effect if count changes
+```
+
+In the example above, we pass `[count]` as the second argument. This `useEffect` will only re-render the page when `[count]` is updated.
+
+> ⚠️ If you want to run an effect and clean it up only once (on mount and unmount), you can pass an empty array `([])` as a second argument. This tells React that your effect doesn’t depend on any values from props or state, so it never needs to re-run.
