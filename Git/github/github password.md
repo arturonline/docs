@@ -1,6 +1,17 @@
-# Connect github with SSH
+# Storing Password
 
-1. Create the SSH keys:
+Two options:
+
+## Option #1: Using credential store
+
+    ```bash
+    git config credential.helper store
+    git push http://example.com/repo.git
+    Username: <type your username>
+    Password: <type your password>
+    ```
+
+## Option #2: Using SSH keys
 
     ```bash
     cd ~                 #Your home directory
