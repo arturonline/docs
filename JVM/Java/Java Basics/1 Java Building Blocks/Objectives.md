@@ -4,7 +4,7 @@
 
 - There are three styles of comment: a single-line comment (//), a multiline comment (/* */), and a Javadoc comment (/** */).
 
-- Java begins program execution with a main() method. The most common signature for this method run from the command line is public static void main(String[] args). Arguments are passed in after the class name, as in java NameOfClass firstArgument. Arguments are indexed starting with 0.
+- Java begins program execution with a `main()` method. The most common signature for this method run from the command line is public static void main(String[] args). Arguments are passed in after the class name, as in java NameOfClass firstArgument. Arguments are indexed starting with 0.
 
 - Java code is organized into folders called packages. To reference classes in other packages, you use an import statement. A wildcard ending an import statement means you want to import all classes in that package. It does not include packages that are inside that one. java.lang is a special package that does not need to be imported.
 
