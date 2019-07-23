@@ -1,0 +1,24 @@
+# Intro
+
+> go get golang.org/x/tour
+> tour
+
+## Packages
+
+- Every Go program is made up of packages.
+- Programs start running in package main.
+- When importing a package, you can refer only to its exported names.
+- In Go, a name is exported if it begins with a capital letter.
+
+```go
+package main
+
+import (
+    "fmt"
+    "math/rand"
+)
+
+func main() {
+    fmt.Println("My favorite number is", rand.Intn(10))
+}
+```
