@@ -12,19 +12,19 @@ File descriptors always point to some file. Usually when bash starts all three f
 
 You can open more file descriptors (such as 3, 4, 5, ...), and you can close them. You can also copy file descriptors. And you can write to them and read from them.
 
-## 1. Redirect the standard output of a command to a file
+## Redirect the standard output of a command to a file
 
 ```bash
 command >file # command 1>file
 ```
 
-## 2. Redirect the standard error of a command to a file
+## Redirect the standard error of a command to a file
 
 ```bash
 command 2> file
 ```
 
-## 3. Redirect both standard output and standard error to a file
+## Redirect both standard output and standard error to a file
 
 ```bash
 command &>file # command >file 2>&1
@@ -79,6 +79,36 @@ exec {filew}>output_file
 ```
 
 Named file descriptors is a feature of bash 4.1. Named file descriptors look like `{varname}`. You can use them just like regular, numeric, file descriptors. Bash internally chooses a free file descriptor and assigns it a name.
+
+## Open a file for reading using a custom file descriptor
+
+```bash
+exec 3<file
+```
+
+Here opens the file for reading and assigns the opened file-descriptor to the shell's file descriptor number 3.
+
+Now you can read from the file descriptor 3, like this:
+
+```bash
+read -u 3 line
+```
+
+This reads a line from the file that we just opened as fd 3.
+
+Or you can use regular shell commands such as grep and operate on file descriptor 3:
+
+```bash
+grep "foo" <&3
+```
+
+After you're done using fd 3, you can close it this way:
+
+```bash
+exec 3>&-
+```
+
+Here the file descriptor 3 is duped to `-`, which is bash's special way to say "close this fd".
 
 ## Open a file for writing using a custom file descriptor
 
