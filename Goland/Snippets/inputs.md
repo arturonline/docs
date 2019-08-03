@@ -3,6 +3,36 @@
 > go get golang.org/x/tour
 > tour
 
+## Read string from console
+
+```go
+fmt.Println("Enter a name: ") // artur
+scanner := bufio.NewScanner(os.Stdin)
+scanner.Scan()
+value := scanner.Text()
+fmt.Println(value) // artur
+```
+
+## Read number from console
+
+```go
+fmt.Println("We are going to add 2 numbers!")
+
+scanner := bufio.NewScanner(os.Stdin)
+
+fmt.Println("Give first number: ")
+scanner.Scan()
+val1, _ := float64(strconv.Atoi(scanner.Text())
+
+fmt.Println("Give me second number: ")
+scanner.Scan()
+val2, _ := strconv.Atoi(scanner.Text())
+
+result := val1 + val2
+
+fmt.Println("Result: ", result)
+```
+
 ## Readers
 
 The `io` package specifies the `io.Reader` interface, which represents the read end of a stream of data.
