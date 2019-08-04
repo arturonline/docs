@@ -3,7 +3,79 @@
 > go get golang.org/x/tour
 > tour
 
-## Read string from console
+Read input from console
+
+## Using scanf
+
+`Scanf` scans text read from standard input, storing successive **space-separated values** into successive arguments as **determined by the format**. It returns the number of items successfully scanned. If that is less than the number of arguments, err will report why. Newlines in the input must match newlines in the format. The one exception: the verb %c always scans the next rune in the input, even if it is a space (or tab etc.) or newline.
+
+Read integer:
+
+```go
+var i int
+fmt.Scanf("%d", &i) // 1
+print(i)
+// 1
+```
+
+Read string:
+
+```go
+var str string
+fmt.Scanf("%s", &str) // hola
+print(str)
+// hola
+```
+
+## Using scan
+
+`Scan` scans text read from standard input, storing successive **space-separated** values into successive arguments. **Newlines count as space**. It returns the number of items successfully scanned. If that is less than the number of arguments, err will report why.
+
+Read integer:
+
+```go
+var i int
+fmt.Scan(&i)
+```
+
+Read string:
+
+```go
+var str string
+fmt.Scan(&str)
+```
+
+## Using scanln
+
+`scanln` is similar to `Scan`, but stops scanning at a newline and after the final item there must be a newline or EOF.
+
+Read string:
+
+```go
+var input string
+fmt.Scanln(&input)
+```
+
+## Using bufio
+
+Read int:
+
+```go
+scanner := bufio.NewScanner(os.Stdin)
+
+fmt.Println("Give first number: ")
+scanner.Scan()
+result, _ := strconv.Atoi(scanner.Text()
+
+fmt.Println("Result: ", result)
+```
+
+Read string:
+
+```go
+reader := bufio.NewReader(os.Stdin)
+text, err := reader.ReadString('\n')
+```
 
 ```go
 fmt.Println("Enter a name: ") // artur
@@ -11,70 +83,4 @@ scanner := bufio.NewScanner(os.Stdin)
 scanner.Scan()
 value := scanner.Text()
 fmt.Println(value) // artur
-```
-
-## Read number from console
-
-```go
-fmt.Println("We are going to add 2 numbers!")
-
-scanner := bufio.NewScanner(os.Stdin)
-
-fmt.Println("Give first number: ")
-scanner.Scan()
-val1, _ := float64(strconv.Atoi(scanner.Text())
-
-fmt.Println("Give me second number: ")
-scanner.Scan()
-val2, _ := strconv.Atoi(scanner.Text())
-
-result := val1 + val2
-
-fmt.Println("Result: ", result)
-```
-
-## Readers
-
-The `io` package specifies the `io.Reader` interface, which represents the read end of a stream of data.
-
-The Go standard library contains many implementations of these interfaces, including files, network connections, compressors, ciphers, and others.
-
-The `io.Reader` interface has a `Read` method:
-
-```go
-func (T) Read(b []byte) (n int, err error)
-```
-
-`Read` populates the given byte slice with data and returns the number of bytes populated and an error value. It returns an `io.EOF` error when the stream ends.
-
-The example code creates a `b` and consumes its output 8 bytes at a time.
-
-```go
-package main
-
-import (
-	"fmt"
-	"io"
-	"strings"
-)
-
-func main() {
-	r := strings.NewReader("Hello, Reader!")
-
-	b := make([]byte, 8)
-	for {
-		n, err := r.Read(b)
-		fmt.Printf("n = %v err = %v b = %v\n", n, err, b)
-		fmt.Printf("b[:n] = %q\n", b[:n])
-		if err == io.EOF {
-			break
-		}
-	}
-}
-// n = 8 err = <nil> b = [72 101 108 108 111 44 32 82]
-// b[:n] = "Hello, R"
-// n = 6 err = <nil> b = [101 97 100 101 114 33 32 82]
-// b[:n] = "eader!"
-// n = 0 err = EOF b = [101 97 100 101 114 33 32 82]
-// b[:n] = ""
 ```
