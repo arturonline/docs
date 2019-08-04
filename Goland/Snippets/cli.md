@@ -1,6 +1,7 @@
 # How To Create Your Own CLI
 
 >[link](https://itnext.io/how-to-create-your-own-cli-with-golang-3c50727ac608)
+>[link2++](https://blog.rapid7.com/2016/08/04/build-a-simple-cli-tool-with-golang/)
 
 ## Prerequisites
 
