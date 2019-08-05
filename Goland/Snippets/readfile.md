@@ -41,18 +41,14 @@ import (
 
 func main() {
 
-    // create a path to the file
-    fptr := flag.String("fpath", "test.txt", "file path to read from")
-    flag.Parse()
-
-    f, err := os.Open(*fptr) // open file in path
+    f, err := os.Open("text.txt") // open file in path
     if err != nil {
         log.Fatal(err)
     }
     defer func() {
         if err = f.Close(); err != nil {
-        log.Fatal(err)
-    }
+            log.Fatal(err)
+        }
     }()
     s := bufio.NewScanner(f) // create buffer
     for s.Scan() {
@@ -81,12 +77,7 @@ import (
 )
 
 func main() {
-
-    // create a path to the file
-    fptr := flag.String("fpath", "test.txt", "file path to read from")
-    flag.Parse()
-
-    f, err := os.Open(*fptr) // open file in path
+    f, err := os.Open("text.txt") // open file in path
     if err != nil {
         log.Fatal(err)
     }
