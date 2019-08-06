@@ -1,5 +1,7 @@
 # os utilities
 
+> [DevDungeon](https://www.devdungeon.com/content/working-files-go)
+
 ## Reading an entire file into memory
 
 One of the most basic file operations is reading an entire file into memory. This is done with the help of the `ReadFile` function of the `ioutil` package:
