@@ -87,6 +87,17 @@ func main() {
 }
 ```
 
+Use these attributes individually or combined with an OR for second arg of OpenFile() e.g.
+
+```go
+os.O_RDONLY // Read only
+os.O_WRONLY // Write only
+os.O_RDWR // Read and write
+os.O_APPEND // Append to end of file
+os.O_CREATE // Create is none exist
+os.O_TRUNC // Truncate file when opening
+```
+
 ## #4 Writing bytes to a file
 
 ```go
@@ -99,30 +110,29 @@ func (f *File) Write(b []byte) (n int, err error)
 package main
 
 import (
-    "fmt"
     "os"
+    "log"
 )
 
 func main() {
-    f, err := os.Create("/home/naveen/bytes")
+    // Open a new file for writing only
+    file, err := os.OpenFile(
+        "test.txt",
+        os.O_WRONLY|os.O_TRUNC|os.O_CREATE,
+        0666,
+    )
     if err != nil {
-        fmt.Println(err)
-        return
+        log.Fatal(err)
     }
+    defer file.Close()
 
-    d2 := []byte{104, 101, 108, 108, 111, 32, 119, 111, 114, 108, 100}
-    n2, err := f.Write(d2)
+    // Write bytes to file
+    byteSlice := []byte("Bytes!\n")
+    bytesWritten, err := file.Write(byteSlice)
     if err != nil {
-        fmt.Println(err)
-        f.Close()
-        return
+        log.Fatal(err)
     }
-    fmt.Println(n2, "bytes written successfully")
-    err = f.Close()
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
+    log.Printf("Wrote %d bytes.\n", bytesWritten)
 }
 ```
 
@@ -164,5 +174,48 @@ func main() {
         return
     }
     fmt.Println("file written successfully")
+}
+```
+
+## Copy a File
+
+```go
+package main
+
+import (
+    "os"
+    "log"
+    "io"
+)
+
+// Copy a file
+func main() {
+    // Open original file
+    originalFile, err := os.Open("test.txt")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer originalFile.Close()
+
+    // Create new file
+    newFile, err := os.Create("test_copy.txt")
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer newFile.Close()
+
+    // Copy the bytes to destination from source
+    bytesWritten, err := io.Copy(newFile, originalFile)
+    if err != nil {
+        log.Fatal(err)
+    }
+    log.Printf("Copied %d bytes.", bytesWritten)
+
+    // Commit the file contents
+    // Flushes memory to disk
+    err = newFile.Sync()
+    if err != nil {
+        log.Fatal(err)
+    }
 }
 ```

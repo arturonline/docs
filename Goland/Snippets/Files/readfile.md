@@ -2,25 +2,23 @@
 
 > [DevDungeon](https://www.devdungeon.com/content/working-files-go)
 
-## Reading an entire file into memory
-
-One of the most basic file operations is reading an entire file into memory. This is done with the help of the `ReadFile` function of the `ioutil` package:
+## Quick read whole file to memory
 
 ```go
 package main
 
 import (
-    "fmt"
+    "log"
     "io/ioutil"
 )
 
 func main() {
     data, err := ioutil.ReadFile("test.txt") // data is a []byte
     if err != nil {
-        fmt.Println("File reading error", err)
-        return
+        log.Fatal(err)
     }
-    fmt.Println("Contents of file:", string(data))
+
+    log.Printf("Data read: %s\n", data)
 }
 ```
 
