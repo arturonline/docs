@@ -109,13 +109,107 @@ fmt.Println(filepath.Match("/home/\\*", "/home/*"))
 // true <nil>
 ```
 
-## Walk and WalkFunc
+## List files in a folder
+
+### #0: using Glob (dangerous)
+
+```go
+func Glob(pattern string) (matches []string, err error)
+```
+
+Glob returns the **names** of all files matching pattern or nil if there is no matching file. The syntax of patterns is the same as in **Match**. The pattern may describe hierarchical names such as `/usr/*/bin/ed` (assuming the Separator is '/').
+
+⚠️ `Glob` ignores file system errors such as I/O errors reading directories. The only possible returned error is `ErrBadPattern`, when pattern is malformed.
+
+```go
+package main
+
+import (
+    "fmt"
+    "log"
+    "path/filepath"
+)
+
+func main() {
+    files, err := filepath.Glob("*")
+    if err != nil {
+        log.Fatal(err)
+    }
+    fmt.Println(files) // contains a list of all files in the current directory
+}
+```
+
+### #1: using ioutil.ReadDir (Prefered)
+
+```go
+func ReadDir(dirname string) ([]os.FileInfo, error)
+```
+
+ReadDir reads the directory named by dirname and returns a list of directory entries sorted by filename:
+
+```go
+package main
+
+import (
+    "fmt"
+    "io/ioutil"
+    "log"
+)
+
+func main() {
+    files, err := ioutil.ReadDir(".")
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    for _, file := range files {
+        fmt.Println(file.Name())
+    }
+}
+
+```
+
+### #2: using os.File.Readdir
+
+If you don’t need sorting you can as well ``use File.Readdir`:
+
+```go
+package main
+
+import (
+    "fmt"
+    "log"
+    "os"
+)
+
+func main() {
+    dirname := "."
+
+    f, err := os.Open(dirname)
+    if err != nil {
+        log.Fatal(err)
+    }
+    files, err := f.Readdir(-1)
+    f.Close()
+    if err != nil {
+        log.Fatal(err)
+    }
+
+    for _, file := range files {
+        fmt.Println(file.Name())
+    }
+}
+```
+
+### #3: Visit all files and subfolders in a directory tree with Walk and WalkFunc
 
 ```go
 func Walk(root string, walkFn WalkFunc) error
 ```
 
 `Walk` walks the file tree rooted at root, calling `walkFn` for each file or directory in the tree, including root. All errors that arise visiting files and directories are filtered by `walkFn`. Walk does not follow symbolic links.
+
+> `filepath.Walk` is handy but scans subfolders too, by default, which might not be what you want.
 
 ```go
 type WalkFunc func(path string, info os.FileInfo, err error) error
@@ -125,7 +219,30 @@ type WalkFunc func(path string, info os.FileInfo, err error) error
 
 If there was a problem walking to the file or directory named by path, the incoming error will describe the problem and the function can decide how to handle that error (and Walk will not descend into that directory). In the case of an error, the info argument will be nil. If an error is returned, processing stops. The sole exception is when the function returns the special value `SkipDir`. If the function returns SkipDir when invoked on a directory, Walk skips the directory's contents entirely. If the function returns SkipDir when invoked on a non-directory file, Walk skips the remaining files in the containing directory.
 
-Example:
+Example1:
+
+```go
+err := filepath.Walk(".",
+    func(path string, info os.FileInfo, err error) error {
+    if err != nil {
+        return err
+    }
+    fmt.Println(path, info.Size())
+    return nil
+})
+if err != nil {
+    log.Println(err)
+}
+// . 1644
+// dev 1644
+// dev/null 0
+// dev/random 0
+// dev/urandom 0
+// dev/zero 0
+// etc 1644
+```
+
+example2:
 
 ```go
 package main
