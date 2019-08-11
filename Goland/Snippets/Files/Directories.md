@@ -79,6 +79,10 @@ fmt.Println("On Unix:", filepath.SplitList("/a/b/c:/usr/bin"))
 
 ## Match
 
+```go
+func Match(pattern, name string) (matched bool, err error)
+```
+
 Match reports whether name matches the shell file name pattern. The pattern syntax is:
 
 ```bash
