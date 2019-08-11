@@ -1,5 +1,6 @@
 # Permissions
 
+```
 +-----+---+--------------------------+
 | rwx | 7 | Read, write and execute  |
 | rw- | 6 | Read, write              |
@@ -18,6 +19,7 @@
 | ---rwx---  | 0070 | Group |
 | ------rwx  | 0007 | Other |
 +------------+------+-------+
+```
 
 ## Common Permission Usages
 
