@@ -1,28 +1,5 @@
 # Sequences: Strings
 
-## Index
-
-1. [Introduction](#Index)
-    1. [String Literals](#String-Literals)
-    1. [Raw Strings](#Raw-Strings)
-    1. [Multiline Strings](#Multiline)
-    1. [Multiline Comments](#Multiline-Comments)
-1. [Formatting](#Formatting)
-    1. [%-formatting](#Formatting)
-    1. [str.format()](#format())
-    1. [f-strings](#f-strings)
-        1. [Multiline f-strings](#Multiline-f-strings)
-1. [Indexing and Slicing](#Indexing-and-Slicing)
-1. [in and not in operators](#in-and-not-in-operators)
-1. [Methods](#Methods)
-    1. [.lower(), .upper()](#lower()-upper())
-    1. [.startswith() and .endswith()](#startswith()-and-endswith())
-    1. [.isX String Methods](#isX-String-Methods)
-    1. [.join() .split()](#join()-split())
-    1. [Justifying Text with .rjust(), .ljust(), and .center()](#Justifying-Text-with-rjust(),-ljust(),-and-center())
-    1. [Removing Whitespace with .strip(), .rstrip(), and .lstrip()](#Removing-Whitespace-with-strip(),-rstrip(),-and-lstrip())
-    1. [Copying and Pasting Strings with the pyperclip Module](#Copying-and-Pasting-Strings-with-the-pyperclip-Module)
-
 ## String Literals
 
 String in Python begin and end with single or double quotes.
@@ -64,8 +41,6 @@ def spam():
     explain what the spam() function does."""
     print('Hello!')
 ```
-
-[Back to Top](#Index)
 
 ## Formatting
 
@@ -109,8 +84,6 @@ message
 
 >⚠️ watch out when you are working with dictionaries. If you are going to use single quotation marks for the keys of the dictionary, then remember to make sure you’re using double quotation marks for the f-strings containing the keys.
 
-[Back to Top](#Index)
-
 ## Indexing and Slicing
 
 Strings are inmutable.
@@ -136,8 +109,6 @@ spam[6:]
 >>> 'world!'
 ```
 
-[Back to Top](#Index)
-
 ## in and not in operators
 
 ```python
@@ -156,8 +127,6 @@ spam[6:]
 'cats' not in 'cats and dogs'
 >>> False
 ```
-
-[Back to Top](#Index)
 
 ## Methods
 
@@ -194,8 +163,6 @@ False
 >>> False
 ```
 
-[Back to Top](#Index)
-
 ### startswith() and endswith()
 
 ```python
@@ -217,8 +184,6 @@ False
 'Hello world!'.endswith('Hello world!')
 >>> True
 ```
-
-[Back to Top](#Index)
 
 ### isX String Methods
 
@@ -260,8 +225,6 @@ False
 >>> False
 ```
 
-[Back to Top](#Index)
-
 ### join() split()
 
 ```python
@@ -283,8 +246,6 @@ False
 'My name is Simon'.split('m')
 >>> ['My na', 'e is Si', 'on']
 ```
-
-[Back to Top](#Index)
 
 ### Justifying Text with rjust(), ljust(), and center()
 
@@ -314,8 +275,6 @@ False
 >>> '=======Hello========'
 ```
 
-[Back to Top](#Index)
-
 ### Removing Whitespace with strip(), rstrip(), and lstrip()
 
 ```python
@@ -334,8 +293,6 @@ spam.strip('ampS')
 >>> 'BaconSpamEggs'
 ```
 
-[Back to Top](#Index)
-
 ## Copying and Pasting Strings with the pyperclip Module
 
 ```python
@@ -345,5 +302,3 @@ pyperclip.copy('Hello world!')
 pyperclip.paste()
 >>> 'Hello world!'
 ```
-
-[Back to Top](#Index)
