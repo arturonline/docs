@@ -1,13 +1,8 @@
 # For Loop
 
 ```python
-for i = 1 to 10
-    print(i)
-```
-
-```python
-for (i = 1; i <= 10; i++)
-    print(i)
+for <var> in <iterable>:
+    <statement(s)>
 ```
 
 ```python
@@ -16,21 +11,21 @@ for i in a:
     print(i)
 ```
 
-## Iterating through a Dictionary
+## The `range()` Function
+
+- `range(<begin>, <end>, <stride>)`
+- returns an iterable that yields integers starting with `<begin>`, up to but not including `<end>`.
+- If specified, `<stride>` indicates an amount to skip between values.
 
 ```python
-for k in d:
-    print(d[k])
-```
+list(range(5, 20, 3))
+>>> [5, 8, 11, 14, 17]
 
-```python
-for v in d.values():
-    print(v)
-```
+list(range(5, 10))
+>>> [5, 6, 7, 8, 9]
 
-```python
-for i, j in [(1, 2), (3, 4), (5, 6)]:
-    print(i, j)
+list(range(4))
+>>>[0,1,2,3]
 ```
 
 ## The `else` Clause
@@ -55,17 +50,19 @@ else:
     print('Done.')  # Will not execute
 ```
 
-## The `range()` Function
-
-`range(<begin>, <end>, <stride>)` returns an iterable that yields integers starting with `<begin>`, up to but not including `<end>`. If specified, `<stride>` indicates an amount to skip between values (analogous to the stride value used for string and list slicing):
+## Iterating through a Dictionary
 
 ```python
-list(range(5, 20, 3))
->>> [5, 8, 11, 14, 17]
+for k in d:
+    print(d[k])
+```
 
-list(range(5, 10))
->>> [5, 6, 7, 8, 9]
+```python
+for v in d.values():
+    print(v)
+```
 
-list(range(4))
->>>[0,1,2,3]
+```python
+for i, j in [(1, 2), (3, 4), (5, 6)]:
+    print(i, j)
 ```
