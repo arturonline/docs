@@ -1,206 +1,90 @@
 # Classes
 
-- class members are public
-- All member functions are virtual.
+## Scope
 
-## Class Declaration
+- A variable created in the main body is global. Global variables are available from within any scope, global and local.
+- A variable created inside a function belongs to the local scope of that function, and can only be used inside that function.
 
-```python
-class MyClass:
-    """A simple example class"""
-    i = 12345
-
-    def f(self):
-        return 'hello world'
-```
-
-## Constructor
+## Definició de clases
 
 ```python
-class Complex:
-    def __init__(self, realpart, imagpart):
-        self.r = realpart
-        self.i = imagpart
+class Alumne:
+    def __init__(self, dni="",nom="",cognoms="",edat=0):
+        self.dni = dni
+        self.nom = nom
+        self.cognoms = cognoms
+        self.edat = edat
 
-x = Complex(3.0, -4.5)
-x.r, x.i
->>> (3.0, -4.5)
+alu1=Alumne("12345678X","Pepe","Garcia",32)
+alu2=Alumne("12345678X")
+alu3=Alumne()
+alu4=Alumne(nom="ZZZ",cognoms="XXX")
 ```
 
-## Attributes
+- la funció`__init__` es el constructor de la clase.
+- El primer argument ha de ser sempre **self**.
+- Si els parametres del constructor no es declaran de la clase (es a dir, amb el **self**) quan acabe el constructor aquestos valors es destrueixen.
+- No es permet la sobrecàrrega, es a dir, domes un constructor per clase. Pero podem fer ús de valors per defecte als arguments.
 
-### Instance Attributes
+## Accés als atributs
 
-An instance attribute is a Python variable belonging to one, and only one, object. This variable is only accessible in the scope of this object and it is defined inside the constructor function, `__init__(self,..)` of the class.
+- Tot es public.
+- per a fer un atribut protected afegirem un guió baix:
+  - `_edat = edat`
+- per a fer un atribut privat afegirem dos guions baixos:
+  - `__salari = salari`
+
+Exemple:
 
 ```python
+class Empleat():
+    def __init__(self, nom, edat, salari):
+        self.nom = nom # Atribut public
+        self._edat = edat # Atribut protected
+        self.__salari = salari # Atribut privat
+empleat = Empleat("Pere", 42, 1230)
 
-class ExampleClass(object):
-
-  def __init__(self, instance_attr):
-    self.instance_attr = instance_attr
+print("El nom es", empleat.nom)
+print("Edat es", empleat._edat)
+print("El salari és", empleat.__salari)
 ```
 
-### Class Attributes
+Sortida:
 
-A class attribute is a Python variable that belongs to a class rather than a particular object. It is shared between all the objects of this class and it is defined outside the constructor function, `__init__(self,...)`, of the class.
+```bash
+El nom es Pere
+Edat es 42
+Traceback (most recent call last) :
+    File "prova Classes.py", line 66 , in <module >
+    print("El salari es " , empleat.__salari)
+AttributeError: 'Empleat' object has no attribute'__salari'
+```
+
+## Còpia d'objectes
+
+- `copy.copy(x)` -> copia variables normals, no referencies.
+- `copy.deepcopy(x[, memo])` -> copia tot, incluint altres objectes de forma recursiva.
+
+## Comparació d'objectes
 
 ```python
-class Dog:
-
-    kind = 'canine'         # class variable shared by all instances
-
-    def __init__(self, name):
-        self.name = name    # instance variable unique to each instance
-
->>> d = Dog('Fido')
->>> e = Dog('Buddy')
->>> d.kind                  # shared by all dogs
-'canine'
->>> e.kind                  # shared by all dogs
-'canine'
->>> d.name                  # unique to d
-'Fido'
->>> e.name                  # unique to e
-'Buddy'
+def igualAlumne(self, altre):
+    if not isinstance(altre, Alumne):
+        return false
+    return self.dni == altre.dni and self.nom == altre.nom
 ```
 
-### Properties: `@property`
+## Mètodes
 
-The `@property` lets a method to be accessed as an attribute instead of as a method with a '`()`'
+- Tots els mètodes porten com a primer argument **self**.
+- No es permet la sobrecàrrega de mètodes, sinò fer ús de valors per defecte als arguments.
 
 ```python
-class Person(object):
-    def __init__(self, first_name, last_name):
-        self.first_name = first_name
-        self.last_name = last_name
+def nomComplet(self):
+    return self.nom + " " + self.cognoms
 
-    @property
-    def full_name(self):
-        return self.first_name + ' ' + self.last_name
+def nomAlfabetic(self):
+    return self.cognoms + ", " + self.nom
 
-    @full_name.setter
-    def full_name(self, value):
-        first_name, last_name = value.split(' ')
-        self.first_name = first_name
-        self.last_name = last_name
-
-    @full_name.deleter
-    def full_name(self):
-        del self.first_name
-        del self.last_name
-```
-
-### `@classmethod` (static)
-
-```python
->>> class A():
-    count = 0
-
-    def __init__(self):
-        A.count += 1
-
-    def exclaim(self):
-        print("I'm an A!")
-
-    @classmethod # AKA: Static
-    def kids(cls):
-        print("A has", cls.count, "little objects.")
-
-easy_a = A()
-breezy_a = A()
-wheezy_a = A()
-A.kids()
-A has 3 little objects.
-```
-
-## `@staticmethod`
-
-A third type of method in a class definition affects neither the class nor its objects; it’s just in there for convenience instead of floating around on its own. It’s a static method, preceded by a `@staticmethod` decorator, with no initial self or class parameter.
-
-Here’s an example that serves as a commercial for the class `CoyoteWeapon`:
-
-```python
-class CoyoteWeapon():
-    @staticmethod
-    def commercial():
-    print('This CoyoteWeapon has been brought to you by Acme')
-
-CoyoteWeapon.commercial()
->>> This CoyoteWeapon has been brought to you by Acme
-```
-
-Notice that we didn’t need to create an object from class CoyoteWeapon to access this method. Very class-y.
-
-## Inheritance
-
-Python classes provide all the standard features of Object Oriented Programming: the class inheritance mechanism allows multiple base classes, a derived class can override any methods of its base class or classes, and a method can call the method of a base class with the same name.
-
-Python has two built-in functions that work with inheritance:
-
-- Use `isinstance()` to check an instance’s type: isinstance(obj, int) will be True only if `obj.__class__` is int or some class derived from int.
-- Use `issubclass()` to check class inheritance: issubclass(bool, int) is True since bool is a subclass of int. However, `issubclass(float, int)` is False since float is not a subclass of int.
-
-### Inheritance Declaration
-
-```python
-class Car():
-    pass
-
-class Yugo(Car):
-    pass
-```
-
-### Methods
-
-```python
->>> class Car():
-    def exclaim(self):
-    print("I'm a Car!")
-
->>> class Yugo(Car):
-    pass
-
-give_me_a_car = Car()
-give_me_a_yugo = Yugo()
-
-give_me_a_car.exclaim()
->>> I'm a Car!
-give_me_a_yugo.exclaim()
->>> I'm a Car!
-```
-
-### Overriding Methods
-
-```python
-class Car():
-    def exclaim(self):
-    print("I'm a Car!")
-
-class Yugo(Car):
-    def exclaim(self):
-    print("I'm a Yugo! Much like a Car, but more Yugo-ish.")
-...
-
-give_me_a_car = Car()
-give_me_a_yugo = Yugo()
-
-give_me_a_car.exclaim()
->>> I'm a Car!
-
-give_me_a_yugo.exclaim()
->>> I'm a Yugo! Much like a Car, but more Yugo-ish.
-```
-
-### `super()`
-
-```python
-class Person():
-    def __init__(self, name):
-    self.name = name
-
-class EmailPerson(Person):
-    def __init__(self, name, email):
-    super().__init__(name)
-    self.email = email
-```
+def creixer(self, anys = 1):
+    self.edat += anys
