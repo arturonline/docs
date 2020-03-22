@@ -21,12 +21,12 @@ Exemple:
 12: void fall() { throw new RuntimeException(); }
 ```
 
-- First, line 5 calls the fall() method.
+- First, line 5 calls the `fall()` method.
 - Line 12 throws an exception. This means Java jumps straight to the catch block, skipping line 6.
 - The girl gets up on line 8.
 - Now the try statement is over and execution proceeds normally with line 10.
 
-Try statements are like methods in that the curly braces are required even if there is only one statement inside the code blocks. if statements and loops are special in this respect as they allow you to omit the curly braces.
+⚠ Try statements are like methods in that the curly braces are required even if there is only one statement inside the code blocks. if statements and loops are special in this respect as they allow you to omit the curly braces.
 
 What about this one?
 
@@ -40,7 +40,7 @@ This code doesn’t compile because the try block doesn’t have anything after 
 
 ## Adding a finally block
 
-![](resources/exceptions_finally.png "The syntax of a try statement with finally")
+![Finally](resources/exceptions_finally.png "The syntax of a try statement with finally")
 
 - order: try - catch - finally
 - There must be a catch or finally block.
@@ -88,4 +88,4 @@ System.out.print(s);
 
 ## System.exit
 
-System.exit tells Java, “Stop. End the program right now. When System.exit is called in the try or catch block, finally does not run.
+`System.exit` tells Java, stop, End the program right now. When `System.exit` is called in the try or catch block, finally does not run.

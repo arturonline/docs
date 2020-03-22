@@ -1,11 +1,26 @@
 # Recognizing Common Exception Types
 
-You need to recognize three types of exceptions for the OCA exam: runtime exceptions,
-checked exceptions, and errors and you’ll need to recognize which type of an exception it is and whether it’s thrown by the JVM or a programmer.
+There are three types of exceptions:
+- runtime exceptions
+- checked exceptions
+- and errors
+
+## Understanding Exception Types
+
+![Categories of exceptions](resources/exceptions.png)
+
+- **Error** means something went so horribly wrong that your program should not attempt to recover from it.
+- **Unchecked exception** (or runtime exception) represent conditions that, generally speaking, reflect errors in your program's logic and cannot be reasonably recovered from at run time.
+- **Checked exception** represent invalid conditions in areas outside the immediate control of the program (invalid user input, database problems, network outages, absent files). For checked exceptions, Java requires the code to either handle them or declare them in the method signature.
+
+>⚠ It is up to the programmers to be civilized, and specify or catch the exceptions.
+In Java exceptions under Error and RuntimeException classes are unchecked exceptions, everything else under throwable is checked.
+
+![Exception types](resources/exceptions_type.png "Types of exceptions")
 
 ## Runtime Exceptions
 
-Runtime exceptions extend RuntimeException. They don’t have to be handled or declared.
+Runtime exceptions extend `RuntimeException`. They don’t have to be handled or declared.
 They can be thrown by the programmer or by the JVM. Common runtime exceptions
 include the following:
 
@@ -19,7 +34,7 @@ include the following:
 
 ## Checked Exceptions
 
-Checked exceptions have Exception in their hierarchy but not RuntimeException. They must be handled or declared. They can be thrown by the programmer or by the JVM.
+Checked exceptions have `Exception` in their hierarchy but not `RuntimeException`. They must be handled or declared. They can be thrown by the programmer or by the JVM.
 
 Common runtime exceptions include the following:
 

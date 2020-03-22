@@ -1,9 +1,7 @@
 # Catching various types of exceptions
 
-The OCA exam can define basic exceptions to show you the hierarchy. You only need to do two things with this information:
-
-- First, you must be able to recognize if the exception is a checked or an unchecked exception.
-- Second, you need to determine if any of the exceptions are subclasses of the others.
+- You must be able to recognize if the exception is a checked or an unchecked exception (extend RuntimeException)
+- You need to determine if any of the exceptions are subclasses of the others.
 
 ```Java
 class AnimalsOutForAWalk extends RuntimeException { }
@@ -23,18 +21,15 @@ public void visitPorcupine() {
         System.out.print("not today");
     }
 }
-
 ```
 
 There are three possibilities for when this code is run:
 
-- If seeAnimal() doesn’t throw an exception, nothing is printed out.
+- If `seeAnimal()` doesn’t throw an exception, nothing is printed out.
 - If the animal is out for a walk, only the first catch block runs.
 - If the exhibit is closed, only the second catch block runs.
 
-A rule exists for the order of the catch blocks. Java looks at them in the order they
-appear. If it is impossible for one of the catch blocks to be executed, a compiler error
-about unreachable code occurs. This happens when a superclass is caught before a subclass.
+A rule exists for the order of the catch blocks. Java looks at them in the order they appear. If it is impossible for one of the catch blocks to be executed, a compiler error about unreachable code occurs. This happens when a superclass is caught before a subclass.
 
 ```Java
 public void visitMonkeys() {
@@ -48,7 +43,7 @@ public void visitMonkeys() {
 }
 ```
 
-If the more specific ExhibitClosedForLunch exception is thrown, the first catch block runs. If not, Java checks if the superclass ExhibitClosed exception is thrown and catches it.
+If the more specific `ExhibitClosedForLunch` exception is thrown, the first catch block runs. If not, Java checks if the superclass `ExhibitClosed` exception is thrown and catches it.
 
 ```Java
 public void visitMonkeys() {
@@ -62,7 +57,7 @@ public void visitMonkeys() {
 }
 ```
 
-If the more specific ExhibitClosedForLunch exception is thrown, the catch block for ExhibitClosed runs which means there is no way for the second catch block to ever run. Java correctly tells us there is an unreachable catch block.
+If the more specific `ExhibitClosedForLunch` exception is thrown, the catch block for `ExhibitClosed` runs which means there is no way for the second catch block to ever run. Java correctly tells us there is an unreachable catch block.
 
 ## Throwing a Second Exception
 
@@ -86,9 +81,9 @@ A catch or finally block can have any valid Java code in it including another tr
 ```
 
 - The easiest case is if line 28 doesn’t throw an exception. Then the entire catch block on lines 20–25 is skipped.
-- Next, consider if line 28 throws a NullPointerException. That isn’t an IOException, so the catch block on lines 20–25 will still be skipped.
-- If line 28 does throw an IOException, the catch block on lines 20–25 does get run. 
-- Line 22 tries to close the reader. If that goes well, the code completes and the main() method ends normally. If the close() method does throw an exception, Java looks for more catch blocks. There aren’t any, so the main method throws that new exception. Regardless, the exception on line 28 is handled. A different exception might be thrown, but the one from line 28 is done.
+- Next, consider if line 28 throws a `NullPointerException`. That isn’t an `IOException`, so the catch block on lines 20–25 will still be skipped.
+- If line 28 does throw an `IOException`, the catch block on lines 20–25 does get run.
+- Line 22 tries to close the reader. If that goes well, the code completes and the `main()` method ends normally. If the `close()` method does throw an exception, Java looks for more catch blocks. There aren’t any, so the main method throws that new exception. Regardless, the exception on line 28 is handled. A different exception might be thrown, but the one from line 28 is done.
 
 ```Java
 26: try {
@@ -131,11 +126,11 @@ Next we are going to show you the hardest example you can be asked related to ex
 // before catch finally done
 ```
 
-- Everything is normal up until line 35, when "before" is added.
-- Line 36 throws a NullPointerException.
+- Everything is normal up until line 35, when *"before"* is added.
+- Line 36 throws a `NullPointerException`.
 - Line 37 is skipped as Java goes straight to the catch block.
 - Line 38 does catch the exception, and "catch" is added on line 39.
-- Then line 40 throws a RuntimeException.
+- Then line 40 throws a `RuntimeException`.
 - The finally block runs after the catch regardless of whether an exception is thrown; it adds "finally" to result.
 - At this point, we have completed the inner try statement that ran on lines 34–44.
 - The outer catch block then sees an exception was thrown and catches it on line 45; it adds "done" to result.
