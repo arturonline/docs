@@ -115,7 +115,7 @@ echo "Foo is $foo"
 When Bash is about to execute your code, it first changes the command by taking your parameter expansion (the `$foo`), and replacing it by the contents of `foo`, which is `bar`. The command becomes:
 
 ```bash
-$ echo "Foo is bar"
+echo "Foo is bar"
 Foo is bar
 ```
 
