@@ -37,8 +37,7 @@ curl -Lks http://bit.do/cfg-init | /bin/bash
 > echo ".dotfiles" >> .gitignore
 
 > git clone --bare <git-repo-url> $HOME/.dotfiles
-
-> alias config='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+# git clone --bare https://github.com/arturonline/dotfiles.git $HOME/.dotfiles
 
 > config checkout
 
