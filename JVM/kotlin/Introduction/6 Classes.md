@@ -11,13 +11,7 @@ class Empty // if the class has no body, curly braces can be omitted.
 A class in Kotlin can have a primary constructor and one or more secondary constructors. The primary constructor is part of the class header: it goes after the class name (and optional type parameters).
 
 ```kotlin
-class Person constructor(firstName: String) { ... }
-```
-
-If the primary constructor does not have any annotations or visibility modifiers, the constructor keyword can be omitted:
-
-```kotlin
-class Person(firstName: String) { ... }
+class Person (firstName: String) { ... }
 ```
 
 ### Init block

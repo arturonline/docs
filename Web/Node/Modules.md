@@ -1,6 +1,6 @@
 # Modules
 
-In the Node module system, each file is treated as a separate module. Functions and objects are added to the root of a module by specifying additional properties on the special exports object. Variables local to the module will be private. In this example, the variable `PI` is private to `circle.js`.
+In Node each file is a module. Functions and objects are added to the root of a module by specifying additional properties on the special exports object. Variables local to the module will be private. In this example, the variable `PI` is private to `circle.js`.
 
 On the first line, `bar.js` loads the module `circle.js` that is in the same directory as `foo.js`:
 
@@ -75,7 +75,7 @@ module.exports = {
     film102: film102
 }
 // wrong
-exports = {  
+exports = {
     film101: film101,
     film102: film102
 }
