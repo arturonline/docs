@@ -9,12 +9,11 @@ Operator | Meaning
 `-le` | Less than or equal
 `-ge` | Greater than or equal
 `-eq` | Equal to
-`-ne` | Not equal 
-
+`-ne` | Not equal
 
 ## Comparing Strings
 
-Operator | Meaning 
+Operator | Meaning
 -|-
 `=` | The strings are equal
 `!=` The strings are not equal
@@ -31,9 +30,9 @@ Operator | Result
 `-f name` | name is a regular file (not directory)
 `-s name` | name exists, and the size is not 0
 `-d name` | name is a directory
-`-r name` | has read permission in name 
-`-w name` | has write permission in name 
-`-x name` | has execution permission in name 
+`-r name` | has read permission in name
+`-w name` | has write permission in name
+`-x name` | has execution permission in name
 
 ## Positional parameters
 
@@ -42,12 +41,18 @@ parameter | action
 `$0` | script name
 `$1 - $9` | positional argument
 `$#` | arguments number
-`$*` | to get all arguments
+`$*` | get all arguments as one (better use `"$@"`)
+`$@` | get all arguments as one
 `$?` | result of the last execution
 `$$` | PID of the process is running
 
+When they are not quoted, `$*` and `$@` are the same. You shouldn't use either of these, because they can break unexpectedly as soon as you have arguments containing spaces or wildcards.
+ as one
+`"$@"` expands to separate words: `"$1"` `"$2"` ... This is almost always what you want. It expands each positional parameter to a separate word, which makes it perfect for taking command line or function arguments in and then passing them on to another command or function. And because it expands using double quotes, it means things don't break if, say, `"$1"` contains a space or an asterisk `*`.
 
 ## Testing Conditions with `[  ]`
+
+💡Tip: `man test`
 
 ```bash
 [ condition  ]
@@ -60,3 +65,5 @@ parameter | action
 
 [ condition  ] && true-command || false-command
 ```
+
+

@@ -5,7 +5,7 @@
 Create a file my_script.sh with:
 
 ```bash
-#!/bin/bash
+#!/usr/bin/env bash
 
 # comment
 ```
