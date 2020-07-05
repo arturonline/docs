@@ -35,6 +35,18 @@ Operator | Result
 `-w name` | has write permission in name 
 `-x name` | has execution permission in name 
 
+## Positional parameters
+
+parameter | action
+-|-
+`$0` | script name
+`$1 - $9` | positional argument
+`$#` | arguments number
+`$*` | to get all arguments
+`$?` | result of the last execution
+`$$` | PID of the process is running
+
+
 ## Testing Conditions with `[  ]`
 
 ```bash
