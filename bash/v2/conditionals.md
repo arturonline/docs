@@ -33,6 +33,8 @@ Operator | Result
 `-r name` | has read permission in name
 `-w name` | has write permission in name
 `-x name` | has execution permission in name
+`file1 -nt file2` | True if `file1` is newer than (according to modification time) `file2`
+`file1 -ot file2` | True if `file1` is older than `file2`
 
 ## Positional parameters
 

@@ -49,3 +49,13 @@ Example:
 echo ${string/abc/xyz} # xyzABC123ABCabc
 echo ${string/abc/xyz} # xyzABC123ABCxyz
 ```
+
+## check strings
+
+Expression | Description
+-|-
+`-z string` | True if `string` is empty.
+`-n string` | True if `string` is not empty.
+`string1 = string2` | True if `string1` equals `string2`
+`string1 != string2` | True if `string1` does not equal `string2`
+

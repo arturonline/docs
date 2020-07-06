@@ -2,7 +2,9 @@
 
 A regular expression, regex or regexp is a sequence of characters that define a search pattern.
 
-Traditional Unix regular expression syntax followed common conventions that often differed from tool to tool. The POSIX Basic Regular Expressions syntax was developed by the IEEE, together with an extended variant called Extended Regular Expression syntax.
+Bash uses the Extended Regular Expression (ERE) dialect. Regular expressions (regex) can only be used for pattern matching, not for filename matching.
+
+Since 3.0, Bash supports the `=~` operator to the `[[` keyword. This operator matches the string that comes before it against the regex pattern that follows it. When the string matches the pattern, `[[` returns with an exit code of 0 ("*true*"). If the string does not match the pattern, an exit code of 1 ("*false*") is returned. In case the pattern's syntax is invalid, `[[` will abort the operation and return an exit code of 2.
 
 ## Posix-Basic Regular Expressions
 
