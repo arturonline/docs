@@ -30,7 +30,7 @@ sed -n '1p' some-file
 ```
 
 ```bash
-# print five lines 
+# print five lines
 
 sed -n '1,5p' some file
 ```
@@ -55,7 +55,7 @@ sed -n '1~2p' some-file
 sed '1~2d' some-file
 ```
 
-⚠ The `sed` command does not edit the source file by default, but you can change this behavior by passing the `-i` option, which means "perform edits in-place". 
+⚠ The `sed` command does not edit the source file by default, but you can change this behavior by passing the `-i` option, which means "perform edits in-place".
 
 ```bash
 # Edit with redirect
@@ -80,19 +80,19 @@ s/old/new
 Example:
 
 ```bash
-# Replace first match "on" for "forward" 
+# Replace first match "on" for "forward"
 
 sed 's/on/forward/' some-file
 ```
 
 ```bash
-# Replace the 2nd instance of "on" for "forward" 
+# Replace the 2nd instance of "on" for "forward"
 
 sed 's/on/forward/2' some-file
 ```
 
 ```bash
-# Replace every instance of "on" for "forward" 
+# Replace every instance of "on" for "forward"
 
 sed 's/on/forward/g' some-file
 ```
@@ -122,5 +122,3 @@ In this example, we’ll switch the first two words of each line:
 ```bash
 sed 's/\([a-zA-Z0-9][a-zA-Z0-9]*\) \([a-zA-Z0-9][a-zA-Z0-9]*\)/\2 \1/' song.txt
 ```
-
-

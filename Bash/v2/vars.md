@@ -29,8 +29,8 @@ you cannot use spaces around the = sign in an assignment.
 ```bash
 varname = vardata     # This is wrong!
 ```
-To expand variable values:
 
+To expand variable values:
 
 ```bash
 echo "$HOME"
@@ -59,7 +59,7 @@ double quotes gives you sometext
 single quotes gives you $MYVAR
 ```
 
-⚠️  Double quotes group everything inside them into a single argument:
+⚠️ Double quotes group everything inside them into a single argument:
 
 ```bash
 The secret voice in your head.mp3    # a mp3 file
@@ -72,9 +72,9 @@ This is what we should have done:
 rm "The secret voice in your head.mp3"
 ```
 
-⚠️  Remember to put double quotes around every parameter expansion!
+⚠️ Remember to put double quotes around every parameter expansion!
 
-## Positional parameters 
+## Positional parameters
 
 parameter | action
 -|-
@@ -101,41 +101,3 @@ read -p "Please give your name and last name: " name surname
 echo "Your name is $name"
 echo "Your surname is $surname"
 ```
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

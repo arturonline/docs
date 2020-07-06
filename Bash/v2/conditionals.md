@@ -65,5 +65,3 @@ When they are not quoted, `$*` and `$@` are the same. You shouldn't use either o
 
 [ condition  ] && true-command || false-command
 ```
-
-
