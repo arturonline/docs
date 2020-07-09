@@ -16,7 +16,7 @@ Operator | Meaning
 Operator | Meaning
 -|-
 `=` | The strings are equal
-`!=` The strings are not equal
+`!=` | The strings are not equal
 `<` | Less than (alphabetic order ASCII)
 `>` | Greater than (alphabetic order ASCII)
 `-n` | String is not empty

@@ -7,18 +7,16 @@
 
 A file descriptor, or FD, is a positive integer that refers to an input/output source. When bash starts it opens the three standard file descriptors:
 
-- stdin (FD 0)
-- stdout (FD 1)
-- stderr(FD 2)
+- stdin (0)
+- stdout (1)
+- stderr(2)
 
-File descriptors always point to some file. Usually when bash starts all three file descriptors, stdin, stdout, and stderr, point to your terminal (`/dev/tty0`).
-
-You can open more file descriptors (such as 3, 4, 5, ...), and you can close them. You can also copy file descriptors. And you can write to them and read from them.
+You can close, you can copy, write and read from them.
 
 ## Redirect the standard output of a command to a file
 
 ```bash
-command >file # command 1>file
+command > file # command 1> file
 ```
 
 ## Redirect the standard error of a command to a file
@@ -36,7 +34,7 @@ command &>file # command >file 2>&1
 ## Send the output from multiple commands to a file
 
 ```bash
-(command1; command2) >file
+(command1; command2) > file
 ```
 
 commands `command1` and `command2` get executed in the sub-shell, and bash redirects their output to `file`.
@@ -46,19 +44,19 @@ commands `command1` and `command2` get executed in the sub-shell, and bash redir
 When bash sees several redirections it processes them from left to right. Be careful here! Writing:
 
 ```bash
-command >file 2>&1
+command > file 2>&1
 ```
 
 Is not the same as writing:
 
 ```bash
-command 2>&1 >file
+command 2>&1 > file
 ```
 
 Also note that in bash, writing this:
 
 ```bash
-command &>file
+command &> file
 ```
 
 Is exactly the same as:
@@ -78,7 +76,7 @@ command > /dev/null
 ## Give file descriptors names
 
 ```bash
-exec {filew}>output_file
+exec {filew} > output_file
 ```
 
 Named file descriptors is a feature of bash 4.1. Named file descriptors look like `{varname}`. You can use them just like regular, numeric, file descriptors. Bash internally chooses a free file descriptor and assigns it a name.
@@ -86,7 +84,7 @@ Named file descriptors is a feature of bash 4.1. Named file descriptors look lik
 ## Open a file for reading using a custom file descriptor
 
 ```bash
-exec 3<file
+exec 3< file
 ```
 
 Here opens the file for reading and assigns the opened file-descriptor to the shell's file descriptor number 3.
@@ -118,7 +116,7 @@ Here the file descriptor 3 is duped to `-`, which is bash's special way to say "
 Open file for writing and assign it number 4:
 
 ```bash
-exec 4>file
+exec 4> file
 ```
 
 Now we can simply write to the file descriptor 4:
