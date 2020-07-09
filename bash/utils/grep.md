@@ -12,13 +12,13 @@ It uses Posix Basic Regular Expressions. In Basic Regular Expressions (BRE), met
 
 ## Options
 
-- -r -> recursive search
-- -n -> show the number of the line of the coincidence
-- -i -> case insensitive search
-- -v -> inverse coincidence
-- -w -> match the whole word
-- -c -> count of lines matching the coincidence
-- -l -> which prints out only the names of files that do contain matches for your search.
+`-r` -> recursive search
+`-n` -> show the number of the line of the coincidence
+`-i` -> case insensitive search
+`-v` -> inverse coincidence
+`-w` -> match the whole word
+`-c` -> count of lines matching the coincidence
+`-l` -> which prints out only the names of files that do contain matches for your search.
 
 ## Egrep Command
 

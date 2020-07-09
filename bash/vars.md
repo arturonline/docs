@@ -1,4 +1,4 @@
-# Bash: Scripting
+# Shell Scripting
 
 ## Create script
 

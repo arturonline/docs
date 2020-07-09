@@ -9,6 +9,7 @@ $(( expression ))
 
 res=$(( n1+n2 ))
 ```
+
 ⚠ spaces doesn't matter here.
 
 Examples:
