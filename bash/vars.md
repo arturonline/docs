@@ -5,15 +5,15 @@
 Create a file my_script.sh with:
 
 ```bash
-#!/usr/bin/env bash
+    #!/usr/bin/env bash
 
-# comment
+    # comment
 ```
 
 Permissions:
 
 ```bash
-chmod +x my_script.sh
+    chmod +x my_script.sh
 ```
 
 ## Variables
@@ -21,29 +21,29 @@ chmod +x my_script.sh
 To store data in a variable, we use the following assignment syntax:
 
 ```bash
-varname=vardata
+    varname=vardata
 ```
 
 you cannot use spaces around the = sign in an assignment.
 
 ```bash
-varname = vardata     # This is wrong!
+    varname = vardata     # This is wrong!
 ```
 
 To expand variable values:
 
 ```bash
-echo "$HOME"
+    echo "$HOME"
 # or
-echo ${prize}"
+    echo ${prize}"
 ```
 
 ### Variables can be unset
 
 ```bash
-TMPDIR=/tmp
+    TMPDIR=/tmp
 
-unset TMPDIR
+    unset TMPDIR
 ```
 
 ## Quotes
@@ -51,53 +51,53 @@ unset TMPDIR
 Single quotes will literally `echo` what you have between them, while double quotes will evaluate variables between them and output the value of the variable:
 
 ```bash
-$ MYVAR=sometext
-$ echo "double quotes gives you $MYVAR"
-$ echo 'single quotes gives you $MYVAR'
+    $ MYVAR=sometext
+    $ echo "double quotes gives you $MYVAR"
+    $ echo 'single quotes gives you $MYVAR'
 
-double quotes gives you sometext
-single quotes gives you $MYVAR
+    double quotes gives you sometext
+    single quotes gives you $MYVAR
 ```
 
 ⚠️ Double quotes group everything inside them into a single argument:
 
 ```bash
-The secret voice in your head.mp3    # a mp3 file
-$ rm The secret voice in your head.mp3    # Executes rm with 6 arguments; not 1!
+    The secret voice in your head.mp3    # a mp3 file
+    $ rm The secret voice in your head.mp3    # Executes rm with 6 arguments; not 1!
 ```
 
 This is what we should have done:
 
 ```bash
-rm "The secret voice in your head.mp3"
+    rm "The secret voice in your head.mp3"
 ```
 
 ⚠️ Remember to put double quotes around every parameter expansion!
 
 ## Positional parameters
 
-parameter | action
--|-
-`$0` | script name
-`$1 - $9` | positional argument
-`$#` | how many arguments
-`$*` | to get all arguments
-`$?` | result of the last execution
-`$$` | PID of the process is running
+| parameter | action                        |
+| --------- | ----------------------------- |
+| `$0`      | script name                   |
+| `$1 - $9` | positional argument           |
+| `$#`      | how many arguments            |
+| `$*`      | to get all arguments          |
+| `$?`      | result of the last execution  |
+| `$$`      | PID of the process is running |
 
 ## Read Input
 
 ```bash
-read -p "message" variable1 variable2 variableN
+    read -p "message" variable1 variable2 variableN
 ```
 
 Example:
 
 ```bash
-#!/bin/bash
+    #!/bin/bash
 
-read -p "Please give your name and last name: " name surname
+    read -p "Please give your name and last name: " name surname
 
-echo "Your name is $name"
-echo "Your surname is $surname"
+    echo "Your name is $name"
+    echo "Your surname is $surname"
 ```

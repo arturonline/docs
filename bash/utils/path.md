@@ -5,9 +5,9 @@ To decide where to put the script, a couple alternatives exists. Generally, peop
 To use a personal directory:
 
 ```bash
-mkdir -p "$HOME/bin"
-echo 'PATH="$HOME/bin:$PATH"' >> "$HOME/.bashrc"
-source "$HOME/.bashrc"
+    mkdir -p "$HOME/bin"
+    echo 'PATH="$HOME/bin:$PATH"' >> "$HOME/.bashrc"
+    source "$HOME/.bashrc"
 ```
 
 - The first command will make a directory called bin inside your home directory.
@@ -17,6 +17,6 @@ source "$HOME/.bashrc"
 In any case, we can now put our script in our bin directory and execute it as a normal command — we no longer need to prepend our script's name with the file path (which was the `./` part in the previous example):
 
 ```bash
-$ mv myscript "$HOME/bin"
-$ myscript
+    mv myscript "$HOME/bin"
+    myscript
 ```

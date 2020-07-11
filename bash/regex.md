@@ -4,7 +4,7 @@ A regular expression, regex or regexp is a sequence of characters that define a 
 
 Bash uses the Extended Regular Expression (ERE) dialect. Regular expressions (regex) can only be used for pattern matching, not for filename matching.
 
-Since 3.0, Bash supports the `=~` operator to the `[[` keyword. This operator matches the string that comes before it against the regex pattern that follows it. When the string matches the pattern, `[[` returns with an exit code of 0 ("*true*"). If the string does not match the pattern, an exit code of 1 ("*false*") is returned. In case the pattern's syntax is invalid, `[[` will abort the operation and return an exit code of 2.
+Since 3.0, Bash supports the `=~` operator to the `[[` keyword. This operator matches the string that comes before it against the regex pattern that follows it. When the string matches the pattern, `[[` returns with an exit code of 0 ("_true_"). If the string does not match the pattern, an exit code of 1 ("_false_") is returned. In case the pattern's syntax is invalid, `[[` will abort the operation and return an exit code of 2.
 
 ## Posix-Basic Regular Expressions
 
@@ -43,9 +43,9 @@ Ranges:
 
 Sub-Expressions:
 
-| Symbol | Description                                                 |
-| ------ | ----------------------------------------------------------- |
-| \\( \\)   | Defines a subexpression. It is treated as a single element. |
+| Symbol  | Description                                                 |
+| ------- | ----------------------------------------------------------- |
+| \\( \\) | Defines a subexpression. It is treated as a single element. |
 
 ### Examples
 
@@ -74,4 +74,4 @@ Examples:
 - `"[hc]?at"` matches "hat", "cat" and "at"
 - `"([cC]at)|([dD]og)"` matches "cat", "Cat", "dog" and "Dog"
 
-The characters (,),[,],.,*,?,+,|,^ and $ are special symbols and have to be escaped with a backslash symbol in order to be treated as literal characters.
+The characters `(,),[,],.,\*,?,+,|,^` and `\$` are special symbols and have to be escaped with a backslash symbol in order to be treated as literal characters.
