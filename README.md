@@ -2,14 +2,16 @@
 
 ## Programming languages
 
-[Go](Goland)<br>
+[Go](Golang)<br>
 [Rust](rust)<br>
-[Python](Python)<br>
-[Git](Git)<br>
-[PowerShell](PowerShell)<br>
-[bash](Bash)<br>
-[WEB](Web)<br>
-[C#](CSharp)<br>
-[Swift](Apple/Swift)<br>
-[IOS](Apple/IOS)<br>
-[ObjC](Apple/ObjC)<br>
+[Python](python)<br>
+[Git](git)<br>
+[PowerShell](ms/powerShell)<br>
+[bash](bash)<br>
+[WEB](web)<br>
+[Javascript](web/javascript)<br>
+[C#](ms/cs)<br>
+[JVM](jvm)<br>
+[markdown](markdown)<br>
+[Swift](apple/Swift)<br>
+[IOS](apple/IOS)<br>
