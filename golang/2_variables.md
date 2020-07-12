@@ -84,9 +84,9 @@ When declaring a variable without specifying an explicit type (either by using t
 But when the right hand side contains an untyped numeric constant, the new variable may be an `int`, `float64`, or `complex128` depending on the precision of the constant:
 
 ```go
-i := 42           // int
-f := 3.142        // float64
-g := 0.867 + 0.5i // complex128
+    i := 42           // int
+    f := 3.142        // float64
+    g := 0.867 + 0.5i // complex128
 ```
 
 ## Constants

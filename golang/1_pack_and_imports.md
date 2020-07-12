@@ -58,7 +58,7 @@ While the standard library ships with many great and useful packages, they are i
 The Go tool chain ships with the go get command. This command allows you to install third party packages to your local development environment and use them in your program.
 
 ```bash
-go get github.com/yourbasic/graph
+    go get github.com/yourbasic/graph
 ```
 
 ### Updating packages
@@ -66,7 +66,7 @@ go get github.com/yourbasic/graph
 Packages are often being updated by the original authors to address bugs or add new features. When this happens, you may want to use the latest version of that package to take advantage of the new features or resolved bug. To update a package, you can use the `-u` flag with the go get command:
 
 ```bash
-go get -u github.com/gobuffalo/flect
+    go get -u github.com/gobuffalo/flect
 ```
 
 This command will also have Go install the package if it is not found locally. If it is already installed, Go will attempt to update the package to the latest version.
@@ -75,8 +75,8 @@ The import path corresponds to the repository hosting the code. This reduces the
 
 ## Package documentation
 
-The godoc command extracts and generates documentation for all locally installed Go programs. The following command starts a web server that presents the documentation at http://localhost:6060/.
+The godoc command extracts and generates documentation for all locally installed Go programs. The following command starts a web server that presents the documentation at [localhost](http://localhost:6060/).
 
 ```bash
-godoc -http=:6060 &
+    godoc -http=:6060 &
 ```

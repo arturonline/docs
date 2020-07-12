@@ -19,17 +19,17 @@ The `int`, `uint`, and `uintptr` types are usually 32 bits wide on 32-bit system
 In Go assignment between items of different type requires an explicit conversion:
 
 ```go
-var i int = 42
-var f float64 = float64(i)
-var u uint = uint(f)
+    var i int = 42
+    var f float64 = float64(i)
+    var u uint = uint(f)
 ```
 
 Or, put more simply:
 
 ```go
-i := 42
-f := float64(i)
-u := uint(f)
+    i := 42
+    f := float64(i)
+    u := uint(f)
 ```
 
 ## Example
