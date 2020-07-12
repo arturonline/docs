@@ -49,7 +49,7 @@ Create a folder, and inside that folder:
 
 ## Documentation
 
-You can view documentation for the standard library packages via your terminal using the go doc tool. I often use this during development to quickly check something — like the name or signature of a specific function. I find it faster than navigating the web-based documentation and it's always available offline too.
+You can view documentation for the standard library packages via your terminal using the `go doc` tool. I often use this during development to quickly check something — like the name or signature of a specific function. It's faster than navigating the web-based documentation and it's always available offline too.
 
 ```bash
     go doc strings            # View simplified documentation for the strings package
@@ -63,4 +63,10 @@ You can also include the -src flag to display the relevant Go source code. For e
 
 ```bash
     go doc -src strings.Replace
+```
+
+ The following command starts a web server that presents the documentation at [localhost](http://localhost:6060/).
+
+```bash
+    godoc -http=:6060 &
 ```
