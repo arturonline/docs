@@ -1,11 +1,8 @@
 # Snippets
 
-> go get golang.org/x/tour
-> tour
+## Read input from console
 
-Read input from console
-
-## Using scanf
+### Using scanf
 
 `Scanf` scans text read from standard input, storing successive **space-separated values** into successive arguments as **determined by the format**. It returns the number of items successfully scanned. If that is less than the number of arguments, err will report why. Newlines in the input must match newlines in the format. The one exception: the verb %c always scans the next rune in the input, even if it is a space (or tab etc.) or newline.
 
@@ -27,7 +24,7 @@ print(str)
 // hola
 ```
 
-## Using scan
+### Using scan
 
 `Scan` scans text read from standard input, storing successive **space-separated** values into successive arguments. **Newlines count as space**. It returns the number of items successfully scanned. If that is less than the number of arguments, err will report why.
 
@@ -56,7 +53,7 @@ var input string
 fmt.Scanln(&input)
 ```
 
-## Using bufio
+### Using bufio
 
 Read int:
 

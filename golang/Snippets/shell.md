@@ -1,6 +1,6 @@
 # Run shell commands
 
-Package exec runs external commands. It wraps os.StartProcess to make it easier to remap stdin and stdout, connect I/O with pipes, and do other adjustments.
+Package `exec` runs external commands. It wraps `os.StartProcess` to make it easier to remap *stdin* and *stdout*, connect I/O with pipes, and do other adjustments.
 
 ## func Command
 

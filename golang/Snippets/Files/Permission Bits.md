@@ -1,6 +1,6 @@
 # Permissions
 
-```
+```md
 +-----+---+--------------------------+
 | rwx | 7 | Read, write and execute  |
 | rw- | 6 | Read, write              |
