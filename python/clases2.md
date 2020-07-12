@@ -1,4 +1,6 @@
-# Herencia
+# advanced classes
+
+## Herencia
 
 Per a definir una classe com heredara d’un altra s’indica posant la classe pare entre parèntesi en la linia de definició de la classe:
 
