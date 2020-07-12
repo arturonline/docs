@@ -5,7 +5,7 @@
 
 ## Prerequisites
 
-Create a folder with a file named main.go , and run in the command line:
+Create a folder with a file named `main.go` , and run in the command line:
 
 ```bash
 go get github.com/urfave/cli

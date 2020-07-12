@@ -1,8 +1,8 @@
 # Arrays
 
-Go's arrays are values. An array variable denotes the entire array; it is not a pointer to the first array element (as would be the case in C). This means that when you assign or pass around an array value you will make a copy of its contents. (To avoid the copy you could pass a pointer to the array, but then that's a pointer to an array, not an array.) One way to think about arrays is as a sort of struct but with indexed rather than named fields: a fixed-size composite value.
+Go's arrays are values. This means that when you assign or pass around an array value you will make a copy of its contents. To avoid the copy you could pass a pointer to the array, but then that's a pointer to an array, not an array. 
 
-The type `[n]T` is an array of n values of type `T`.
+The type `[n]T` is an array of `n` values of type `T`.
 
 ## Declaration
 
@@ -56,7 +56,7 @@ fmt.Println(a == b) // false
 
 ## Multidimensional arrays
 
-The arrays we created so far are all single dimension. It is possible to create multidimensional arrays.
+It is possible to create multidimensional arrays.
 
 ```go
 package main

@@ -2,7 +2,7 @@
 
 ## Packages
 
-Packages are a collection of Go sources files that reside in the same directory. Packages provide code compartmentalization.
+Packages are a collection of Go sources files that reside in the same directory. 
 
 ```go
 package main

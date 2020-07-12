@@ -26,7 +26,7 @@ print(str)
 
 ### Using scan
 
-`Scan` scans text read from standard input, storing successive **space-separated** values into successive arguments. **Newlines count as space**. It returns the number of items successfully scanned. If that is less than the number of arguments, err will report why.
+`scan` scans text read from standard input, storing successive **space-separated** values into successive arguments. **Newlines count as space**. It returns the number of items successfully scanned. If that is less than the number of arguments, err will report why.
 
 Read integer:
 
@@ -44,7 +44,7 @@ fmt.Scan(&str)
 
 ## Using scanln
 
-`scanln` is similar to `Scan`, but stops scanning at a newline and after the final item there must be a newline or EOF.
+`scanln` is similar to `Scan`, but stops scanning at a newline and after the final item there must be a newline or *EOF*.
 
 Read string:
 

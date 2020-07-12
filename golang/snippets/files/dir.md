@@ -2,7 +2,7 @@
 
 ## Join
 
-Return a string with a file path using the correct path separators.
+Returns a string with a file path using the correct path separators.
 
 ```go
 println(path.Join("usr", "bin", "spam"))
@@ -37,14 +37,14 @@ os.Mkdir("pruebas", 0700)
 
 ## Base and Dir
 
-Base returns the last element of path.
+**Base** returns the last element of path.
 
 ```go
 fmt.Println(path.Base("/a/b"))
 // b
 ```
 
-Dir returns the path's directory.
+**Dir** returns the path's directory.
 
 ```go
 fmt.Println(path.Dir("/a/b/c"))
@@ -70,7 +70,7 @@ fmt.Println("file: ", file)
 
 ## SplitList
 
-SplitList splits a list of paths joined by the OS-specific ListSeparator, usually found in PATH or GOPATH environment variables. Unlike strings.Split, SplitList returns an empty slice when passed an empty string.
+**SplitList** splits a list of paths joined by the OS-specific ListSeparator. Unlike `strings.Split`, `SplitList` returns an empty slice when passed an empty string.
 
 ```go
 fmt.Println("On Unix:", filepath.SplitList("/a/b/c:/usr/bin"))
