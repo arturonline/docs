@@ -4,15 +4,15 @@
 
 Create a file my_script.sh with:
 
-```bash
-    #!/usr/bin/env bash
+```sh
+    #!/usr/bin/env sh
 
     # comment
 ```
 
 Permissions:
 
-```bash
+```sh
     chmod +x my_script.sh
 ```
 
@@ -20,19 +20,19 @@ Permissions:
 
 To store data in a variable, we use the following assignment syntax:
 
-```bash
+```sh
     varname=vardata
 ```
 
 you cannot use spaces around the = sign in an assignment.
 
-```bash
+```sh
     varname = vardata     # This is wrong!
 ```
 
 To expand variable values:
 
-```bash
+```sh
     echo "$HOME"
 # or
     echo ${prize}"
@@ -40,7 +40,7 @@ To expand variable values:
 
 ### Variables can be unset
 
-```bash
+```sh
     TMPDIR=/tmp
 
     unset TMPDIR
@@ -50,7 +50,7 @@ To expand variable values:
 
 Single quotes will literally `echo` what you have between them, while double quotes will evaluate variables between them and output the value of the variable:
 
-```bash
+```sh
     $ MYVAR=sometext
     $ echo "double quotes gives you $MYVAR"
     $ echo 'single quotes gives you $MYVAR'
@@ -61,14 +61,14 @@ Single quotes will literally `echo` what you have between them, while double quo
 
 ⚠️ Double quotes group everything inside them into a single argument:
 
-```bash
+```sh
     The secret voice in your head.mp3    # a mp3 file
     $ rm The secret voice in your head.mp3    # Executes rm with 6 arguments; not 1!
 ```
 
 This is what we should have done:
 
-```bash
+```sh
     rm "The secret voice in your head.mp3"
 ```
 
@@ -87,14 +87,14 @@ This is what we should have done:
 
 ## Read Input
 
-```bash
+```sh
     read -p "message" variable1 variable2 variableN
 ```
 
 Example:
 
-```bash
-    #!/bin/bash
+```sh
+    #!/bin/sh
 
     read -p "Please give your name and last name: " name surname
 

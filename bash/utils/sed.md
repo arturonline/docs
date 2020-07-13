@@ -1,25 +1,25 @@
 # sed
 
-```bash
+```sh
     sed [options] commands [file-to-edit]
 ```
 
 Sed sends its results to the screen by default:
 
-```bash
+```sh
     sed '' some-file
     cat some-file | sed ''
 ```
 
 ## printing
 
-```bash
+```sh
     sed 'p' some-file
 ```
 
 `sed` automatically prints each line by default. With "p" command you get each line printed twice. By passing the `-n` option to `sed`, which suppressed the automatic printing.
 
-```bash
+```sh
     sed -n 'p' some-file
 ```
 
@@ -27,25 +27,25 @@ Sed sends its results to the screen by default:
 
 print the first line:
 
-```bash
+```sh
     sed -n '1p' some-file
 ```
 
 print five lines:
 
-```bash
+```sh
     sed -n '1,5p' some file
 ```
 
 print line 1 and 4 more lines:
 
-```bash
+```sh
     sed -n '1,+4p' some-file
 ```
 
 print every other line (interval after ~ character):
 
-```bash
+```sh
     sed -n '1~2p' some-file
 ```
 
@@ -53,13 +53,13 @@ print every other line (interval after ~ character):
 
 Delete every other line starting with the first:
 
-```bash
+```sh
     sed '1~2d' some-file
 ```
 
 ⚠ The `sed` command does not edit the source file by default, but you can change this behavior by passing the `-i` option, which means "perform edits in-place".
 
-```bash
+```sh
 # Edit with redirect
 
     sed '1~2d' some-file > other-file
@@ -71,7 +71,7 @@ Delete every other line starting with the first:
 
 ## Substituting text
 
-```bash
+```sh
     s/old/new
 ```
 
@@ -83,19 +83,19 @@ Example:
 
 Replace first match "on" for "forward"
 
-```bash
+```sh
     sed 's/on/forward/' some-file
 ```
 
 Replace the 2nd instance of "on" for "forward"
 
-```bash
+```sh
     sed 's/on/forward/2' some-file
 ```
 
 Replace every instance of "on" for "forward"
 
-```bash
+```sh
     sed 's/on/forward/g' some-file
 ```
 
@@ -103,7 +103,7 @@ Replace every instance of "on" for "forward"
 
 To ignore case, you can pass the "i" flag.
 
-```bash
+```sh
     sed 's/on/forward/i' some-file
 ```
 
@@ -111,7 +111,7 @@ To ignore case, you can pass the "i" flag.
 
 The `&` character represent the matched text (^.*at) in the replacement string.
 
-```bash
+```sh
     sed 's/^.*at/(&)/' some-file
 ```
 
@@ -121,6 +121,6 @@ Every group of search text marked with parentheses can be referenced by an escap
 
 In this example, we’ll switch the first two words of each line:
 
-```bash
+```sh
     sed 's/\([a-zA-Z0-9][a-zA-Z0-9]*\) \([a-zA-Z0-9][a-zA-Z0-9]*\)/\2 \1/' song.txt
 ```

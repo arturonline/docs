@@ -4,7 +4,7 @@
 
 ## While
 
-```bash
+```sh
     number=0
     while [ "$number" -lt 10 ]; do
         echo "Number = $number"
@@ -14,7 +14,7 @@
 
 ## until
 
-```bash
+```sh
     number=0
     until [ "$number" -ge 10 ]; do
         echo "Number = $number"
@@ -24,7 +24,7 @@
 
 ## for
 
-```bash
+```sh
     for i in word1 word2 word3; do
         echo $i
     done

@@ -1,6 +1,6 @@
 # crontab de Artur
 
-```bash
+```sh
 # https://crontab.guru
 
 # [minute] [hour] [day] [month] [week day] [command to be executed]

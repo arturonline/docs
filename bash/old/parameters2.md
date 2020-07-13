@@ -1,9 +1,9 @@
 # Parameters
 
-```bash
+```sh
 $ # Some parameters that aren't variables:
 $ echo "My shell is $0, and has these options set: $-"
-My shell is -bash, and has these options set: himB
+My shell is -sh, and has these options set: himB
 ```
 
 ## Special Parameters
@@ -29,14 +29,14 @@ Although Bash is not a typed language, it does have a few different types of var
 Variables can be declared using the `declare` keyword:
 
 - `declare -a`: The variable is an array of strings.
-- `declare -A`: The variable is an associative array of strings (bash 4.0 or higher).
+- `declare -A`: The variable is an associative array of strings (sh 4.0 or higher).
 - `declare -i`: The variable holds an integer. Assigning values to this variable automatically triggers Arithmetic Evaluation.
 - `declare -r`: The variable can no longer be modified or unset.
 - `declare -x`: The variable is marked for export which means it will be inherited by any child process.
 
 Examples:
 
-```bash
+```sh
 $ declare -i int_var=1
 $ text_var=1
 $ text_var+=2 ; int_var+=2
@@ -47,12 +47,12 @@ $ echo $upper_var
 THIS IS AN UPPER CASE EXAMPLE
 $ declare -r read_only_var="Unchangeable"
 $ read_only_var="Modified"
-bash: read_only_var: readonly variable
+sh: read_only_var: readonly variable
 ```
 
 ## Parameter expansion
 
-In bash parameters do NOT start with a `$-sign`. The `$-sign` you see in the examples merely causes the parameter that follows it to be **expanded**. Expansion basically means that the shell replaces the parameter by its content. As such, `LOGNAME` is the parameter (variable) that contains your username. `$LOGNAME` is an expression that will be replaced with the content of that variable, which in my case is _lhunath_.
+In sh parameters do NOT start with a `$-sign`. The `$-sign` you see in the examples merely causes the parameter that follows it to be **expanded**. Expansion basically means that the shell replaces the parameter by its content. As such, `LOGNAME` is the parameter (variable) that contains your username. `$LOGNAME` is an expression that will be replaced with the content of that variable, which in my case is _lhunath_.
 
 > ⚠️ Good Practice: You should always keep parameter expansions properly quoted. This prevents the whitespace or the possible globs inside of them from giving you gray hair or unexpectedly wiping stuff off your computer. The only good PE, is a quoted PE.
 
@@ -60,7 +60,7 @@ In bash parameters do NOT start with a `$-sign`. The `$-sign` you see in the exa
 
 `$(command)` or `'command'` : Substitute by the output of the command
 
-```bash
+```sh
 $ CURRENT_DATE=$(date)
 $ echo $CURRENT_DATE
 Mon Apr 1 23:29:34 CEST 2013
@@ -86,7 +86,7 @@ Mon Apr 1 23:29:34 CEST 2013
 
 Example:
 
-```bash
+```sh
 $ for file in *.JPG *.jpeg
 do mv -- "$file" "${file%.*}.jpg"
 done
@@ -96,7 +96,7 @@ The code above can be used to rename all JPEG files with a `.JPG` or a `.jpeg` e
 
 You will learn them through experience. They come in handy far more often than you think they might. Here are a few examples to kickstart you:
 
-```bash
+```sh
 $ file="$HOME/.secrets/007"; \
 echo "File location: $file"; \
 echo "Filename: ${file##*/}"; \
@@ -120,7 +120,7 @@ Other file location length: 26
 
 Remember the difference between `${v#p}` and `${v##p}`. The doubling of the `#` character means patterns will become greedy. The same goes for `%`:
 
-```bash
+```sh
 $ version=1.5.9; echo "MAJOR: ${version%%.*}, MINOR: ${version#*.}."
 MAJOR: 1, MINOR: 5.9.
 $ echo "Dash: ${version/./-}, Dashes: ${version//./-}."
@@ -129,7 +129,7 @@ Dash: 1-5.9, Dashes: 1-5-9.
 
 Note: You cannot use multiple PEs together. If you need to execute multiple PEs on a parameter, you will need to use multiple statements:
 
-```bash
+```sh
 $ file=$HOME/image.jpg; file=${file##*/}; echo "${file%.*}"
 image
 ```

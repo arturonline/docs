@@ -1,12 +1,12 @@
 # Functions
 
-```bash
+```sh
     name () {
         # commands
     }
 ```
 
-```bash
+```sh
     function name {
         # commands
     }
@@ -14,7 +14,7 @@
 
 A function returns only numerical values representing the result of the evaluation of the function. But you can echo to stdin.
 
-```bash
+```sh
     function myfunc() {
         read -p "Tell me your name" name
         echo name
@@ -23,7 +23,7 @@ A function returns only numerical values representing the result of the evaluati
 
 ## Passing parameters to functions
 
-```bash
+```sh
     function myfunc {
         echo $(( $1 + $2 ))
     }

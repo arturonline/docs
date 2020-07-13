@@ -4,7 +4,7 @@
 
 ## #1 arithmetic expansion
 
-```bash
+```sh
     $(( expression ))
 
     res=$(( n1+n2 ))
@@ -16,7 +16,7 @@ Examples:
 
 Basic arithmetic using double parentheses
 
-```bash
+```sh
     a=$(( 4 + 5 ))
     echo $a # 9
 
@@ -41,7 +41,7 @@ Basic arithmetic using double parentheses
 
 ## #2: expr
 
-```bash
+```sh
     $(expr expression)
 
     res=$(expr $n1 +$n2)
@@ -49,7 +49,7 @@ Basic arithmetic using double parentheses
 
 ## #3: let
 
-```bash
+```sh
     let "a=(4+3)*7"
     let res=$n1+$n2
 ```

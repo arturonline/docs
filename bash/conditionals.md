@@ -56,7 +56,7 @@ as one
 
 💡Tip: `man test`
 
-```bash
+```sh
 [ condition  ]
 
 [ ! condition  ]

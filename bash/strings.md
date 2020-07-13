@@ -2,13 +2,13 @@
 
 ## Select substring
 
-```bash
+```sh
 ${string:position:size}
 ```
 
 Example
 
-```bash
+```sh
 # String=abcABC123ABCabc
 
 echo ${string:0}        # ⇒ abcABC123ABCabc
@@ -21,14 +21,14 @@ echo ${string: -4:2}    # ⇒ a (pay attention: there is a space between 􏰁:�
 
 ## Delete substring
 
-```bash
+```sh
 ${string#substring} # -> first coincidence
 ${string##substring} # -> all coincifirst coincidences
 ```
 
 Example:
 
-```bash
+```sh
 # string=abcABC123ABCabc
 
 echo ${string#a*C} # 123ABCabc
@@ -37,14 +37,14 @@ echo ${string##a*C} # abc
 
 ## Replacing substring
 
-```bash
+```sh
 ${string/search/replace} # first coincidence
 ${string//search/replace} # all coincidences
 ```
 
 Example:
 
-```bash
+```sh
 # string=abcABC123ABCabc
 echo ${string/abc/xyz} # xyzABC123ABCabc
 echo ${string/abc/xyz} # xyzABC123ABCxyz

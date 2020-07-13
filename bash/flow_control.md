@@ -6,7 +6,7 @@ The shell provides several commands that we can use to control the flow of execu
 
 ## if
 
-```bash
+```sh
     if commands; then
     commands
     [elif commands; then
@@ -20,7 +20,7 @@ The shell provides several commands that we can use to control the flow of execu
 
 Commands (including the scripts and shell functions we write) issue a value to the system when they terminate, called an exit status. This value, which is an integer in the range of 0 to 255, indicates the success or failure of the command’s execution. By convention, a value of zero indicates success and any other value indicates failure. The shell provides a parameter that we can use to examine the exit status. Here we see it in action:
 
-```bash
+```sh
     $ ls -d /usr/bin
     /usr/bin
     $ echo $?
@@ -33,13 +33,13 @@ Commands (including the scripts and shell functions we write) issue a value to t
 
 n order to be good script writers, we must set the exit status when our scripts finish. To do this, use the exit command. The exit command causes the script to terminate immediately and set the exit status to whatever value is given as an argument. For example:
 
-```bash
+```sh
     exit 0
 ```
 
 exits your script and sets the exit status to 0 (success), whereas
 
-```bash
+```sh
     exit 1
 ```
 
@@ -51,19 +51,19 @@ The test command is used most often with the if command to perform true/false de
 
 First form:
 
-```bash
+```sh
     test expression
 ```
 
 Second form:
 
-```bash
+```sh
     [ expression ]
 ```
 
 The test command works simply. If the given expression is true, test exits with a status of zero; otherwise it exits with a status of 1.
 
-```bash
+```sh
     if [ -f .bash_profile ]; then
         echo "You have a .bash_profile. Things are fine."
     else
@@ -89,7 +89,7 @@ The test command works simply. If the given expression is true, test exits with 
 | `string1 = string2`  | True if string1 equals string2.                                    |
 | `string1 != string2` | True if string1 does not equal string2.                            |
 
-```bash
+```sh
     if [ -f .bash_profile ]
     then
         echo "You have a .bash_profile. Things are fine."
@@ -109,7 +109,7 @@ The test command works simply. If the given expression is true, test exits with 
 
 The case command has the following form:
 
-```bash
+```sh
     case word in
         patterns ) commands ;;
     esac
@@ -117,7 +117,7 @@ The case command has the following form:
 
 Example:
 
-```bash
+```sh
     echo -n "Enter a number between 1 and 3 inclusive > "
     read character
     case $character in
