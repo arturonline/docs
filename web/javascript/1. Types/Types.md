@@ -2,19 +2,19 @@
 
 ## Literals
 
-- The literal representation of a number can be the digit 1, 25, 100 and so on.
+- A literal is the representation of a number.
 - A string literal can be *"some text"*;
 
 There is a literal value for just about everything in JavaScript:
 
 literal       | value               | typeof   | constructor
 --------------|---------------------|----------|------------
-1             | numeric literal     | number   | Number()
-"Some text"   | string literal      | string   | String()
-[]            | array literal       | object   | Array()
-{}            | object literal      | object   | Object()
-true          | boolean literal     | boolean  | Boolean()
-function() {} | function is a value | function | Function()
+`1`             | numeric literal     | number   | `Number()`
+`"Some text"`   | string literal      | string   | `String()`
+`[]`            | array literal       | object   | `Array()`
+`{}`            | object literal      | object   | `Object()`
+`true`          | boolean literal     | boolean  | `Boolean()`
+`function() {}` | function is a value | function | `Function()`
 
 ## Basic Types
 

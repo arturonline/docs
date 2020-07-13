@@ -4,7 +4,7 @@ Coercion is the process of converting a value from one type into another.
 
 Type coercion can be *explicit* and *implicit*:
 
-- When a developer expresses the intention to convert between types by writing the appropriate code, like Number(value), it’s called **explicit type coercion** (or type casting).
+- When a developer expresses the intention to convert between types by writing the appropriate code, like `Number(value)`, it’s called **explicit type coercion** (or type casting).
 - Since JavaScript is a weakly-typed language, values can also be converted between different types automatically, and it is called **implicit type coercion**.
 
 ```javascript
@@ -14,7 +14,7 @@ String(123) // explicit
 
 ## Arithmetic conversions
 
-The unary plus and minus operators force the value to a number. If the value is not a number, NaN is generated.
+The unary *plus* and *minus* operators force the value to a number. If the value is not a number, *NaN* is generated.
 
 ```javascript
 const s = "text";
@@ -32,7 +32,7 @@ string         | Whitespaces from the start and end are removed. If the remainin
 
 ### `+` operator
 
-If the type of the two values provided to the arithmetic + operator is different JavaScript will use type coercion to change one of the values before evaluating the entire statement to a more meaningful result.
+If the type of the two values provided to the arithmetic `+` operator is different JavaScript will use type coercion to change one of the values before evaluating the entire statement to a more meaningful result.
 
 - If both values are integers, arithmetic operation is performed. If one of them is a string then coercion happens and string addition is invoked.
 - when it sees that one of the values is a string, it invokes the string addition operator. It makes no difference whether the string is on the left or right side. The statement still evaluates to a string:
@@ -96,11 +96,11 @@ With non-numeric string values:
 
 ## null vs undefined
 
-null is not an object. Think of null as a unique type for explicitly assigning a ”nothing” or ”empty” value to a variable. This way it doesn’t end up undefined.
+`null` is not an object. Think of `null` as a unique type for explicitly assigning a ”nothing” or ”empty” value to a variable. This way it doesn’t end up undefined.
 
 If the value is unknown at the time of variable definition it is always best to use null instead of undefined.
 
-In a real-case scenario the null value can help us determine whether the data needs to be initialized for the first time, or existing data merely needs to be updated.
+In a real-case scenario the `null` value can help us determine whether the data needs to be initialized for the first time, or existing data merely needs to be updated.
 
 Example:
 
@@ -188,7 +188,7 @@ Infinity // Infinity
 false == 'false'         // false
 null == ''               // false
 !!"false" == !!"true"    // true
-['x'] == 'x'             // true 
+['x'] == 'x'             // true
 [] + null + 1            // 'null1'
 [1,2,3] == [1,2,3]       // false
 {}+[]+{}+[1]             // '0[object Object]1'

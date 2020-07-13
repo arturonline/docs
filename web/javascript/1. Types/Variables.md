@@ -6,11 +6,12 @@
 | let   | Block    | Yes          | Yes     |
 | var   | Function | Yes          | Yes     |
 
-const variables are mutable, it means that object and array const can be changed:
+const variables are **mutable**, it means that object and array const can be changed:
 
 ```Javascript
 const person = [];
 person.push('John'); // this will work ! person variable is not completely reassigned, but mutated
+
 console.log(person[0]) // "John"
 person = ["Nick"] // raises an error, because reassignment is not allowed with const declared variables
 ```
