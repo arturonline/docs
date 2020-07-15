@@ -2,7 +2,7 @@
 
 ## Ordered list
 
-```markdown
+```md
 1. item1
 1. item2
    + Item 1.1 (<- 3 spaces)
@@ -14,7 +14,7 @@
 
 ## Unordered list
 
-```markdown
+```md
 + Item 1
   + Item 2
     + Item 3

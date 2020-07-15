@@ -2,13 +2,25 @@
 
 ## Inline
 
-```markdown
+```md
 Inline `code` has `back-ticks around` it.
 ```
 
-## Blocks of code
+## blocks
 
-```markdown
+### code fences
+
+```md
+  ```
+    Roses are red
+    Violets are blue
+  ```
+```
+
+
+### Blocks of code
+
+```md
     ```Swift
     struct Person {
         var name: String
