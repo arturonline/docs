@@ -1,7 +1,7 @@
 # Basic Security and Identifying User Types
 
 
-🔗 [source](https://learning.lpi.org/en/learning-materials/010-160/5/5.1/5.1_01/)
+🔗[source](https://learning.lpi.org/en/learning-materials/010-160/5/5.1/5.1_01/)
 
 | Commands | Description                                                                                                              |
 |----------|--------------------------------------------------------------------------------------------------------------------------|
