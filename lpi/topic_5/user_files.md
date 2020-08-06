@@ -16,16 +16,19 @@ USERNAME:PASSWORD:UID:GID:GECOS:HOMEDIR:SHELL
 emma:x:1000:1000:Emma Smith,42 Douglas St,555.555.5555:/home/emma:/bin/bash
 ```
 
+⚠ An *x* is used if the password is in the shadow file.
+
 The GECOS field contains (3) or more fields, delimited by a comma (,). To change the information on the GECOS field, use the `chfn` command and answer the questions.
 
 ### The Group file: `/etc/group` 
 
-This file contains basic information about groups on the system. The syntax is:
+This file contains a list of groups, each on a separate line:
 
 ```sh
-NAME:PASSWORD:GID:MEMEBERS
+NAME:PASSWORD:GID:MEMBERS
 
 # Example:
+
 students:x:1023:jsmith,emma
 ```
 
@@ -34,7 +37,13 @@ students:x:1023:jsmith,emma
 This file contains the login name and encrypted password. Although the file has many fields, most are beyond the scope of this lesson, other than the first two.
 
 ```sh
-USERNAME:PASSWORD:LASTCHANGE:MINAGE:MAXAGE:WARN:INACTIVE:EXPDATE
+USERNAME:PASSWORD:DATELASTCHANGE:MINPASSAGE:MAXPASSAGE:PASSWARNPERIOD:INACTIVE:ACCOUNTEXPIRATIONDATE:RESERVED
+```
+
+```sh
+# Example:
+
+frank:$6$i9gjM4Md4MuelZCd$7jJa8Cd2bbADFH4dwtfvTvJLOYCCCBf/.jYbK1IMYx7Wh4fErXcc2xQVU2N1gb97yIYaiqH.jjJammzof2Jfr/:18029:0:99999:7:::
 ```
 
 The password are stored as a one-way hash function.
@@ -67,4 +76,19 @@ $6$01234567ABCD$012…
 ```
 
 ⚠ Only select authentication services, or the superuser can modify the `/etc/shadow` file via other commands.
+
+### The GShadow file: `/etc/gshadow' 
+
+The Group Shadow file is readable only by root and by users with root privileges that contains encrypted passwords for groups, each on a separate line:
+
+```sh
+NAME:PASSWORD:GROUPADMINISTRATORS:GROUPMEMBERS
+```
+
+```sh
+# Example:
+
+developer:$6$7QUIhUX1WdO6$H7kOYgsboLkDseFHpk04lwAtweSUQHipoxIgo83QNDxYtYwgmZTCU0qSCuCkErmyR263rvHiLctZVDR7Ya9Ai1::
+```
+
 
