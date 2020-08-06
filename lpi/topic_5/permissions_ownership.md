@@ -46,16 +46,16 @@ The command `chmod` is used to modify the permissions for a file, and takes at l
 
 The first character(s) indicate(s) whose permissions you will alter: 
 
-- The ones for the user (u)
-- The group (g)
-- Others (o)
-- and/or for all the three together (a).
+- **u**: user
+- **g**: group 
+- **o**: others
+- **a**: all the three together (a).
 
 Then you need to tell the command what to do: 
 
-- You can grant a permission (+)
-- Revoke a permission (-)
-- Or set it to (overwrite) a specific value (=).
+- **+**: grant a permission
+- **-**: revoke a permission
+- **=**: set it to a specific value (overwrite)
 
 Lastly, you specify which permission you wish to affect: read (r), write (w), or execute (x).
 
