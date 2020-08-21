@@ -5,15 +5,15 @@
 Create a file my_script.sh with:
 
 ```sh
-    #!/usr/bin/env sh
+#!/usr/bin/env sh
 
-    # comment
+# comment
 ```
 
 Permissions:
 
 ```sh
-    chmod +x my_script.sh
+chmod +x my_script.sh
 ```
 
 ## Variables
@@ -21,29 +21,29 @@ Permissions:
 To store data in a variable, we use the following assignment syntax:
 
 ```sh
-    varname=vardata
+varname=vardata
 ```
 
 you cannot use spaces around the = sign in an assignment.
 
 ```sh
-    varname = vardata     # This is wrong!
+varname = vardata     # This is wrong!
 ```
 
 To expand variable values:
 
 ```sh
-    echo "$HOME"
+echo "$HOME"
 # or
-    echo ${prize}"
+echo ${prize}"
 ```
 
 ### Variables can be unset
 
 ```sh
-    TMPDIR=/tmp
+TMPDIR=/tmp
 
-    unset TMPDIR
+unset TMPDIR
 ```
 
 ## Quotes
@@ -51,25 +51,25 @@ To expand variable values:
 Single quotes will literally `echo` what you have between them, while double quotes will evaluate variables between them and output the value of the variable:
 
 ```sh
-    $ MYVAR=sometext
-    $ echo "double quotes gives you $MYVAR"
-    $ echo 'single quotes gives you $MYVAR'
+$ MYVAR=sometext
+$ echo "double quotes gives you $MYVAR"
+$ echo 'single quotes gives you $MYVAR'
 
-    double quotes gives you sometext
-    single quotes gives you $MYVAR
+double quotes gives you sometext
+single quotes gives you $MYVAR
 ```
 
 ⚠️ Double quotes group everything inside them into a single argument:
 
 ```sh
-    The secret voice in your head.mp3    # a mp3 file
-    $ rm The secret voice in your head.mp3    # Executes rm with 6 arguments; not 1!
+The secret voice in your head.mp3           # a mp3 file
+$ rm The secret voice in your head.mp3      # Executes rm with 6 arguments; not 1!
 ```
 
 This is what we should have done:
 
 ```sh
-    rm "The secret voice in your head.mp3"
+rm "The secret voice in your head.mp3"
 ```
 
 ⚠️ Remember to put double quotes around every parameter expansion!
@@ -104,16 +104,16 @@ With command substitution, we can encapsulate the result of a command (seq 1 5) 
 ## Read Input
 
 ```sh
-    read -p "message" variable1 variable2 variableN
+read -p "message" variable1 variable2 variableN
 ```
 
 Example:
 
 ```sh
-    #!/bin/sh
+#!/bin/sh
 
-    read -p "Please give your name and last name: " name surname
+read -p "Please give your name and last name: " name surname
 
-    echo "Your name is $name"
-    echo "Your surname is $surname"
+echo "Your name is $name"
+echo "Your surname is $surname"
 ```
