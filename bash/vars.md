@@ -74,6 +74,22 @@ This is what we should have done:
 
 ⚠️ Remember to put double quotes around every parameter expansion!
 
+## Command substitution
+
+The standard output of a command can be encapsulated, much like a value can be stored in a value, and then expanded by the shell. This is known as command substitution.
+
+```sh
+$ echo $(seq 1 5)
+1 2 3 4 5
+```
+
+```sh
+$ echo `seq 1 5`
+1 2 3 4 5
+```
+
+With command substitution, we can encapsulate the result of a command (seq 1 5) into a variable by enclosing the command with **$( and )** or with **backsticks**.
+
 ## Positional parameters
 
 | parameter | action                        |
