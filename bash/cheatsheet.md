@@ -1,6 +1,6 @@
-# Bash cheatsheet
+# Bash cheatsheat
 
-## intro
+## Script creation
 
 ```sh
 #!/usr/bin/env bash
@@ -10,14 +10,14 @@
 chmod u+x my_script.sh
 ```
 
-## vars
+## Variables
 
 ```sh
 # declaration:
 name=data
 ```
 
-## Quotes
+## Double quotes vs Single quotes
 
 ```sh
 $ myvar=sometext
@@ -37,12 +37,14 @@ single quotes gives you $myvar
 echo "$name"
 echo ${name}
 
+# Variable expansion with quotes
+
 $ rm The secret voice in your head.mp3   # executes rm with 6 arguments
 
 $ rm "The secret voice in your head.mp3"   # executes rm with 1 argument
 ```
 
-## Command expansion
+## Command Expansion
 
 ```sh
 $ echo $(seq 1 5)
@@ -52,7 +54,9 @@ $ echo `seq 1 5`
 1 2 3 4 5
 ```
 
-## arithmetic expansion
+---
+
+## Arithmetic Expansion
 
 ```sh
 $(( expression ))
@@ -80,10 +84,12 @@ a=$(( 4 * 5 ))
 echo $a # 20
 ```
 
+---
+
 ## Conditionals
 
 | Operator | Meaning               |
-| -------- | --------------------- |
+| :------: | --------------------- |
 | `-lt`    | Less than             |
 | `-gt`    | Greater than          |
 | `-le`    | Less than or equal    |
@@ -94,7 +100,7 @@ echo $a # 20
 ## Comparing Strings
 
 | Operator | Meaning                               |
-| -------- | ------------------------------------- |
+| :------: | ------------------------------------- |
 | `=`      | The strings are equal                 |
 | `!=`     | The strings are not equal             |
 | `<`      | Less than (alphabetic order ASCII)    |
@@ -135,14 +141,14 @@ as one
 
 [ condition  ] && true-command || false-command
 ```
-## Positional parameters
+
+## Positional Parameters
 
 | parameter | action                        |
-| --------- | ----------------------------- |
+| :-------: | ----------------------------- |
 | `$0`      | script name                   |
 | `$1 - $9` | positional argument           |
 | `$#`      | how many arguments            |
 | `$*`      | to get all arguments          |
 | `$?`      | result of the last execution  |
 | `$$`      | PID of the process is running |
-
