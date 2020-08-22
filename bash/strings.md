@@ -58,3 +58,13 @@ echo ${string/abc/xyz} # xyzABC123ABCxyz
 | `-n string`          | True if `string` is not empty.             |
 | `string1 = string2`  | True if `string1` equals `string2`         |
 | `string1 != string2` | True if `string1` does not equal `string2` |
+
+## String comparison
+
+String comparison operators can be used with double parentheses:
+
+```sh
+if (( $int1 == $int2 )); then
+    echo  "${int1} is equal to ${int2}."
+fi
+```

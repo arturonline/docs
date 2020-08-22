@@ -31,6 +31,8 @@ $ echo 'double quotes gives you $myvar'
 single quotes gives you $myvar
 ```
 
+⚠ You should quote your variables if you aren't sure whether they could contain white space or wildcards.
+
 ## Variable expansion
 
 ```sh
@@ -53,6 +55,8 @@ $ echo $(seq 1 5)
 $ echo `seq 1 5`
 1 2 3 4 5
 ```
+
+⚠ Always double-quote parameter expansions because they can contain white space or wildcards.
 
 ---
 
@@ -86,6 +90,19 @@ echo $a # 20
 
 ---
 
+## Passing Arguments
+
+| parameter | action                        |
+| :-------: | ----------------------------- |
+| `$0`      | script name                   |
+| `$1 - $9` | positional argument           |
+| `$#`      | how many arguments            |
+| `$*`      | to get all arguments          |
+| `$?`      | result of the last execution  |
+| `$$`      | PID of the process is running |
+
+---
+
 ## Conditionals
 
 | Operator | Meaning               |
@@ -112,7 +129,8 @@ echo $a # 20
 
 | Operator          | Result                                                                 |
 | ----------------- | ---------------------------------------------------------------------- |
-| `-e name`         | File called with the name exists                                       |
+| `-e name`         | File name exists                                                       |
+| `-n name`         | File name is empty                                                     |
 | `-f name`         | name is a regular file (not directory)                                 |
 | `-s name`         | name exists, and the size is not 0                                     |
 | `-d name`         | name is a directory                                                    |
@@ -123,12 +141,14 @@ echo $a # 20
 | `file1 -ot file2` | True if `file1` is older than `file2`                                  |
 
 When they are not quoted, `$*` and `$@` are the same. You shouldn't use either of these, because they can break unexpectedly as soon as you have arguments containing spaces or wildcards.
-as one
-`"$@"` expands to separate words: `"$1"` `"$2"` ... This is almost always what you want. It expands each positional parameter to a separate word, which makes it perfect for taking command line or function arguments in and then passing them on to another command or function. And because it expands using double quotes, it means things don't break if, say, `"$1"` contains a space or an asterisk `*`.
 
-## Testing Conditions with `[ ]`
+`"$@"` expands to separate words, `"$1"` `"$2"`, which makes it perfect for taking command line or function arguments in and then passing them on to another command or function. And because it expands using double quotes, it means things don't break if, say, `"$1"` contains a space or an asterisk `*`.
 
-💡Tip: `man test`
+## Conditions 
+
+In the shell, every command is a conditional command: every command has a return status which is either 0 indicating success or an integer between 1 and 255 (and potentially more in some shells) indicating failure.
+
+### Old test `[ ]`
 
 ```sh
 [ condition  ]
@@ -141,14 +161,45 @@ as one
 
 [ condition  ] && true-command || false-command
 ```
+⚠ Note that you need a space around each operator.
 
-## Positional Parameters
+### New test `[[ ]]`
 
-| parameter | action                        |
-| :-------: | ----------------------------- |
-| `$0`      | script name                   |
-| `$1 - $9` | positional argument           |
-| `$#`      | how many arguments            |
-| `$*`      | to get all arguments          |
-| `$?`      | result of the last execution  |
-| `$$`      | PID of the process is running |
+- Word splitting and pathname expansion are not performed on the words between the [[ and ]].
+- Tilde expansion, parameter and variable expansion, arithmetic expansion, command substitution, process substitution, and quote removal are performed.
+- ksh/bash/zsh only.
+
+```sh
+[[ condition ]]
+
+[[ a = a && b = b ]]
+```
+
+### If test
+
+```sh
+NAME=$1
+
+if [ "$NAME" = "Dave" ]; then
+    echo "Hi Dave!"
+fi
+```
+
+
+```sh
+NAME=$1
+GREETING="Hi there"
+HAT_TIP="tip of the hat"
+HEAD_SHAKE="slow head shake"
+
+# if your name is "Dave"
+if [ "$NAME" = "Dave" ]; then
+    echo $GREETING
+# if your name is "steve"
+elif [ "$NAME" = "Steve" ]; then
+    echo $HAT_TIP
+# everybody else
+else
+    echo $HEAD_SHAKE
+fi
+```
