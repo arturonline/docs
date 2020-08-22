@@ -1,5 +1,13 @@
 # Bash cheatsheat
 
+A shell is an interface between you (or your script) and the kernel. It allows you to execute commands translating its syntax into system call.
+
+This call needs three pieces of information:
+
+- The _file_ to execute: This can be a binary program or a script.
+- An array of _arguments_: A list of strings that tell the program what to do.
+- An array of _environment variables_
+
 ## Script creation
 
 ```sh
@@ -31,32 +39,48 @@ $ echo 'double quotes gives you $myvar'
 single quotes gives you $myvar
 ```
 
-⚠ You should quote your variables if you aren't sure whether they could contain white space or wildcards.
+⚠ You should double-quote your variables if you aren't sure whether they could contain white space or wildcards.
 
 ## Variable expansion
+
+The shell takes your line of code and cuts it up into bits wherever there are sequences of syntactical whitespace:
+
+```sh
+rm myfile myotherfile
+  ^      ^
+
+[rm]
+[myfile]
+[myotherfile]
+```
+
+There is no more whitespace left after word splitting is done, only three completely separate chunks of characters: `rm`, `myfile`, and `myotherfile`. The shell now uses these chunks to build its system call.
+
+We usually do not want to let word splitting occur when filenames are involved. Double quoting suppresses word splitting:
 
 ```sh
 echo "$name"
 echo ${name}
 
-# Variable expansion with quotes
-
 $ rm The secret voice in your head.mp3   # executes rm with 6 arguments
-
-$ rm "The secret voice in your head.mp3"   # executes rm with 1 argument
+$ rm "The secret voice in your head.mp3"   # ERROR: executes rm with 1 argument
 ```
 
-## Command Expansion
+⚠ Double quotes don't work with the special cases of "$@" and "${array[@]}".
+
+## Command substitution
+
+We can encapsulate the result of a command (seq 1 5) into a variable by enclosing the command with **$( and )** or with **backsticks**..
 
 ```sh
 $ echo $(seq 1 5)
 1 2 3 4 5
+```
 
+```sh
 $ echo `seq 1 5`
 1 2 3 4 5
 ```
-
-⚠ Always double-quote parameter expansions because they can contain white space or wildcards.
 
 ---
 
@@ -94,12 +118,12 @@ echo $a # 20
 
 | parameter | action                        |
 | :-------: | ----------------------------- |
-| `$0`      | script name                   |
+|   `$0`    | script name                   |
 | `$1 - $9` | positional argument           |
-| `$#`      | how many arguments            |
-| `$*`      | to get all arguments          |
-| `$?`      | result of the last execution  |
-| `$$`      | PID of the process is running |
+|   `$#`    | how many arguments            |
+|   `$*`    | to get all arguments          |
+|   `$?`    | result of the last execution  |
+|   `$$`    | PID of the process is running |
 
 ---
 
@@ -107,23 +131,23 @@ echo $a # 20
 
 | Operator | Meaning               |
 | :------: | --------------------- |
-| `-lt`    | Less than             |
-| `-gt`    | Greater than          |
-| `-le`    | Less than or equal    |
-| `-ge`    | Greater than or equal |
-| `-eq`    | Equal to              |
-| `-ne`    | Not equal             |
+|  `-lt`   | Less than             |
+|  `-gt`   | Greater than          |
+|  `-le`   | Less than or equal    |
+|  `-ge`   | Greater than or equal |
+|  `-eq`   | Equal to              |
+|  `-ne`   | Not equal             |
 
 ## Comparing Strings
 
 | Operator | Meaning                               |
 | :------: | ------------------------------------- |
-| `=`      | The strings are equal                 |
-| `!=`     | The strings are not equal             |
-| `<`      | Less than (alphabetic order ASCII)    |
-| `>`      | Greater than (alphabetic order ASCII) |
-| `-n`     | String is not empty                   |
-| `-z`     | String is empty                       |
+|   `=`    | The strings are equal                 |
+|   `!=`   | The strings are not equal             |
+|   `<`    | Less than (alphabetic order ASCII)    |
+|   `>`    | Greater than (alphabetic order ASCII) |
+|   `-n`   | String is not empty                   |
+|   `-z`   | String is empty                       |
 
 ## Comparing Files
 
@@ -144,7 +168,9 @@ When they are not quoted, `$*` and `$@` are the same. You shouldn't use either o
 
 `"$@"` expands to separate words, `"$1"` `"$2"`, which makes it perfect for taking command line or function arguments in and then passing them on to another command or function. And because it expands using double quotes, it means things don't break if, say, `"$1"` contains a space or an asterisk `*`.
 
-## Conditions 
+---
+
+## Conditions
 
 In the shell, every command is a conditional command: every command has a return status which is either 0 indicating success or an integer between 1 and 255 (and potentially more in some shells) indicating failure.
 
@@ -161,6 +187,7 @@ In the shell, every command is a conditional command: every command has a return
 
 [ condition  ] && true-command || false-command
 ```
+
 ⚠ Note that you need a space around each operator.
 
 ### New test `[[ ]]`
@@ -184,7 +211,6 @@ if [ "$NAME" = "Dave" ]; then
     echo "Hi Dave!"
 fi
 ```
-
 
 ```sh
 NAME=$1

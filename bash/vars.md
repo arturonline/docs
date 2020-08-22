@@ -30,7 +30,7 @@ you cannot use spaces around the = sign in an assignment.
 varname = vardata     # This is wrong!
 ```
 
-To expand variable values:
+To show the variable values:
 
 ```sh
 echo "$HOME"
@@ -45,6 +45,10 @@ TMPDIR=/tmp
 
 unset TMPDIR
 ```
+
+## Word Splitting
+
+The shell's parser performs several operations on your commands before finally executing them: brace expansion, tilde expansion, parameter, variable and arithmetic expansion and command substitution (done in a left-to-right fashion), word splitting, and pathname expansion.
 
 ## Quotes
 
