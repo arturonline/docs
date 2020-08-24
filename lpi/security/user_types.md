@@ -1,6 +1,5 @@
 # Basic Security and Identifying User Types
 
-
 🔗[source](https://learning.lpi.org/en/learning-materials/010-160/5/5.1/5.1_01/)
 
 | Commands | Description                                                                                                              |
@@ -13,7 +12,6 @@
 | `sudo`   | Switch User (or Superuser) Do, if entitled, the current user enters their own password (if required) to raise privilege. |
 | `chsh`   | Change a user’s shell.                                                                                                   |
 | `chfn`   | Change the user’s information on the GECOS field.                                                                        |
-
 
 ## Accounts
 
@@ -29,7 +27,7 @@ All accounts other than root are regular user accounts (unprivileged). They typi
 
 * UIDs starting at **1000** (4 digits), although some legacy systems may start at 500.
 * A defined home directory, usually a subdirectory of `/home`, depending on the site-local configuration.
-* A defined login shell. 
+* A defined login shell.
 
 ⚠ If a user account does not have a valid shell in their attributes, the user will not be able to open an interactive shell. Usually `/sbin/nologin` is used as an invalid shell. This may be purposeful, if the user will only be authenticated for services other than console or SSH access, e.g., Secure FTP (sftp) access only.
 
@@ -66,14 +64,13 @@ Service account:
 
 Some Linux distributions still have pre-reserved service accounts under **UID <100**, and those could be considered a system account as well, even though they are not created at system installation. E.g., on Fedora-based (including Red Hat) Linux distributions, the user for the Apache Web server has UID (and GID) 48, clearly a system account, despite having a home directory (usually at /usr/share/httpd or /var/www/html/).
 
-
 >💡From the standpoint of the LPI Linux Essentials, system accounts are UIDs <1000, and regular user accounts are UIDs >1000. Since the regular user accounts are >1000, these UIDs can also include service accounts.
 
 ## Login Shells and Home Directories
 
 Some accounts have a login shell, while others do not for security purposes as they do not require interactive access.
 
-A user can change his login shell using the `chsh` command. 
+A user can change his login shell using the `chsh` command.
 
 ```sh
 # Without arguments, interactive mode
@@ -91,81 +88,6 @@ chsh -s /usr/bin/zsh
 
 Most accounts have a defined home directory. On Linux, this is usually the only location where that user account has guaranteed write access, with some exceptions (e.g., temporary file system areas).
 
-## Configuration files
-
-The files that are used to define the users and groups on the system are:
-
-- `/etc/passwd`
-- `/etc/shadow`
-- `/etc/group`
-- `/etc/gshadow`
-
-### The Password file: `/etc/passwd`
-
-This file contains one line for each user account on the system. Each line is composed of seven fields separated by colons(:):
-
-
-```sh
-USERNAME:PASSWORD:UID:GID:GECOS:HOMEDIR:SHELL 
-
-# Example:
-emma:x:1000:1000:Emma Smith,42 Douglas St,555.555.5555:/home/emma:/bin/bash
-```
-
-The GECOS field contains (3) or more fields, delimited by a comma (,). To change the information on the GECOS field, use the `chfn` command and answer the questions.
-
-### The Group file: `/etc/group` 
-
-This file contains basic information about groups on the system. The syntax is:
-
-```sh
-NAME:PASSWORD:GID:MEMEBERS
-
-# Example:
-students:x:1023:jsmith,emma
-```
-
-### The Shadow file: `/etc/shadow`
-
-This file contains the login name and encrypted password. Although the file has many fields, most are beyond the scope of this lesson, other than the first two.
-
-
-```sh
-USERNAME:PASSWORD:LASTCHANGE:MINAGE:MAXAGE:WARN:INACTIVE:EXPDATE
-```
-
-The password are stored as a one-way hash function.
-
-A password may take several forms:
-
-| form                   | meaning                                                     |
-|------------------------|-------------------------------------------------------------|
-| `!!`                   | disabled account, with no password stored                   |
-| `!$1$01234567$ABC...`  | A disabled account with hash function, salt and hash string |
-| `$1$01234567ABC$012..` | An Enable account, with hash function, salt and string      |
-
-The hash function, hash salt and hash string are preceded and delimited by a dollar symbol ($). The hash salt length must be between eight and sixteen (8-16) characters. 
-
-Examples of the three most common are as follows:
-
-```sh
-# A hash function of MD5 (1), with an example hash length of eight.
-$1$01234567$ABC…
-```
-
-```sh
-# A hash function of SHA256 (5), with an example hash length of twelve.
-$5$01234567ABCD$012…
-```
-
-```sh
-# A hash function of SHA512 (6), with an example hash length of twelve.
-$6$01234567ABCD$012…
-```
-
-⚠ Only select authentication services, or the superuser can modify the `/etc/shadow` file via other commands.
-
-
 ## Getting Information about your Users
 
 * `id`
@@ -180,22 +102,8 @@ The w and who tools only list current users logged into the system, whereas last
 
 To escalate privilege to complete a task in linux can be done with `su` and `sudo` commands.
 
+>💡 On most Linux systems today, the `su -` command is used for escalating privileges to root, which is the default user if a username is not specified after the command name
+
 The dollar symbol ($) should terminate the command line prompt for a non-privileged user shell, while the pound symbol (#) should terminate the command line prompt for the superuser (root) shell prompt.
 
 >💡 By default, the first authorized sudo command will authenticate subsequent sudo commands for a (very short) period of time. This is configurable by the system administrator.
-
-
->💡 On most Linux systems today, the `su -` command is used for escalating privileges to root, which is the default user if a username is not specified after the command name.
-
-
-
-
-
-
-
-
-
-
-
-
-
