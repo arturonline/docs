@@ -1,6 +1,6 @@
 # Arrays
 
-Go's arrays are values. This means that when you assign or pass around an array value you will make a copy of its contents. To avoid the copy you could pass a pointer to the array, but then that's a pointer to an array, not an array. 
+Go's arrays are values. This means that when you assign or pass around an array value you will make a copy of its contents. To avoid the copy you could pass a pointer to the array.
 
 The type `[n]T` is an array of `n` values of type `T`.
 

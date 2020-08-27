@@ -81,7 +81,7 @@ a[low : high]
 
 This selects a half-open range which includes the first element, but excludes the last one.
 
-The following expression creates a slice which includes elements 1 through 3 of a:
+Example: the following expression creates a slice which includes elements 1 through 3 of a:
 
 ```go
 a[1:4]

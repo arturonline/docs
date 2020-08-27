@@ -39,7 +39,7 @@ var p = Person{FirstName: "Alien"} // LastName: "", Age: 0
 
 2 ways, dot notation, or pointers.
 
-### Dot notation
+### #1: Dot notation
 
 You can access individual fields of a struct using the dot (.) operator:
 
@@ -76,7 +76,7 @@ func main() {
 // Car:  {Ferrari GTC4 Black 1920}
 ```
 
-### Pointer to a struct
+### #2: Pointer to a struct
 
 Go lets you directly access the fields of a struct through the pointer without explicit dereference.
 
