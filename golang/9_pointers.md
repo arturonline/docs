@@ -1,32 +1,19 @@
 # Pointers
 
-When we call a function that takes an argument, that argument is copied to the function:
+A pointer is a variable which stores the memory address of another variable.
+
+- `*T` is the type of the pointer variable which points to a value of type `T`.
+- The `&` operator is used to get the address of a variable.
 
 ```go
-func zero(x int) {
-  x = 0
-}
-func main() {
-  x := 5
-  zero(x)
-  fmt.Println(x) // x is still 5
-}
+b := 255
+var a *int = &b
+fmt.Printf("Type of a is %T\n", a)
+fmt.Println("address of b is", a)
+
+// Type of a is *int
+// address of b is 0xc00002c008
 ```
-
-In this program the zero function will not modify the original x variable in the main function. But what if we wanted to? One way to do this is to use a special data type known as a pointer:
-
-```go
-func zero(xPtr *int) {
-  *xPtr = 0
-}
-func main() {
-  x := 5
-  zero(&x)
-  fmt.Println(x) // x is 0
-}
-```
-
-Pointers reference a location in memory where a value is stored rather than the value itself. By using a pointer (`*int`) the zero function is able to modify the original variable.
 
 ## The `*` and `&` operators
 
@@ -65,7 +52,37 @@ func main() {
 // 73
 ```
 
-## new
+## Pointers in go
+
+When we call a function that takes an argument, that argument is copied to the function:
+
+```go
+func zero(x int) {
+  x = 0
+}
+func main() {
+  x := 5
+  zero(x)
+  fmt.Println(x) // x is still 5
+}
+```
+
+In this program the zero function will not modify the original x variable in the main function. But what if we wanted to? One way to do this is to use a special data type known as a pointer:
+
+```go
+func zero(xPtr *int) {
+  *xPtr = 0
+}
+func main() {
+  x := 5
+  zero(&x)
+  fmt.Println(x) // x is 0
+}
+```
+
+Pointers reference a location in memory where a value is stored rather than the value itself. By using a pointer (`*int`) the zero function is able to modify the original variable.
+
+## Creating pointers using the new function
 
 Another way to get a pointer is to use the built-in new function:
 

@@ -1,5 +1,7 @@
 # Functions
 
+[More about functions](https://linuxhandbook.com/bash-functions/#passing-arguments-to-bash-function)
+
 ```sh
 name() {
     # commands
@@ -22,6 +24,8 @@ function myfunc() {
 ```
 
 ## Passing parameters to functions
+
+You can pass arguments to a function just like you can pass arguments to a bash script. You just include the arguments when you do the function call.
 
 ```sh
 function myfunc {
