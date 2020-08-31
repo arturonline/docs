@@ -1,9 +1,11 @@
 # Pointers
 
-A pointer is a variable which stores the memory address of another variable.
+A pointer holds the memory address of a value.
 
-- `*T` is the type of the pointer variable which points to a value of type `T`.
-- The `&` operator is used to get the address of a variable.
+- `&` generates a pointer to its operand.
+- `*` dereferences a pointer (exposes the underlying value).
+
+## Example
 
 ```go
 b := 255
@@ -14,21 +16,6 @@ fmt.Println("address of b is", a)
 // Type of a is *int
 // address of b is 0xc00002c008
 ```
-
-## The `*` and `&` operators
-
-In Go a pointer is represented using the `*` character followed by the type of the stored value. In the zero function `xPtr` is a pointer to an `int`.
-
-`*` is also used to gives us access to the value the pointer points to.
-
-```go
-*xPtr = 0 // store 0 in the memory location `xPtr` refers to.
-xPtr = 0 // Error: `xPtr` is not an int it's a `*int`
-```
-
-The `&` operator is used to assign the memory address to a variable. `&x` returns a pointer to x memory adress.
-
-## Example
 
 ```go
 package main
@@ -52,7 +39,7 @@ func main() {
 // 73
 ```
 
-## Pointers in go
+## Pointers to mutate values
 
 When we call a function that takes an argument, that argument is copied to the function:
 
@@ -102,3 +89,11 @@ func main() {
 In some programming languages there is a significant difference between using `new` and `&`, with great care being needed to eventually delete anything created with new. Go is not like this, it's a garbage collected programming language which means memory is cleaned up automatically when nothing refers to it anymore.
 
 Pointers are rarely used with Go's built-in types, but as we will see in the next chapter, they are extremely useful when paired with structs.
+
+## Pointers in go
+
+Pointers can be used to:
+
+- Allow a function to directly mutate a value that is passed to it
+- To increase performance in edge cases. Sometimes passing a large struct of data results in inefficient copying of data
+- To signify the lack of a value. For example, when unmarshalling JSON data into a struct it can be useful to know if a key was absent rather than it being present with the zero value.
