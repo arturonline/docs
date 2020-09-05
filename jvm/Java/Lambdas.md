@@ -15,8 +15,9 @@ parameter -> expression
 (param p1, param p2) -> expression // try to avoid specifying param types
 (param1, param2) -> expression
 
-p -> { code block } // try to use method references
-String::toLowerCase;
+p -> { code block }
+
+String::toLowerCase; // try to use method references
 ```
 
 Despite its concise syntax, lambdas should precisely express the functionality they provide. If possible, use one line constructions instead of a large block of code. Remember lambdas should be an expression, not a narrative.
@@ -30,7 +31,7 @@ Consumer<String> myPrinter = s -> System.out.println(s);
 Consumer<String> myPrinter = System.out::println;
 ```
 
-Notice the double colons `::`. These signal to the Java compiler that this is a method reference. The method referenced is what comes after the double colons. Whatever class or object that owns the referenced method comes before the double colons.
+Notice the double colons `::`, these signal to the Java compiler that this is a method reference. The method referenced is what comes after the double colons.
 
 It is possible to reference a constructor of a class. You do that by writing the class name followed by `::new`, like this:
 
@@ -41,7 +42,7 @@ Factory factory = String::new;
 
 ## Functional intefaces
 
-How does lambda expressions fit into Javas type system? Each lambda corresponds to a given type, specified by an interface. A so called **functional interface** must contain exactly one abstract method declaration. Each lambda expression of that type will be matched to this abstract method.
+How does lambda expressions fit into Javas type system? Each lambda corresponds to a given type, specified by a **functional interface**. A so called functional interface must contain exactly one abstract method declaration and each lambda expression of that type will be matched to this abstract method.
 
 The lambda expression should have the **same number of parameters** and the **same return type** as that method. Since default methods are not abstract you're free to add default methods to your functional interface.
 
