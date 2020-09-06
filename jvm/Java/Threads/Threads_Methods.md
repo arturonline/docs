@@ -42,8 +42,8 @@ Example:
 public static void main( String[] args ) {
     System.out.println(Thread.currentThread().getName());
     for(int i = 0; i < 10; i++) {
-        new Thread("" + i){
-            public void run(){
+        new Thread("" + i) {
+            public void run() {
                 System.out.println("Thread: " + getName() + " running");
             }
         }.start();
@@ -62,6 +62,8 @@ public static void main( String[] args ) {
 // Thread: 7 running
 // Thread: 9 running
 ```
+
+⚠`isAlive()` -> Determine if a thread is still running
 
 ## Pause a Thread
 
@@ -102,7 +104,7 @@ public class MyRunnable implements Runnable {
 
             try {
                 Thread.sleep(3L * 1000L);
-            } catch (InterruptedException e) {
+            } catch(InterruptedException e) {
                 e.printStackTrace();
             }
         }
@@ -219,3 +221,5 @@ class TestMultiPriority1 extends Thread{
 // running thread name is:Thread-1
 // running thread priority is:1
 ```
+
+⚠ `getPriority()` -> Obtain thread’s priority
