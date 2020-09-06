@@ -2,11 +2,13 @@
 
 A Java lambda expression is a function which can be created without belonging to any class. A Java lambda expression can be passed around as if it was an object and executed on demand.
 
+## Syntaxis
+
 ```java
 (parameter list) -> { code block }
 ```
 
-## Syntaxis
+Other ways to represent a lambda expression:
 
 ```java
 (parameter) -> expresion // try to avoid parentheses around a single parameter
@@ -22,7 +24,7 @@ String::toLowerCase; // try to use method references
 
 Despite its concise syntax, lambdas should precisely express the functionality they provide. If possible, use one line constructions instead of a large block of code. Remember lambdas should be an expression, not a narrative.
 
-## Method references as Lambdas
+### Method references as Lambdas
 
 In the case where all your lambda expression does is to call another method with the parameters passed to the lambda, the Java lambda implementation provides a shorter way to express the method call.
 
@@ -40,11 +42,24 @@ Factory factory = chars -> new String(chars);
 Factory factory = String::new;
 ```
 
-## Functional intefaces
+## Type of a Lambda expression
 
-How does lambda expressions fit into Javas type system? Each lambda corresponds to a given type, specified by a **functional interface**. A so called functional interface must contain exactly one abstract method declaration and each lambda expression of that type will be matched to this abstract method.
+Java is a Typed language. In order to define the type of a lambda expression we use an interface with a single method:
 
-The lambda expression should have the **same number of parameters** and the **same return type** as that method. Since default methods are not abstract you're free to add default methods to your functional interface.
+```java
+public interface MyFunction {
+    public void apply(String s);
+
+
+MyFunction myFunction = text -> System.out.println(text);
+myFunction.apply("hola"),
+```
+
+### Functional intefaces
+
+Each lambda corresponds to a given type, specified by a **functional interface**. A functional interface must contain exactly **one abstract method declaration**, with the same number of parameters and the same return type, and each lambda expression of that type will be matched to this abstract method.
+
+⚠ Since default methods are not abstract you're free to add default methods to your functional interface.
 
 ### Built-in Functional Interfaces
 
@@ -72,7 +87,7 @@ System.out.println(cond.test("java2s.com "));
 
 >💡 [more examples](http://www.java2s.com/Tutorials/Java/java.util.function/Consumer/index.htm)
 
-### Annotation: `@FunctionalInterface`
+## Annotation: `@FunctionalInterface`
 
 To ensure that your interface meet the requirements, you should add the `@FunctionalInterface` annotation. The compiler is aware of this annotation and throws a compiler error as soon as you try to add a second abstract method declaration to the interface.
 
