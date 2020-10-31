@@ -10,4 +10,4 @@ Allow the element to occupy all available space to satisfay the constraint.
 
 ## Wrap Content >>>
 
-Expand the element as needed to fit its content
+Expand the element as needed to fit its content.

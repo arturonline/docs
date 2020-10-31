@@ -7,7 +7,7 @@ mkdir -p /srv/mysql
 
 docker run --name mysql-srv \
             -p 3308:3306 \
-            -v /srv/mysql:/var/lib/mysql \
+            -v /home/artur/dev/srv/mysql-data:/var/lib/mysql \
             -e MYSQL_ROOT_PASSWORD="root" \
             -d mysql
 ```

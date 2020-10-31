@@ -68,7 +68,7 @@ class MainActivity : FragmentActivity() {
 }
 ```
 
-```kotlin
+```java
 class BlankFragment : Fragment() {
     private lateinit var layoutManager: LinearLayoutManager
     private lateinit var adapter: RecyclerView.Adapter<*>
