@@ -45,6 +45,8 @@ public static void main(Strings[] args) {
 
 ### #2: Create a Thread by extending the `Runnable` Interface
 
+*Prefered way
+
 ```java
 public class MyRunnable implements Runnable {
 
