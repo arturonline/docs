@@ -138,6 +138,8 @@ class Consumidor implements Runnable{
 }
 ```
 
+Finalment, la classe principal `exempleProdCons` crearà un thread amb el productor i altre amb el consumidor, i els llançarà:
+
 ```java
 public class exempleProdCons {
     public static void main(String[] args) {
