@@ -103,3 +103,144 @@ public static void main(Strings[] args) {
 ```
 
 >⚠ **Common Pitfall:** Calling `run()` Instead of `start()` At first you may not notice anything because the Runnable's `run()` method is executed like you expected. However, it is NOT executed by the new thread you just created, but the thread that executed the above two lines of code.
+
+## WorkFlow
+
+El més habitual serà emmagatzemar els diferents threads en un vector en lloc de fer-ho en un objecte solt. Llançar el thread amb `start()` i esperar-lo amb `join()`.
+
+## Join
+
+Tots els programes multifil tenen un fil principal que ha d’esperar que
+acaben els fils associats, per a la qual cosa utilitzem el mètode join . Pe què s’anomena així? Quan creem un thread, es produeix una bifurcació, es creen dos camins d’execució diferents, pel que quan un procés acaba i ha d’esperar a l’altre, es produeix una unificació, un join.
+
+## Exemples
+
+**Exemple1:**
+
+```java
+
+/*
+Exemple tipus "Hola Món" amb threads
+*/
+public class exemple1 implements Runnable {
+    String nom;
+
+    // Constructors
+    exemple1() {
+        this.nom = "Anònim";
+    }
+    exemple1(String nom) {
+        this.nom = nom;
+    }
+
+    // Aquest és el métode que s'exeutarà quan
+    // s'invoque al métode start del thread.
+    @Override
+    public void run() {
+        try{
+            // Agafem la referéncia al thread actual
+            Thread filActual = Thread.currentThread();
+
+            // I imprimim informació sobre el seu nom i algunes propietats
+            System.out.println("Hola Món dels threads. Sóc " + this.nom + ":"
+                + "\n\tEl meu id de thread és " + filActual.getId()
+                + "\n\tEl nom de thread és " + filActual.getName()
+                + "\n\tLa meua prioritat és " + filActual.getPriority() + "\n");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void main(String[] args) {
+        try{
+            // Creem alguns objectes d'exemple
+            exemple1 ex1 = new exemple1("C3PO");
+            exemple1 ex2 = new exemple1("R2D2");
+            exemple1 ex3 = new exemple1("BB8");
+
+            // I els fils corresponents
+            Thread fil1 = new Thread(ex1);
+            Thread fil2 = new Thread(ex2);
+            Thread fil3 = new Thread(ex3);
+
+            // Llancem els fils
+            fil1.start();
+            fil2.start();
+            fil3.start();
+
+            // I els juntem amb l'actual quan acaben
+            fil1.join();
+            fil2.join();
+            fil3.join();
+
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+```
+
+**Exemple2**
+
+En aquest exemple, hem fet una variació de l’anterior, per tal que reba una llista de noms com a arguments, i cree tants fils com hem indicat, fent ús de vectors per emmagatzemar els objectes i els threads.
+
+```java
+/*
+Exemple tipus "Hola Món" amb threads i vectors
+*/
+public class exemple2 implements Runnable {
+    String nom;
+
+    // Constructors
+    exemple2(){
+        this.nom = "Anònim";
+    }
+    exemple2(String nom){
+        this.nom = nom;
+    }
+
+    @Override
+    // Aquest és el métode que s'exeutarà quan
+    // s'invoque al métode start del thread.
+    public void run() {
+        try{
+            // Agafem la referéncia al thread actual
+            Thread filActual = Thread.currentThread();
+
+            // I imprimim informació sobre el seu nom i algunes propietats
+            System.out.println("Hola Món dels threads. Sóc " + this.nom + "
+            :"
+            + "\n\tEl meu id de thread és " + filActual.getId()
+            + "\n\tEl nom de thread és " + filActual.getName()
+            + "\n\tLa meua prioritat és " + filActual.getPriority() + "\n");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        try{
+            // Definim un vector per emmagatzemar els threads
+            Thread[] LlistaThreads = new Thread[args.length];
+            for (int i = 0; i < args.length; i++) {
+
+                // Creem l'objecte
+                exemple2 nom = new exemple2(args[i]);
+
+                // I el thread que l'utilitza
+                LlistaThreads[i] = new Thread(nom);
+
+                // I el llancem
+                LlistaThreads[i].start();
+            }
+
+            // Una vegada llançats, els juntem tots
+            for (int i = 0; i < args.length; i++) {
+                LlistaThreads[i].join();
+            }
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+}
+```
