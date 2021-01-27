@@ -13,6 +13,7 @@ const msyql = require("mysql");
 
 const conn = mysql.createConnection({
   host: "localhost",
+  port: 3308,
   user: "root",
   password: "1234",
   database: "agenda",
