@@ -1,60 +1,72 @@
 # Branching
 
-## List and create branches
+## Introduction
 
-```bash
+When you create a branch in your project, you're creating an environment where you can try out new ideas. Changes you make on a branch don't affect the main branch, so you're free to experiment and commit changes, safe in the knowledge that your branch won't be merged until it's ready to be reviewed by someone you're collaborating with.
+
+### List
+
+```sh
 # list all branches in your repository
 git branch
 ```
 
-```bash
-# Create a new branch called "name"
-git branch name
-```
-
-```bash
-# Delete a branch
-git branch -d name
-
-# Force delete the specified branch
-git branch -D name
-```
-
-```bash
-# Rename current branch
-git branch -m name
-```
-
-```bash
+```sh
 # List all remote branches
 git branch -a
 ```
 
-## Navigate between branches
+### Create a new branch
 
-```bash
-# Swith to branch "name"
-git checkout name
+```sh
+# Create a new branch called "new_branch"
+git branch new_branch
 ```
 
-## Git Checkout a Remote Branch
+```sh
+# Delete a branch
+git branch -d new_branch
 
-```bash
-git fetch --all
-git checkout nameRemoteBranch
+# Force delete the specified branch
+git branch -D new_branch
 ```
+
+```sh
+# Renew_branch current branch
+git branch -m new_branch
+```
+
+### Navigate between branches
+
+The git checkout command lets you navigate between the branches created by git branch. Checking out a branch updates the files in the working directory to match the version stored in that branch, and it tells Git to record all new commits on that branch. Think of it as a way to select which line of development you’re working on.
+
+```sh
+# Swith to branch "new_branch"
+git checkout new_branch
+```
+
+When you want to start a new feature, you create a new branch off master using git branch new_branch. Once created you can then use git checkout new_branch to switch to that branch. Additionally, The git checkout command accepts a -b argument that acts as a convenience method which will create the new branch and immediately switch to it. You can work on multiple features in a single repository by switching between them with git checkout.
+
+```sh
+# Create and selecte new branch
+git checkout -b new_branch
+```
+
+## Commiting changes
+
+Whenever you add, edit, or delete a file, you're making a commit, and adding them to your branch. This process of adding commits keeps track of your progress as you work on a feature branch.
 
 ## Merging Changes
 
-git merge is used to combine two branches.
+When you’re done with the development branch, the next step is to merge it into master branch.
 
-```bash
+```sh
 # First change to the master branch
 git checkout master
 
-# Merge the name branch into master branch
-git merge name
+# Merge the new_branch branch into master branch
+git merge new_branch
 
 # Delete the old branch
-git branch -d name
+git branch -d new_branch
 ```
