@@ -1,6 +1,6 @@
 # Casting and Type Conversions
 
-You might sometimes need to copy a value into a variable or method parameter of another type.
+You might sometimes need to copy a value into a variable or method parameter of a different type.
 
 ## 1. Implicit conversions
 
