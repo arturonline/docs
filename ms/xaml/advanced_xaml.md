@@ -3,16 +3,35 @@
 ## Namespaces
 
 An XML namespace is used to specify the location of the information needed to instantiate the XML document.
-
 Namespaces are defined by adding the **xmlns** attribute to the root element.
-
-Typically, the root element of a `Xamarin.Forms XAML` document is `ContentPage`.
 
 ```xml
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" //Xamarin.Forms
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" // XAML
-             x:Class="Sample.MyPage">
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" // XAML
+            x:Class="Sample.MyPage">
 </ContentPage>
+```
+
+## Platform-specific values
+
+In C#, the `Device.RuntimePlatform` property allows you to select a unique value for each platform.
+
+```cs
+if (Device.RuntimePlatform == Device.iOS)
+{
+    Padding = new Thickness(0, 20, 0, 0);
+}
+```
+
+In XAML, `OnPlatform` class allows you to set properties on XAML elements and is used at runtime for iOS, Android, and other supported **Xamarin.Forms platforms**.
+
+```xml
+<ContentPage.Padding>
+    <OnPlatform x:TypeArguments="Thickness">
+        <On Platform="iOS" Value="0,20,0,0" />
+        <On Platform="Android" Value="0,0,0,0" />
+    </OnPlatform>
+</ContentPage.Padding>
 ```
 
 ## XAML markup extensions
@@ -52,26 +71,4 @@ To have access to our static code values, add a namespace attribute into the roo
             BackgroundColor="{x:Static local:SharedResources.ButtonBkColor}" />
     ...
 </ContentPage>
-```
-
-## Platform-specific values
-
-The `Device.RuntimePlatform` property allows you to select a unique value for each platform.
-
-```cs
-if (Device.RuntimePlatform == Device.iOS)
-{
-    Padding = new Thickness(0, 20, 0, 0);
-}
-```
-
-The `OnPlatform` class allows you to set properties on XAML elements and is used at runtime for iOS, Android, and other supported **Xamarin.Forms platforms**.
-
-```xml
-<ContentPage.Padding>
-    <OnPlatform x:TypeArguments="Thickness">
-        <On Platform="iOS" Value="0,20,0,0" />
-        <On Platform="Android" Value="0,0,0,0" />
-    </OnPlatform>
-</ContentPage.Padding>
 ```

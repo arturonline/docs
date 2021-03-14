@@ -66,9 +66,9 @@ If we wanted to assign this value to a Label, we can write our XAML this way:
 </Label>
 ```
 
-## Acces XAML elements from code
+## Access XAML elements from c#
 
-To find elements that are created in the XAML use the XAML attribute `x:Name`.
+To access elements that are created in the XAML we use the XAML attribute `x:Name` like this:
 
 ```xml
  <StackLayout>
