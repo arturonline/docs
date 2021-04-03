@@ -4,6 +4,8 @@
 
 <img src="img/mvvm.png" heigth=300 width=300>
 
+[Video](https://www.youtube.com/watch?v=y8ZqEOLDeo8&t=1089s)
+
 ## Code
 
 ### `XAML:`
@@ -81,5 +83,4 @@ namespace XamApp1.ViewModels
         }
     }
 }
-
 ```
