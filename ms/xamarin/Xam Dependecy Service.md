@@ -64,6 +64,7 @@ namespace App.Droid
         }
 ```
 
+⚠ Do the same in IOS: implementation + register dependency.
 
 ### 3. Then you could use it in Xamarin.Forms:
 

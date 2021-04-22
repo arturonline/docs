@@ -115,7 +115,7 @@ public partial class MainPage : ContentPage
         <ListView ItemsSource="{Binding Paises}"
             HasUnevenRows="True">
             <ListView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="model:Paises" >
                     <TextCell Text="{Binding Name}"
                               Detail="{Binding Ubicacion}"/>
                 </DataTemplate>

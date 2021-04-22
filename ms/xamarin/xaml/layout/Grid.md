@@ -1,6 +1,6 @@
 # Grid
 
-![img](./grid1.png)
+![img](../img/grid1.png)
 
 ## Filas
 
@@ -24,7 +24,7 @@ Para crear una columna (Column), solo tienes que agregar dentro de la etiqueta `
 
 ## Altura y Anchura
 
-![grid2](./grid2.png)
+![grid2](../img/grid2.png)
 
 Tres opciones:
 
@@ -62,8 +62,6 @@ Tres opciones:
 
 Para agregar un control, especificamos la fila/columna del grid al que pertenecen.
 
-![]
-
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:GridSample" x:Class="GridSample.MainPage">
@@ -95,13 +93,13 @@ Puede utilizar las siguientes propiedades:
 - **ColumnSpacing**: : Es la cantidad de espacio entre columnas. Esta propiedad tiene como valor por defecto “6”.
 - **RowSpacing**: Es la cantidad de espacio entre filas. Esta propiedad tiene como valor por defecto “6”.
 
-![spacing](grid3.png)
+![spacing](../img/grid3.png)
 
 ## Span
 
 El Span se utiliza para cuando se requiere ocupar más de una fila o columna. Solo tenemos que agregar la cantidad que se desea abarcar, con las siguientes propiedades: Grid.RowSpan o Grid.ColumnSpan.
 
-![Span](./grid4.png)
+![Span](../img/grid4.png)
 
 ```xml
 <Button BackgroundColor="#E6287A" Grid.Row="0" Grid.Column="0" Text="Button 0,0" TextColor="White" Grid.ColumnSpan="2" />
