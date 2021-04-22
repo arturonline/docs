@@ -1,0 +1,5 @@
+# errors
+
+```python
+ErrorInfo(errMessage)
+```
