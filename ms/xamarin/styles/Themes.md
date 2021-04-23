@@ -1,5 +1,10 @@
 # Dark and Light Theme
 
+## Colors
+
+[collection1](https://uxdesign.cc/dark-mode-ui-design-the-definitive-guide-part-1-color-53dcfaea5129)
+[collection2](https://colorhunt.co/palettes/dark)
+
 **Xamarin.Forms** applications can respond to system theme changes by consuming resources with the `AppThemeBinding` markup extension, and the `SetAppThemeColor` and `SetOnAppTheme<T>` extension methods.
 
 ## Define Theme resources
