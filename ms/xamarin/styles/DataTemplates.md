@@ -22,7 +22,7 @@ Create a new design:
   <ContentView.Content>
         <StackLayout Orientation="Horizontal">
 
-            <Label FontSize="20" Padding="15,20,0,0">
+            <Label FontSize="20" Padding="15,20,0,0"  StyleClass="FlyoutItemLabelStyle">
                 <Label.FormattedText>
                     <FormattedString>
                         <FormattedString.Spans>
