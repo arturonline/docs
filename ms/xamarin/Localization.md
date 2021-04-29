@@ -50,9 +50,10 @@ Once a default resource file has been created and the default culture specified 
 
 Accessing these values as x:Static properties allows localized text to be displayed in XAML:
 
-```cs
+```xml
+<--! AppResources.resx files are inside Resx folder-->
 <ContentPage ...
-             xmlns:resources="clr-namespace:LocalizationDemo.Resx">
+             xmlns:resources="clr-namespace:myApp.Resx">
 
     <Label Text="{x:Static resources:AppResources.NotesLabel}" />
     <Entry Placeholder="{x:Static resources:AppResources.NotesPlaceholder}" />
