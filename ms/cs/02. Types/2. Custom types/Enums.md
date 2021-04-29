@@ -6,7 +6,7 @@ Enum type (enumeration) provides an efficient way to define a set of named integ
 enum Day { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday };
 ```
 
-By default the underlying type of each element in the enum is int. You can specify another integral numeric type by using a colon:
+By default the underlying type of each element in the enum is **int**. You can specify another integral numeric type by using a colon:
 
 ```csharp
 enum Month : byte { Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec };
