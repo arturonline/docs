@@ -42,6 +42,12 @@ Use the new design wherever:
 
 ```xml
 <!-- AppShell.xaml -->
+<ContentPage 
+....
+    xmlns:template="clr-namespace:Todo.Templates"
+....
+>
+
     <FlyoutItem Title="Tareas" Icon ="{StaticResource IconHome}" BindingContext="IconHome">
         <Shell.ItemTemplate >
             <DataTemplate>
