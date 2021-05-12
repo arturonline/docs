@@ -15,3 +15,19 @@ Because ResourceDictionary maps strings to objects, you can put an OnPlatform in
 
 <Label TextColor="{StaticResource textColor}" ... />
 ```
+
+## OnIdiom
+
+```xml
+<Button HorizontalOptions="FillAndExpand"
+                TextColor="White"
+                Text="Click me Monkey!">
+                <Button.BackgroundColor>
+                  <OnIdiom x:TypeArguments="Color">
+                    <OnIdiom.Phone>Red</OnIdiom.Phone>
+                    <OnIdiom.Tablet>Green</OnIdiom.Tablet>
+                    <OnIdiom.Desktop>Blue</OnIdiom.Desktop>
+                  </OnIdiom>
+               </Button.BackgroundColor>
+</Button>
+```
