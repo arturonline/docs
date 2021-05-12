@@ -1,7 +1,5 @@
 # CS Files n Folders
 
-##
-
 ```cs
 using System.IO;
 
