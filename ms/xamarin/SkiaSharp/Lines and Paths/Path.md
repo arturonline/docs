@@ -71,8 +71,7 @@ namespace SkiaSharpFormsDemos.Paths
             path.LineTo(0.2f * info.Width, 0.4f * info.Height);
             path.LineTo(0.8f * info.Width, 0.4f * info.Height);
             path.LineTo(0.5f * info.Width, 0.1f * info.Height);
-            /* there is no need to Close() 
-            a straight line is assumed to exist between the start and end points of the contours. */
+            /* there is no need to Close() */
 
             // Define the second contour
             path.MoveTo(0.5f * info.Width, 0.6f * info.Height);
