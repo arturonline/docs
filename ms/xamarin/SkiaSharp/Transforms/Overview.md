@@ -5,7 +5,7 @@ SkiaSharp supports traditional graphics transforms that are implemented as metho
 SkiaSharp transforms support the following operations:
 
 - [Translate](Translate.md) to shift coordinates from one location to another
-- `Scale` to increase or decrease coordinates and sizes
+- [Scale](Scale.md) to increase or decrease coordinates and sizes
 - `Rotate` to rotate coordinates around a point
 - `Skew` to shift coordinates horizontally or vertically so that a rectangle becomes a parallelogram
 

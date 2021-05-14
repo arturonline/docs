@@ -1,6 +1,6 @@
 # Translate
 
-Transform shifts graphical objects in the horizontal and vertical directions.
+Transform shifts graphical objects in the horizontal and vertical directions. The translate transform can move a graphical object from one location to another.
 
 The Translate method in `SKCanvas` has two parameters that cause subsequently drawn graphics objects to be shifted horizontally and vertically:
 
