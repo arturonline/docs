@@ -32,7 +32,6 @@ Tres opciones:
 - **Proportional (*)**: divide el tamaño de las columnas y filas proporcionalmente al espacio restante entre los demás elementos.
 - **Absolute**: indica un numero de tamaño específico para asignar a las filas y columnas.
 
-
 ## Simplifying Grid column and Row definition
 
 ```xml
@@ -67,7 +66,7 @@ Para agregar un control, especificamos la fila/columna del grid al que pertenece
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" xmlns:local="clr-namespace:GridSample" x:Class="GridSample.MainPage">
    <Grid>
      <Grid.RowDefinitions>
-         <RowDefinition Height="*" /> 
+         <RowDefinition Height="*" />
          <RowDefinition Height="*" />
          <RowDefinition Height="*" />
      </Grid.RowDefinitions>
@@ -80,9 +79,9 @@ Para agregar un control, especificamos la fila/columna del grid al que pertenece
      <Button BackgroundColor="#E6287A" Grid.Row="0" Grid.Column="0" Text="Button 0,0" TextColor="White" />
      <Button BackgroundColor="#EE5D9B" Grid.Row="0" Grid.Column="1" Text="Button 0,1" TextColor="White" />
      <Button BackgroundColor="#F87EB2" Grid.Row="1" Grid.Column="0" Text="Button 1,0" TextColor="White" />
-     <Button BackgroundColor="#B90E57" Grid.Row="1" Grid.Column="1" Text="Button 1,1" TextColor="White" />  
+     <Button BackgroundColor="#B90E57" Grid.Row="1" Grid.Column="1" Text="Button 1,1" TextColor="White" />
      <Button BackgroundColor="#CB3B78" Grid.Row="2" Grid.Column="0" Text="Button 2,0" TextColor="White" />
-     <Button BackgroundColor="#DE7FA7" Grid.Row="2" Grid.Column="1" Text="Button 2,1" TextColor="White" />  
+     <Button BackgroundColor="#DE7FA7" Grid.Row="2" Grid.Column="1" Text="Button 2,1" TextColor="White" />
    </Grid>
 </ContentPage>
 ```
@@ -103,7 +102,7 @@ El Span se utiliza para cuando se requiere ocupar más de una fila o columna. So
 
 ```xml
 <Button BackgroundColor="#E6287A" Grid.Row="0" Grid.Column="0" Text="Button 0,0" TextColor="White" Grid.ColumnSpan="2" />
-        
+
 <Button BackgroundColor="#F87EB2" Grid.Row="1" Grid.Column="0" Text="Button 1,0" TextColor="White" Grid.RowSpan="2"/>
 
 <Button BackgroundColor="#CB3B78" Grid.Row="1" Grid.Column="1" Text="Button 2,0" TextColor="White" Grid.RowSpan="2"/>

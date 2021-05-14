@@ -93,28 +93,14 @@ await Shell.Current.GoToAsync("../../route");
 In addition, data can be passed through query properties when navigating backwards:
 
 ```cs
-await Shell.Current.GoToAsync($"..?parameterToPassBack={parameterValueToPassBack}");
+await Shell.Current.GoToAsync($"elephantdetails?name={elephantName}");
 ```
 
-This is achieved by appending `?` after a route, followed by a query parameter `id`, `=`, and a `value`.
-
-For example, this code retrieves the currently selected elephant in the CollectionView, and navigates to the `elephantdetails route`, passing `elephantName` as a query parameter.:
-
 ```cs
-async void OnCollectionViewSelectionChanged(object sender, SelectionChangedEventArgs e)
-{
-    string elephantName = (e.CurrentSelection.FirstOrDefault() as Animal).Name;
-    await Shell.Current.GoToAsync($"elephantdetails?name={elephantName}");
-}
-```
-
-Navigation data can be received by decorating the receiving class with a QueryPropertyAttribute for each query parameter:
-
-```cs
-[QueryProperty(nameof(Name), "name")]
+[QueryProperty(nameof(EName), "name")]
 public partial class ElephantDetailPage : ContentPage
 {
-    public string Name
+    public string EName
     {
         set
         {
@@ -123,25 +109,12 @@ public partial class ElephantDetailPage : ContentPage
     }
     ...
 
-    void LoadAnimal(string name)
-    {
-        try
-        {
-            Animal animal = ElephantData.Elephants.FirstOrDefault(a => a.Name == name);
-            BindingContext = animal;
-        }
-        catch (Exception)
-        {
-            Console.WriteLine("Failed to load animal.");
-        }
-    }    
 }
 ```
 
-- The first argument for the `QueryPropertyAttribute` specifies the **name of the property** that will receive the data
-- The second argument specifying the query parameter **id**. 
+- Above code retrieves the currently selected elephant in the CollectionView, and navigates to the `elephantdetails route`, passing `elephantName` as a query parameter.
 
-In the above example, the **Name property** will receive the data passed in the **name query parameter** from the URI in the `GoToAsync` method call. The Name property setter calls the `LoadAnimal` method to retrieve the Animal object for the name, and sets it as the `BindingContext` of the page.
+- Then, navigation data can be received by decorating the receiving class with a QueryPropertyAttribute for each query parameter:
 
 ### Multiple params
 
