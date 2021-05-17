@@ -254,3 +254,5 @@ The upper-left corner of the rounded rectangle is positioned margin pixels from 
 The Slider elements in this program have a range of –10 to 10. As you can see, negative values of vertical scaling (such as on the Android screen in the center) cause objects to flip around the horizontal axis that passes through the center of scaling. Negative values of horizontal scaling (such as in the UWP screen on the right) cause objects to flip around the vertical axis that passes through the center of scaling.
 
 https://docs.microsoft.com/en-us/xamarin/xamarin-forms/user-interface/graphics/skiasharp/transforms/scale
+
+## Example: Anisotropic Scaling

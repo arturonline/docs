@@ -1,6 +1,6 @@
 # Transforms
 
-SkiaSharp supports traditional graphics transforms that are implemented as methods of the SKCanvas object. Mathematically, transforms alter the coordinates and sizes that you specify in SKCanvas drawing functions as the graphical objects are rendered. Transforms are often convenient for drawing repetitive graphics or for animation. Some techniques — such as rotating bitmaps or text — are not possible without the use of transforms.
+SkiaSharp supports traditional graphics transforms that are implemented as methods of the `SKCanvas` object. Mathematically, transforms alter the coordinates and sizes that you specify in `SKCanvas` drawing functions as the graphical objects are rendered. Transforms are often convenient for drawing repetitive graphics or for animation. Some techniques — such as rotating bitmaps or text — are not possible without the use of transforms.
 
 SkiaSharp transforms support the following operations:
 
