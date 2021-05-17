@@ -67,7 +67,7 @@ TimeSpan diff = now - borodino_battle;
 
 Console.WriteLine($"{diff.TotalDays} days have passed since the Battle of Borodino.");
 
-//76021 days have passed since the Battle of Borodino.
+// 76021 days have passed since the Battle of Borodino.
 ```
 
 On October 27, 2019, 76021 days have passed since the Battle of Borodino.
