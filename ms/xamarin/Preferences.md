@@ -24,8 +24,6 @@ Preferences.Clear();
 
 A way to determine the first run's App is to store a boolean value that can be checked at runtime. 
 
-For example:
-
 ```c#
 public static class Settings
 {
@@ -46,3 +44,5 @@ if(Settings.FirstRun)
    Settings.FirstRun = false;
 }
 ```
+
+>[Video](https://docs.microsoft.com/en-us/xamarin/essentials/version-tracking?WT.mc_id=firstrun-blog-jamont)
