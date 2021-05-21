@@ -1,4 +1,4 @@
-# XAML Extensions
+# XAML Markup
 
 ## XAML markup extensions
 
