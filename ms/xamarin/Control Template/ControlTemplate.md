@@ -1,0 +1,196 @@
+# Control Template
+
+Sometimes in our mobile applications, we need to switch between different views inside a ContentPage or ContentView depending on the context. You could use IsVisible to hide one view and show another view, but this isn’t a clean way. So instead of doing this we should use control templates to achieve the same but in a better way.
+
+You can use Control Templates to change the appearance of a view/page at runtime. This is helpful if you want to re-theme pages or switch between views depending on the context. The property that allows to set a control template is called ControlTemplate which is available in ContentPage and ContentView classes.
+
+## Create a Control Template
+
+### #1: Create a custom control instance
+
+To consume a control template you need a custom control instance.
+
+First we create a custom class that represents a custom control that displays data in a card-like layout:
+
+```c#
+// Controls/CardView.cs
+
+using Xamarin.Forms;
+
+namespace ControlTemplateDemos.Controls
+{
+    public partial class CardView : ContentView
+    {
+        public static readonly BindableProperty CardTitleProperty = BindableProperty.Create(nameof(CardTitle), typeof(string), typeof(CardViewUI), string.Empty);
+        public static readonly BindableProperty CardDescriptionProperty = BindableProperty.Create(nameof(CardDescription), typeof(string), typeof(CardViewUI), string.Empty);
+        public static readonly BindableProperty BorderColorProperty = BindableProperty.Create(nameof(BorderColor), typeof(Color), typeof(CardViewUI), Color.DarkGray);
+        public static readonly BindableProperty CardColorProperty = BindableProperty.Create(nameof(CardColor), typeof(Color), typeof(CardViewUI), Color.White);
+        public static readonly BindableProperty IconImageSourceProperty = BindableProperty.Create(nameof(IconImageSource), typeof(ImageSource), typeof(CardViewUI), default(ImageSource));
+        public static readonly BindableProperty IconBackgroundColorProperty = BindableProperty.Create(nameof(IconBackgroundColor), typeof(Color), typeof(CardViewUI), Color.LightGray);
+
+        public string CardTitle
+        {
+            get => (string)GetValue(CardTitleProperty);
+            set => SetValue(CardTitleProperty, value);
+        }
+
+        public string CardDescription
+        {
+            get => (string)GetValue(CardDescriptionProperty);
+            set => SetValue(CardDescriptionProperty, value);
+        }
+
+        public Color BorderColor
+        {
+            get => (Color)GetValue(BorderColorProperty);
+            set => SetValue(BorderColorProperty, value);
+        }
+
+        public Color CardColor
+        {
+            get => (Color)GetValue(CardColorProperty);
+            set => SetValue(CardColorProperty, value);
+        }
+
+        public ImageSource IconImageSource
+        {
+            get => (ImageSource)GetValue(IconImageSourceProperty);
+            set => SetValue(IconImageSourceProperty, value);
+        }
+
+        public Color IconBackgroundColor
+        {
+            get => (Color)GetValue(IconBackgroundColorProperty);
+            set => SetValue(IconBackgroundColorProperty, value);
+        }
+
+        public CardViewUI()
+        {
+            InitializeComponent();
+        }
+    }
+}
+```
+
+### #2: Build a control template
+
+Now we need to create the control that our previous custom class is going to consume:
+
+```xml
+<!-- Controls/CardViewControlTemplate.xaml -->
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             ...>
+    <ContentPage.Resources>
+      <ControlTemplate x:Key="CardViewControlTemplate">
+          <Frame BindingContext="{Binding Source={RelativeSource TemplatedParent}}"
+                 BackgroundColor="{Binding CardColor}"
+                 BorderColor="{Binding BorderColor}"
+                 CornerRadius="5"
+                 HasShadow="True"
+                 Padding="8"
+                 HorizontalOptions="Center"
+                 VerticalOptions="Center">
+              <Grid>
+                  <Grid.RowDefinitions>
+                      <RowDefinition Height="75" />
+                      <RowDefinition Height="4" />
+                      <RowDefinition Height="Auto" />
+                  </Grid.RowDefinitions>
+                  <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="75" />
+                      <ColumnDefinition Width="200" />
+                  </Grid.ColumnDefinitions>
+                  <Frame IsClippedToBounds="True"
+                         BorderColor="{Binding BorderColor}"
+                         BackgroundColor="{Binding IconBackgroundColor}"
+                         CornerRadius="38"
+                         HeightRequest="60"
+                         WidthRequest="60"
+                         HorizontalOptions="Center"
+                         VerticalOptions="Center">
+                      <Image Source="{Binding IconImageSource}"
+                             Margin="-20"
+                             WidthRequest="100"
+                             HeightRequest="100"
+                             Aspect="AspectFill" />
+                  </Frame>
+                  <Label Grid.Column="1"
+                         Text="{Binding CardTitle}"
+                         FontAttributes="Bold"
+                         FontSize="Large"
+                         VerticalTextAlignment="Center"
+                         HorizontalTextAlignment="Start" />
+                  <BoxView Grid.Row="1"
+                           Grid.ColumnSpan="2"
+                           BackgroundColor="{Binding BorderColor}"
+                           HeightRequest="2"
+                           HorizontalOptions="Fill" />
+                  <Label Grid.Row="2"
+                         Grid.ColumnSpan="2"
+                         Text="{Binding CardDescription}"
+                         VerticalTextAlignment="Start"
+                         VerticalOptions="Fill"
+                         HorizontalOptions="Fill" />
+              </Grid>
+          </Frame>
+      </ControlTemplate>
+    </ContentPage.Resources>
+    ...
+</ContentPage>
+
+```
+
+This `CardViewControlTemplate` control template is not connected to `CardView.cs` in step 1 in any way at this point. 
+
+The connection will be made when this Template is actually used to make the view.
+
+## #2: Using the Control Template
+
+
+The following example shows the `CardViewControlTemplate` being assigned to the `ControlTemplate property` of each `CardView` object:
+
+```xml
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:ControlTemplateDemos.Controls"
+             ...>
+             
+    <!-- import the controltemplate -->
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/Controls/CardViewControlTemplate.xaml" /> 
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <!-- cardview is from Controls/cardview.cs -->
+    <!-- CardViewControlTemplate is from Controls/CardViewControlTemplate.xaml -->
+
+    <StackLayout Margin="30">
+        <controls:CardView BorderColor="DarkGray"
+                           CardTitle="John Doe"
+                           CardDescription="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla elit dolor, convallis non interdum."
+                           IconBackgroundColor="SlateGray"
+                           IconImageSource="user.png"
+                           ControlTemplate="{StaticResource CardViewControlTemplate}" />
+        <controls:CardView BorderColor="DarkGray"
+                           CardTitle="Jane Doe"
+                           CardDescription="Phasellus eu convallis mi. In tempus augue eu dignissim fermentum. Morbi ut lacus vitae eros lacinia."
+                           IconBackgroundColor="SlateGray"
+                           IconImageSource="user.png"
+                           ControlTemplate="{StaticResource CardViewControlTemplate}" />
+        <controls:CardView BorderColor="DarkGray"
+                           CardTitle="Xamarin Monkey"
+                           CardDescription="Aliquam sagittis, odio lacinia fermentum dictum, mi erat scelerisque erat, quis aliquet arcu."
+                           IconBackgroundColor="SlateGray"
+                           IconImageSource="user.png"
+                           ControlTemplate="{StaticResource CardViewControlTemplate}" />
+    </StackLayout>
+</ContentPage>
+```
+
+In this example, the controls in the `CardViewControlTemplate` become part of the visual tree for each CardView object. 
+
+Because the root Frame object for the control template sets its `BindingContext` to the templated parent, the Frame and its children resolve their binding expressions against the properties of each CardView object.
