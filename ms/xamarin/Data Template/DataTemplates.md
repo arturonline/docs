@@ -1,17 +1,10 @@
 # Create Data Templates
 
-## With type
+Example create a new template for flyout items:
 
-Original:
+## #1 Create the template
 
-```xml
-<!-- default flyoutitem -->
-<FlyoutItem Title="About">
-    <ShellContent Route="about" ContentTemplate="{DataTemplate local:AboutPage}" />
-</FlyoutItem>
-```
-
-Create a new design:
+Create a new design as a content view:
 
 ```xml
 <!-- Templates/FlyoutTemplate.xaml -->
@@ -38,7 +31,10 @@ Create a new design:
     </ContentView.Content>
 </ContentView>
 ```
-Use the new design wherever:
+
+## #2: Use the template
+
+Now you can use the new design inside any Flyout datatemplate:
 
 ```xml
 <!-- AppShell.xaml -->
@@ -51,7 +47,7 @@ Use the new design wherever:
     <FlyoutItem Title="Tareas" Icon ="{StaticResource IconHome}" BindingContext="IconHome">
         <Shell.ItemTemplate >
             <DataTemplate>
-                <template:FlyoutTemplate></template:FlyoutTemplate>
+                <template:FlyoutTemplate />
             </DataTemplate>
         </Shell.ItemTemplate>
         <ShellContent Route="todolist" ContentTemplate="{DataTemplate local:TodoListPage}" />
