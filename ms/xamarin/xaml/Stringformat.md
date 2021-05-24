@@ -5,10 +5,11 @@
 ```c#
 {index[,alignment][:formatString]}
 ```
-- **Index**: The zero-based index of the argument whose string representation is to be included at this position in the string. 
+
+- **Index**: The zero-based index of the argument whose string representation is to be included at this position in the string.
 
     ```c#
-    DateTime dat = new DateTime(2012, 1, 17, 9, 30, 0); 
+    DateTime dat = new DateTime(2012, 1, 17, 9, 30, 0);
     string city = "Chicago";
     int temp = -16;
     string output = String.Format("At {0} in {1}, the temperature was {2} degrees.",
@@ -21,7 +22,7 @@
 - **Alignment**: Optional. A signed integer that indicates the total length of the field into which the argument is inserted and whether it is right-aligned (a positive integer) or left-aligned (a negative integer). If you omit alignment, the string representation of the corresponding argument is inserted in a field with no leading or trailing spaces. If the value of alignment is less than the length of the argument to be inserted, alignment is ignored and the length of the string representation of the argument is used as the field width.
 
     ```c#
-    var value = String.Format("{0,20:C}", 126347.89m);         
+    var value = String.Format("{0,20:C}", 126347.89m);
     Console.WriteLine(value);
 
     //         126.347,89 €
@@ -31,14 +32,14 @@
 
     ```c#
     // Create array of 5-tuples with population data for three U.S. cities, 1940-1950.
-    Tuple<string, DateTime, int, DateTime, int>[] cities = 
-        { Tuple.Create("Los Angeles", new DateTime(1940, 1, 1), 1504277, 
+    Tuple<string, DateTime, int, DateTime, int>[] cities =
+        { Tuple.Create("Los Angeles", new DateTime(1940, 1, 1), 1504277,
                     new DateTime(1950, 1, 1), 1970358),
-        Tuple.Create("New York", new DateTime(1940, 1, 1), 7454995, 
-                    new DateTime(1950, 1, 1), 7891957),  
-        Tuple.Create("Chicago", new DateTime(1940, 1, 1), 3396808, 
-                    new DateTime(1950, 1, 1), 3620962),  
-        Tuple.Create("Detroit", new DateTime(1940, 1, 1), 1623452, 
+        Tuple.Create("New York", new DateTime(1940, 1, 1), 7454995,
+                    new DateTime(1950, 1, 1), 7891957),
+        Tuple.Create("Chicago", new DateTime(1940, 1, 1), 3396808,
+                    new DateTime(1950, 1, 1), 3620962),
+        Tuple.Create("Detroit", new DateTime(1940, 1, 1), 1623452,
                     new DateTime(1950, 1, 1), 1849568) };
 
     // Display header
@@ -53,7 +54,7 @@
     }
     // The example displays the following output:
     //    City            Year  Population    Year  Population    Change (%)
-    //  
+    //
     //    Los Angeles     1940   1,504,277    1950   1,970,358        31.0 %
     //    New York        1940   7,454,995    1950   7,891,957         5.9 %
     //    Chicago         1940   3,396,808    1950   3,620,962         6.6 %
@@ -67,6 +68,7 @@ Inside binding:
 ```xml
 <Label Text="{Binding Id, StringFormat='{0:N}'}"/>
 ```
+
 ```c#
 Label label = new Label();
 label.AddBinding (new Binding (Label.TextProperty, "Price") {
@@ -126,10 +128,12 @@ The group separator is especially useful for formatting currency values which re
 
 `String.Format("{0:$#,##0.00;($#,##0.00);Zero}", value);
 `
+
 This will output `"$1,240.00"` if passed 1243.50. It will output the same format but in parentheses if the number is negative, and will output the string "Zero" if the number is zero.
 
 `String.Format("{0:(###) ###-####}", 8005551212);
 `
+
 This will output "(800) 555-1212".
 
 
