@@ -1,6 +1,4 @@
-# ListView with MVVM
-
-## CRUD Operations
+# CRUD Operations
 
 <https://www.youtube.com/watch?v=mBlzs5owIEY&t=7s>
 

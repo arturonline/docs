@@ -64,143 +64,129 @@ public ObservableCollection<Log> Logs
 </ContentPage>
 ```
 
-## Cells
+## Example
 
-TextCells allow you to set the following properties:
-
-- **Text** – the text that is shown on the first line, in large font.
-- **Detail** – the text that is shown underneath the first line, in a smaller font.
-- **TextColor** – the color of the text.
-- **DetailColor** – the color of the detail text
-
-### TextCell
+### ItemsSorce from Static Content (hardcoded)
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="builtInCellsListView.Views.TextCellXaml"
-             Padding="10"
-             Title="TextCell XAML Demo">
-    <ListView x:Name="listView">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <TextCell Text="{Binding Name}"
-                          Detail="{Binding Comment}" />
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
+             x:Class="Lists.MainPage">
+    <StackLayout Margin="20,20,20,20">
+        <ListView>
+            <ListView.ItemsSource>
+                <x:Array Type="{x:Type x:String}">
+                    <x:String>Artur</x:String>
+                    <x:String>Badenes</x:String>
+                    <x:String>Puig</x:String>
+                    <x:String>Ana</x:String>
+                    <x:String>Climent</x:String>
+                    <x:String>Espinosa</x:String>
+                </x:Array>
+            </ListView.ItemsSource>
+        </ListView>
+    </StackLayout>
 </ContentPage>
 ```
-### ImageCell
 
-`ImageCells` are customizable, allowing you to set:
+### ItemsSource from Dynamic Content (from an observed list)
 
-- **Text** – the text that is shown on the first line, in large font
-- **Detail** – the text that is shown underneath the first line, in a smaller font
-- **TextColor** – the color of the text
-- **DetailColor** – the color of the detail text
-- **ImageSource** – the image to display next to the text
+### Model
+
+```cs
+// pais.cs
+public class Pais
+{
+    public string Name { get; set; }
+    public string Ubicacion { get; set; }
+    public override string ToString() => Name;
+}
+```
+
+### ViewModel
+
+```cs
+// paisViewModel.cs
+class PaisViewModel
+{
+    // ItemSource
+    public ObservableCollection<Pais> Paises { get; private set; }
+
+    public PaisViewModel()
+    {
+        Paises = new ObservableCollection<Pais>
+        {
+            new Pais
+            {
+                Name = "España",
+                Ubicacion = "Sur",
+            },
+            new Pais
+            {
+                Name = "Francia",
+                Ubicacion = "Sur",
+            },
+            new Pais
+            {
+                Name = "Italia",
+                Ubicacion = "Sur",
+            },
+            new Pais
+            {
+                Name = "Alemania",
+                Ubicacion = "Centro",
+            },
+            new Pais
+            {
+                Name = "Reino Unido",
+                Ubicacion = "Norte",
+            }
+        };
+    }
+}
+```
+
+### Controlador
+
+```cs
+// MainPage.xaml.cs
+public partial class MainPage : ContentPage
+{
+    public List<Pais> Paises { get; private set; }
+
+    public MainPage()
+    {
+        InitializeComponent();
+    }
+}
+```
+
+### Vista
 
 ```xml
+<!--MainPage.xaml-->
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="builtInCellsListView.Views.ImageCellXaml"
-             Padding="10"
-             Title="ImageCell XAML Demo">
-    <ListView x:Name="listView">
-        <ListView.ItemTemplate>
-            <DataTemplate>
-                <ImageCell Text="{Binding Name}"
-                           Detail="{Binding Comment}"
-                           ImageSource="{Binding Image}"/>
-            </DataTemplate>
-        </ListView.ItemTemplate>
-    </ListView>
-</ContentPage>
-```
+             xmlns:local="clr-namespace:Lists"
+             x:Class="Lists.MainPage">
 
-### Custom Cell
+    <!-- PaisViewModel -->
+    <ContentPage.BindingContext>
+        <local:PaisViewModel />
+    </ContentPage.BindingContext>
 
-```c#
-
-```
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-x:Class="demoListView.ImageCellPage">
-    <ContentPage.Content>
-        <ListView  x:Name="listView">
+    <StackLayout Margin="20,20,20,20">
+        <ListView ItemsSource="{Binding Paises}"
+            HasUnevenRows="True">
             <ListView.ItemTemplate>
-                <DataTemplate>
-                    <ViewCell>
-                        <StackLayout BackgroundColor="#eee"
-                        Orientation="Vertical">
-                            <StackLayout Orientation="Horizontal">
-                                <Image Source="{Binding image}" />
-                                <Label Text="{Binding title}"
-                                TextColor="#f35e20" />
-                                <Label Text="{Binding subtitle}"
-                                HorizontalOptions="EndAndExpand"
-                                TextColor="#503026" />
-                            </StackLayout>
-                        </StackLayout>
-                    </ViewCell>
+                <DataTemplate x:DataType="model:Paises" >
+                    <TextCell Text="{Binding Name}"
+                              Detail="{Binding Ubicacion}"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-    </ContentPage.Content>
+    </StackLayout>
 </ContentPage>
 ```
-
-### Groups
-
-To enable grouping:
-
-- Create a list of lists (a list of groups, each group being a list of elements).
-- Set the ListView's ItemsSource to that list.
-- Set `IsGroupingEnabled` to **true**.
-- Set `GroupDisplayBinding` to bind to the property of the groups that is being used as the title of the group.
-
-[Optional] Set `GroupShortNameBinding` to bind to the property of the groups that is being used as the short name for the group. The short name is used for the jump lists (right-side column on iOS).
-
-### Headers and footers
-
-It is possible for a **ListView** to present a `header` and `footer` that scroll with the elements of the list. The header and footer can be strings of text or a more complicated layout. This behavior is separate from section **groups**.
-
-```xml
-<ListView x:Name="HeaderList" 
-          Header="Header"
-          Footer="Footer">
-    ...
-</ListView>
-```
-
-To create a customized header and footer, define the Header and Footer views:
-
-```xml
-<ListView.Header>
-    <StackLayout Orientation="Horizontal">
-        <Label Text="Header"
-               TextColor="Olive"
-               BackgroundColor="Red" />
-    </StackLayout>
-</ListView.Header>
-<ListView.Footer>
-    <StackLayout Orientation="Horizontal">
-        <Label Text="Footer"
-               TextColor="Gray"
-               BackgroundColor="Blue" />
-    </StackLayout>
-</ListView.Footer>
-```
-
