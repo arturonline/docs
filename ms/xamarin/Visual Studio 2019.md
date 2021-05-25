@@ -1,12 +1,11 @@
-# Keybinding Visual Studio 2019
+# shortcuts visual studio 2019
 
-## Move
-
+## Moving
 - Next Tab: `Ctrl + Alt + PgDn /PgUp`
-- All Tabs: `Ctrl + Tab`
+- All Tabs:   `Ctrl + Tab`
 
-- prev location: `Ctrl + -` 
-- next location `Ctrl + Shift + -` 
+prev location: `Ctrl + -` 
+next location `Ctrl + Shift + -` 
 
 ## Bookmarks
 - ToggleBookmark: `Ctrl+K, Ctrl+K`
@@ -17,11 +16,14 @@
 
 ## Format:
 - LineOpenBelow: `Ctrl+Shift+Enter`
-- Format: `Ctrl+K, Ctrl+D`
+Format: `Ctrl+K, Ctrl+D`
 
 ## Edit
 - LineCut: `Ctrl+L`
 - LineDelete: `Ctrl+Shift+L`
+- Duplicate: `Ctrl+D`
+- :	Ctrl+K, `Ctrl+S`
+- Rename: `Ctrl+R, Ctrl+R`
 
 ## Select
 - SelectCurrentWord: `Ctrl+W`

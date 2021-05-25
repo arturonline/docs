@@ -1,6 +1,6 @@
-# ListView
+# ListView Example
 
-## Static Content (hardcoded)
+## ItemsSorce from Static Content (hardcoded)
 
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
@@ -24,7 +24,7 @@
 </ContentPage>
 ```
 
-## Dynamic Content (from an observed list)
+## ItemsSource from Dynamic Content (from an observed list)
 
 ### Model
 
