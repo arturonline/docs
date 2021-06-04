@@ -96,6 +96,12 @@ As a resource:
 <Label Text="{Binding someProperty, StringFormat={StaticResource formatdatetimelong}"} />
 ```
 
+Timespan:
+
+```xml
+<Label Text="{Binding duration}, StringFormat='{}{0:hh\\:mm\\:ss}'}"
+```
+
 ## Numbers
 
 ### Basic
