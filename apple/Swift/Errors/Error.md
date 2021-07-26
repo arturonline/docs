@@ -1,13 +1,5 @@
 # Error Handling
 
-Error handling is the process of responding to and recovering from error conditions in your program.
-
-In practical iOS development, not all errors are bad. Some errors are part of an app’s lifecycle, such as an “Insufficient funds” message when you try to pay with your credit card.
-
-These kinds of errors are recoverable. They can be caught, handled, and responded to appropriately.
-
-## Errors
-
 In Swift, errors are represented by values of types that conform to the `Error protocol`. This empty protocol indicates that a type can be used for error handling.
 
 Swift enumerations are particularly well suited to modeling a group of related error conditions, with associated values allowing for additional information about the nature of an error to be communicated.
@@ -20,7 +12,7 @@ enum RocketError: Error {
 }
 ```
 
-This enumeration extends Error and defines three types of errors: `.insufficientFuel`, `insufficientAstronauts(needed)` and `.unknownError`. Defining your own error types is super useful, because you can be very clear about what these errors mean in your code.
+Defining your own error types is super useful, because you can be very clear about what these errors mean in your code.
 
 ## Throwing Errors
 
