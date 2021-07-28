@@ -10,7 +10,7 @@ func add(x int, y int) int {
 }
 
 func substract(x, y int) int {
-    eturn x - y
+    return x - y
 }
 
 func main() {

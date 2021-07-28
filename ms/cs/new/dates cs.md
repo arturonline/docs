@@ -1,21 +1,21 @@
 # Working with Date and Time in C#
 
-C# includes `DateTime` struct to work with dates and times. 
+C# includes `DateTime` struct to work with dates and times.
 
 ## DateTime
 
-The `DateTime` value type represents an instant in time, typically expressed as a date and time of day. 
+The `DateTime` value type represents an instant in time, typically expressed as a date and time of day.
 
 ```c#
 //assigns default value 01/01/0001 00:00:00
-DateTime dt1 = new DateTime(); 
+DateTime dt1 = new DateTime();
 
 //assigns year, month, day
-DateTime dt2 = new DateTime(2015, 12, 31); 
+DateTime dt2 = new DateTime(2015, 12, 31);
 
 //assigns year, month, day, hour, min, seconds
 DateTime dt3 = new DateTime(2015, 12, 31, 5, 10, 20);
- 
+
 //assigns year, month, day, hour, min, seconds, UTC timezone
 DateTime dt4 = new DateTime(2015, 12, 31, 5, 10, 20, DateTimeKind.Utc);
 ```
@@ -51,6 +51,7 @@ Console.WriteLine($"Time elapsed: {elapsed}");
 
 // Time elapsed: 13:30:00
 ```
+
 The difference is 13 hours and 30 minutes.
 
 ## Date Elapsed
@@ -113,7 +114,7 @@ Wednesday, February 22, 2023 2:00:00 PM
 ```
 ## UTC Time
 
-There is a pragmatic need for one global time. One global time helps to avoid confusion about time zones and daylight saving time. The UTC (Universal Coordinated time) was chosen to be the primary time standard. 
+There is a pragmatic need for one global time. One global time helps to avoid confusion about time zones and daylight saving time. The UTC (Universal Coordinated time) was chosen to be the primary time standard.
 
 ## c# Localized date
 
