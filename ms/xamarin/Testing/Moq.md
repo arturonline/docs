@@ -6,7 +6,7 @@ When writing a test, quite often you want to only test one particular class and 
 
 A mocking library allows you to simulate an interface or abstract type's implementation. You instantiate a 'mock' object of the interface, and tell that mock object what it should return if a method/property is called against that mock. You can also assert that a method/property was or wasn't called.
 
-There are quite a few different mocking libraries in .NET. Moq seems the most popular among c# developers.
+There are quite a few different mocking libraries in .NET. Moq seems the most popular among c# developers. Before we start coding our test, we will gonna need to install **Moq** nugget library.
 
 ## Basic scenario
 

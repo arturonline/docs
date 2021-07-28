@@ -6,10 +6,6 @@ Unit tests break down the functionality of your program into discrete testable b
 
 XUnit has become the most popular testing framework in dotnet due to its simplicity, expressiveness, and extensibility. The project is supported by the .NET Foundation, and it is part of the more recent versions of .NET Core. This means that you don't need to install anything but the .NET Core SDK.
 
-## Set Up
-
-Create new *"xUnit Test Project"* in the solution you want to test.
-
 ## Run tests
 
 To run these test cases:
@@ -23,6 +19,71 @@ Typically, a test case comprises of 3 major parts.
 1. **Arrange**: Here we specify what is expected from our method that we are supposed to be testing.
 1. **Action**: In here we call the method that we are supposed to be testing. Purpose of this is to get actual result from the method
 1. **Assertion**: Here we compare actual value to expected value.
+
+## SetUp & Clean-up
+
+Create new *"xUnit Test Project"* in the solution you want to test.
+
+xUnit.net creates a new instance of the test class for every test it contains. This allows you to put the setup code you need in the constructor of your test class:
+
+```cs
+public class SetupBeforeEachTest
+{
+    public SetupBeforeEachTest()
+    {
+        // constructor for setup code
+    }
+
+    [Fact]
+    public void MyTest1()
+    {
+        Assert.True(true);
+    }
+}
+```
+
+To clean-up after every test you use another basic functionality of .Net by implementing the IDisposable interface and putting your code in the Dispose() method:
+
+```cs
+C#
+public class CleanupAfterTest : IDisposable
+{
+    public CleanupAfterTest()
+    {
+        // constructor for setup code
+    }
+
+    public void Dispose()
+    {
+        // dispose for cleanup code
+    }
+
+    [Fact]
+    public void MyTest1()
+    {
+        Assert.True(true);
+    }
+}
+
+public class CleanupAfterTest : IDisposable
+{
+    public CleanupAfterTest()
+    {
+        // constructor for setup code
+    }
+
+    public void Dispose()
+    {
+        // dispose for cleanup code
+    }
+
+    [Fact]
+    public void MyTest1()
+    {
+        Assert.True(true);
+    }
+}
+```
 
 ### Types of tests in xUnit
 
@@ -291,6 +352,45 @@ public void TestWithSameTimeFixture2()
 
 // 27 - Jan - 2019 20:55:55
 // 27 - Jan - 2019 20:55:55
+```
+
+## Asserts
+
+```cs
+[Fact]
+public void Asert_Examples()
+{
+    Assert.Equal(1, 1);
+    Assert.Equal("London", "London");
+
+    Assert.StartsWith("Lon", "London");
+    Assert.EndsWith("on", "London");
+
+    Assert.Contains("Lon", "London");
+    Assert.DoesNotContain("Bern", "London");
+
+    Assert.Empty(new List<int>());
+    Assert.NotEmpty(new List<int>(){1,2,3});
+
+    Assert.True(1 == 1);
+    Assert.False(1 == 2);
+
+    Assert.Null(null);
+    Assert.NotNull("a");
+
+    Exception ex = Assert.Throws<ArgumentNullException>(
+                          () => MyMethod());
+
+    Assert.InRange(5, 1, 10);
+    Assert.NotInRange(-1, 0, 10);
+}
+
+[Fact]
+public async Task Assert_Example_Async()
+{
+    await Assert.ThrowsAsync<Exception>(
+                 () => throw new Exception("name"));
+}
 ```
 
 ## Links
