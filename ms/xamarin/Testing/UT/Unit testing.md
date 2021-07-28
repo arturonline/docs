@@ -98,7 +98,7 @@ Create a new class with a static property and only a getter which yield returns 
 ```cs
 public class EmployeeTestDataAttribute : DataAttribute
 {
-    public override IEnumerable<object[]> TestData
+    public override IEnumerable<object[]> TestData()
     {
         yield return new object[] { -100, false };
         yield return new object[] { 17, false };

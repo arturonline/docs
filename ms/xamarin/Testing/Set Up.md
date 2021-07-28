@@ -14,7 +14,10 @@ El primer paso es asegurarnos que nuestra aplicación se instale en el emulador 
 
 ```diff
 -return ConfigureApp.Android.StartApp();
-+return ConfigureApp.Android.InstalledApp("com.companyname.atxamarin").StartApp();
++return ConfigureApp.Android
++    .EnableLocalScreenshots()
++    .InstalledApp("com.agsoft.inventory")
++    .StartApp();
 ```
 
 El *""com.companyname.atxamarin"* lo sacamos del android manifest:
@@ -36,7 +39,7 @@ namespace UITest1
 }
 ```
 
-### 3.3 Mostrar barra de tests
+### 2.3 Mostrar barra de tests
 
 Nos Abrimos la barra de tests:
 
