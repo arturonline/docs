@@ -1,5 +1,7 @@
 # ListView
 
+⚠️ An ObservableCollection should update when an item is added or removed - but it will not force an update if an item is modified, unless that item implements INotifyPropertyChanged
+
 ```c#
 // models/Log.cs
 public class Log
@@ -25,7 +27,7 @@ public string Description
     set => SetProperty(ref description, value);
 }
 private ObservableCollection<Log> logs;
-public ObservableCollection<Log> Logs 
+public ObservableCollection<Log> Logs
 {
     get => logs;
     set => SetProperty(ref logs, value);
@@ -44,17 +46,17 @@ public ObservableCollection<Log> Logs
     <ContentPage.BindingContext>
         <vm:LogViewModel />
     </ContentPage.BindingContext>
-    
+
     <ContentPage.Content>
         <StackLayout>
-            <ListView 
+            <ListView
                       ItemsSource="{Binding Logs}">
                 <ListView.ItemTemplate>
                     <DataTemplate x:DataType="model:Log">
-                        <TextCell 
+                        <TextCell
                             TextColor="White"
                             DetailColor="White"
-                            Text="{Binding Text}" 
+                            Text="{Binding Text}"
                             Detail="{Binding Description}"/>
                     </DataTemplate>
                 </ListView.ItemTemplate>

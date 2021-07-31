@@ -5,10 +5,10 @@
 ```xml
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-             xmlns:vm="clr-namespace:FileExplorer.ViewModels" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:FileExplorer.ViewModels"
              Title ="{Binding DirectorioActual, StringFormat='//{0}'}"
-             Shell.NavBarIsVisible="true" 
+             Shell.NavBarIsVisible="true"
              x:Class="FileExplorer.Views.HomePage">
 
     <ContentPage.BindingContext>
@@ -21,7 +21,7 @@
                  Order="Primary"
                  Priority="0" />
     </ContentPage.ToolbarItems>
-    
+
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Padding="10">
 
@@ -35,27 +35,27 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Button Text="Back"
-                        Grid.Row="0" 
+                        Grid.Row="0"
                         Grid.Column="0"
                         Command="{Binding goBackCommand}"/>
 
-                <SearchBar x:Name="FilesSearchBar"  
+                <SearchBar x:Name="FilesSearchBar"
                         TextChanged="Handle_SearchButtonPressed"
                         BackgroundColor="LightGray"
-                       Grid.Row="0" 
+                       Grid.Row="0"
                        Grid.Column="1" />
             </Grid>
 
-            <CollectionView x:Name="FileCollection" 
+            <CollectionView x:Name="FileCollection"
                             ItemsSource="{Binding ListOfFiles}"
-                            ItemSizingStrategy="MeasureFirstItem"> 
+                            ItemSizingStrategy="MeasureFirstItem">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
                             <StackLayout.GestureRecognizers>
                                 <TapGestureRecognizer
-                                    Command="{Binding 
-                                                Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}}, 
+                                    Command="{Binding
+                                                Source={RelativeSource AncestorType={x:Type vm:HomeViewModel}},
                                                 Path=tapCommand}"
                                     CommandParameter="{Binding .}" />
                             </StackLayout.GestureRecognizers>
@@ -63,8 +63,8 @@
                                    HasShadow="True" />
                             <StackLayout Orientation="Horizontal">
                                     <Image Source="{Binding Icon}" />
-                                    <Label Text="{Binding Name}" 
-                                       FontSize="Medium" 
+                                    <Label Text="{Binding Name}"
+                                       FontSize="Medium"
                                        TextColor="black" />
                                 </StackLayout>
                         </StackLayout>
@@ -76,3 +76,5 @@
 
 </ContentPage>
 ```
+
+⚠️ An ObservableCollection should update when an item is added or removed - but it will not force an update if an item is modified, unless that item implements INotifyPropertyChanged
