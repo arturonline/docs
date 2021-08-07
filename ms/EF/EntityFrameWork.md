@@ -62,6 +62,8 @@ A DbSet represents an entity set. An entity set is defined as a set of entities 
 
 ### Model(s)
 
+https://docs.microsoft.com/en-us/ef/core/modeling/
+
 We can configure the models in two ways:
 
 1. **Default Conventions**: Code First Convention maps our POCO classes to the database by making assumptions based on how the domain classes are written.
@@ -73,3 +75,5 @@ The database can be further configured using the **data annotations attributes**
 ## Relationships
 
 https://www.tektutorialshub.com/entity-framework/ef-relationships/
+
+https://docs.microsoft.com/en-us/ef/core/modeling/relationships?tabs=fluent-api%2Cfluent-api-simple-key%2Csimple-key
