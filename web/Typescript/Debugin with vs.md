@@ -2,7 +2,7 @@
 
 ## Project distribution
 
-```
+```json
 |-- .vscode
     |----- launch.json
 |-- bin
