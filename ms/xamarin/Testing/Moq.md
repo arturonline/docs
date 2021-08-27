@@ -2,9 +2,13 @@
 
 ## 🚀 Intro
 
-When writing a test, quite often you want to only test one particular class and method. But that method might call a dependency. A mocking library allows you to create "*Mocks*" (fake objects). Those objects allow you to set its property values, specify its parameters, and return its values on the method calls.
+When writing a test, quite often you want to only test one particular class and method. But that method might call a dependency.
 
-Example:
+Mocking is simulating the expected behavior of an external dependency ex: DB, network, disk...
+
+A mocking library like **Moq** allows us to create fake objects ("*moks*") and set its property values, specify its parameters, and return its values on the method calls.
+
+This example shows the steps involved in setup and use a mock:
 
 ```cs
 // Create the mock
@@ -19,8 +23,6 @@ Assert.AreEqual("FixedValue", mock.Object.PropertyToMock);
 // Verify that the mock was invoked
 mock.VerifyGet(x => x.PropertyToMock);
 ```
-
-Whilst this example shows the steps involved in using the mock, it is important to remember that it doesn't actually test anything, other than that the mock has been setup and used correctly. An actual test that makes use of a mock will supply the mock to the system that is to be tested.
 
 ## 📝 Moq Basics
 
@@ -39,7 +41,11 @@ As you can see from the code above, mocking an object is simple. Simply use `Moc
 
 To configure a mock to return data, you will need to use the `.Setup()` and `.Return()` methods.
 
+<div style="page-break-after: always;"></div>
+
 ### 🛠 2.1 Setup the properties
+
+To set the `name` property of the `Author` class:
 
 ```cs
 // Set properties
@@ -51,7 +57,7 @@ var name = author.Object().Name;  // 'jon'
 
 ### 🛠 2.2 SetUp the Methods
 
-Once it is created you need to set up the ideal expectations for your mock. To do so, we use the method `Setup()` like this:
+To setup methods we use the  `.Setup()` like this:
 
 - without parameters
 
@@ -83,7 +89,6 @@ Once it is created you need to set up the ideal expectations for your mock. To d
     mockObj.Verify(t => t.GetPublicationDate(), Times.Never);
     mockObj.Verify(t => t.GetPublicationDate(), Times.Once);
     mockObj.Verify(t => t.GetPublicationDate(), Times.Exactly(2));
-    mockObj.Verify(t => t.GetPublicationDate(), Times.Exactly(3));
     ```
 
 - Throwing exceptions
@@ -129,6 +134,8 @@ mockObj.Setup(x => x.IsServiceConnectionValid()).Returns(true);
 
 Imagine a Class called `OrderHandler` that needs two interfaces (`IStockChecker` and `IOrderRepository`) that are injected in the constructor:
 
+<div style="page-break-after: always;"></div>
+
 ```cs
 [Fact]
 public void GivenInsufficientStock_DoNotCreateOrder()
@@ -150,6 +157,8 @@ public void GivenInsufficientStock_DoNotCreateOrder()
 ```
 
 As you can see, the dependencies are **mocked out**. The real implementation would have called out to a database, but the class we're testing doesn't know or care about this - it just cares that whatever "`IsProductInStock`" is, we get a boolean back. It doesn't care where that comes from, as that's not it's responsibility. What is it's responsibility is that if `IsProductInStock` returns true, the class we're testing will execute `ProcessOrder`. And likewise, if it returns false, it does not execute `ProcessOrder`.
+
+>❕ "sut" = Service Under Test
 
 ## 🚧 Real Example
 
@@ -210,6 +219,8 @@ public class MyClass
 
 The class is now written in such a way that the part of the system that was previously untestable can now be mocked. This cane achieve this by mocking the call to ISmtpSender.SendSmtp() and adding a mocked return value of true to it:
 
+<div style="page-break-after: always;"></div>
+
 ```cs
 
 [Test]
@@ -229,6 +240,7 @@ We have successfully refactored our code and made it testable by building our cl
 
 ## 📡 Links
 
-- [Tutorial](https://www.danclarke.com/comparing-dotnet-mocking-libraries)
 - [Moq Quickstart](https://github.com/Moq/moq4/wiki/Quickstart)
+- [Another Tutorial](https://www.danclarke.com/comparing-dotnet-mocking-libraries)
 - [Mocking Theory](https://martinfowler.com/articles/mocksArentStubs.html)
+

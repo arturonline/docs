@@ -10,7 +10,7 @@ dotnet new console --name "MyProject"
 
 ## 2. Install BenchmarkDotNet
 
-Install BenchmarkDotNet via the NuGet package:
+Install `BenchmarkDotNet` via the NuGet package:
 
 ```cs
 // visual studio 2019
