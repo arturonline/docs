@@ -1,32 +1,30 @@
-# Razor Pages
+# Razor Syntax
+
+[Microsoft Razor Syntax reference](https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0)
 
 Razor is a markup syntax for embedding server-based code into webpages. The Razor syntax consists of Razor markup, C#, and HTML.
 
 The default Razor language is HTML. Razor supports C# and uses the `@` symbol to transition from HTML to C#. Razor evaluates C# expressions and renders them in the HTML output.
 
-Files containing Razor generally have a .cshtml file extension.
+Pages containing Razor generally have a `.cshtml` file extension.
 
-## Razor Syntax
+## Transition
 
 Razor uses the `@` symbol to transition from HTML to C#.
 
-### Razor expressions
-
-- **Implicit Expresions:** Sttart with `@` followed by C# code and must not contain spaces. It also can't contain generics.
+- **Implicit transition:** Start with `@` followed by C# code and must not contain spaces. It also can't contain generics.
 
 ```cs
 <p>@DateTime.IsLeapYear(2016)</p>
 ```
 
-- **Explicit Expresions:** consist of an `@` symbol between parenthesis.
+- **Explicit transition:** consist of an `@` symbol between parenthesis.
 
 ```cs
 <p>Last week this time: @(DateTime.Now - TimeSpan.FromDays(7))</p>
 ```
 
-## Razor code blocks
-
-Razor code blocks start with `@` and are enclosed by `{}`. Unlike explicit expressions, C# code inside code blocks isn't rendered:
+- **Code blocks** start with `@` and are enclosed by `{}`. Unlike explicit expressions, C# code inside code blocks isn't rendered:
 
 ```cs
 @{
