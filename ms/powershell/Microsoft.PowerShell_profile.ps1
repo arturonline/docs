@@ -56,14 +56,7 @@ function admin
 # Make it easy to edit this profile once it's installed
 function Edit-Profile
 {
-    if ($host.Name -match "ise")
-    {
-        $psISE.CurrentPowerShellTab.Files.Add($profile.CurrentUserAllHosts)
-    }
-    else
-    {
-        code $profile.CurrentUserAllHosts
-    }
+    code $Profile
 }
 
 # We don't need these any more; they were just temporary variables to get to $isAdmin.
@@ -86,5 +79,11 @@ function debug {
  }
 
  # Useful shortcuts for traversing directories
-function cd...  { cd ..\.. }
-function cd.... { cd ..\..\.. }
+function cd.. { Set-Location .. }
+function cd...  { Set-Location ..\.. }
+function cd.... { Set-Location ..\..\.. }
+
+function vi( $arg ) { wsl vi (Resolve-Path -Relative $arg)}
+
+Set-Alias -Name vim -Value vi
+Set-Alias -Name nvim -Value vi
