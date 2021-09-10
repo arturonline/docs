@@ -27,9 +27,9 @@ Create new *"xUnit Test Project"* in the solution you want to test.
 xUnit.net creates a new instance of the test class for every test it contains. This allows you to put the setup code you need in the constructor of your test class:
 
 ```cs
-public class SetupBeforeEachTest
+public class MyClass
 {
-    public SetupBeforeEachTest()
+    public MyClass()
     {
         // constructor for setup code
     }
@@ -46,9 +46,9 @@ To clean-up after every test you use another basic functionality of .Net by impl
 
 ```cs
 C#
-public class CleanupAfterTest : IDisposable
+public class MyClass : IDisposable
 {
-    public CleanupAfterTest()
+    public MyClass()
     {
         // constructor for setup code
     }
@@ -65,9 +65,9 @@ public class CleanupAfterTest : IDisposable
     }
 }
 
-public class CleanupAfterTest : IDisposable
+public class MyClass : IDisposable
 {
-    public CleanupAfterTest()
+    public MyClass()
     {
         // constructor for setup code
     }
