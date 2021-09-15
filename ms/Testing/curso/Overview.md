@@ -350,13 +350,13 @@ public abstract class DataAttribute : Attribute
 }
 ```
 
-En esta ocasión, lo que hacemos es sobrescribir el método abstracto GetData() que toma como parámetro la información del método al que se aplica (nos sirve, en este caso, para saber qué parámetros se esperan y de qué tipo), y devuelve un IEnumerable<object[]>, como ya conocemos, para obtener la información que nos interesa y que luego se va a pasar al motor de testing.
+En esta ocasión, lo que hacemos es sobrescribir el método abstracto `GetData()` que toma como parámetro la información del método al que se aplica (nos sirve, en este caso, para saber qué parámetros se esperan y de qué tipo), y devuelve un IEnumerable<object[]>, como ya conocemos, para obtener la información que nos interesa y que luego se va a pasar al motor de testing.
 
 Además, hemos metido un par de métodos privados auxiliares para procesar la información del archivo CSV antes de devolverla.
 
 >Nota: dado que es un atributo convencional de .NET, lo decoramos con el atributo AttributeUsage, indicando que se usará para decorar métodos. Además, se ha implementado un código para procesar el CSV intencionadamente simple, que sólo divide la información usando las comas y no tiene en cuenta otras complejidades relacionadas con "parsear" ese tipo de archivos, ya que no es el objeto del curso y facilita la comprensión del ejemplo.
 
-Hay que tener en cuenta que xUnit utiliza el atributo para obtener los valores en una lista (con ToList()), por lo que debe devolver conjuntos completos de resultados y no utilizar resultados parciales o diferir su obtención en caso de usar alguna fuente más compleja. Debe devolver todo en la primera llamada.
+Hay que tener en cuenta que xUnit utiliza el atributo para obtener los valores en una lista (con `ToList()`), por lo que debe devolver conjuntos completos de resultados y no utilizar resultados parciales o diferir su obtención en caso de usar alguna fuente más compleja. Debe devolver todo en la primera llamada.
 
 >Como puedes observar, la clase DataAttribute tiene además una propiedad virtual Skip con la que de momento no estamos haciendo nada, pues es opcional. Como breve adelanto: esta propiedad nos va a permitir omitir la ejecución de una prueba. Lo veremos más adelante en el momento oportuno.
 
@@ -382,3 +382,318 @@ public class FactoríaDeMensajesTests
 ```
 
 De esta manera tan simple ya no necesitamos preocuparnos de si el fichero añade o elimina datos. Si nuestro cliente nos enviara un nuevo fichero con nuevos datos, basta con que lo pongamos en la ruta correcta y automáticamente empezaremos a utilizarlos en nuestras pruebas.
+
+## Aserciones
+
+Una aserción no es más que una comprobación que, en caso de no cumplirse, lanza una excepción. El runner recoge esa excepción y da por fallida la prueba, mostrando como mensaje de error el mensaje de la excepción.
+
+## Preparación de Tests
+
+imagina que tienes una clase que comprueba que ciertos ficheros están en un directorio. Podría ser algo tan sencillo como esto:
+
+```cs
+public static class UtilidadesDirectorio
+{
+    public static bool ExistenLosArchivos(string[] archivos, string directorio)
+    {
+        var dirInfo = new DirectoryInfo(directorio);
+        if (!dirInfo.Exists)
+        {
+            return false;
+        }
+        var files = dirInfo.GetFiles().Select(file=>file.Name);
+        return !archivos.Except(files).Any();
+    }
+}
+```
+
+>Este código comprueba si el directorio existe, obtiene todos los archivos contenidos en éste y comprueba si están todos ellos recogidos dentro del array que recibe como parámetro. De no ser así retornará un false.
+
+A la hora de probar este código, se hace evidente que vamos a necesitar dotar a nuestras pruebas de cierta *funcionalidad extra* que nos permita preparar el entorno para las pruebas: incluir ciertos archivos en la carpeta.
+
+La manera que nos ofrece xUnit.net de añadir este *código auxiliar* necesario para las pruebas, es utilizar el propio constructor de la clase para preparar las pruebas, e implementar `IDisposable` para limpiar los recursos una vez que hayamos terminado. 
+
+Por ejemplo, si queremos crear unos cuantos ficheros temporales antes de ejecutar las pruebas de ese código, pero queremos que al finalizar la prueba se borren, nuestra clase de prueba sería así:
+
+```cs
+public class UtilidadesDirectorioTests : IDisposable
+{
+    private const string DIRECTORY = "./tests";
+    private const int FILECOUNT = 5;
+    private readonly string[] _files = new string[FILECOUNT];
+
+    public UtilidadesDirectorioTests()
+    {
+        if (!Directory.Exists(DIRECTORY))
+        {
+            Directory.CreateDirectory(DIRECTORY);
+        }
+
+        for (var i = 0; i < FILECOUNT; i++)
+        {
+            var fileName = $"{i}.test";
+            _files[i] = fileName;
+            File.WriteAllText(Path.Combine(DIRECTORY, fileName), "");
+        }
+    }
+
+    [Fact]
+    public void ExistenLosArchivos_ShouldBeTrue_IfFilesExist()
+    {
+        //Arrange
+
+        //Act
+        var result = UtilidadesDirectorio.ExistenLosArchivos(_files, DIRECTORY);
+
+        //Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void ExistenLosArchivos_ShouldBeFalse_IfFilesNotExist()
+    {
+        //Arrange
+
+        //Act
+        var result = UtilidadesDirectorio.ExistenLosArchivos(_files, Path.Combine(DIRECTORY, "NoExisto"));
+
+        //Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void ExistenLosArchivos_ShouldThrowArgumentNullException_IfDirectoryIsNull()
+    {
+        //Arrange
+
+        //Act
+        Action act = () =>
+        {
+            _ = UtilidadesDirectorio.ExistenLosArchivos(_files, null);
+        };
+
+        //Assert
+        Assert.Throws<ArgumentNullException>(act);
+    }
+
+    [Fact]
+    public void ExistenLosArchivos_ShouldThrowArgumentNullException_IfDirectoryIsValidAndFilesIsNull()
+    {
+        //Arrange
+
+        //Act
+        Action act = () =>
+        {
+            _ = UtilidadesDirectorio.ExistenLosArchivos(null, DIRECTORY);
+        };
+
+        //Assert
+        Assert.Throws<ArgumentNullException>(act);
+    }
+
+    public void Dispose()
+    {
+        if (Directory.Exists(DIRECTORY))
+        {
+            Directory.Delete(DIRECTORY, true);
+        }
+    }
+}
+
+```
+
+Si te fijas, en el constructor estamos creando los ficheros (vacíos) necesarios para poder ejecutar las pruebas. Y al acabar la ejecución los estamos liberando gracias a implementar IDisposable. Con esto, hemos conseguido dotar de cierta funcionalidad extra a nuestras pruebas, pudiendo así preparar el escenario inicial para poder realizarse y "limpiándolo" todo al terminar.
+
+## Accesorios: Fixtures ( codigo auxiliar reutilizable)
+
+Según hemos aprendido ya, podemos crear código auxiliar cuando lo necesitemos para poder preparar el entorno antes de las pruebas y limpiarlo después. Sin embargo, si nos fijamos nos daremos cuenta de que estamos creando y borrando los ficheros para cada prueba. Si en vez de utilizar facts, hubiésemos utilizado teorías, esto se multiplica, porque cada ejecución de una teoría se lleva a cabo de manera independiente. En la prueba estamos haciendo operaciones de lectura, como comprobar si el fichero existe. Pero, ¿qué pasaría si estuviésemos haciendo operaciones de escritura?. Podríamos encontrarnos con bloqueos de ficheros que hagan fallar nuestras pruebas, cuando en realidad lo que falla no es el código que queremos probar, sino la manera en la que hemos planteado la prueba.
+
+¡Ahí es donde entran en escena los accesorios! Los accesorios nos van a permitir sacar ese código auxiliar que estábamos utilizando en el constructor a una clase independiente. Esta clase independiente se va a inicializar cuando empezamos a ejecutar las pruebas en las que utilicemos el accesorio, y sólo se liberará al terminar dichas pruebas. De este modo, vamos a conseguir que, en el caso anterior, no estemos creando y eliminando ficheros constantemente cuando no es necesario.
+
+Existen dos tipos de accesorios:
+
+- De clase
+- De colección
+
+Ambos tipos de accesorios funcionan igual, lo único que va a cambiar es el ciclo de vida que tienen: los objetos del primer tipo se eliminarán al terminar las pruebas de la clase que los esté usando, y los del segundo (colecciones), al terminar las pruebas del grupo.
+
+### Fixtures de clase: `IClassFixture<T>`
+
+Gracias a esta herramienta vamos a poder compartir funcionalidad entre todas las ejecuciones de las pruebas de una clase.
+
+Vamos a crear una nueva clase que llamaremos **DirectoryFixture**, a la que le añadiremos esa funcionalidad igual que habíamos hecho antes (creando los recursos en el constructor y liberándolos en el Dispose). También vamos a crear una propiedad de solo lectura para poder acceder a *_files*:
+
+```cs
+public class DirectoryFixture : IDisposable
+{
+    public const string DIRECTORY = "./tests";
+    private const int FILECOUNT = 5;
+    private readonly string[] _files = new string[FILECOUNT];
+
+    public string[] Files => _files;
+
+    public DirectoryFixture()
+    {
+        if (!Directory.Exists(DIRECTORY))
+        {
+            Directory.CreateDirectory(DIRECTORY);
+        }
+
+        for (var i = 0; i < FILECOUNT; i++)
+        {
+            var fileName = $"{i}.test";
+            _files[i] = fileName;
+            File.WriteAllText(Path.Combine(DIRECTORY, fileName), "");
+        }
+    }
+
+
+    public void Dispose()
+    {
+        if (Directory.Exists(DIRECTORY))
+        {
+            Directory.Delete(DIRECTORY, true);
+        }
+    }
+}
+```
+
+Si te fijas, es básicamente lo mismo que teníamos en el constructor y en el Dispose de la clase de pruebas, pero separado en un accesorio (Fixture).
+
+Una vez que tenemos el accesorio listo, tenemos que indicarle al runner de xUnit.net que nuestra clase de pruebas necesita de este accesorio. Esto lo conseguiremos haciendo que la clase de pruebas herede de `IClassFixture<DirectoryFixture>` (fíjate en que el tipo que usamos para particularizar el genérico es nuestra clase anterior):
+
+```cs
+public class UtilidadesDirectorioTests : IClassFixture<DirectoryFixture>
+```
+
+Una vez que le hemos indicado a xUnit.net que nuestra clase depende de ese accesorio, el runner va a crear una instancia del mismo al iniciar las pruebas. Como normalmente nos interesa tener acceso al accesorio dentro de la clase, vamos a poder recibirla en el constructor y el runner va a inyectarnos la instancia automáticamente:
+
+```cs
+private readonly DirectoryFixture _directoryFixture;
+
+public UtilidadesDirectorioTests(DirectoryFixture directoryFixture)
+{
+    _directoryFixture = directoryFixture;
+}
+```
+
+>Es importante tener en cuenta que, para poder utilizar el accesorio de clase dentro de la clase de prueba, debemos heredar el `IClassFixture<T>` y recibirlo en el constructor. Si lo tenemos en el constructor, pero la clase de pruebas no hereda de `IClassFixture<T>`, recibiremos un error en nuestro test indicándonos que xUnit.net no sabe qué tiene que inyectar para inicializar la clase. Si por el contrario heredamos, pero no recibimos el accesorio en el constructor, aun así, se ejecutará su constructor y su destructor.
+
+Con los cambios tenidos en cuenta, nuestra clase de prueba ahora queda así:
+
+```cs
+public class UtilidadesDirectorioTests : IClassFixture<DirectoryFixture>
+{
+    private readonly DirectoryFixture _directoryFixture;
+
+    public UtilidadesDirectorioTests(DirectoryFixture directoryFixture)
+    {
+        _directoryFixture = directoryFixture;
+    }
+
+    [Fact]
+    public void ExistenLosArchivos_ShouldBeTrue_IfFilesExist()
+    {
+        //Arrange
+
+        //Act
+        var result = UtilidadesDirectorio.ExistenLosArchivos(_directoryFixture.Files, DirectoryFixture.DIRECTORY);
+
+        //Assert
+        Assert.True(result);
+    }
+
+    [Fact]
+    public void ExistenLosArchivos_ShouldBeFalse_IfFilesNotExist()
+    {
+        //Arrange
+
+        //Act
+        var result = UtilidadesDirectorio.ExistenLosArchivos(_directoryFixture.Files, Path.Combine(DirectoryFixture.DIRECTORY, "NoExisto"));
+
+        //Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void ExistenLosArchivos_ShouldThrowArgumentNullException_IfDirectoryIsNull()
+    {
+        //Arrange
+
+        //Act
+        Action act = () =>
+        {
+            _ = UtilidadesDirectorio.ExistenLosArchivos(_directoryFixture.Files, null);
+        };
+
+        //Assert
+        Assert.Throws<ArgumentNullException>(act);
+    }
+
+    [Fact]
+    public void ExistenLosArchivos_ShouldThrowArgumentNullException_IfDirectoryIsValidAndFilesIsNull()
+    {
+        //Arrange
+
+        //Act
+        Action act = () =>
+        {
+            _ = UtilidadesDirectorio.ExistenLosArchivos(null, DirectoryFixture.DIRECTORY);
+        };
+
+        //Assert
+        Assert.Throws<ArgumentNullException>(act);
+    }
+}
+
+```
+
+Con esto, tan solo vamos a crear una vez los ficheros necesarios para todas las pruebas de la clase, y los vamos a borrar al terminar todas las pruebas; en vez de crear y borrar los ficheros para cada prueba. Si crear y borrar los ficheros fuese una carga pesada, estaríamos consiguiendo ahorrar tiempo de ejecución al no repetir trabajo de manera innecesaria y podemos evitar bloqueos y otros efectos secundarios.
+
+Un dato importante a tener en cuenta es que, no estamos limitados a tener un único accesorio por clase. Podemos utilizar tantos accesorios como necesitemos, siempre y cuando lo indiquemos en la herencia y lo recibamos en el constructor.
+
+### Fixtures de Colección: `ICollectionFixture<T>`
+
+Las colecciones de prueba son el mecanismo de agrupación de prueba en xUnit. Tienen dos propósitos:
+
+- Delinean el límite del "paralelismo", es decir, las pruebas en la misma colección no se ejecutarán en paralelo entre sí.
+- Ofrecen accesorios para toda la colección mediante el uso de `ICollectionFixture<TFixtureType>`.
+
+Para el primero de los dos propósitos, basta con que decoremos las diferentes clases de pruebas que queremos englobar en una colección con el atributo `[Collection(NombreColección)]`. Con eso, ya es suficiente para que se considere una colección y sus pruebas no se ejecuten en paralelo entre ellas, aunque sí con otras de otro grupo. Esto quiere decir que, si tengo 2 grupos de clases de pruebas, las pruebas se ejecutarán en paralelo entre los grupos, pero no dentro del mismo grupo. De igual modo, si tenemos dos colecciones, las pruebas se ejecutarán en paralelo entre las colecciones, pero nunca dos a la vez dentro de la misma colección.
+
+Para el segundo de los propósitos, el de poder tener accesorios de colección, vamos a tener que declarar una definición de la colección. Es en esta definición de la colección, en donde indicaremos los diferentes `ICollectionFixture<T>` que queremos que estén disponibles para la colección (y al igual que ocurría con los accesorios de clase, podemos añadir tantos como necesitemos):
+
+```cs
+[CollectionDefinition("Nombre de la colección")]
+public class Nombre_De_la_Colección_Collection : ICollectionFixture<DirectoryFixture> // , ICollectionFixture<T> ...
+{
+    // Esta clase no tiene código, y nunca se instancia. Su propósito es tan solo
+    // ser el lugar en el que aplicar [CollectionDefinition]
+    // y las interfaces ICollectionFixture<>.
+}
+```
+
+El nombre que le demos a la clase donde definimos la colección es irrelevante, ya que no se va a utilizar para nada. Es una herramienta de xUnit para agrupar en un único punto todos los accesorios asociados a la colección. Lo importante es el nombre que le damos en el atributo `[CollectionDefinition()]`
+
+Es necesario señalar que, una clase de pruebas solo puede pertenecer a una única colección, por lo que debemos pensar en cómo vamos a organizar las pruebas de cara a crear las colecciones. Una vez que tenemos eso hecho, vamos a poder utilizar el accesorio recibiéndolo en el constructor de igual manera que hacíamos con los accesorios de clase. La salvedad aquí es que, el accesorio se va a crear antes de empezar a probar la colección, y se va a eliminar al terminar de probar la colección entera.
+
+Si suponemos que la definición de la colección es como la hemos hecho justo arriba, nuestra clase de pruebas quedaría algo así:
+
+```cs
+[Collection("Nombre de la colección")]
+public class UtilidadesDirectorioTests
+{
+    private readonly DirectoryFixture _directoryFixture;
+
+    public UtilidadesDirectorioTests(DirectoryFixture directoryFixture)
+    {
+        _directoryFixture = directoryFixture;
+    }
+
+    //.... Todo el código de las pruebas que ya hemos visto
+}
+
+```
+
+Fíjate que ya no hereda de `IClassFixture<T>` y en cambio tiene un atributo `[Collection()]` con el nombre de la colección que hemos definido, de modo que queda atada a ésta y se utiliza con las "fixtures" que haya definidas para la misma.
+
