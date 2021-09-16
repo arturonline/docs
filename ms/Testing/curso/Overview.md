@@ -38,7 +38,7 @@ lo primero que debemos preguntarnos es qué es necesario probar y qué estamos p
 
 ## Theories: Tests Multiples
 
-Con ella lo que vamos a hacer es definir el cuerpo de la prueba una única vez y nos va a permitir parametrizarla, de modo que le pasemos los datos necesarios a través de los parámetros del método.
+Con el atributo `InlineData` podemos definir el cuerpo de la prueba una única vez y parametrizar los valores que le pasemos a través de los propios parámetros del método.
 
 ### Theories: Inline
 
