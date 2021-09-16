@@ -52,6 +52,9 @@ Basta con crear un atributo propio que implemente la interfaz marcadora `ITraitA
 [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true)]
 public class BugAttribute: Attribute, ITraitAttribute
 {
+    public string Id { get; private set; }
+
+    // Constructor
     public BugAttribute(string id)
     {
         this.Id = id;
@@ -66,12 +69,11 @@ public class BugAttribute: Attribute, ITraitAttribute
     {
 
     }
-
-    public string Id { get; private set; }
 }
 ```
 
-Para este atributo estamos indicando en dónde lo vamos a poder usar mediante *AttributeUsage*, pero, además, le estamos indicando dónde va a tener que buscar el descubridor de rasgos mediante su nombre completo y su ensamblado a través del atributo *TraitDiscoverer*.
+- *AttributeUsage* indica donde lo vamos a usar
+- *TraitDiscoverer* indica el descubridor
 
 ### 2/2 Descubridor de rasgos
 
@@ -96,7 +98,7 @@ public class BugDiscoverer : ITraitDiscoverer
 }
 ```
 
-Con este descubridor, estamos obteniendo la propiedad Id que habíamos declarado en nuestro atributo Bug (utilizando el método genérico `GetNamedArgument` de `IAttributeInfo`), y devolvemos una colección de rasgos clave-valor en la que indicaremos los datos de categoría e identificador del bug. Esto es el equivalente a añadir dos [Trait], uno indicando la categoría y otro el id del bug. De esta manera, con un solo rasgo personalizado estamos, en realidad, asignando la prueba a varios.
+Con este descubridor, estamos obteniendo la propiedad Id que habíamos declarado en nuestro atributo Bug (utilizando el método genérico `GetNamedArgument` de `IAttributeInfo`), y devolvemos una colección de rasgos clave-valor en la que indicaremos los datos de categoría e identificador del bug. Esto es el equivalente a añadir dos `[Trait]`, uno indicando la categoría y otro el id del bug. De esta manera, con un solo rasgo personalizado estamos, en realidad, asignando la prueba a varios.
 
 Una vez que tenemos ambas cosas (el rasgo personalizado y el descubridor), nuestra prueba quedaría así:
 
