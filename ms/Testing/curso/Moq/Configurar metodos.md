@@ -1,4 +1,4 @@
-# Configurar Moqs
+# Configurar Métodos Moqs
 
 ```cs
 public class TaxCalculator

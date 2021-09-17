@@ -1,0 +1,45 @@
+# Lanzar eventos
+
+## Eventos
+
+El manejador de un evento genérico de tipo `EventHandler<T>` tiene una firma como esta:
+
+```cs
+void Manejador(object sender, T message)
+{
+}
+```
+
+El manejador (EventHandler) recibirá un parámetro de tipo `object` con una referencia a lo que haya disparado el evento, y un parámetro de tipo string con información sobre el mismo.
+
+Ejemplo:
+
+```cs
+public interface ICommunicator
+{
+    void Send(string message);
+    event EventHandler<string> ReceivedMessage;
+    //Resto de cosas que tenga la interfaz
+    //...
+}
+```
+
+Hasta donde sabemos, ahora mismo no podemos generar eventos como  `ReceivedMessage` de `IComuunicator`.
+
+## Raise
+
+Aquí es donde entra en juego el método `Raise`. Gracias a este método vamos a poder generar y propagar un evento hacia arriba desde las pruebas, de modo que podamos probar el código asociado a dicho evento.
+
+```cs
+var com = Mock.Of<ICommunicator>();
+Mock.Get(com).Raise(com => com.ReceivedMessage += null, null, "mensaje");
+```
+
+De igual manera que configurábamos el comportamiento para un método o propiedad y podíamos definir sus retornos, callbacks o que lanzasen excepciones, vamos a poder hacer estas dos últimas cuando se añada o elimine un manejador al evento. Adicionalmente, también podremos lanzar un evento en estos dos casos (añadir o quitar manejador al evento).
+
+Esto lo vamos a conseguir mediante los métodos SetupAdd y SetupRemove:
+
+```cs
+Mock.Get(com).SetupAdd(m => m.RecivedMessage += It.IsAny<EventHandler<string>>()).Callback(() => Console.WriteLine("Added"));
+Mock.Get(com).SetupRemove(m => m.RecivedMessage += It.IsAny<EventHandler<string>>()).Callback(() => Console.WriteLine("Removed"));
+```
