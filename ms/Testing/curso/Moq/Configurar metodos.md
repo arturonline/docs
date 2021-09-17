@@ -185,3 +185,31 @@ conducir.InSequence(conducirSecuence).Setup(c => c.PisarAcelerador());
 Con esta configuración para el mock estamos garantizando que, donde se utilize va a ser invocado en el orden concreto que hemos configurado. y en caso de no ser así, se va a producir una excepción que dará la prueba como mala.
 
 >MUY IMPORTANTE: un detalle crucial a tener en cuenta al trabajar con secuencias es que el mock debe ser creado en modo estricto o de lo contrario no fallará cuando se utilice en el orden incorrecto, con lo que pierde su utilidad.
+
+## Métodos genéricos
+
+Aunque el uso de métodos genéricos es muy habitual, quizá no sea algo habitual en el día a día de muchos desarrolladores implementar desde cero clases genéricas propias. No obstante, Moq proporciona también soporte para crear dobles de test de tipos genéricos. 
+
+Imagina que tenemos una interfaz con un método genérico como podría ser esta:
+
+```cs
+public interface IFoo
+{
+    bool Foo<T>(T arg);
+}
+```
+
+Para poder crear un mock con esta interfaz vamos a hacerlo de la misma manera que hasta ahora, con la salvedad de que al pasarle los parámetros le vamos a poder indicar el tipo que estamos esperando gracias a 3 nuevas opciones para It:
+
+- `IsAnyType`: cualquier tipo.
+- `IsValueType`: indica si es un tipo por valor.
+- `IsSubtype<T>`: es la clase T o una clase hija de esta.
+
+```cs
+var ifoo = new Mock<IFoo>();
+ifoo.Setup(f => f.Foo(It.IsAny<It.IsValueType>())).Returns(true);
+ifoo.Setup(f => f.Foo(It.IsAny<It.IsAnyType>())).Returns(true);
+ifoo.Setup(f => f.Foo(It.IsAny<It.IsSubtype<object>>())).Returns(true);
+```
+
+Fíjate que seguimos aplicando las reglas que conocemos (usamos IsAny), pero además, le indicamos nuevas reglas para decidir con qué tipos aplica y con cuáles no.
