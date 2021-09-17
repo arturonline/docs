@@ -163,3 +163,25 @@ codeGenerator.SetupSequence(s => s.GetNextCode())
 
 Otra ventaja que nos aporta `SetupSecuence` es que no va a generar una excepción que no es propia del código probado en nuestro test, sino que en caso de sobrepasar los datos configurados, devolverá el valor por defecto para el tipo de dato de retorno.
 
+## MockSequence
+
+Durante el desarrollo de un software, a veces hay partes concretas que tienen que seguir un camino específico para llegar a una situación determinada.
+
+En caso de que se haga el proceso en otro orden, podrían aparecer problemas. Moq da soporte para poder comprobar que se sigue la secuencia correcta para esta tarea específica. Gracias a la comprobación de frecuencias vamos a poder garantizar que los métodos se llaman en el orden correcto, provocando en caso contrario una excepción y haciendo fallar el test.
+
+Las entidades que habilitan la comprobación de secuencias en Moq son la clase MockSequence y el método InSequence(MockSequence):
+
+```cs
+var conducir = new Mock<IConducir>(MockBehavior.Strict);
+var conducirSecuence = new MockSequence();
+
+conducir.InSequence(conducirSecuence).Setup(c => c.SoltarAcelerador());
+conducir.InSequence(conducirSecuence).Setup(c => c.PisarEmbrague());
+conducir.InSequence(conducirSecuence).Setup(c => c.CambiarMarcha(It.IsInRange(1,6,Range.Inclusive)));
+conducir.InSequence(conducirSecuence).Setup(c => c.SoltarEmbrague());
+conducir.InSequence(conducirSecuence).Setup(c => c.PisarAcelerador());
+```
+
+Con esta configuración para el mock estamos garantizando que, donde se utilize va a ser invocado en el orden concreto que hemos configurado. y en caso de no ser así, se va a producir una excepción que dará la prueba como mala.
+
+>MUY IMPORTANTE: un detalle crucial a tener en cuenta al trabajar con secuencias es que el mock debe ser creado en modo estricto o de lo contrario no fallará cuando se utilice en el orden incorrecto, con lo que pierde su utilidad.
