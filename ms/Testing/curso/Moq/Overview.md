@@ -93,7 +93,7 @@ Como puedes comprobar, el inyectar las dependencias está empezando a cobrar sen
 
 ## Libreria Moq
 
-El mismo ejemplo del caso anterior hecho a mano, se reduce con Moq a algo como esto:
+El mismo ejemplo del caso anterior hecho a mano, se reduce con la librería Moq a algo como esto:
 
 ```cs
 public class TaxCalculatorTests
