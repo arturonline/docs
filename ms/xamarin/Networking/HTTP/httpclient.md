@@ -1,6 +1,6 @@
 # httpclient
 
-HttpClient is a built-in class that's used to send HTTP requests and receive HTTP responses from a resource identified by a URI. `HttpClient` uses a task-based API for performance and gives you access to things like headers, status codes, and message bodies.
+<!-- HttpClient is a built-in class that's used to send HTTP requests and receive HTTP responses from a resource identified by a URI. `HttpClient` uses a task-based API for performance and gives you access to things like headers, status codes, and message bodies. -->
 
 To use `HttpClient`, first you create an instance in memory. Here's how you do that in C#:
 
@@ -67,13 +67,13 @@ In this example, we pass in the URI of the resource we want to delete. The respo
 
 ## Native handlers
 
-Xamarin.iOS includes a message handler called NSUrlSessionHandler that causes HttpClient to use its native networking stack:
+**Xamarin.iOS** includes a message handler called NSUrlSessionHandler that causes HttpClient to use its native networking stack:
 
 ```cs
 var client = new HttpClient(new NSUrlSessionHandler());
 ```
 
-Just like Xamarin.iOS, Xamarin.Android includes a message handler called AndroidClientHandler. 
+Just like Xamarin.iOS, **Xamarin.Android** includes a message handler called AndroidClientHandler. 
 
 ```cs
 var client = new HttpClient(new AndroidClientHandler());
