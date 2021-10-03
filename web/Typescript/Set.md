@@ -74,7 +74,6 @@ set.size
 // 1
 ```
 
-
 ## Looping over a Set
 
 We can use the for-of loop to loop over items in our set, like so:

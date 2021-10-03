@@ -8,7 +8,7 @@ Example:
 
 In any directory of your choice, create a ts3 directory and make it your current directory:
 
-```shell
+```sh
 mkdir ts3
 cd ts3
 ```
@@ -21,7 +21,7 @@ npm init -y
 
 Next, install core packages that are needed to compile and monitor changes in TypeScript files:
 
-```shell
+```sh
 npm i typescript nodemon ts-node --save-dev
 ```
 
@@ -29,19 +29,19 @@ A TypeScript project needs a `tsconfig.json` file. This can be done in two ways:
 
 The npx command is available in npm >= 5.2 and it lets you create a `tsconfig.json` file as follows:
 
-```shell
+```sh
 npx tsc --init
 ```
 
 Here, npx executes the local typescript package that has been installed locally.
 
-```shell
+```sh
 tsc --init
 ```
 
 You will see the following message in the command line once's that done:
 
-```shell
+```sh
 Successfully created a tsconfig.json file.
 ```
 
