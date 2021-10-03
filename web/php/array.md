@@ -18,11 +18,11 @@ $colors = array("Red", "Green", "Blue");
 $ages = array("Peter"=>22, "Clark"=>32, "John"=>28);
 ```
 
-- Working with keys and Values
+### Working with keys and Values
+
+- `array_combine()`, which creates an array using one array for keys and another for its values:
 
 ```php
-//array_combine(), which creates an array using one array for keys and another for its values:
-
 $keys = ['sky', 'grass', 'orange'];
 $values = ['blue', 'green', 'orange'];
 
@@ -35,10 +35,13 @@ print_r($array);
 //     [grass] => green
 //     [orange] => orange
 // )
-// array_values() function returns an indexed array of values
-// array_keys() returns an array of keys of a given array
-// array_flip() exchanges keys with values:
+```
 
+- `array_values()` function returns an indexed array of values
+- `array_keys()` returns an array of keys of a given array
+- `array_flip()` exchanges keys with values:
+
+```php
 print_r(array_keys($array)); // ['sky', 'grass', 'orange']
 print_r(array_values($array)); // ['blue', 'green', 'orange']
 print_r(array_flip($array));
@@ -91,7 +94,7 @@ $cars = array("Volvo", "BMW", "Toyota");
 echo count($cars);
 ```
 
-- To count all the values of an array, use `array_count_values()`. It will give all unique values of a given array as keys and a count of these values as a value:
+- `array_count_values()`: to count all the values of an array:
 
 ```php
 $things = ['apple', 'apple', 'banana', 'tree', 'tree', 'tree'];
@@ -132,7 +135,7 @@ $top = array_slice($numbers, 0, 3);
 print_r($top); // [1, 2, 3]
 ```
 
-- `array_diff()` (remove array values from another array)
+- `array_diff()` :remove array values from another array.
 
 ```php
 $array1 = [1, 2, 3, 4];
@@ -142,7 +145,7 @@ $diff = array_diff($array1, $array2);
 print_r($diff); // [0 => 1, 1 => 2]
 ```
 
-- `array_intersect()`
+- `array_intersect()` : To get values which are present in given arrays.
 
 ```php
 $array1 = [1, 2, 3, 4];
