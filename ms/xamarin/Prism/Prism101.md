@@ -3,7 +3,7 @@
 ## Passing params in constructor
 
 ```cs
-Service>(new CacheService(BlobCache.LocalMachine, "MyAppName"), "localMachineCache");
+containerRegistry.RegisterInstance<ICacheService>(new CacheService(BlobCache.LocalMachine, "MyAppName"), "localMachineCache");
 containerRegistry.RegisterInstance<ICacheService>(new CacheService(BlobCache.UserAccount, "MyAppName"), "userAccountCache");
 
 public SettingsPageViewModel(ICacheService localMachineCache)
@@ -23,5 +23,6 @@ public SettingsPageViewModel(ICacheService localMachineCache, ICacheService user
 ## Get current container
 
 ```cs
+var service = ((PrismApplication)Xamarin.Forms.Application.Current).Container.Resolve();
 ((App) Aplication.Current).Container;
 ```
