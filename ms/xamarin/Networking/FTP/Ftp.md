@@ -1,6 +1,6 @@
 # FTP in CS
 
-The .NET Framework provides comprehensive support for the FTP protocol with the FtpWebRequest and FtpWebResponse classes. These classes are derived from WebRequest and WebResponse. In most cases, the WebRequest and WebResponse classes provide all that is necessary to make the request, but if you need access to the FTP-specific features exposed as properties, you can typecast these classes to FtpWebRequest or FtpWebResponse.
+The .NET Framework provides comprehensive support for the FTP protocol with the `FtpWebRequest` and `FtpWebResponse` classes. These classes are derived from `WebRequest` and `WebResponse`. In most cases, the WebRequest and WebResponse classes provide all that is necessary to make the request, but if you need access to the FTP-specific features exposed as properties, you can typecast these classes to FtpWebRequest or FtpWebResponse.
 
 ## Download files
 
@@ -22,10 +22,14 @@ namespace Examples.System.Net
             // This example assumes the FTP site uses anonymous logon.
             request.Credentials = new NetworkCredential("anonymous","janeDoe@contoso.com");
 
+            // Establish Return Communication with the FTP Server
             FtpWebResponse response = (FtpWebResponse)request.GetResponse();
 
             Stream responseStream = response.GetResponseStream();
+
             StreamReader reader = new StreamReader(responseStream);
+            
+            // reads text to the end of file
             Console.WriteLine(reader.ReadToEnd());
 
             Console.WriteLine($"Download Complete, status {response.StatusDescription}");
@@ -39,7 +43,7 @@ namespace Examples.System.Net
 
 ## Upload files
 
-```cs 
+```cs
 using System;
 using System.IO;
 using System.Net;
