@@ -20,9 +20,16 @@ public SettingsPageViewModel(ICacheService localMachineCache, ICacheService user
 }
 ```
 
+```cs
+// creo una instancia con un constructor personalizado
+var s = _container.RegisterInstance(new ComunicacionUtilsFtp(servidorFtpSeleccionado), "utilsInstance");
+// uso el constructor personalizado
+var _commUtils = ((App)Application.Current).Container.Resolve<ComunicacionUtilsFtp>("utilsInstance");
+```
+
 ## Get current container
 
 ```cs
-var service = ((PrismApplication)Xamarin.Forms.Application.Current).Container.Resolve();
-((App) Aplication.Current).Container;
+var service = ((PrismApplication)Xamarin.Forms.Application.Current).Container;
+var container = ((App) Aplication.Current).Container;
 ```
