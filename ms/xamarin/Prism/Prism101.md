@@ -27,9 +27,12 @@ var s = _container.RegisterInstance(new ComunicacionUtilsFtp(servidorFtpSeleccio
 var _commUtils = ((App)Application.Current).Container.Resolve<ComunicacionUtilsFtp>("utilsInstance");
 ```
 
-## Get current container
+## Get current container (Resolve)
 
 ```cs
+using DryIoc;
+using Prism.Ioc;
+
 var service = ((PrismApplication)Xamarin.Forms.Application.Current).Container;
 var container = ((App) Aplication.Current).Container;
 ```
