@@ -70,3 +70,36 @@ A PHP session can be destroyed by `session_destroy()` function.
    session_destroy();
 ?>
 ```
+
+## Form Validation
+
+### 1. En tres pasos
+
+[ Formulario.html ] <-> [ Validacion.php ] -> [ Resultado.php ]
+
+- **Pagina formulario**: es la pagina con el formulario.
+- **Pagina validacion** solo tiene una funcion, validar el contenido de un formulario.
+- **Pagina resultado**: recibe el formulario ya validado y realiza las acciones pertinentes.
+
+### 2. En dos pasos
+
+[ Formulario.html ] <-> [ Resultado.php (+ validacion) ]
+
+La validación se hace en la misma pagina de resultado
+
+### 3. En un paso
+
+Lo hacemos todo en la página de formulario.
+
+Podemos navegar entre páginas conla instrucción `header`:
+
+```php
+<?php
+header("Location: http://www.example.com/"); /* Redirect browser */
+
+/* Make sure that code below does not get executed when we redirect. */
+exit;
+?>
+```
+
+`header()` is used to send a raw HTTP header.
