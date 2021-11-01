@@ -26,11 +26,13 @@ MessagingCenter.Send<MainPage>(this, "Hi");
 ```c#
 MessagingCenter.Send<MainPage, string>(this, "Hi", "John");
 ```
-In this example, the `Send` method specifies two generic arguments: 
+
+In this example, the `Send` method specifies two generic arguments:
 
 - The first is the type that's sending the **message**
-- The second is the type of the **payload data being sent**. 
-- The third is the payload data to be sent to the subscriber. In this case the payload data is a string.
+- The second is the type of the **payload data being sent**.
+
+This enables multiple messages that share a message identity but send different payload data types to be received by different subscribers. In this case the payload is "John".
 
 ## Subscribing
 
@@ -42,6 +44,7 @@ MessagingCenter.Subscribe<MainPage> (this, "Hi", (sender) =>
     // Do something whenever the "Hi" message is received
 });
 ```
+
 In this example, the `Subscribe` method subscribes the `this` object to `Hi` messages that are sent by the `MainPage` type, and executes a `callback delegate` in response to receiving the message. The `callback delegate`, specified as a lambda expression, could be code that updates the UI, saves some data, or triggers some other operation.
 
 ### Subscribe to a message with data (payload)
@@ -62,6 +65,7 @@ In this example, the `Subscribe` method subscribes to `Hi` messages that are sen
 ```c#
 MessagingCenter.Unsubscribe<MainPage>(this, "Hi");
 ```
+
 In this example, the `Unsubscribe` method unsubscribes the `this` object from the `Hi` message sent by the `MainPage` type.
 
 ### Unsubscribre messages with data (payload)
@@ -69,6 +73,7 @@ In this example, the `Unsubscribe` method unsubscribes the `this` object from th
 ```c#
 MessagingCenter.Unsubscribe<MainPage, string>(this, "Hi");
 ```
+
 In this example, the `Unsubscribe` method unsubscribes the `this` object from the `Hi` message sent by the `MainPage` type, whose payload data is a `string`.
 
 >🎞 [Example](https://github.com/xamarin/xamarin-forms-samples/tree/main/UsingMessagingCenter)
