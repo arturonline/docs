@@ -92,3 +92,56 @@ We can manually remove all references to aun object by using the `unset` functio
 ```php
 unset($object)
 ```
+
+## Final
+
+By using final we prevent a method from being overriden and a class from being extended.
+
+## class constant
+
+```php
+class Product {
+    const IVA = 21;
+}
+```
+
+To access the class constant from outside the class:
+
+```php
+echo Product::IVA
+```
+
+## Object comparison
+
+`===` -> Two objects reference the same instance
+`==` -> Two objects properties have the same values and types.
+
+## Static
+
+```php
+class WorkTable {
+    // public by default
+    static function jumpALine() {
+    echo "<br/>";
+    }
+}
+WorkTable::jumpALine();
+```
+
+Access static property from a child class:
+
+```php
+class MathThings {
+    public static $valueOfPi = 3.14159;
+    function getPI() {
+        return self::$valueOfPi;
+    }
+}
+
+class ChildMathThings extends MathThings {
+    function getPI() {
+        return parent::$valueOfPi;
+    }
+}
+```
+
