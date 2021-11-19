@@ -1,4 +1,4 @@
-# PHP classes
+# PHP classes 1
 
 ```php
 class person
@@ -144,4 +144,3 @@ class ChildMathThings extends MathThings {
     }
 }
 ```
-

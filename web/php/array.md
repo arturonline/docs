@@ -1,5 +1,7 @@
 # php arrays
 
+Arrays in PHP consist of key-value pairs.
+
 There are three types of arrays that you can create. These are:
 
 - **Indexed** — An array with a numeric key.
@@ -9,7 +11,10 @@ There are three types of arrays that you can create. These are:
 ## Indexed
 
 ```php
+$colors = array();
+
 $colors = array("Red", "Green", "Blue");
+$colors = ["Red", "Green", "Blue"];
 ```
 
 ## Associative
