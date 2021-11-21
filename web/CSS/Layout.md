@@ -1,8 +1,8 @@
 # Flex Layout
 
-https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+:warning: [Link](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
 
-## Properties for the parent 
+## Properties for the parent
 
 <img src="./resources/01-container.svg" style="width:250px; Height:150px;">
 
@@ -20,8 +20,7 @@ Define a flex container:
 
 <img src="./resources/flex-direction.svg" style="width:250px; Height:150px;">
 
-
-This establishes the main direction flex items are placed in the flex container. Flexbox is a single-direction layout concept. 
+This establishes the main direction flex items are placed in the flex container. Flexbox is a single-direction layout concept.
 
 ```css
 .container {
@@ -45,6 +44,7 @@ By default, flex items will all try to fit onto one line. You can change that an
   flex-wrap: nowrap | wrap | wrap-reverse;
 }
 ```
+
 - **nowrap** (default): all flex items will be on one line
 - **wrap**: flex items will wrap onto multiple lines, from top to bottom.
 - **wrap-reverse**: flex items will wrap onto multiple lines from bottom to top.
@@ -63,13 +63,13 @@ This is a shorthand for the **flex-direction** and **flex-wrap** properties, whi
 
 <img src="./resources/justify-content.svg" style="width:250px; Height:250px;">
 
-
 ```css
 .container {
   justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly | start | end | left | right ... + safe | unsafe;
 }
 ```
-**flex-start **(default): items are packed toward the start of the flex-direction.
+
+**flex-start**(default): items are packed toward the start of the flex-direction.
 **flex-end**: items are packed toward the end of the flex-direction.
 **start**: items are packed toward the start of the writing-mode direction.
 **end**: items are packed toward the end of the writing-mode direction.
@@ -93,6 +93,7 @@ There are also two additional keywords you can pair with these values: safe and 
   align-items: stretch | flex-start | flex-end | center | baseline | first baseline | last baseline | start | end | self-start | self-end + ... safe | unsafe;
 }
 ```
+
 **stretch** (default): stretch to fill the container (still respect min-width/max-width)
 **flex-start** / **start** / **self-start**: items are placed at the start of the cross axis. The difference between these is subtle, and is about respecting the flex-direction rules or the writing-mode rules.
 **flex-end** / **end** / **self-end**: items are placed at the end of the cross axis. The difference again is subtle and is about respecting flex-direction rules vs. writing-mode rules.
@@ -108,6 +109,7 @@ There are also two additional keywords you can pair with these values: safe and 
   align-content: flex-start | flex-end | center | space-between | space-around | space-evenly | stretch | start | end | baseline | first baseline | last baseline + ... safe | unsafe;
 }
 ```
+
 **normal** (default): items are packed in their default position as if no value was set.
 **flex-start** / **start**: items packed to the start of the container. The (more supported) flex-start honors the flex-direction while start honors the writing-mode direction.
 **flex-end** / **end**: items packed to the end of the container. The (more support) flex-end honors the flex-direction while end honors the writing-mode direction.
@@ -130,6 +132,7 @@ There are also two additional keywords you can pair with these values: safe and 
   order: 5; /* default is 0 */
 }
 ```
+
 By default, flex items are laid out in the source order. However, the order property controls the order in which they appear in the flex container.
 
 ### flex-grow
@@ -189,6 +192,7 @@ It is recommended that you use this shorthand property rather than set the indiv
   align-self: auto | flex-start | flex-end | center | baseline | stretch;
 }
 ```
+
 This allows the default alignment (or the one specified by align-items) to be overridden for individual flex items.
 
-⚠ Note that *float*, *clear* and *vertical-align* have no effect on a flex item 
+⚠ Note that *float*, *clear* and *vertical-align* have no effect on a flex item.

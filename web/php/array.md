@@ -23,7 +23,21 @@ $colors = ["Red", "Green", "Blue"];
 $ages = array("Peter"=>22, "Clark"=>32, "John"=>28);
 ```
 
-### Working with keys and Values
+## Looping
+
+```php
+$numbers = array( 1, 2, 3, 4, 5);
+
+foreach( $numbers as $value ) {
+    echo "Value is $value <br />";
+}
+
+foreach( $numbers as $key => $value ) {
+    echo "key is $key and value is $value <br />";
+}
+```
+
+## Working with keys and Values
 
 - `array_combine()`, which creates an array using one array for keys and another for its values:
 
@@ -160,22 +174,6 @@ $intersect = array_intersect($array1, $array2);
 print_r($intersect);  // [2 => 3, 3 => 4]
 ```
 
-- [More methods](https://www.w3schools.com/php/php_ref_array.asp)
-
-## Looping
-
-```php
-$numbers = array( 1, 2, 3, 4, 5);
-
-foreach( $numbers as $value ) {
-    echo "Value is $value <br />";
-}
-
-foreach( $numbers as $key => $value ) {
-    echo "key is $key and value is $value <br />";
-}
-```
-
 - `array_sum()` to get a sum of array values, `array_product()` to multiply them, or create your own formula with `array_reduce()`:
 
 ```php
@@ -188,6 +186,8 @@ echo(array_reduce($numbers, function($carry, $item) {
     return $carry ? $carry / $item : 1;
 })); // 0.0083 = 1/2/3/4/5
 ```
+
+🔗 [More methods](https://www.w3schools.com/php/php_ref_array.asp)
 
 ## Filtering
 

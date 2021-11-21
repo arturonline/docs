@@ -14,6 +14,7 @@ $today3 = date("d.m.Y");
 - m,M → month
 - y,Y → year (4 digit)
 - l → A full textual representation of a day
+- F → A full textual representation of a month
 
 ## Format time
 
@@ -71,3 +72,5 @@ echo date_format($date, 'd-m-Y');
 
 // 15-02-2021
 ```
+
+🔗 [Date formats](https://www.php.net/manual/en/datetime.format.php)
