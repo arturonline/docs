@@ -74,6 +74,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL) === false) {
 
 ```php
 // form.html
+form.html
 <form action="follow.php" method="POST">
 Name: <input type="text" name="name"/><br />
 NIF: <input type="text" pattern="[0-9]{8}[A-Z]{1}" name="dni" /><br />

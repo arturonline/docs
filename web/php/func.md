@@ -110,20 +110,20 @@ $greet('PHP');
 Example2:
 
 ```php
-function add () { 
-    echo "Add"; 
+function add () {
+    echo "Add";
 }
 
-function subs () { 
+function subs () {
     echo "Subs";
 }
 
 $operation = 1;
 
-if($operation == 1) { 
-    $function="add"; 
-} else { 
-    $function="subs"; 
+if($operation == 1) {
+    $function="add";
+} else {
+    $function="subs";
 }
 
 $function();
@@ -152,4 +152,25 @@ In addition to include, there are three other language constructs available for 
 - The **include_once** statement behaves like include, except that if the specified file has already been included, it is not included again.
 
 We can think of using **include** when the file to be inserted is not decisive regarding the operation of our program and **require** when the file is necessary for the correct operation of our program.
-Finally, the variants with *_once* should be used when our program has considerable dimensions and it may be the case that the inclusion of the file occurs several times.
+Finally, the variants with _\_once_ should be used when our program has considerable dimensions and it may be the case that the inclusion of the file occurs several times.
+
+```php
+<html>
+    <head>
+    <title>Example 1</title>
+    </head>
+    <body>
+        <?php include("library.php") ?>
+
+        <?php Header(); ?>
+
+        Page 1
+        <BR><BR><BR><BR><BR>
+        Content <BR><BR>
+        end<BR><BR>
+
+        <?php Footer(); ?>
+
+    </body>
+</html>
+```
