@@ -6,7 +6,6 @@ Poner la barra correcta:
  [fSep()]
  ```
 
-
 ```python
 //  fCurrentDir, fExeDir, fDataDir and fCacheDir.
 

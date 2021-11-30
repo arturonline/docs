@@ -1,5 +1,0 @@
-# errors
-
-```python
-ErrorInfo(errMessage)
-```

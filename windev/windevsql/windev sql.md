@@ -9,6 +9,7 @@ ELSE
 	Trace("Error de conexión")
 END
 ```
+
 ⚠ Abierta por defecto
 
 ## Construccion de la Query
@@ -21,6 +22,7 @@ consulta is string =
 	SELECT * FROM albums
 ] 
 ```
+
 Mediante **SQL Query**:
 
 ```cs
@@ -53,10 +55,9 @@ Update.ParamDirector = edt_director
 Update.ParamGenre = edt_genre
 ```
 
-
 ## Querys SQL
 
-### Con HExecuteQuery() 
+### Con HExecuteQuery()
 
 Cuando usamos variables de tipo `SQL query`:
 
