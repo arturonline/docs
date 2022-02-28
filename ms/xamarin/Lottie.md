@@ -23,6 +23,7 @@ A normal sample is:
     VerticalOptions="FillAndExpand"
     HorizontalOptions="FillAndExpand" />
 ```
+
 All possible options are:
 
 ```xml

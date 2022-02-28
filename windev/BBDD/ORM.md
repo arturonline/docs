@@ -1,15 +1,28 @@
 # Funcions manejo bases de datos
 
+## oOpener.Open (función gesmobile)
+
+```cs
+oOpener.Open("DATOS_ATV", "Datos")
+HReadFirst(DATOS_ATV)
+
+WHILE HFound(DATOS_ATV)
+    cItem is string = DATOS_ATV.Codigo
+    
+    HReadNext(DATOS_ATV)
+END
+```
+
 ## HReadSeekFirst (Function)
 
 Positions on the first record of a data file whose value for a specific item is strictly equal to a sought value (exact-match search)
 
-```lua
+```cs
 // <Result> = HReadSeekFirst(<Data file> , <Item> , <Sought value> [, <Options>])
 HReadSeekFirst(DATOS_CRMEventos, DATOS_CRMEventos.idEvento, myId)
 ```
 
-```lua
+```cs
 // Find the first record for which
 // the CUSTOMER name is MOORE
 HReadSeekFirst(CUSTOMER, NAME, "MOORE")
@@ -28,8 +41,8 @@ Positions on the first file record.
 ```lua
 HReadFirst(Customer, Name)
 WHILE HOut(Customer) = False
-        // Process the record
-        HReadNext(Customer, Name)
+    // Process the record
+    HReadNext(Customer, Name)
 END
 ```
 
@@ -44,10 +57,10 @@ END
 HReset(TEMP_NOC) 
 
 // 2. Añade información al record
-TEMP_NOC.Opcion		= "1"
-TEMP_NOC.CodCliente	= 20231
-TEMP_NOC.cTipoNota	= "Cobro"
-TEMP_NOC.CodProveed	= "6A22"
+TEMP_NOC.Opcion = "1"
+TEMP_NOC.CodCliente = 20231
+TEMP_NOC.cTipoNota = "Cobro"
+TEMP_NOC.CodProveed = "6A22"
 
 // 3. Inserta el record
 HAdd(TEMP_NOC) 
@@ -58,7 +71,6 @@ HAdd(TEMP_NOC)
 ```cs
 // Finds the record
 HReadSeekFirst(Customer, Name, "Smith")
- 
 IF HFound() = True THEN
     // Modify a record in a data file
     // (record described through programming)
@@ -99,4 +111,17 @@ END
 // Cancels the filter
 HDeactivateFilter(Customer)
 
+```
+
+## HCopyRecord
+
+```cs
+HReadFirst(Customer, Name)
+    WHILE HOut(Customer) = False
+    // Adds the record to the data file Customer2
+    HCopyRecord(Customer2, Customer, hDefaultVal)
+    HAdd(Customer2)
+    // Goes to the next record
+    HReadNext(Customer, Name)
+END
 ```

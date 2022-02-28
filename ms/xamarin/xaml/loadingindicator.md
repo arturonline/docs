@@ -10,7 +10,6 @@ await Task.Run(async() =>
 
 indicator.IsRunning = false;
 
-
 ## change status bar color
 
 ```java

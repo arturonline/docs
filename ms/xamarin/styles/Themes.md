@@ -66,7 +66,6 @@ In the next example, the **background color** of the Grid and the Button style c
 
 Once all of our bindings are in place, we can start getting and setting the different themes. *Xamarin.Forms* exposes two properties we can use to do that:
 
-
 ```cs
 // Detect current theme
 OSAppTheme currentTheme = Application.Current.RequestedTheme;
@@ -127,6 +126,6 @@ public App()
             <Color x:Key="DarkTertiaryTextColor">WhiteSmoke</Color>
         </Application.Resources>
         ```
-2. usar { AppThemeBinding Light=WhiteSmoke, Dark=Black} en todo el xaml
-3. Implementar settings y cambio 
 
+2. usar { AppThemeBinding Light=WhiteSmoke, Dark=Black} en todo el xaml
+3. Implementar settings y cambio

@@ -26,7 +26,7 @@
 </Application.Resources>
 ```
 
-## Examples: 
+## Examples
 
 ```xml
 <Label FontFamily="{StaticResource MaterialFontFamily}" Text="{Binding Car"}/>
@@ -82,6 +82,7 @@
     <ShellContent Route="TodoList" ContentTemplate="{DataTemplate local:TodoListPage}" />
 </FlyoutItem>
 ```
+
 ## About
 
 [link origina](https://montemagno.com/using-font-icons-in-xamarin-forms-goodbye-images-hello-fonts/)

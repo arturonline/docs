@@ -1,5 +1,7 @@
 # Windev Pasar Info entre Ventanas
 
+## Ejemplo 1
+
 ventana 1: Listado de Eventos (**Eventos**)
 ventana 2: popUp para elegir fecha a mostrar (**EventosPopUp**)
 
@@ -13,6 +15,17 @@ IF MyChildWindow..Name = "SPHEventosFrm" THEN
     IF MyChildWindow..ReturnedValue = True THEN
         //Significará que hay que recargar
         oEventos.CargaDatos()
+    END
+END
+```
+
+## Ejemplo 2
+
+```java
+IF MyChildWindow..Name = "SPHSelectCli" THEN
+
+    IF MyChildWindow..ReturnedValue <> "" THEN
+        codigoCliente = MyChildWindow..ReturnedValue
     END
 END
 ```

@@ -1,4 +1,4 @@
-# Xamarin Colors 
+# Xamarin Colors
 
 Shell provides colors for styling most anything you can see in the chrome of your application such.
 
@@ -11,8 +11,7 @@ Shell provides colors for styling most anything you can see in the chrome of you
 - **Shell.TabBarTitleColor** - the color of the labels and icons of the selected tab
 - **Shell.TabBarUnselectedColor** - the color of the labels and icons that are unselected
 
-https://dev.to/dotnet/exploring-colors-in-xamarin-forms-shell-16g3
-
+<https://dev.to/dotnet/exploring-colors-in-xamarin-forms-shell-16g3>
 
 ## Navigation bar Color
 

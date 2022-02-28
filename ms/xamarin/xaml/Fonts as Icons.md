@@ -5,8 +5,6 @@
 - Download [Awesome icons](https://fontawesome.com/start) and drag them into your .NET Standard project. 
 - In Visual Studio and mark them as an EmbeddedResource
 
-
-
 ```cs
 // AssembyInfo.cs
 [assembly: ExportFont("fa-solid-900.ttf", Alias = "FA-S")]

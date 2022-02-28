@@ -18,6 +18,7 @@ Preferences.Remove("my_key");
 //To remove all preferences:
 Preferences.Clear();
 ```
+
 ⚠ Uninstalling the application will cause all Preferences to be removed, with the exception being apps that target and run on Android 6.0 (API level 23) or later that use Auto Backup.
 
 ## Example
