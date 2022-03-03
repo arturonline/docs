@@ -26,6 +26,7 @@ public class PageTypeGroup : List<PageModel>
     public static IList<PageTypeGroup> All { private set; get; }
 }
 ```
+
 ```c#
 static PageTypeGroup()
 {
@@ -46,6 +47,7 @@ static PageTypeGroup()
         All = Groups; //set the publicly accessible list
 }
 ```
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
@@ -66,6 +68,7 @@ static PageTypeGroup()
     </ContentPage.Content>
 </ContentPage>
 ```
+
 ### Customizing grouping
 
 ```xml
@@ -165,4 +168,3 @@ All rows in a ListView have the same height by default. ListView has two propert
 - `RowHeight` sets the `height` of each row when `HasUnevenRows` is *false*.
 
 You can set the height of all rows by setting the RowHeight property on the ListView.
-

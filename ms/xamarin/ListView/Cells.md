@@ -1,6 +1,6 @@
 # Cells
 
-## Cells
+## Text Cells
 
 TextCells allow you to set the following properties:
 
@@ -29,7 +29,8 @@ TextCells allow you to set the following properties:
     </ListView>
 </ContentPage>
 ```
-## ImageCell
+
+## Image Cell
 
 `ImageCells` are customizable, allowing you to set:
 

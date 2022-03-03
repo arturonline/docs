@@ -1,18 +1,7 @@
 # Arrays
 
 - Array is a **fix size** collection or series of elements of the same type.
-- Each element stores data which can be accessed by calling its index number with an array name.
-- Arrays are zero indexed: an array with n elements is indexed from `0` to `n-1`.
-- Array types are **reference types** derived from the abstract base type `Array`.
-- Since this type implements `IEnumerable` and `IEnumerable<T>`, you can use foreach iteration on all arrays in C#.
-
-An array can have three types:
-
-1. Single Dimension Array
-2. Multi Dimension Array
-3. Jagged Array
-
-## Single Dimensional Array
+- Arrays are zero indexed: from `0` to `n-1`.
 
 ```csharp
 string[] friends;

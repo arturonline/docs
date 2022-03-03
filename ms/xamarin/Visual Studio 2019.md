@@ -4,9 +4,8 @@
 
 - Next Tab: `Ctrl + Alt + PgDn /PgUp`
 - All Tabs:   `Ctrl + Tab`
-
-prev location: `Ctrl + -`
-next location `Ctrl + Shift + -`
+- prev location: `Ctrl + -`
+- next location `Ctrl + Shift + -`
 
 ## Bookmarks
 
@@ -19,14 +18,14 @@ next location `Ctrl + Shift + -`
 ## Format
 
 - LineOpenBelow: `Ctrl+Shift+Enter`
-Format: `Ctrl+K, Ctrl+D`
+- Format: `Ctrl+K, Ctrl+D`
 
 ## Edit
 
 - LineCut: `Ctrl+L`
 - LineDelete: `Ctrl+Shift+L`
 - Duplicate: `Ctrl+D`
-- :	Ctrl+K, `Ctrl+S`
+- Ctrl+K, `Ctrl+S`
 - Rename: `Ctrl+R, Ctrl+R`
 
 ## Select

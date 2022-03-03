@@ -1,8 +1,7 @@
 # Yield keyword
 
-When you use the yield keyword in a statement, you indicate that the method, operator, or get accessor in which it appears is an iterator. Using yield to define an iterator removes the need for an explicit extra class (the class that holds the state for an enumeration) when you implement the IEnumerable and IEnumerator pattern for a custom collection type.
+The yield keyword is used to define a function which returns an `IEnumerable` or `IEnumerator` (as well as their derived generic variants) whose values are generated lazily as a caller iterates over the returned collection.
 
-The yield keyword is used to define a function which returns an IEnumerable or IEnumerator (as well as their derived generic variants) whose values are generated lazily as a caller iterates over the returned collection. Read more about the purpose in the remarks section.
 The following example has a yield return statement that's inside a for loop.
 
 ```csharp

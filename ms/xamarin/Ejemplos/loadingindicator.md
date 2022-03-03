@@ -2,6 +2,7 @@
 
 Try to put the REST call in an async method to wait for the work to complete.
 
+```cs
 indicator.IsRunning = true;
 await Task.Run(async() =>
 {
@@ -9,6 +10,7 @@ await Task.Run(async() =>
 });
 
 indicator.IsRunning = false;
+```
 
 ## change status bar color
 

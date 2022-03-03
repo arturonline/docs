@@ -132,16 +132,13 @@ Specifier | Type | Example | Output with 1500.42 | Note
 
 The group separator is especially useful for formatting currency values which require that negative values be enclosed in parentheses:
 
-`String.Format("{0:$#,##0.00;($#,##0.00);Zero}", value);
-`
+`String.Format("{0:$#,##0.00;($#,##0.00);Zero}", value);`
 
 This will output `"$1,240.00"` if passed 1243.50. It will output the same format but in parentheses if the number is negative, and will output the string "Zero" if the number is zero.
 
-`String.Format("{0:(###) ###-####}", 8005551212);
-`
+`String.Format("{0:(###) ###-####}", 8005551212);`
 
 This will output "(800) 555-1212".
-
 
 ### Dates
 

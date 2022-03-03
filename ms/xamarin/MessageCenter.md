@@ -1,5 +1,18 @@
 # Xamarin Messaging Center
 
+- [Xamarin Messaging Center](#xamarin-messaging-center)
+  - [Publish-Subscribe pattern](#publish-subscribe-pattern)
+  - [Messaging Center](#messaging-center)
+  - [Publishing](#publishing)
+    - [Publish a message](#publish-a-message)
+    - [Publish a message with data (payload)](#publish-a-message-with-data-payload)
+  - [Subscribing](#subscribing)
+    - [Subscribe to a message](#subscribe-to-a-message)
+    - [Subscribe to a message with data (payload)](#subscribe-to-a-message-with-data-payload)
+  - [Unsubscribing](#unsubscribing)
+    - [Unsubscribe message](#unsubscribe-message)
+    - [Unsubscribre messages with data (payload)](#unsubscribre-messages-with-data-payload)
+
 ## Publish-Subscribe pattern
 
 The publish-subscribe pattern is a messaging pattern in which `publishers` send messages without having knowledge of any receivers, known as `subscribers`. Similarly, `subscribers` listen for specific messages, without having knowledge of any `publishers`.

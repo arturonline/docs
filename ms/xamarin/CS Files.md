@@ -8,12 +8,12 @@ File.SomeFileMethod();
 
 C# provides the following classes to work with the File system:
 
-| class           | Type     | Usage                                                                                                                                                |
-| --------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `File`          | static   | copy, create, move, delete, open, encrypt, exists                                                                                                    |
-| `FileInfo`      | Instance | Same functionality as a `File` File class                                                                                                            |
-| `Directory`     | static   | creating, moving, deleting, accessing...                                                                                                             |
-| `directoryInfo` | Instace  | Same functionality as `Directory`                                                                                                                    |
+| class           | Type     | Description |
+| --------------- | -------- | ----------- |
+| `File`          | static   | copy, create, move, delete, open, encrypt,   |
+| `FileInfo`      | Instance | Same functionality as a `File` File          |
+| `Directory`     | static   | creating, moving, deleting, accessing...     |
+| `directoryInfo` | Instace  | Same functionality as                        |
 | `Path`          | static   | retrieving the extension of a file, changing the extension of a file, retrieving the absolute physical path, and other path related functionalities. |
 
 A file is a collection of data stored in a disk with a specific name and a directory path. When a file is opened for reading or writing, it becomes a stream.
