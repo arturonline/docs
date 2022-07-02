@@ -177,15 +177,15 @@ In the shell, every command is a conditional command: every command has a return
 ### Old test `[ ]`
 
 ```sh
-[ condition  ]
+[ condition ]
 
-[ ! condition  ]
+[ ! condition ]
 
-[ condition  ] && true-command
+[ condition ] && true-command
 
-[ condition  ] || false-command
+[ condition ] || false-command
 
-[ condition  ] && true-command || false-command
+[ condition ] && true-command || false-command
 ```
 
 ⚠ Note that you need a space around each operator.
