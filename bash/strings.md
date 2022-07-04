@@ -23,7 +23,7 @@ echo ${string: -4:2}    # ⇒ a (pay attention: there is a space between 􏰁:�
 
 ```sh
 ${string#substring} # -> first coincidence
-${string##substring} # -> all coincifirst coincidences
+${string##substring} # -> all coincidences
 ```
 
 Example:
@@ -59,7 +59,16 @@ echo ${string/abc/xyz} # xyzABC123ABCxyz
 | `string1 = string2`  | True if `string1` equals `string2`         |
 | `string1 != string2` | True if `string1` does not equal `string2` |
 
-## String comparison
+## Comparing Strings
+
+| Operator | Meaning                               |
+| -------- | ------------------------------------- |
+| `=`      | The strings are equal                 |
+| `!=`     | The strings are not equal             |
+| `<`      | Less than (alphabetic order ASCII)    |
+| `>`      | Greater than (alphabetic order ASCII) |
+| `-n`     | String is not empty                   |
+| `-z`     | String is empty                       |
 
 String comparison operators can be used with double parentheses:
 

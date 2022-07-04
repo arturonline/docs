@@ -22,7 +22,7 @@
 | `-n`     | String is not empty                   |
 | `-z`     | String is empty                       |
 
-## Comparing Files
+## Operations on Files
 
 | Operator          | Result                                                                 |
 | ----------------- | ---------------------------------------------------------------------- |

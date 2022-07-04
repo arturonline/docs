@@ -12,7 +12,7 @@ In software, a wildcard character is a kind of placeholder represented by a sing
 | [.,_]    | specifies character `.`, `,` or `_`                                                                            |
 | [a-z]    | matches one character from the range given in the bracket. In this case any lowercase letter                   |
 | [0-9]    | any number                                                                                                     |
-| [a-zA-Z] | any letter                                                                                                     |
+| [a-zA-Z] | any capital case letter                                                                                        |
 | [!]      | matches one character that is not given in the bracket. Ex: `[!0-9]` represents any character except numbers   |
 | {}       | to point out some string of characters (at least 2). Ex: `P{lota, lotero, lazo}` => pelota, pelotero, pelotazo |
 
