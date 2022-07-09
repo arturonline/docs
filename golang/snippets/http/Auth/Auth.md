@@ -2,7 +2,7 @@
 
 Link: <https://github.com/architanayak/golang-jwt-authentication/blob/main/main.go>
 
-## models
+## 1. models
 
 ```go
 // User is for storing User details.
@@ -28,7 +28,7 @@ type Token struct {
 }
 ```
 
-## Sign Up process
+## 2. Sign Up process
 
 ```go
 func SignUp(w http.ResponseWriter, r *http.Request) {
@@ -66,7 +66,7 @@ func SignUp(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-## Generate password
+### Generate password
 
 ```go
 func GeneratehashPassword(password string) (string, error) {
@@ -75,7 +75,7 @@ func GeneratehashPassword(password string) (string, error) {
 }
 ```
 
-## Check password
+### Check password
 
 ```go
 func CheckPasswordHash(password, hash string) bool {
@@ -84,7 +84,7 @@ func CheckPasswordHash(password, hash string) bool {
 }
 ```
 
-## Generate JWT
+### Generate JWT
 
 ```go
 func GenerateJWT(email, role string) (string, error) {
@@ -109,7 +109,7 @@ func GenerateJWT(email, role string) (string, error) {
 }
 ```
 
-## Sign In process
+## 3. Sign In process
 
 ```go
 func SignIn(w http.ResponseWriter, r *http.Request) {
@@ -164,7 +164,7 @@ func SignIn(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-## Middleware function
+## 4. Middleware function
 
 `IsAuthorized()` function verifies the token, and if the token is valid, it will extract the role from the token. And based on the role, the user will be redirected to the appropriate page.
 
@@ -219,7 +219,7 @@ func IsAuthorized(handler http.HandlerFunc) http.HandlerFunc {
 }
 ```
 
-## routes
+## 5. routes
 
 ```go
 //create a mux router
@@ -264,7 +264,7 @@ func UserIndex(w http.ResponseWriter, r *http.Request) {
 
 ```
 
-## Aux funcs
+## 6. Aux funcs
 
 ```go
 //start the server
@@ -277,7 +277,7 @@ func ServerStart() {
 }
 ```
 
-## Initialize
+## 7. Initialize
 
 ```go
     // Initialize db
