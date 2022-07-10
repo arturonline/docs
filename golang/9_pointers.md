@@ -54,7 +54,7 @@ func main() {
 }
 ```
 
-In this program the zero function will not modify the original x variable in the main function. But what if we wanted to? One way to do this is to use a special data type known as a pointer:
+In this program the zero function will not modify the original x variable in the main function. But what if we wanted to? One way to do this is to use pointers:
 
 ```go
 func zero(xPtr *int) {

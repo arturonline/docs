@@ -102,7 +102,6 @@ func main() {
 
 	// Accessing struct fields via pointer
 	fmt.Println((*ps).Name)
-	fmt.Println(ps.Name) // Same as above: No need to explicitly dereference the pointer
 
 	ps.RollNumber = 31
 	fmt.Println(ps)
