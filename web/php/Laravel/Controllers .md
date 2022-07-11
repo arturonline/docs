@@ -54,7 +54,7 @@ If we create a controller with the '`-r`' option it will create a controller wit
 php artisan make:controller -r BookController
 ```
 
-### 4.1 Resource controller routes:
+### 4.1 Resource controller routes
 
 ```php
 // Resource controller routes:

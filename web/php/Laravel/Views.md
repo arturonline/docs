@@ -6,10 +6,10 @@ The general way to display views in Laravel is to make the paths return a certai
 <!-- resources/home.blade.php --->
 <html>
  <head>
- <title>Init</title>
+    <title>Init</title>
  </head>
  <body>
- <h1>Home page</h1>
+    <h1>Home page</h1>
  </body>
 </html>
 ```

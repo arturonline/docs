@@ -17,7 +17,7 @@ Automatically, this model is associated with a table with the same name, but in 
 // app\models
 class Book extends Model
 {
-	 protected $table = 'mybooks';
+	protected $table = 'mybooks';
 }
 ```
 
@@ -35,18 +35,18 @@ php artisan make:model Movie --migration --controller --resource
 ```php
 class BookController extends Controller
 {
-		 public function index()
-		 {
-		 $books = Book::get();
-		 }
+	public function index()
+	{
+	$books = Book::get();
+	}
 }
 ```
 
 ```php
 @forelse($books as $book)
-		{{ $book->title }}
+	{{ $book->title }}
 @empty
-		 No books found
+	No books found
 @endforelse
 ```
 
@@ -65,16 +65,16 @@ $books = Book::orderBy('title', 'DESC') -> get();
 ```php
 public function index()
 {
-	 $books = Book::paginate(5);
-	 return view('books.index', compact('books'));
+	$books = Book::paginate(5);
+	return view('books.index', compact('books'));
 }
 ```
 
 ```php
 @forelse($books as $book)
-		{{ $book->title }}
+	{{ $book->title }}
 @empty
-	  No books found
+	No books found
 @endforelse
 
 {{ $books->links() }} 
@@ -87,8 +87,8 @@ Or we can sort the paginated list:
 public function index()
 {
 	 $books = Book::orderByAsc('title')
-				 -> orderByAsc('editorial')
-				 -> paginate(5);
+		-> orderByAsc('editorial')
+		-> paginate(5);
 	 return view('books.index', compact('books'));
 }
 ```

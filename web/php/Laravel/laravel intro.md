@@ -20,13 +20,13 @@
 
 1. Install PHP
 2. Install PHP Composer
-    
+
     ```bash
     $ composer global require laravel/installer
     ```
-    
+
 3. Install Laravel as a global dependency: 
-    
+
     ```bash
     $ laravel new example-app
     $ cd example-app
@@ -34,7 +34,6 @@
     $ php artisan serve
     
     ```
-    
 
 Make sure to place Composer's system-wide vendor bin directory (`$HOME/.config/composer/vendor/bin`) in your `$PATH`  so the `laravel`  executable can be located by your system.
 
