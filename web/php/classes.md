@@ -9,16 +9,16 @@ class person
 
     // methods
     function setName($name) {
-        $this->name = $name;
+        $this -> name = $name;
     }
     function getName() {
         return $this -> name;
     }
 }
 
-$onePerson=new Person();
-$onePerson->setName("John Smith");
-echo "The name of the person is ".$onePerson->getName();
+$onePerson = new Person();
+$onePerson -> setName("John Smith");
+echo "The name of the person is ".$onePerson -> getName();
 ```
 
 ## constructor
@@ -29,18 +29,18 @@ class Person
     private $name;
     
     public function __construct($name) {
-        $this->name=$name;
+        $this -> name = $name;
     }
 }
 
-$onePerson=new Person("John");
+$onePerson = new Person("John");
 ```
 
 ⚠️ php does not support multiple constructors having diferent number of parameters.
 
 ## access modifiers
 
-- `private`, `public`, `protected` 
+- `private`, `public`, `protected`
 - By default, everything is public.
 
 ## inheritance
@@ -50,8 +50,8 @@ $onePerson=new Person("John");
 class Rectangle {
     public $x, $y;
     function __construct($a, $b) {
-        $this->x = $a;
-        $this->y = $b;
+        $this -> x = $a;
+        $this -> y = $b;
     }
 }
 // Child class (derived class)
@@ -64,9 +64,9 @@ A child class inherites the constructor method from its parent class. The constr
 class Teacher extends Person
 {
     private $speciality;
-    function __construct($name,$surname,$speciality) {
-        parent::__construct($name,$surname);
-        $this->speciality=$speciality;
+    function __construct($name, $surname, $speciality) {
+        parent::__construct($name, $surname);
+        $this -> speciality = $speciality;
     }
 }
 ```
@@ -87,7 +87,7 @@ class Person
 }
 ```
 
-We can manually remove all references to aun object by using the `unset` function:
+We can manually remove all references to an object by using the `unset` function:
 
 ```php
 unset($object)

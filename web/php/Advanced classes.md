@@ -40,8 +40,8 @@ class Messages {
 }
 
 $message = new Messages();
-echo $message->WelcomeEnglish();
-echo $message->WelcomeSpanish();
+echo $message -> WelcomeEnglish();
+echo $message -> WelcomeSpanish();
 ```
 
 ## Interfaces
@@ -90,11 +90,11 @@ $obj = new class('Hi') {
     public $x;
     
     public function __construct($a) {
-        $this->x = $a;
+        $this -> x = $a;
     }
 };
 
-echo $obj->x; // "Hi";
+echo $obj -> x; // "Hi";
 ```
 
 ## Namespaces
