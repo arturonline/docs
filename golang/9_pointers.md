@@ -2,19 +2,21 @@
 
 A pointer holds the memory address of a value.
 
-- `&` generates a pointer to its operand.
-- `*` dereferences a pointer (exposes the underlying value).
+- `&` => We use the `&` ampersand operator to refer to a variable's memory address.
+- `*` => We use the `*` operator to expose the underlying value of that memory address.
 
 ## Example
 
 ```go
-b := 255
-var a *int = &b
-fmt.Printf("Type of a is %T\n", a)
-fmt.Println("address of b is", a)
+	a := 10
 
-// Type of a is *int
-// address of b is 0xc00002c008
+	var p *int = &a
+
+	fmt.Println("address:", p)
+	fmt.Println("value:", *p)
+
+// address: 0xc000018030
+// value: 10
 ```
 
 ```go
@@ -27,16 +29,17 @@ func main() {
 
     p := &i         // point to i
     fmt.Println(*p) // read i through the pointer
+    // 43    
+
     *p = 21         // set i through the pointer
     fmt.Println(i)  // see the new value of i
+    // 21
 
     p = &j         // point to j
     *p = *p / 37   // divide j through the pointer
     fmt.Println(j) // see the new value of j
+    // 73
 }
-// 42
-// 21
-// 73
 ```
 
 ## Pointers to mutate values
