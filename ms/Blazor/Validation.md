@@ -53,7 +53,14 @@ En caso contrario muestra los errores.
 ```cs
 private void FormSubmit(EditContext context)
 {
-    OnClickGuardar();
+    // Validates the EditContext 
+    var isValid = context.Validate();
+
+    if (isValid)
+    {
+        // Form has valid inputs.
+        OnClickGuardar();
+    }
 }
 ```
 
@@ -73,7 +80,52 @@ private void FormSubmit(EditContext context)
 | InputText               | `<input>`                           |
 | InputTextArea           | `<textarea>`                        |
 
+## 6. Data Anotations
+
+[Anotaciones](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-6.0)
+
+- Tamaño:
+ 
+```cs
+[Range(18, 80, ErrorMessage = "Age must be between 18 and 80.")]
+public int Age { get; set; }
+
+[MinLengthAttribute(10, ErrorMessage = "Tamaño mínimo 10 chars.")]
+public int Name { get; set; }
+```
+- Email: 
+ 
+```cs
+[Required]
+[EmailAddress]
+public string Email { get; set; }
+```
+
+- Password validation:
+
+```cs
+[Required]
+[RegularExpression(@"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{10,}$",
+            ErrorMessage = "Password should have minimum 10 characters, at least 1 uppercase letter, 1 lowercase letter and 1 number.")]
+public string Password { get; set; }
+
+[Required]
+[Display(Name = "Confirm Password")]
+[Compare("Password", ErrorMessage = "The password and confirm password fields do not match.")]
+public string ConfirmPassword { get; set; }
+```
+
+- Telefono movil
+  
+```cs
+[RegularExpression(@"(?:6[0-9]{2}|7[1-9][0-9])(?: ?[0-9]{3}){2}$)", ErrorMessage = "Ej. 666334455"]
+public string movil { get; set; }
+```
+
+
 ## 4. Links
 
-https://blazor.syncfusion.com/documentation/common/input-validation
-https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-and-input-components?view=aspnetcore-6.0
+[Tutorial Oficial](https://blazor.syncfusion.com/documentation/common/input-validation)
+[Tutorial de SyncFusion](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-and-input-components?view=aspnetcore-6.0)
+[Tipo de Componentes:](https://docs.microsoft.com/en-us/aspnet/core/blazor/forms-and-input-components?view=aspnetcore-6.0#built-in-input-components)
+[Tipos de Anotaciones](https://docs.microsoft.com/en-us/dotnet/api/system.componentmodel.dataannotations?view=net-6.0)
