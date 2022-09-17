@@ -26,6 +26,8 @@ Instalar el paquete https://www.nuget.org/packages/Dapper
 Executes a command one or multiple times and return the number of affected rows.
 
 ```cs
+[Inject] SqlConnection connection { get; set; }
+
 var affectedRows = connection.Execute(sql, new {CustomerID = 1});
 ```
 
