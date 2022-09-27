@@ -39,6 +39,24 @@ Example.propTypes = {
 
 If you add `.isRequired` to a propType, then you will get a console warning if that prop isn’t sent.
 
+## Objects
+
+You can use `PropTypes.shape` to specifiy the structure of an object.
+
+E.g.
+
+```jsx
+Filters.propTypes = {
+    context: PropTypes.shape({
+        something: PropTypes.number.isRequired,
+        anotherThing: PropTypes.string,
+        anotherObject: PropTypes.shape({
+            foo: PropTypes.arrayOf(PropTypes.number)
+        })
+    })
+}
+```
+
 ## Example
 
 ```jsx
