@@ -58,7 +58,7 @@ public void Dispose()
 }
 ```
 
-##  4. Example
+## 4. Example
 
 ```csharp
 public class Class1

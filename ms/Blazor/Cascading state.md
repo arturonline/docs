@@ -39,3 +39,13 @@
     </Router>
 </MyCascadingState>
 ```
+
+## 3. Use it!
+
+```cs
+// any page where I need the state
+
+[CascadingParameter] MyCascadingState MyState { get; set; }
+
+public bool show = MyState.showSomething;
+```
