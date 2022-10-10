@@ -9,10 +9,7 @@ If you specify that a Method is an async method by using the `async` modifier, y
 ## Characteristics
 
 * `await` takes a single argument - an *“awaitable”* - which is an asynchronous operation. There are two awaitable types already common in the .NET framework: `Task<T>` and `Task`.
-* An async method typically contains one or more occurrences of an `await` operator, but the absence of await expressions doesn’t cause a compiler error. The compiler issues a warning for such methods.
 * Method return type should change to return either `void` or `Task` or `Task<T>` , where T is the return data type.
-* The type of data returned is *awaitable*, not the method itself. This means that one can await the result of an async method because it returns a Task, not for being marked as async.
-* When using the `async` and `await` keywords, you should keep in mind that just wrapping each and every operation in a Task and awaiting them won’t make your application perform any better. It could, however, improve responsiveness.
 
 Syntax:
 
@@ -40,19 +37,9 @@ private Task DoComplicatedTaskAsync()
 }
 ```
 
-## Return types and parameters
-
-The return type is one of the following types:
-
-* `Task<TResult>` if your method has a return statement in which the operand has type `TResult`.
-* `Task` if your method has no return statement or has a return statement with no operand.
-* `Void` if you're writing an async event handler.
-
 ### Task return type
 
-Async methods that don't contain a return statement or that contain a return statement that doesn't return an operand usually have a return type of Task. Such methods return void if they run synchronously. If you use a Task return type for an async method, a calling method can use an await operator to suspend the caller's completion until the called async method has finished.
-
-In the following example, the WaitAndApologize async method doesn't contain a return statement, so the method returns a Task object. This enables WaitAndApologize to be awaited. Note that the Task type doesn't include a Result property because it has no return value.
+In the following example, the `WaitAndApologize` async method doesn't contain a return statement, so the method returns a Task object. This enables `WaitAndApologize` to be awaited. Note that the Task type doesn't include a Result property because it has no return value.
 
 ```csharp
 using System;
@@ -69,8 +56,6 @@ public class Example
    {
       await WaitAndApologize();
       Console.WriteLine($"Today is {DateTime.Now:D}");
-      Console.WriteLine($"The current time is {DateTime.Now.TimeOfDay:t}");
-      Console.WriteLine("The current temperature is 76 degrees.");
    }
 
    static async Task WaitAndApologize()
@@ -81,19 +66,16 @@ public class Example
       Console.WriteLine("\nSorry for the delay. . . .\n");  
    }
 }
+
 // The example displays the following output:
 //       Sorry for the delay. . . .
 //
 //       Today is Wednesday, May 24, 2017
-//       The current time is 15:25:16.2935649
-//       The current temperature is 76 degrees.
 ```
 
 ### Task<> return type
 
-The `Task<TResult>` return type is used for an async method that contains a return statement in which the operand has type `TResult`.
-
-In the following example, the GetLeisureHours async method contains a return statement that returns an integer. Therefore, the method declaration must specify a return type of `Task<int>`. The `FromResult` async method is a placeholder for an operation that returns a string.
+In the following example, the `GetLeisureHours` async method contains a return statement that returns an integer. Therefore, the method declaration must specify a return type of `Task<int>`. The `FromResult` async method is a placeholder for an operation that returns a string.
 
 ```Csharp
 using System;
@@ -217,41 +199,3 @@ public class AsyncVoidExample
 // Button's Click method returned.
 //    Handler 2 is done.
 ```
-
-## Prevent Application from Cross Threading
-
-In a multithreaded enviroment, only a UI thread can change the value of UI controls (button, label, textbox, etc.). If another thread tries to change the value of a UI control, then cross threading exception will arise because Runtime will not allow any thread to manipulate another thread data directly.
-
-```csharp
-private async button1_Click(object sender, EventArgs e) 
-{
-    Task task = Task.Run(() =>
-    {
-        label1.Text = "Hello World";
-        Thread.Sleep(3000);
-        label1.Text = "Bye World";
-    });
-
-    await task;
-}
-```
-
-When the above code runs, an exception will arise which says, “Cross-thread operation not valid”.
-
-`BeginInvoke` method is used to change values of UI control from other threads. It does it in a thready-safe way. It requires a delegate; it tells which UI control needs to change its value.
-
-```csharp
-private async void button1_Click(object sender, EventArgs e)
-{
-    Task task = Task.Run(() =>
-    {
-        this.BeginInvoke(new Action(() =>
-        {
-            label1.Text = "Hello";
-        }));
-    });
-    await task;
-}
-```
-
-The value of `label1.Text` shall be changed to “Hello” and no exception will arise because it’s a thread- safe operation.
