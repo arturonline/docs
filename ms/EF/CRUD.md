@@ -6,11 +6,11 @@ We need a model, a DbContext and a DBSet:
 
 ```cs
 public class User
-    {
-        public int UserID { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-    }
+{
+    public int UserID { get; set; }
+    public string Name { get; set; }
+    public string Email { get; set; }
+}
 ```
 
 - **DbContext** (datasource): The DbContext (often referred to as context) is the class which is responsible for interacting with the entity model and the data store. It allows you to query, insert, update and delete operations on the entities.
@@ -18,11 +18,11 @@ public class User
 ```cs
 using System.Data.Entity;
 namespace EFGettingStarted
+{
+    public class EFContext :DbContext
     {
-        public class EFContext :DbContext
-        {
-        }
-     }
+    }
+  }
 ```
 
 - **DBSet**: Represents the collection of entities (entity set) and provides the methods to manage the entity set.
@@ -30,12 +30,12 @@ namespace EFGettingStarted
 ```cs
 using System.Data.Entity;
 namespace EFGettingStarted
+{
+    public class EFContext :DbContext
     {
-        public class EFContext :DbContext
-        {
-        }
-        public DbSet<User> Users { get; set; };
-     }
+    }
+    public DbSet<User> Users { get; set; };
+  }
 ```
 
 ## Crud Operations
@@ -45,30 +45,11 @@ namespace EFGettingStarted
 Example, create a new user and add him to the database:
 
 ```cs
-private static void addUser()
+using (var ctx = new EFContext())
 {
-  Console.WriteLine("adding user ");
   User usr = new User() { Name = "Sachin", Email = "sachin@gmail.com" };
-  try
-  {
-    using (var ctx = new EFContext())
-    {
-      ctx.Users.Add(usr);
-      ctx.SaveChanges();
-    }
-  }
-  catch (Exception ex)
-  {
-    Console.WriteLine(ex.Message);
-  }
-}
-
-static void Main(string[] args)
-{
-  addUser();
-
-  Console.WriteLine("Press any key to close");
-  Console.ReadKey();
+  ctx.Users.Add(usr);
+  ctx.SaveChanges();
 }
 ```
 
@@ -89,92 +70,53 @@ context.SaveChanges();
 ### Query
 
 ```cs
-private static void findUser(int id)
+using (var ctx = new EFContext())
 {
-  Console.WriteLine("finding " + id);
-  try
-  {
-    using (var ctx = new EFContext())
-    {
-      var user = ctx.Users.Find(id);
+  var user = ctx.Users.Find(id);
 
-      if (user != null)
-      {
-        Console.WriteLine("found " + user.UserID + " " + user.Name);
-      }
-      else
-      {
-        Console.WriteLine("user not found");
-      }
-    }
-  }
-  catch (Exception ex)
+  if (user != null)
   {
-     Console.WriteLine(ex.Message);
+    Console.WriteLine("found " + user.UserID + " " + user.Name);
   }
-}
+  else
+  {
+    Console.WriteLine("user not found");
+  }
 ```
 
 ### Edit
 
 ```cs
-private static void editUser(int id)
+using (var ctx = new EFContext())
 {
-  Console.WriteLine("editing " + id);
-  try
+  var user = ctx.Users.Find(id);
+  if (user!=null)
   {
-    using (var ctx = new EFContext())
-    {
-      var user = ctx.Users.Find(id);
-      if (user!=null)
-      {
-        user.Name = "Sachin Tendulkar";
-        ctx.SaveChanges();
-      }
-      else
-      {
-        Console.WriteLine("user not found");
-      }
+    user.Name = "Sachin Tendulkar";
+    ctx.SaveChanges();
   }
-}
-  catch (Exception ex)
+  else
   {
-    Console.WriteLine(ex.Message);
+    Console.WriteLine("user not found");
   }
-
-  findUser(id);
 }
 ```
 
 ### Delete
 
 ```cs
-private static void deleteUser(int id)
+using (var ctx = new EFContext())
 {
-   Console.WriteLine("deleting "+id);
-
-   try
-   {
-     using (var ctx = new EFContext())
-     {
-       var user = ctx.Users.Find(id);
-       if (user != null)
-       {
-         Console.WriteLine("deleting " + user.UserID + " " + user.Name);
-         ctx.Users.Remove(user);
-         ctx.SaveChanges();
-       }
-       else
-       {
-         Console.WriteLine("user not found");
-       }
+    var user = ctx.Users.Find(id);
+    if (user != null)
+    {
+      Console.WriteLine("deleting " + user.UserID + " " + user.Name);
+      ctx.Users.Remove(user);
+      ctx.SaveChanges();
     }
-  }
-  catch (Exception ex)
-  {
-    Console.WriteLine(ex.Message);
-  }
-  findUser(id);
-
+    else
+    {
+      Console.WriteLine("user not found");
+    }
 }
 ```
