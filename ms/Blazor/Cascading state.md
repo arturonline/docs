@@ -7,7 +7,7 @@
 
 <CascadingValue Value="this">
   @ChildContent
-</CascandingValue>
+</CascadingValue>
 
 
 @code {
@@ -16,7 +16,7 @@
   private bool showSomething = false;
   public bool ShowSomething 
   {
-      get => shoSomething;
+      get => showSomething;
       set 
       {
           if(showSomething != value)
