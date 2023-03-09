@@ -14,7 +14,7 @@ To install pip, securely download `get-pip.py`:
 
 ## Commands
 
-```python
+```sh
 pip help
 pip search XXX YYY
 pip show XXX
