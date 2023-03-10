@@ -24,10 +24,10 @@ reader = open('dog_breeds.txt', 'r')
 
 Other options for modes are [fully documented online](https://docs.python.org/3/library/functions.html#open), but the most commonly used ones are the following:
 
-| Character    | Meaning                                                   |
-| ------------ | --------------------------------------------------------- |
-| '`r`'          | Open for reading (default)                                |
-| '`w`'          | Open for writing, truncating (overwriting) the file first |
+| Character        | Meaning                                                   |
+| ---------------- | --------------------------------------------------------- |
+| '`r`'            | Open for reading (default)                                |
+| '`w`'            | Open for writing, truncating (overwriting) the file first |
 | '`rb`' or '`wb`' | Open in binary mode (read/write using byte data)          |
 
 After you open a file, the next thing to learn is how to close it. It’s important to remember that it’s your responsibility to close the file. When you’re manipulating a file, there are two ways that you can use to ensure that a file is closed properly, even when encountering an error. The first way to close a file is to use the `try-finally` block:
@@ -53,8 +53,8 @@ The with statement automatically takes care of closing the file once it leaves t
 
 There are multiple methods that can be called on a file object to help you out:
 
-| Method             | What It Does                                                                                                                                                                                                                        |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Method               | What It Does                                                                                                                                                                                                                        |
+| -------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `.read(size=-1)`     | This reads from the file based on the number of size bytes. If no argument is passed or None or -1 is passed, then the entire file is read.                                                                                         |
 | `.readline(size=-1)` | This reads at most size number of characters from the line. This continues to the end of the line and then wraps back around. If no argument is passed or None or -1 is passed, then the entire line (or rest of the line) is read. |
 | `.readlines()`       | This reads the remaining lines from the file object and returns them as a list.                                                                                                                                                     |

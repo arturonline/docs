@@ -147,16 +147,15 @@ $stmt = null;
 
 ```php
 // FETCH_COLUMN
-$sth = $dbh->prepare("SELECT name, colour FROM fruit");
-$sth->execute();
+$stmt = $pdo->prepare("SELECT name, colour FROM fruit");
+$stmt->execute();
 
 /* Fetch the first column from the next row in the result set */
-print("Fetch the first column from the next row in the result set:\n");
-$result = $sth->fetchColumn();
+$result = $stmt->fetchColumn();
 print("name = $result\n");
 
-print("Fetch the second column from the next row in the result set:\n");
-$result = $sth->fetchColumn(1);
+/* Fetch the second column from the next row in the result set:\n */
+$result = $stmt->fetchColumn(1);
 print("colour = $result\n");
 ```
 
