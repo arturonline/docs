@@ -6,10 +6,10 @@ A struct is a user-defined type that contains a collection of named fields/prope
 
 ```go
 type Person struct {
-	Name      string
+	FirstName string
+	LastName  string
 	Age       int
 }
-```
 
 ## Initialize a struct
 

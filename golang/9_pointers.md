@@ -20,6 +20,16 @@ A pointer holds the memory address of a value.
 ```
 
 ```go
+b := 255
+var a *int = &b
+fmt.Printf("Type of a is %T\n", a)
+fmt.Println("address of b is", a)
+
+// Type of a is *int
+// address of b is 0xc00002c008
+```
+
+```go
 package main
 
 import "fmt"
