@@ -3,22 +3,18 @@
 ## Installation
 
 ```php
-$ laravel new example-app
+$ composer create-project laravel/laravel example-app
 $ cd example-app
-> mysql create database myDb;
+> php artisan migrate;
 
 ## breeze
 $ composer require laravel/breeze --dev
 $ php artisan breeze:install
 
-## Bootstrap
-composer require laravel/ui
-php artisan ui bootstrap
-# php artisan ui bootstrap --auth
 
 ## Install js depencies
-$ npm install && npm run dev
 $ php artisan migrate
+$ npm install && npm run dev
 ```
 
 ## Add email verification
