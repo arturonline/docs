@@ -39,7 +39,6 @@ Exemple1:
 ```cs
 // parent
 public string newPassword {get; set; } // 1. define the property to bind
-
 ...
 
 <ChangePasswordComponent @bind-Password="newPassword"/>  // 2. pass the property using bing-*  naming convention

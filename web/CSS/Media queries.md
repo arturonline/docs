@@ -23,6 +23,7 @@ Media-feature-rule:
 Una linia con todos los "items" que quepan siempre que midan como minino 200px. Si bajan de ese tamaño, la ultima se pasa a la siguiente fila. Por encima de 200px ocupa 1fr.
 
 ```css
+/* The columns will automatically break when each one gets below 200px */
 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
 ```
 
