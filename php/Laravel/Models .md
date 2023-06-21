@@ -21,7 +21,7 @@ class Book extends Model
 }
 ```
 
-### Otras opciones para crear modelos:
+### Otras opciones para crear modelos
 
 ```php
 php artisan make:model Movie -mcr
