@@ -13,7 +13,20 @@ WHEN NOT MATCHED THEN
     --- INSERT statement
 ```
 
-## Example
+## Example 1
+
+```sql
+MERGE products AS target
+USING new_products AS source
+ON target.product_id = source.product_id
+WHEN MATCHED THEN
+    UPDATE SET target.product_name = source.product_name, target.price = source.price
+WHEN NOT MATCHED THEN
+    INSERT (product_id, product_name, price)
+    VALUES (source.product_id, source.product_name, source.price);
+```
+
+## Example 2
 
 ```sql
 MERGE [RRHH].[Empleados] AS Tar
