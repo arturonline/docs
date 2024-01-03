@@ -4,7 +4,7 @@ Unit tests break down the functionality of your program into discrete testable b
 
 ## xUnit
 
-XUnit has become the most popular testing framework in dotnet due to its simplicity, expressiveness, and extensibility. The project is supported by the .NET Foundation, and it is part of the more recent versions of .NET Core. This means that you don't need to install anything but the .NET Core SDK.
+The project is supported by the .NET Foundation, and it is part of the more recent versions of .NET Core. This means that you don't need to install anything but the .NET Core SDK.
 
 ## Run tests
 
@@ -15,14 +15,15 @@ To run these test cases:
 
 ## Writing test cases
 
-Typically, a test case comprises of 3 major parts.
+Typically, a test case comprises of 3 major parts:
+
 1. **Arrange**: Here we specify what is expected from our method that we are supposed to be testing.
 1. **Action**: In here we call the method that we are supposed to be testing. Purpose of this is to get actual result from the method
 1. **Assertion**: Here we compare actual value to expected value.
 
 ## SetUp & Clean-up
 
-Create new *"xUnit Test Project"* in the solution you want to test.
+Create new **xUnit Test Project** in the solution you want to test.
 
 xUnit.net creates a new instance of the test class for every test it contains. This allows you to put the setup code you need in the constructor of your test class:
 
@@ -290,7 +291,7 @@ public void ShouldHaveWorkingHours()
 
 Sometimes you need to share a resource with several tests. This can be done with **Fixtures**.
 
-First, you have to create a so-called fixture class with the information you want to share. In my simple example, I set DateTime.Now to demonstrate that every test uses the same instance of the object:
+First, you have to create a so-called fixture class with the information you want to share. In my simple example, I set `DateTime.Now` to demonstrate that every test uses the same instance of the object:
 
 ```cs
 public class TimeFixture
@@ -333,7 +334,7 @@ public class EmployeeTests: IDisposable
 }
 ```
 
-To demonstrate that the _timeFixture object stays the same, I run a couple of tests with Thread.Sleep(1500) and both tests will output the same time.
+To demonstrate that the `_timeFixture` object stays the same, I run a couple of tests with `Thread.Sleep(1500)` and both tests will output the same time.
 
 ```cs
 [Fact]

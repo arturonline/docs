@@ -2,7 +2,7 @@
 
 ## Binding
 
-Inumutability:
+Inmutability:
 
 ```FSharp
 let a = 2

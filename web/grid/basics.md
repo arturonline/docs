@@ -24,7 +24,7 @@ To get started you have to define a container element as a grid with `display: g
 }
 ```
 
-# Grid Columns 
+## Grid Columns 
 
 `grid-template-columns` Specifies the size of columns
 
