@@ -12,7 +12,7 @@ Define a flex container:
 }
 ```
 
-  <img src="./resources/01-container.svg" style="width:250px; Height:150px;">
+  <img src="./resources/01-container.svg" style="width:250px; Height:150px;" alt="containers">
 
 Tenemos 2 tipos de propiedades:
 

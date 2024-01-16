@@ -9,25 +9,25 @@ The `'routes/web.php'` file defines routes that are for your web interface.
 ```php
 // Route sends back a string
 Route::get('/', function() {
-	return 'Hello World';
+ return 'Hello World';
 });
 
 // Route sends back html
 Route::get('/', function() {
-	return '<h1>Hello World</h1>';
+ return '<h1>Hello World</h1>';
 });
 
 // Route sends back a Json Array
 Route::get('/', function() {
-	return ['hello', 'world', 'laravel']
+ return ['hello', 'world', 'laravel']
 });
 
 // Route sends back a Json Object
 Route::get('/', function() {
-	return response() -> ([
-		'name' => 'Dary',
-		'course' => 'Laravel Beginners'
-	]);
+ return response() -> ([
+  'name' => 'Dary',
+  'course' => 'Laravel Beginners'
+ ]);
 });
 
 // Route sends back a View
@@ -47,14 +47,14 @@ It is good idea to always name your routes
 ```php
 // Naming a blade page
 Route::get('contact', function() {
-	return "Contact Page";
+ return "Contact Page";
 }) -> name('path_contact');
 
 // allow us to do: 
 <a href="{{ route('path_contact') }}">contact</a>
 ```
 
-### Routes with parameters:
+### Routes with parameters
 
 ```php
 // Route sends back a string with a variable
@@ -80,10 +80,10 @@ return "Hello, " . $name;
 Route::get('greeting/{name?}/{id?}' ,
 function($name="Guest", $id=0)
 {
-	return "Hello $name,your code is the $id"; 
+ return "Hello $name,your code is the $id"; 
 }) -> where('name', "[A-Za-z]+")
-	 -> where('id', "[0-9]+")
-	 -> name('greeting');
+  -> where('id', "[0-9]+")
+  -> name('greeting');
 ```
 
 ![Untitled](Routes%20809fe6cee12a47e7ae8cee8ab1d56779/Untitled.png)

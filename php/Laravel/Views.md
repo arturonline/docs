@@ -76,15 +76,15 @@ It is posible to define partial contents and include them in the views with the 
 
 ```php
 <html>
-		 <head>
-				 <title>
-						 @yield('title')
-				 </title>
-		 </head>
-		 <body>
-				 @include('partials.nav')
-				 @yield('content')
-		 </body>
+   <head>
+     <title>
+       @yield('title')
+     </title>
+   </head>
+   <body>
+     @include('partials.nav')
+     @yield('content')
+   </body>
 </html>
 ```
 

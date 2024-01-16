@@ -7,11 +7,13 @@
 ```
 
 media-type: 
+
 - all
 - print
 - screen
 
 Media-feature-rule:
+
 - width
 - max-width
 - orientation

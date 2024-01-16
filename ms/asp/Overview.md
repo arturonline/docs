@@ -12,8 +12,9 @@
 ## Client side rendering
 
 **Blazor** => it's a single page app framework (SPA).
-  - **Server Side Blazor**: runs on the server via SignalR.
-  - **Client Side Blazor**: runs client-side on WebAssembly like a PWA.
+
+- **Server Side Blazor**: runs on the server via SignalR.
+- **Client Side Blazor**: runs client-side on WebAssembly like a PWA.
 
 **Razor component** => it's a segment of reusable web UI. Blazor apps are composed of components.
 

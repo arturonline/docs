@@ -1,6 +1,6 @@
 # Policies & Gates
 
-https://code.tutsplus.com/tutorials/gates-and-policies-in-laravel--cms-29780
+[Link](https://code.tutsplus.com/tutorials/gates-and-policies-in-laravel--cms-29780)
 
 ## Policies
 

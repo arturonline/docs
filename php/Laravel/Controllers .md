@@ -12,14 +12,14 @@ We just create a class inside Controllers folder that inherits from controller:
 
 ```php
 <?php
-	namespace App\Http\Controllers;
+ namespace App\Http\Controllers;
 
-	class TestController extends Controller {
-			// Action methods: index, show, delete...
-			function index() {
-				// index function
-			}
-	}
+ class TestController extends Controller {
+   // Action methods: index, show, delete...
+   function index() {
+    // index function
+   }
+ }
 ```
 
 ### 2.2 Create a simple controller with artisan

@@ -21,7 +21,6 @@ To get started you have to define a container element as a grid with `display: g
       100px 1fr max-content
   */
 }
-}
 ```
 
 ## Grid Columns 

@@ -14,12 +14,12 @@ In contrast to symbolic links, you can only create hard links to files, and both
 
 💡 An inode is a data structure that stores attributes for a file or directory. Every hard link pointing to a file increases the *link count attribute* on the file's inode.
 
-### Working with Hard Links
+## Working with Hard Links
 
 To create a hard link:
 
 ```sh
-$ ln TARGET  LINK_NAME
+> ln TARGET  LINK_NAME
 ```
 
 When creating symbolic links you should be aware that unless a path is fully specified the location of the target is interpreted as relative to the location of the link. This may create problems if the link, or the file it points to, is moved.
@@ -29,7 +29,7 @@ When creating symbolic links you should be aware that unless a path is fully spe
 To check a hard link:
 
 ```sh
-$ ls -li
+> ls -li
 
 3806696 -r--r--r-- 2 carol carol 111702 Jun  7 10:13 hardlink
 3806696 -r--r--r-- 2 carol carol 111702 Jun  7 10:13 target.txt
@@ -38,15 +38,15 @@ $ ls -li
 To remove a hard link:
 
 ```sh
-$ rm HARD_LINK
+> rm HARD_LINK
 ```
 
-### Workin with Symbolic links
+## Workin with Symbolic links
 
 To create a symbolic link:
 
 ```sh
-$ ln -s TARGET  LINK_NAME
+> ln -s TARGET  LINK_NAME
 ```
 
 💡 As with hard links, you can leave out the last parameter (LINK_NAME), a link with the same name as the target will be created in the current directory.
@@ -54,7 +54,7 @@ $ ln -s TARGET  LINK_NAME
 To check a symbolic link:
 
 ```sh
-$ ls -lh
+> ls -lh
 
 -rw-r--r-- 1 carol carol 110K Jun  7 10:13 target.txt
 lrwxrwxrwx 1 carol carol   12 Jun  7 10:14 softlink -> target.txt
@@ -65,5 +65,5 @@ lrwxrwxrwx 1 carol carol   12 Jun  7 10:14 softlink -> target.txt
 To remove a hard link:
 
 ```sh
-$ rm HARD_LINK
+> rm HARD_LINK
 ```

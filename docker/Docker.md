@@ -39,7 +39,7 @@ Podem buscar images amb:
 $ docker search NomImage
 ```
 
-Y descarregar-la de "https://hub.docker.com/explore/" amb:
+Y descarregar-la de [docker hub]("https://hub.docker.com/explore/") amb:
 
 ```sh
 $ docker pull NomImage

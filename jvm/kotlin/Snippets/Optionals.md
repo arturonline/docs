@@ -4,7 +4,7 @@
 
 ## Safe Calls
 
-```Kotlin
+```java
 b?.length
 ```
 
@@ -14,7 +14,7 @@ This returns b.length if b is not null, and null otherwise. The type of this exp
 
 The not-null assertion operator (!!) converts any value to a non-null type and throws an exception if the value is null:
 
-```Kotlin
+```java
 val l = b!!.length
 ```
 
@@ -28,7 +28,7 @@ val l: Int = if (b != null) b.length else -1
 val l = b?.length ?: -1
 ```
 
-```Kotlin
+```java
 fun foo(node: Node): String? {
     val parent = node.getParent() ?: return null
     val name = node.getName() ?: throw IllegalArgumentException("name expected")
@@ -38,14 +38,14 @@ fun foo(node: Node): String? {
 
 ## Let
 
-```Kotlin
+```java
 var thing: String? = null
 val something = thing?.let { "hello" }
 ```
 
 y using the ? and the let function we can execute code only if the optional value is not null and return the last statement from within the let block parameter.
 
-```Kotlin
+```java
 var thing: String? = null
 // Use the it keyword (referencing the value of thing) as the last statement in the let block to 
 // return the value if not null

@@ -96,6 +96,7 @@ class Alert extends Component
     }
 }
 ```
+
 Component constructor arguments should be specified using camelCase.
 
 When your component is rendered, you may display the contents of your component's public variables by echoing the variables by name:

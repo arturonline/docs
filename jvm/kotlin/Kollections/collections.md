@@ -32,19 +32,19 @@ Although we can just use Java collections, Kotlin provides a good set of native 
 
 Kotlin does not have dedicated syntax constructs for creating lists or sets. Use methods from the standard library, such as `listOf()`, `mutableListOf()`, `setOf()`, `mutableSetOf()`. Map creation in NOT performance-critical code can be accomplished with a simple idiom: `mapOf(a to b, c to d)`.
 
-```Kotlin
+```java
 // Type anotation: for constructor
 val map : MutableMap<Int, MutableList<String>>
 ```
 
-```Kotlin
+```java
 // Initialization
 val mutableListNames: MutableList<String> = mutableListOf<String>("Josh", "Kene", "Sanya")
 val listNames: mutableListOf<String>("Josh", "kene", "Sanya")
 val listTwo = listOf("One", "two")
 ```
 
-```Kotlin
+```java
 // Declaration of an empty List
 val emptyList: List<String> = emptyList<String>()
 val map = mutableMapOf<Int, String>()

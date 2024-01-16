@@ -119,7 +119,7 @@ WHERE nom ="Pep";
 ## Exportar dades
 
 ```sql
---- 16)	 Guarda les dades de les comarques al fitxer "comarques.txt” del directori "/tmp".
+--- 16) Guarda les dades de les comarques al fitxer "comarques.txt” del directori "/tmp".
 select *
 into outfile '/tmp/comarques.txt'
 from comarques;

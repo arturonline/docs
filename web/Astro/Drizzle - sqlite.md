@@ -1,12 +1,4 @@
-<div align='center'>
-<h1>Drizzle ORM | SQLite <a href=''><img alt='npm' src='https://img.shields.io/npm/v/drizzle-orm?label='></a></h1>
-<img alt='npm' src='https://img.shields.io/npm/dm/drizzle-orm'>
-<img alt='npm bundle size' src='https://img.shields.io/bundlephobia/min/drizzle-orm'>
-<a href='https://discord.gg/yfjTbVXMW4'><img alt='Discord' src='https://img.shields.io/discord/1043890932593987624'></a>
-<img alt='License' src='https://img.shields.io/npm/l/drizzle-orm'>
-<h6><i>If you know SQL, you know Drizzle ORM</i></h6>
-<hr />
-</div>
+# DrizzleORM
 
 DrizzleORM is a [tiny](https://twitter.com/_alexblokh/status/1594735880417472512), [blazingly fast](#️-performance-and-prepared-statements) TypeScript ORM library with a [drizzle-kit](#-migrations) CLI companion for automatic SQL migrations generation.
 Here you can find extensive docs for SQLite module.

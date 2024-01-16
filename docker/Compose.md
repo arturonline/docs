@@ -13,7 +13,7 @@ These YAML rules, both human-readable and machine-optimized, provide us an effec
 Almost every rule replaces a specific _Docker_ command so that in the end we just need to run:
 
 ```sh
-$ docker-compose up
+> docker-compose up
 ```
 
 ## Compose

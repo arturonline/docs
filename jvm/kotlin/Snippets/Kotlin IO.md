@@ -2,18 +2,18 @@
 
 ## Read String
 
-```Kotlin
+```java
 val stringInput = readLine()!!
 println("You entered: $stringInput")
 ```
 
 ## Read Int
 
-```Kotlin
+```java
 var age = Integer.valueOf(readLine())
 ```
 
-```Kotlin
+```java
 println("Type a number")
 var num = readLine()?.toInt() ?: throw IllegalArgumentException("num expected")
 ```

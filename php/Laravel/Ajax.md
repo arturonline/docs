@@ -13,6 +13,7 @@ In your blade view, you can have a select box or a button that triggers an ajax 
     @include('_items') // Includes another blade view file into the current view
 </div>
 ```
+
 In your script section, you can listen for the change or click event and make an ajax request to the url specified in the data attribute. You can pass the selected value as a query parameter or a data object. You can also handle the success or error response and update the DOM accordingly. For example:
 
 ```js

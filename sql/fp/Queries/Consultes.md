@@ -87,7 +87,7 @@ ON alumnes.cp = pobles.cpostal WHERE alumnes.edat > 17;
 
 #### Tipus de joins
 
-<img src="./joins.png">
+<img src="./joins.png" alt="joins">
 
 Problema: El **outer join** (o **full outer join**) no funciona en MySQL (almenys en algunes versions). La solució es fer un UNION de la left i de la right:
 

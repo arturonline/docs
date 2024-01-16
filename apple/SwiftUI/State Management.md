@@ -12,7 +12,7 @@ So State is used to represent the internal state of a SwiftUI view, and to autom
 
 A Binding-marked property provides a two-way connection between a given view and a state property defined outside of that view.
 
-## Two way binding
+### Two way binding
 
 Both State and Binding-wrapped properties can be modified by the view by prefixing their property name with `$`.
 
