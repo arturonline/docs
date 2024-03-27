@@ -9,16 +9,12 @@ ProductID | Year | TotalSales
 2         | 2020 | 25000
 2         | 2021 | 30000
 
-
-
 And you want to see the total sales for each product by year:
 
 ProductID | 2020  | 2021
 ----------|-------|-------
 1         | 15000 | 20000
 2         | 25000 | 30000
-
-
 
 To achive that you can use pivot:
 
