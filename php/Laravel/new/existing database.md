@@ -1,4 +1,4 @@
-# db 1st in laravel with eloquent
+# Working with an existing database in laravel
 
 ## 1. Configure your database connection
 
@@ -14,7 +14,7 @@ Use the `php artisan make:model` command to create a model. For instance, if you
 
 To use your database with laravel you should provide laravel with the table name (1), the timestamps columns (2) and the name of the primary key (3) id if is different from **id**: 
 
-- 1 Specify the table name
+- 1 So first we will tell our model which table to look for in the database which is master_posts:
 
 ```php
 namespace App;
@@ -26,7 +26,7 @@ class Post extends **Model**
 }
 ```
 
-- 2 Define which columns correspond to the `created_at` and `updated_at` timestamps (or null):
+- 2 Now you should tell which columns correspond to the `created_at` and `updated_at` timestamps (or null) like this:
 
 ```php
 namespace App;
@@ -35,8 +35,15 @@ class Post extends Model
 {
     protected $table = 'master_posts';
 
+    // Tell which table from db:
     public const CREATED_AT = 'created_timestamp';
+    public const UPDATED_AT = 'updated_timestamp';
+
+    // or disable one:
     public const UPDATED_AT = null // not used
+
+    // or disable both: 
+    public $timestamps = false // this disables both
 }
 ```
 
@@ -58,5 +65,3 @@ class Post extends Model
 ```
 
 You can now use the Post model to query the master_posts table. Retrieve records, perform CRUD operations, and enjoy the benefits of Eloquent!
-
-### 3.2 Define
