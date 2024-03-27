@@ -6,8 +6,6 @@ With this method you can query the database and set the config values before the
 
 ```php
 // app/Providers/ConfigServiceProvider.php
-<?php
-
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
