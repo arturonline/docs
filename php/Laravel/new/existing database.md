@@ -12,7 +12,26 @@ Use the `php artisan make:model` command to create a model. For instance, if you
 
 ## 3. Configure the model
 
-To use your database with laravel you should provide laravel with the table name (1), the timestamps columns (2) and the name of the primary key (3) id if is different from **id**: 
+To use your database with laravel you should provide laravel with:
+
+- the *table name (1)*, 
+- *the timestamps columns (2)* 
+- and *the name of the primary key id (3)* if is different from **id**.
+
+### example
+
+We have a table like this:
+
+```sql
+--- Database: master_posts
+
+pid => integer(11), primary key,
+post_title => varchar(255),
+created_timestamp => timestamp, created at timestamp
+updated_timestamp => timestamp, updated at timestamp
+```
+
+We should change:
 
 - 1 So first we will tell our model which table to look for in the database which is master_posts:
 
@@ -65,3 +84,32 @@ class Post extends Model
 ```
 
 You can now use the Post model to query the master_posts table. Retrieve records, perform CRUD operations, and enjoy the benefits of Eloquent!
+
+## Map Column and Model names
+
+When your database column names don’t directly match the desired property names in your model you can map a model property to a different column name using Eloquent.
+
+For example, let’s say you have a `User` model with a property named **fullName**, but the corresponding value is stored in the **full_name** column in the database. You can define a mutator like this:
+
+```php
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class User extends Model
+{
+    // Other model properties and methods...
+
+    public function getFullNameAttribute()
+    {
+        return $this->attributes['full_name'];
+    }
+
+    public function setFullNameAttribute($value)
+    {
+        $this->attributes['full_name'] = $value;
+    }
+}
+```
+
+Now you can access the **fullName** property, and Eloquent will automatically map it to the **full_name** column in the database.
