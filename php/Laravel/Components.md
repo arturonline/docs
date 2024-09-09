@@ -1,14 +1,6 @@
 # Components
 
-There are two approaches to writing components: class based components and anonymous components.
-
-## Anonymous components
-
-```sh
-php artisan make:component alert --view
-```
-
-### Displaying anonymous Components
+## Displaying class Components
 
 To display a component, you may use a Blade component tag within one of your Blade templates. Blade component tags start with the string `x-` followed by the kebab case name of the component class:
 
@@ -17,25 +9,44 @@ To display a component, you may use a Blade component tag within one of your Bla
 <x-alert/>
 ```
 
-### Props in anonymous Components
+## Props
+
+In Laravel, the `@props` directive is used within Blade components to define the properties that the component expects. This helps in passing data to the component in a clean and organized way.
 
 ```php
-@props(['type' => 'info', 'message'])
- 
-<div {{ $attributes->merge(['class' => 'alert alert-'.$type]) }}>
-    {{ $message }}
-</div>
+@props(['type' => 'button', 'label'])
+
+<button type="{{ $type }}" {{ $attributes->merge(['class' => 'btn btn-primary']) }}>
+    {{ $label }}
+</button>
 ```
 
 Given the component definition above, we may render the component like so:
 
 ```php
-<x-alert type="error" :message="$message" class="mb-4"/>
+<x-button type="submit" label="Submit Form" class="btn-success" />
 ```
 
-The command above will create a Blade file at `resources/views/components/alert.blade.php`
+PHP expressions and variables should be passed to the component via attributes that use the : character as a prefix:
+
+```html
+<x-alert :message="$message"/>
+```
+
+There are two approaches to writing components: class based components and anonymous components.
+
+## Anonymous components
+
+Consist of a single Blade view file. No associated PHP class.
+
+```sh
+php artisan make:component alert --view
+```
+
 
 ## Class based components
+
+Consist of a PHP class and a Blade view file. The class handles the logic, while the view handles the presentation.
 
 ```sh
 php artisan make:component Alert
@@ -48,28 +59,8 @@ The `make:component` command will also create a view template for the component.
 
 Components are automatically discovered within the `app/View/Components` directory and `resources/views/components` directory, so no further component registration is typically required.
 
-### Displaying class Components
-
-To display a component, you may use a Blade component tag within one of your Blade templates. Blade component tags start with the string `x-` followed by the kebab case name of the component class:
-
-
-```html
-<x-alert/>
-```
 
 ### Props in class components
-
-You may pass data to Blade components using HTML attributes:
-
-```html
-<x-alert type="error"/>
-```
-
-PHP expressions and variables should be passed to the component via attributes that use the : character as a prefix:
-
-```html
-<x-alert :message="$message"/>
-```
 
 You should define all of the component's data attributes in its class constructor:
 
@@ -133,7 +124,6 @@ public function isSelected($option)
     return $option === $this->selected;
 }
 ```
-
 
 ```html
 <option {{ $isSelected($value) ? 'selected' : '' }} value="{{ $value }}">
@@ -206,4 +196,4 @@ Public methods or properties on your component and accessing the component withi
 
 In this example, we will assume that the x-alert component has a public formatAlert method defined on its component class
 
-https://laravel.com/docs/9.x/blade#using-attributes-slots-within-component-class
+https://laravel.com/docs/11.x/blade#using-attributes-slots-within-component-class
