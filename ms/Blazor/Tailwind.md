@@ -67,7 +67,7 @@ Use Tailwind CSS in your Blazor components: You can now use Tailwind CSS classes
 
 ## 5. Extras 
 
-### Create npm script
+### Create npm script to run tailwind
 
 Build Tailwind CSS: Add a script to your **package.json** to build the Tailwind CSS file:  
 
@@ -79,10 +79,39 @@ Build Tailwind CSS: Add a script to your **package.json** to build the Tailwind 
 
 And we can run: `npm run build:css`
 
+
+### Create npm script to run dotnet watch && tailwind
+
+Build Tailwind CSS: Add a script to your **package.json** to build the Tailwind CSS file:  
+
+```json
+{
+  "devDependencies": {
+    "concurrently": "^6.2.1"
+  },
+  "scripts": {
+    "build:css": "tailwindcss -i ./wwwroot/tailwind/tailwind.css -o ./wwwroot/css/tailwind.css --watch",
+    "start": "concurrently \"dotnet watch\" \"npx tailwindcss -i .\\wwwroot\\tailwind\\tailwind.css -o .\\wwwroot\\css\\tailwind.css --watch\""
+  }
+}
+```
+
+And we can run: `npm run start`  
+
 ### Compile final version
 
 ```sh
 npx tailwindcss -i .\wwwroot\tailwind\tailwind.css -o .\wwwroot\css\tailwind.css --minify
 ```
 
+### Post target compilation 
 
+Inside your **.csproj** file:
+
+```xml
+<Target Name="Tailwind" BeforeTargets="Compile">
+    <Exec Command="npx tailwindcss -i .\wwwroot\tailwind\tailwind.css -o .\wwwroot\css\tailwind.css" />
+</Target>
+```
+
+This will run tailwind once per compilation.
