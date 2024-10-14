@@ -5,7 +5,7 @@ Entity Framework is an ORM Framework.
 Before Using the Entity framework, you need to know about the various terms used in the entity framework.
 
 - **Entity**: Represents a row in the database
-- Properties: Represents a Column.
+- **Properties**: Represents a Column.
 - **Entity Type / Entity Sets**: Represents is the table.
 - **Association**: Represents the relationship between two entity types.
 - **Entity Key**: Represents a Primary key.
