@@ -1,6 +1,6 @@
 # Slices
 
-A slice just describes a section of an underlying array. Slices have no specified length.
+A slice just describes a section of an underlying array. Go's Slices are formed with references to the underlying array, not values. 
 
 ## Declaration
 
@@ -63,7 +63,7 @@ func main() {
 }
 
 func printSlice(s []int) {
-    fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
+    fmt.Printf("len = %d cap = %d %v\n", len(s), cap(s), s)
 }
 // len=6 cap=6 [2 3 5 7 11 13]
 // len=0 cap=6 []
@@ -185,7 +185,7 @@ func main() {
 }
 
 func printSlice(s []int) {
-    fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
+    fmt.Printf("len = %d cap = %d %v\n", len(s), cap(s), s)
 }
 // len=0 cap=0 []
 // len=1 cap=2 [0]
