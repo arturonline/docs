@@ -1,6 +1,6 @@
 # Validación de formularios en Blazor
 
-## 1. Anotamos el modelo:
+## 1. Anotamos el modelo
 
 ```cs
 using System.ComponentModel.DataAnnotations;
@@ -13,7 +13,7 @@ public class Contact
 }
 ```
 
-## 2. Añadimos `<EditForm>` y `<DataAnnotationsValidator>` al formulario:
+## 2. Añadimos `<EditForm>` y `<DataAnnotationsValidator>` al formulario
 
 ```html
  <EditForm Model="@SelectedContact" OnValidSubmit="FormSubmit">
@@ -45,7 +45,7 @@ public class Contact
 - El boton de guardar ha de ser tipo `submit`. 
 
 
-## 3. FormSubmit:
+## 3. FormSubmit
 
 Este método se ejecuta cuando se pasan las validaciones correctamente.
 En caso contrario muestra los errores.

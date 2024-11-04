@@ -65,22 +65,22 @@ package main
 import "fmt"
 
 type I interface {
-	M()
+    M()
 }
 
 type T struct {
-	S string
+    S string
 }
 
 // This method means type T implements the interface I,
 // but we don't need to explicitly declare that it does so.
 func (t T) M() {
-	fmt.Println(t.S)
+    fmt.Println(t.S)
 }
 
 func main() {
-	var i I = T{"hello"}
-	i.M()
+    var i I = T{"hello"}
+    i.M()
 }
 ```
 
@@ -110,18 +110,18 @@ package main
 import "fmt"
 
 func main() {
-	var i interface{}
-	describe(i)
+    var i interface{}
+    describe(i)
 
-	i = 42
-	describe(i)
+    i = 42
+    describe(i)
 
-	i = "hello"
-	describe(i)
+    i = "hello"
+    describe(i)
 }
 
 func describe(i interface{}) {
-	fmt.Printf("(%v, %T)\n", i, i)
+    fmt.Printf("(%v, %T)\n", i, i)
 }
 // (<nil>, <nil>)
 // (42, int)
@@ -158,19 +158,19 @@ package main
 import "fmt"
 
 func main() {
-	var i interface{} = "hello"
+    var i interface{} = "hello"
 
-	s := i.(string)
-	fmt.Println(s)
+    s := i.(string)
+    fmt.Println(s)
 
-	s, ok := i.(string)
-	fmt.Println(s, ok)
+    s, ok := i.(string)
+    fmt.Println(s, ok)
 
-	f, ok := i.(float64)
-	fmt.Println(f, ok)
+    f, ok := i.(float64)
+    fmt.Println(f, ok)
 
-	f = i.(float64) // panic
-	fmt.Println(f)
+    f = i.(float64) // panic
+    fmt.Println(f)
 }
 // hello
 // hello true
@@ -196,17 +196,17 @@ package main
 import "fmt"
 
 type Person struct {
-	Name string
-	Age  int
+    Name string
+    Age  int
 }
 
 func (p Person) String() string {
-	return fmt.Sprintf("%v (%v years)", p.Name, p.Age)
+    return fmt.Sprintf("%v (%v years)", p.Name, p.Age)
 }
 
 func main() {
-	a := Person{"Arthur Dent", 42}
-	z := Person{"Zaphod Beeblebrox", 9001}
-	fmt.Println(a, z)
+    a := Person{"Arthur Dent", 42}
+    z := Person{"Zaphod Beeblebrox", 9001}
+    fmt.Println(a, z)
 }
 ```

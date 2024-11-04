@@ -84,7 +84,7 @@ Comparing the previous two programs, you might notice that functions with a poin
 
 ```go
 type Vertex struct {
-	X, Y float64
+    X, Y float64
 }
 
 var v Vertex
@@ -96,7 +96,7 @@ while methods with pointer receivers take either a value or a pointer as the rec
 
 ```go
 type Vertex struct {
-	X, Y float64
+    X, Y float64
 }
 
 var v Vertex
@@ -115,7 +115,7 @@ Functions that take a value argument must take a value of that specific type:
 
 ```go
 type Vertex struct {
-	X, Y float64
+    X, Y float64
 }
 
 var v Vertex
@@ -127,7 +127,7 @@ while methods with value receivers take either a value or a pointer as the recei
 
 ```go
 type Vertex struct {
-	X, Y float64
+    X, Y float64
 }
 
 var v Vertex
@@ -153,24 +153,24 @@ Go allows you to define methods on non-struct types too. To define a method on a
 package main
 
 import (
-	"fmt"
+    "fmt"
 )
 
 type MyString string
 
 func (myStr MyString) reverse() string {
-	s := string(myStr)
-	runes := []rune(s)
+    s := string(myStr)
+    runes := []rune(s)
 
-	for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
-		runes[i], runes[j] = runes[j], runes[i]
-	}
-	return string(runes)
+    for i, j := 0, len(runes)-1; i < j; i, j = i+1, j-1 {
+        runes[i], runes[j] = runes[j], runes[i]
+    }
+    return string(runes)
 }
 
 func main() {
-	myStr := MyString("OLLEH")
-	fmt.Println(myStr.reverse())
+    myStr := MyString("OLLEH")
+    fmt.Println(myStr.reverse())
 }
 // HELLO
 ```

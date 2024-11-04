@@ -150,11 +150,13 @@ package main
 
 import "fmt"
 
-func SayHi(person string) string { //public function
+//public function
+func SayHi(person string) string { 
     return fmt.Sprintf("Hi %s", person)
 }
 
-func sayHi(person string) string { //private function
+//private function
+func sayHi(person string) string { 
     return fmt.Sprintf("Hi %s", person)
 }
 ```

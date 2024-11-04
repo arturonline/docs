@@ -11,13 +11,14 @@ import "fmt"
 
 // declare a normal function
 func speak(arg string) {
-	fmt.Println(arg)
+    fmt.Println(arg)
 }
 
 func main() {
-	go speak("Hello World") // the prefix 'go' keyword makes the funcion async 
+    go speak("Hello World") // the prefix 'go' keyword makes the funcion async 
 }
 ```
+
 It prints nothing because the main program exited and did not wait for the goroutine (go speak);
 
 ## await for results: channels
@@ -32,25 +33,25 @@ package main
 import "fmt"
 
 func speak(arg string, ch chan string) {
-	ch <- arg // Send
+    ch <- arg // Send
 }
 
 func main() {
-	ch := make(chan string) // channels must be initialized (like slices)
+    ch := make(chan string) // channels must be initialized (like slices)
 
-	go speak("Hello World", ch)
+    go speak("Hello World", ch)
 
-	data := <-ch // Receive
-	fmt.Println(data)
+    data := <-ch // Receive
+    fmt.Println(data)
 
     close(ch) // channels must be closed
 }
 // Hello World
 ```
 
-## Javascript example:
+## Javascript example
 
-https://phuctm97.com/blog/go-channel-as-async-await
+Link: [Go channel as async await](https://phuctm97.com/blog/go-channel-as-async-await)
 
 ```javascript
 const longRunningTask = async () => {
@@ -92,18 +93,19 @@ a Buffered channel accept a limited number of values without a corresponding rec
 
 ```go
 func main() {
-	ch := make(chan string, 2)
+    ch := make(chan string, 2)
 
-	go speak("Hello World", ch)
-	go speak("Hi again", ch)
+    go speak("Hello World", ch)
+    go speak("Hi again", ch)
 
-	data1 := <-ch
-	fmt.Println(data1)
+    data1 := <-ch
+    fmt.Println(data1)
 
-	data2 := <-ch
-	fmt.Println(data2)
+    data2 := <-ch
+    fmt.Println(data2)
 }
 ```
+
 When a channel is buffered, we can send values without a corresponding concurrent receiver. This means sends to a buffered channel block only when the buffer is full and receives block when the buffer is empty.
 
 
@@ -113,7 +115,7 @@ When using channels as function parameters, we can specify if a channel is meant
 
 ```go
 func speak(arg string, ch chan<- string) {
-	ch <- arg // Send Only
+    ch <- arg // Send Only
 }
 ```
 

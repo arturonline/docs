@@ -1,15 +1,17 @@
 # Structs
 
-A struct is a user-defined type that contains a collection of named fields/properties. It is used to group related data together to form a single unit.
+A struct is a user-defined type that contains a collection of named fields/properties. 
+It is used to group related data together to form a single unit.
 
 ## Defining a struct type
 
-```go
+```golang
 type Person struct {
-	FirstName string
-	LastName  string
-	Age       int
+    FirstName string
+    LastName  string
+    Age       int
 }
+```
 
 ## Initialize a struct
 
@@ -21,8 +23,8 @@ var Artur Person{}
 var Paco Person{"Paco", 22}
 
 var Rafa Person {
-	Name: "Rafa",
-	Age: 22,
+    Name: "Rafa",
+    Age: 22,
 }
 
 var Jr = new(Person)
@@ -53,16 +55,16 @@ You can access individual fields of a struct using the dot (.) operator:
 
 ```go
 type Car struct {
-	Name, Model, Color string
-	WeightInKg         float64
+    Name, Model, Color string
+    WeightInKg         float64
 }
 
 
 c := Car{
-	Name:       "Ferrari",
-	Model:      "GTC4",
-	Color:      "Red",
-	WeightInKg: 1920,
+    Name:       "Ferrari",
+    Model:      "GTC4",
+    Color:      "Red",
+    WeightInKg: 1920,
 }
 
 // Accessing struct fields using the dot operator
@@ -84,8 +86,8 @@ Go lets you directly access the fields of a struct through the pointer without e
 
 ```go
 type Student struct {
-	RollNumber int
-	Name       string
+    RollNumber int
+    Name       string
 }
 
 // instance of student struct type
@@ -113,8 +115,8 @@ When you assign one struct variable to another, a new copy of the struct is crea
 
 ```go
 type Point struct {
-	X float64
-	Y float64
+    X float64
+    Y float64
 }
 
 // Structs are value types.

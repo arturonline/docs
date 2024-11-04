@@ -8,24 +8,21 @@ A pointer holds the memory address of a value.
 ## Example
 
 ```go
-	a := 10
 
-	var p *int = &a
+// Declaring a pointer
+var p *int
 
-	fmt.Println("address:", p)
-	fmt.Println("value:", *p)
+// Getting the Address of a Variable:
+var a int = 42
+p = &a
 
-// address: 0xc000018030
-// value: 10
-```
+// Dereferencing a Pointer:
+fmt.Println(*p) // Outputs: 42 
+*p = 21 // Changes the value of a to 21
 
-```go
-b := 255
-var a *int = &b
-fmt.Printf("Type of a is %T\n", a)
-fmt.Println("address of b is", a)
+var q *int = &a
+fmt.Println("address of a is", q)
 
-// Type of a is *int
 // address of b is 0xc00002c008
 ```
 
@@ -60,6 +57,7 @@ When we call a function that takes an argument, that argument is copied to the f
 func zero(x int) {
   x = 0
 }
+
 func main() {
   x := 5
   zero(x)
@@ -73,6 +71,7 @@ In this program the zero function will not modify the original x variable in the
 func zero(xPtr *int) {
   *xPtr = 0
 }
+
 func main() {
   x := 5
   zero(&x)
@@ -80,7 +79,9 @@ func main() {
 }
 ```
 
-Pointers reference a location in memory where a value is stored rather than the value itself. By using a pointer (`*int`) the zero function is able to modify the original variable.
+>By using the '&' operator we can get a variable's address direction (x).
+>
+>By using the '*' operator we can get the value stored in an adress direction and change it (xPtr).
 
 ## Creating pointers using the new function
 

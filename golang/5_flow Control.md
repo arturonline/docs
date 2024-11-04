@@ -86,7 +86,7 @@ The break and continue keywords work just as they do in C and Java.
 ```go
 sum := 0
 for i := 1; i < 5; i++ {
-    if i%2 != 0 { // skip odd numbers
+    if i % 2 != 0 { // skip odd numbers
         continue
     }
     sum += i

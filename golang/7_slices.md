@@ -46,24 +46,24 @@ package main
 import "fmt"
 
 func main() {
-	s := []int{2, 3, 5, 7, 11, 13}
-	printSlice(s)
+    s := []int{2, 3, 5, 7, 11, 13}
+    printSlice(s)
 
-	// Slice the slice to give it zero length.
-	s = s[:0]
-	printSlice(s)
+    // Slice the slice to give it zero length.
+    s = s[:0]
+    printSlice(s)
 
-	// Extend its length.
-	s = s[:4]
-	printSlice(s)
+    // Extend its length.
+    s = s[:4]
+    printSlice(s)
 
-	// Drop its first two values.
-	s = s[2:]
-	printSlice(s)
+    // Drop its first two values.
+    s = s[2:]
+    printSlice(s)
 }
 
 func printSlice(s []int) {
-	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
+    fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
 }
 // len=6 cap=6 [2 3 5 7 11 13]
 // len=0 cap=6 []
@@ -141,11 +141,11 @@ package main
 import "fmt"
 
 func main() {
-	var s []int
-	fmt.Println(s, len(s), cap(s))
-	if s == nil {
-		fmt.Println("nil!")
-	}
+    var s []int
+    fmt.Println(s, len(s), cap(s))
+    if s == nil {
+        fmt.Println("nil!")
+    }
 }
 ```
 
@@ -168,24 +168,24 @@ package main
 import "fmt"
 
 func main() {
-	var s []int
-	printSlice(s)
+    var s []int
+    printSlice(s)
 
-	// append works on nil slices.
-	s = append(s, 0)
-	printSlice(s)
+    // append works on nil slices.
+    s = append(s, 0)
+    printSlice(s)
 
-	// The slice grows as needed.
-	s = append(s, 1)
-	printSlice(s)
+    // The slice grows as needed.
+    s = append(s, 1)
+    printSlice(s)
 
-	// We can add more than one element at a time.
-	s = append(s, 2, 3, 4)
-	printSlice(s)
+    // We can add more than one element at a time.
+    s = append(s, 2, 3, 4)
+    printSlice(s)
 }
 
 func printSlice(s []int) {
-	fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
+    fmt.Printf("len=%d cap=%d %v\n", len(s), cap(s), s)
 }
 // len=0 cap=0 []
 // len=1 cap=2 [0]
@@ -208,9 +208,9 @@ import "fmt"
 var pow = []int{1, 2, 4, 8, 16, 32, 64, 128}
 
 func main() {
-	for index, value := range pow {
-		fmt.Printf("2**%d = %d\n", index, value)
-	}
+    for index, value := range pow {
+        fmt.Printf("2**%d = %d\n", index, value)
+    }
 }
 // 2**0 = 1
 // 2**1 = 2
