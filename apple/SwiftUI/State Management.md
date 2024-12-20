@@ -6,8 +6,6 @@ Link: [swiftbysundell](https://www.swiftbysundell.com/articles/swiftui-state-man
 
 Marking a variable using SwiftUI's `State` property wrapper creates a connection between the value and the view itself - meaning that the view will be re-rendered every time either of those values are changed.
 
-So State is used to represent the internal state of a SwiftUI view, and to automatically make a view update when that state was changed. It’s therefore most often a good idea to keep State-wrapped properties private, which ensures that they’ll only be mutated within that view’s body (attempting to mutate them elsewhere will actually cause a runtime crash).
-
 ## @Binding
 
 A Binding-marked property provides a two-way connection between a given view and a state property defined outside of that view.
