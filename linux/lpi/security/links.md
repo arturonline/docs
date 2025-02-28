@@ -41,7 +41,7 @@ To remove a hard link:
 > rm HARD_LINK
 ```
 
-## Workin with Symbolic links
+## Working with Symbolic links
 
 To create a symbolic link:
 

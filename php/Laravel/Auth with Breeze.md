@@ -41,6 +41,6 @@ app\http\requests\auth\loginrequests.php
 
 // Bajamos de 5 reintentos a 3
 
-- if (! RateLimiter::tooManyAttemps($this->throttlekey(), 5)
-+ if (! RateLimiter::tooManyAttemps($this->throttlekey(), 3)
+- if (! RateLimiter::tooManyAttemps($this->throttlekey(), 5))
++ if (! RateLimiter::tooManyAttemps($this->throttlekey(), 3))
 ```

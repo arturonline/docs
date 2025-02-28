@@ -22,7 +22,7 @@ Media-feature-rule:
 
 ## Without media queries
 
-Una linia con todos los "items" que quepan siempre que midan como minino 200px. Si bajan de ese tamaño, la ultima se pasa a la siguiente fila. Por encima de 200px ocupa 1fr.
+Una Linea con todos los "items" que quepan siempre que midan como minino 200px. Si bajan de ese tamaño, la ultima se pasa a la siguiente fila. Por encima de 200px ocupa 1fr.
 
 ```css
 /* The columns will automatically break when each one gets below 200px */

@@ -59,4 +59,26 @@ if (elementos.Count == 0)
 
         // MOSTRAMOS LA TAB DEL FORMULARIO
         Ext.getCmp('XPortalFrm').queryById('oTabPanel').setActiveTab('oTab' + oData.cCodigo + 'Frm');
-        ``` 
+``` 
+
+## await when load store
+
+```js
+        // Cargamos la plantilla en el grid
+        grid.getStore().getProxy().extraParams.categoria = categoria
+        grid.getStore().getProxy().extraParams.delegacion = delegacion
+
+        // Add a listener to execute setUiCamion after the store is loaded
+        grid.getStore().on('load', async function () {
+            // Cargamos la información del camión
+            await this.setUiCamion(oView, categoria, delegacion);
+            // Actualizamos UI
+            grid.show();
+            panelCamion.show();
+            panelInicial.hide();
+        }, this);
+
+        grid.getStore().reload();
+```
+
+D:\source\Deno-Oak-Postgress\lara-server

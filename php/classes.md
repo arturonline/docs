@@ -36,7 +36,7 @@ class Person
 $onePerson = new Person("John");
 ```
 
-⚠️ php does not support multiple constructors having diferent number of parameters.
+⚠️ PHP does not support multiple constructors having different number of parameters.
 
 ## access modifiers
 
@@ -58,7 +58,7 @@ class Rectangle {
 class Square extends Rectangle {}
 ```
 
-A child class inherites the constructor method from its parent class. The constructor is automatically invoked when an object (both of parent or child classes) is created. Therefore, when the child class has its own constructor the parent constructor is not automatically invoked. So, if we need to do this, we must do it explicitly with `parent::__construct`.
+A child class inherits the constructor method from its parent class. The constructor is automatically invoked when an object (both of parent or child classes) is created. Therefore, when the child class has its own constructor the parent constructor is not automatically invoked. So, if we need to do this, we must do it explicitly with `parent::__construct`.
 
 ```php
 class Teacher extends Person
@@ -71,7 +71,7 @@ class Teacher extends Person
 }
 ```
 
-A class in php may only inherit from one parent class and must be defined before the child in the script file.
+A class in PHP may only inherit from one parent class and must be defined before the child in the script file.
 
 ## destructor method
 
@@ -95,7 +95,7 @@ unset($object)
 
 ## Final
 
-By using final we prevent a method from being overriden and a class from being extended.
+By using final we prevent a method from being overridden and a class from being extended.
 
 ## class constant
 

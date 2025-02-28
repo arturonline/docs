@@ -1,4 +1,4 @@
-# Working with an existing database in laravel
+# Working with an existing database in Laravel
 
 ## 1. Configure your database connection
 
@@ -12,11 +12,11 @@ Use the `php artisan make:model` command to create a model. For instance, if you
 
 ## 3. Configure the model
 
-To use your database with laravel you should provide laravel with:
+To use your database with Laravel you should provide Laravel with:
 
-- the *table name (1)*, 
-- *the timestamps columns (2)* 
-- and *the name of the primary key id (3)* if is different from **id**.
+- the *table name*, 
+- *the timestamps columns* 
+- and *the name of the primary key id* if is different from **id**.
 
 ### example
 

@@ -9,7 +9,7 @@ Linux is a multi-user operating system in which multiple users can use the same 
 useradd frank
 ```
 
-The most important options which apply to the useradd command are:
+The most important options which apply to the `useradd` command are:
 
 `-c`
 Create a new user account with custom comments (for example full name).
@@ -51,8 +51,6 @@ useradd frank
 ```
 
 >⚠ Remember that when you add a new user account, the primary group and the secondary groups to which it belongs must exist before launching the useradd command. 
-
-
 
 ## Delete User
 

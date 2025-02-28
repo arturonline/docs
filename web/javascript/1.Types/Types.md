@@ -7,8 +7,8 @@
 
 There is a literal value for just about everything in JavaScript:
 
-literal       | value               | typeof   | constructor
---------------|---------------------|----------|------------
+literal         | value               | typeof   | constructor
+----------------|---------------------|----------|------------
 `1`             | numeric literal     | number   | `Number()`
 `"Some text"`   | string literal      | string   | `String()`
 `[]`            | array literal       | object   | `Array()`
@@ -28,7 +28,7 @@ There are 7 basic types in JavaScript.
 - **object** for more complex data structures.
 - **symbol** for unique identifiers.
 
-The typeof operator allows us to see which type is stored in a variable.
+The `typeof` operator allows us to see which type is stored in a variable.
 
 - Two forms: `typeof` x or `typeof(x)`.
 - Returns a string with the name of the type, like *"string"*.

@@ -1,4 +1,4 @@
-# Connect to a wifi network in linux
+# Connect to a wifi network in Linux
 
 ## #1: Using nmtui (graphical interface)
 

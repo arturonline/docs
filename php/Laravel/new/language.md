@@ -32,7 +32,7 @@ class LanguageController extends Controller
 }
 ```
 
-## Create a nuew middleware with this code
+## Create a new middleware with this code
 
 ```php
 namespace App\Http\Middleware;

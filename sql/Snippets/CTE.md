@@ -1,10 +1,9 @@
 # Common Table Expression (CTE)
 
-
 A Common Table Expression (CTE) in MS SQL Server is a temporary result set that you define within a **WITH** clause. It exists only for the duration of a single _SELECT_, _INSERT_, _UPDATE_, or _DELETE_ statement. CTEs can be especially helpful in making complex queries more readable by breaking them into logical parts.
 
 ```sql
-WITH CTE_Name (Column1, Column2, ...)
+WITH CTE_Name 
 AS
 (
     -- CTE query definition
@@ -34,7 +33,7 @@ JOIN AvgSalaryCTE a ON e.DepartmentID = a.DepartmentID
 WHERE e.Salary > a.AvgSalary;
 ```
 
->⚠️ De esta manera, el cte se usa como una variable (o varias) contra la que comparar.
+>⚠️ De esta manera, el CTE se usa como una variable (o varias) contra la que comparar.
 
 ## Recursive CTE
 

@@ -59,7 +59,7 @@ Then you need to tell the command what to do:
 
 Lastly, you specify which permission you wish to affect: read (r), write (w), or execute (x).
 
-#### Exemple:
+#### Example
 
 For the user (u), grant (+) read, write and execute (rwx) permissions, for the group (g) revoke (-), execute permissions (x):
 
@@ -71,7 +71,7 @@ $ ls -lh text.txt
 
 ### Numeric Mode
 
-Moden numeric mode, the permissions are specified as a three-digit numeric value on octal notation.
+Modern numeric mode, the permissions are specified as a three-digit numeric value on octal notation.
 
 Each permission has a corresponding value, and they are specified in the following order: 
 
@@ -92,7 +92,7 @@ $ ls -l text.txt
 
 ## Modifying File Ownership
 
-The command chown is used to modify the ownership of a file or directory. The syntax is quite simple:
+The command `chown` is used to modify the ownership of a file or directory. The syntax is quite simple:
 
 ```sh
 $ chown username:groupname filename

@@ -77,7 +77,7 @@ $6$01234567ABCD$012…
 
 ⚠ Only select authentication services, or the superuser can modify the `/etc/shadow` file via other commands.
 
-### The GShadow file: `/etc/gshadow'
+### The GShadow file: `/etc/gshadow`
 
 The Group Shadow file is readable only by root and by users with root privileges that contains encrypted passwords for groups, each on a separate line:
 

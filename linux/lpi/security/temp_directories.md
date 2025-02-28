@@ -44,7 +44,7 @@ When you “delete” a file the data is not actually erased from the disk. The 
 
 In contrast to symbolic links, you can only create hard links to files, and both the link and target must reside in the same file system.
 
-💡 An inode is a data structure that stores attributes for a file or directory. Every hard link pointing to a file increases the *link count attribute* on the file's inode.
+💡 An **inode** is a data structure that stores attributes for a file or directory. Every hard link pointing to a file increases the *link count attribute* on the file's inode.
 
 ### Working with Hard Links
 
@@ -73,7 +73,7 @@ To remove a hard link:
 $ rm HARD_LINK
 ```
 
-### Workin with Symbolic links
+### Working with Symbolic links
 
 To create a symbolic link:
 

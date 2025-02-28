@@ -1,12 +1,14 @@
 # init
 
-1. npm init
-1. git init
-1. git add .
-1. git commit -am 'init commit'
-1. new-item app.js (touch index.js)
-1. npm install --save-dev eslint
-1. .\node_modules\.bin\eslint --init
+```sh
+npm init
+git init
+git add .
+git commit -am 'init commit'
+new-item app.js (touch index.js)
+npm install --save-dev eslint
+.\node_modules\.bin\eslint --init
+```
 
 ```Javascript
 ? How would you like to configure ESLint? Answer questions about your style

@@ -100,7 +100,7 @@ The w and who tools only list current users logged into the system, whereas last
 
 ## Switching Users and Escalating Privilege
 
-To escalate privilege to complete a task in linux can be done with `su` and `sudo` commands.
+To escalate privilege to complete a task in Linux can be done with `su` and `sudo` commands.
 
 >💡 On most Linux systems today, the `su -` command is used for escalating privileges to root, which is the default user if a username is not specified after the command name
 

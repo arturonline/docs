@@ -17,7 +17,7 @@ The current UNIX timestamp is {{ time() }}.
 Hello, {!! $name !!}. 
 ```
 
-### Embeded Javascript code
+### Embedded Javascript code
 
 ```php
 // The @ symbol left an expression untouched
@@ -25,7 +25,7 @@ Hello, {!! $name !!}.
 Hello, @{{ name }}.
 ```
 
-### Embeded PHP code
+### Embedded PHP code
 
 ```php
 @php
