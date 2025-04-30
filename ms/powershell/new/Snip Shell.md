@@ -39,7 +39,7 @@ PS C:\> get-help get-service -ShowWindow
 * `Out` — To output something
 * `New` — To create something
 
-## Discover objects
+## Discover members of the objects (properties & methods)
 
 When a cmdlet runs, it returns an object. You can inspect the object to learn more by using the cmdlet `Get-Member`.
 

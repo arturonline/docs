@@ -1,6 +1,6 @@
 # Utils
 
-## Como realizar operaciones asincronas durante el arranque de un view model
+## Como realizar operaciones asíncronas durante el arranque de un view model
 
 ```csharp
 // Creamos un comando asyncrono

@@ -16,20 +16,25 @@ npm run dev
 
 ## flow
 
-### Create Controller
+### Create Migration
 
 ```php
-# create the controller
-php artisan make:controller WelcomeController
-php artisan make:controller PostController --resource --model=Post
+# Create table plural
+php artisan make:migration create_flights_table
+```
 
-# Create an action (method inside the controller)
-public function home() {
-    return view('welcome');
-}
+Laravel will use the name of the migration to attempt to guess the name of the table and whether or not the migration will be creating a new table.
 
-# and register the route
-Route::get('/', [\App\Http\Controllers\HomeController::class, 'home'])->name('home');
+
+```php
+# to see which migrations have run thus far
+php artisan migrate:status
+
+# Rollback and Migrate
+php artisan migrate:refresh
+
+# Drop all tables and migrate
+php artisan migrate:fresh
 ```
 
 ### Create Models
@@ -53,6 +58,23 @@ public function up(): void
         $table->timestamps();
     });
 }
+```
+
+### Create Controller
+
+```php
+# create the controller
+php artisan make:controller WelcomeController
+php artisan make:model YourModelName -mcr
+php artisan make:controller PostController --resource --model=Post
+
+# Create an action (method inside the controller)
+public function home() {
+    return view('welcome');
+}
+
+# and register the route
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'home'])->name('home');
 ```
 
 ### Seed data in the models
