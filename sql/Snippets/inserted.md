@@ -1,6 +1,8 @@
 # Obtener Id elemento insertado
 
-## 1. Creamos tablas de ejemplo
+## 1 Usando OUTPUT
+
+### 1.1 Creamos tablas de ejemplo
 
 ```sql
 CREATE TABLE Empleados (
@@ -15,7 +17,7 @@ CREATE TABLE EmpleadoLog (
 );
 ```
 
-## Declarar variable de tabla para recoger los IDs
+### 1.2 Declarar variable de tabla para recoger los IDs
 
 ```sql
 DECLARE @NuevosEmpleados TABLE (
@@ -25,7 +27,7 @@ DECLARE @NuevosEmpleados TABLE (
 
 ```
 
-## Insertar y recoger los valores con OUTPUT
+### 1.3 Insertar y recoger los valores con OUTPUT
 
 ```sql
 INSERT INTO Empleados (Nombre, Departamento)
@@ -34,10 +36,23 @@ VALUES ('Ana', 'Ventas'), ('Luis', 'Marketing'), ('Marta', 'Finanzas');
 
 ```
 
-## Usamos los valores recogidos
+### 1.4 Usamos los valores recogidos
 
 ```sql
 INSERT INTO EmpleadoLog (EmpleadoID)
 SELECT EmpleadoID
 FROM @NuevosEmpleados;
+```
+
+
+## 2. Usando SCOPE_IDENTITY()
+
+Nota: es preferible usar OUTPUT
+
+```sql
+DECLARE @Id INT OUTPUT
+
+--- hacemos el insert
+
+SET @Id = SCOPE_IDENTITY()
 ```

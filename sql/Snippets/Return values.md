@@ -1,6 +1,6 @@
 # Obtener resultados
 
-## Obtener resultado de una función
+## 1. Funciones
 
 ### Return scalar
 
@@ -56,7 +56,7 @@ END
 SELECT * FROM dbo.GetEmployeesWithSalaryAbove(50000.00)
 ```
 
-## Obtener resultados de un procedimiento
+## 2. Procedimientos
 
 ### Using Output Parameters
 

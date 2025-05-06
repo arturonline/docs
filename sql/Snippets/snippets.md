@@ -1,16 +1,5 @@
 # SQL snippets
 
-## Inserted Id
-
-Nota: es preferible usar [OUTPUT](./inserted.md)
-
-```sql
-DECLARE @Id INT OUTPUT
-
---- hacemos el insert
-
-SET @Id = SCOPE_IDENTITY()
-```
 
 ## CASE
 
