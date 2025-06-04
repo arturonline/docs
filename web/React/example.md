@@ -1,49 +1,39 @@
 # Auth example
 
 ```jsx
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
-class Contact extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      password: "swordfish",
-      authorized: false
-    };
-    this.authorize = this.authorize.bind(this);
-  }
+function Contact() {
+  const [password] = useState("swordfish");
+  const [authorized, setAuthorized] = useState(false);
 
-  authorize(e) {
-    const password = e.target.querySelector('input[type="password"]').value;
-    const auth = password == this.state.password;
-    this.setState({
-      authorized: auth
-    });
-  }
+  const authorize = (e) => {
+    e.preventDefault();
+    const inputPassword = e.target.querySelector('input[type="password"]').value;
+    setAuthorized(inputPassword === password);
+  };
 
-  render() {
-    const login = (
-      <form action="#" onSubmit={this.authorize}>
-        <input type="password" placeholder="Password" />
-        <input type="submit" />
-      </form>
-    );
+  const login = (
+    <form action="#" onSubmit={authorize}>
+      <input type="password" placeholder="Password" />
+      <input type="submit" />
+    </form>
+  );
 
-    const contactInfo = (
-      <ul>
-        <li>client@example.com</li>
-        <li>555.555.5555</li>
-      </ul>
-    );
+  const contactInfo = (
+    <ul>
+      <li>client@example.com</li>
+      <li>555.555.5555</li>
+    </ul>
+  );
 
-    return (
-      <div id="authorization">
-        <h1>{this.state.authorized ? "Contact" : "Enter the Password"}</h1>
-        {this.state.authorized ? contactInfo : login}
-      </div>
-    );
-  }
+  return (
+    <div id="authorization">
+      <h1>{authorized ? "Contact" : "Enter the Password"}</h1>
+      {authorized ? contactInfo : login}
+    </div>
+  );
 }
 
 ReactDOM.render(<Contact />, document.getElementById("app"));

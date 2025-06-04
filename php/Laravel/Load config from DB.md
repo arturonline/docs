@@ -65,8 +65,8 @@ Here is some sample code for the first method:
 
 
 ```php
-// app/Classes/Setting.php
 <?php
+// app/Classes/Setting.php
 
 namespace App\Classes;
 
@@ -132,8 +132,8 @@ class Setting {
   }
 }
 
-// app/Facades/Setting.php
 <?php
+// app/Facades/Setting.php
 
 namespace App\Facades;
 
