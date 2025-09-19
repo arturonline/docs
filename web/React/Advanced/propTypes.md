@@ -41,7 +41,7 @@ If you add `.isRequired` to a propType, then you will get a console warning if t
 
 ## Objects
 
-You can use `PropTypes.shape` to specifiy the structure of an object.
+You can use `PropTypes.shape` to specify the structure of an object.
 
 E.g.
 

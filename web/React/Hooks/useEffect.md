@@ -8,12 +8,19 @@ Omitted          | After every render                | Sync with all changes
 `[ ]` (empty)    | Once, after initial render        | On mount (init setup)
 `[dep1, dep2]`   | On mount and when any dep changes | Watch specific values
 
+
 ## Intro
+
+```js
+useEffect(() => {}, [dep1, dep2, dep3]);
+```
+
+> 💡NOTE: **dep1**, **dep2**, **dep3** should be elements tracked by react, like Props or Hooks.
 
 `UseEffect` function runs every time the component mounts (begins). `UseEffect` takes 2 params:
 
 * A function: containing side-effect logic.
-* An array : controls when the effect runs
+* An array of elements track by react. The effect re-runs when any value in this array changes. If the array is empty, the effect only runs once, after the initial render.
 
 ## Examples
 
@@ -82,7 +89,7 @@ useEffect(() => {
 }, []);
 ```
 
-## Can I use several useEffects in a component
+## Can I use several useEffects in a component?
 
 Yes, you can use several useEffect hooks in a single React component, and this is not only allowed but also considered a best practice in many cases.
 
@@ -103,3 +110,4 @@ useEffect(() => {
   // Runs when stateB or stateC changes
 }, [stateB, stateC]);
 ```
+

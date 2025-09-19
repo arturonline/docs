@@ -41,7 +41,7 @@ if (elementos.Count == 0)
 }
 ```
 
-## redirect o abrir pagina programaticamente
+## redirect o abrir pagina programáticamente
 
 ```js
         // hacemos redirect a la página de delegaciones
@@ -80,5 +80,3 @@ if (elementos.Count == 0)
 
         grid.getStore().reload();
 ```
-
-D:\source\Deno-Oak-Postgress\lara-server
