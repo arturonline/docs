@@ -1,38 +1,92 @@
 # Files and File Path
 
+> Two packages: [`path/filepath`](https://pkg.go.dev/path/filepath) for **OS file paths** (uses `\` on Windows) and [`path`](https://pkg.go.dev/path) for **slash-separated paths** only (URLs, `embed`/`io/fs` paths). For files on disk always use `filepath`.
+
 ## Join
 
-Returns a string with a file path using the correct path separators.
+Returns a string with a file path using the correct path separators (and cleans `..`, `//`).
 
 ```go
-println(path.Join("usr", "bin", "spam"))
-// usr/bin/spam
+fmt.Println(filepath.Join("usr", "bin", "spam"))
+// usr/bin/spam       (Windows: usr\bin\spam)
+fmt.Println(filepath.Join("a/b", "../c", "file.txt"))
+// a/c/file.txt
 ```
-
-> [Package "path"](https://golang.org/pkg/path/#Join)
 
 ## Current Working Directory
 
 ```go
 dir, err := os.Getwd()
-	if err != nil {
-		log.Fatal(err)
-	}
-  fmt.Println(dir)
+if err != nil {
+	log.Fatal(err)
+}
+fmt.Println(dir)
 ```
 
->[Package "os"](https://golang.org/pkg/os/)
+Other useful locations:
+
+```go
+home, err := os.UserHomeDir()   // /home/artur, C:\Users\artur
+exe, err := os.Executable()     // path of the running binary
+tmp := os.TempDir()             // /tmp, %TEMP%
+abs, err := filepath.Abs("x.txt") // absolute path relative to the cwd
+```
+
+>[Package "os"](https://pkg.go.dev/os)
 
 ## Change Directory
 
 ```go
-os.Chdir("/Users/artur/Repos")
+if err := os.Chdir("/Users/artur/Repos"); err != nil {
+	log.Fatal(err)
+}
 ```
+
+> It changes the cwd of the **whole process** (all goroutines). Prefer building absolute paths with `filepath.Join`; for child processes set `cmd.Dir`.
 
 ## Make directory
 
 ```go
-os.Mkdir("pruebas", 0700)
+// One level; fails if it already exists (errors.Is(err, fs.ErrExist))
+if err := os.Mkdir("pruebas", 0o755); err != nil {
+	log.Fatal(err)
+}
+
+// With parents, like mkdir -p; no error if it already exists
+if err := os.MkdirAll("pruebas/a/b", 0o755); err != nil {
+	log.Fatal(err)
+}
+
+// Temporary directory with a unique name (replaces ioutil.TempDir)
+tmp, err := os.MkdirTemp("", "myapp-*")
+if err != nil {
+	log.Fatal(err)
+}
+defer os.RemoveAll(tmp)
+```
+
+The mode is filtered by the umask (see [Permission Bits](Permission%20Bits.md)).
+
+## Remove, rename, exists
+
+```go
+err := os.Remove("file.txt")     // a file or an empty directory
+err = os.RemoveAll("pruebas")    // recursive, like rm -rf; nil if it doesn't exist
+err = os.Rename("old.txt", "new.txt")
+```
+
+Check if a file exists:
+
+```go
+_, err := os.Stat("file.txt")
+switch {
+case err == nil:
+	fmt.Println("exists")
+case errors.Is(err, fs.ErrNotExist):
+	fmt.Println("does not exist")
+default:
+	log.Fatal(err) // permission denied, etc.: we don't know
+}
 ```
 
 ## Base and Dir
@@ -40,41 +94,53 @@ os.Mkdir("pruebas", 0700)
 **Base** returns the last element of path.
 
 ```go
-fmt.Println(path.Base("/a/b"))
+fmt.Println(filepath.Base("/a/b"))
 // b
 ```
 
 **Dir** returns the path's directory.
 
 ```go
-fmt.Println(path.Dir("/a/b/c"))
+fmt.Println(filepath.Dir("/a/b/c"))
 // /a/b
 ```
 
 ## File Extension
 
 ```go
-fmt.Println(path.Ext("/a/b/c/bar.css"))
+fmt.Println(filepath.Ext("/a/b/c/bar.css"))
 // .css
+
+name := filepath.Base("/a/b/c/bar.css")
+fmt.Println(strings.TrimSuffix(name, filepath.Ext(name)))
+// bar
 ```
 
 ## Split
 
-Split splits path immediately following the final slash, separating it into a directory and file name component as strings
+Split splits path immediately following the final separator, separating it into a directory and file name component.
 
 ```go
-dir, file := path.Split("static/myfile.css")
-fmt.Println("dir: ", dir)
-fmt.Println("file: ", file)
+dir, file := filepath.Split("static/myfile.css")
+fmt.Println(dir, file)
+// static/ myfile.css
+```
+
+## Rel
+
+```go
+rel, err := filepath.Rel("/a/b", "/a/b/c/d.txt")
+fmt.Println(rel, err)
+// c/d.txt <nil>
 ```
 
 ## SplitList
 
-**SplitList** splits a list of paths joined by the OS-specific ListSeparator. Unlike `strings.Split`, `SplitList` returns an empty slice when passed an empty string.
+**SplitList** splits a list of paths joined by the OS-specific ListSeparator (`:` on Unix, `;` on Windows), as in `PATH`. Unlike `strings.Split`, `SplitList` returns an empty slice when passed an empty string.
 
 ```go
 fmt.Println("On Unix:", filepath.SplitList("/a/b/c:/usr/bin"))
-// [/a/b/c /usr/bin]
+// On Unix: [/a/b/c /usr/bin]
 ```
 
 ## Match
@@ -85,7 +151,7 @@ func Match(pattern, name string) (matched bool, err error)
 
 Match reports whether name matches the shell file name pattern. The pattern syntax is:
 
-```bash
+```text
 pattern:
 	{ term }
 term:
@@ -113,9 +179,11 @@ fmt.Println(filepath.Match("/home/\\*", "/home/*"))
 // true <nil>
 ```
 
+> On Windows `\` is the separator, so escaping with `\\` is not available. There is no `**` (recursive) support: use `WalkDir`.
+
 ## List files in a folder
 
-### #0: using Glob (dangerous)
+### #0: using Glob (ignores I/O errors)
 
 ```go
 func Glob(pattern string) (matches []string, err error)
@@ -127,183 +195,216 @@ Glob returns the **names** of all files matching pattern or nil if there is no m
 package main
 
 import (
-    "fmt"
-    "log"
-    "path/filepath"
+	"fmt"
+	"log"
+	"path/filepath"
 )
 
 func main() {
-    files, err := filepath.Glob("*")
-    if err != nil {
-        log.Fatal(err)
-    }
-    fmt.Println(files) // contains a list of all files in the current directory
+	files, err := filepath.Glob("*.go")
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(files) // e.g. [main.go util.go]
 }
 ```
 
 ⚠️ `Glob` ignores file system errors such as I/O errors reading directories. The only possible returned error is `ErrBadPattern`, when pattern is malformed.
 
-### #1: using ioutil.ReadDir (Prefered)
+### #1: using os.ReadDir (preferred)
 
 ```go
-func ReadDir(dirname string) ([]os.FileInfo, error)
+func ReadDir(name string) ([]os.DirEntry, error)
 ```
 
-ReadDir reads the directory named by dirname and returns a list of directory entries sorted by filename:
-
-```go
-package main
-
-import (
-    "fmt"
-    "io/ioutil"
-    "log"
-)
-
-func main() {
-    files, err := ioutil.ReadDir(".")
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    for _, file := range files {
-        fmt.Println(file.Name())
-    }
-}
-
-```
-
-### #2: using os.File.Readdir
-
-If you don’t need sorting you can as well ``use File.Readdir`:
-
-```go
-package main
-
-import (
-    "fmt"
-    "log"
-    "os"
-)
-
-func main() {
-    dirname := "."
-
-    f, err := os.Open(dirname)
-    if err != nil {
-        log.Fatal(err)
-    }
-    files, err := f.Readdir(-1)
-    f.Close()
-    if err != nil {
-        log.Fatal(err)
-    }
-
-    for _, file := range files {
-        fmt.Println(file.Name())
-    }
-}
-```
-
-### #3: Visit all files and subfolders in a directory tree with Walk and WalkFunc
-
-```go
-func Walk(root string, walkFn WalkFunc) error
-```
-
-`Walk` walks the file tree rooted at root, calling `walkFn` for each file or directory in the tree, including root. All errors that arise visiting files and directories are filtered by `walkFn`. Walk does not follow symbolic links.
-
-> `filepath.Walk` is handy but scans subfolders too, by default, which might not be what you want.
-
-```go
-type WalkFunc func(path string, info os.FileInfo, err error) error
-```
-
-`WalkFunc` is the type of the function called for each file or directory visited by `Walk`. The path argument contains the argument to Walk as a prefix; that is, if Walk is called with "dir", which is a directory containing the file "a", the walk function will be called with argument "dir/a". The info argument is the `os.FileInfo` for the named path.
-
-If there was a problem walking to the file or directory named by path, the incoming error will describe the problem and the function can decide how to handle that error (and Walk will not descend into that directory). In the case of an error, the info argument will be nil. If an error is returned, processing stops. The sole exception is when the function returns the special value `SkipDir`. If the function returns SkipDir when invoked on a directory, Walk skips the directory's contents entirely. If the function returns SkipDir when invoked on a non-directory file, Walk skips the remaining files in the containing directory.
-
-Example1:
-
-```go
-err := filepath.Walk(".",
-    func(path string, info os.FileInfo, err error) error {
-    if err != nil {
-        return err
-    }
-    fmt.Println(path, info.Size())
-    return nil
-})
-if err != nil {
-    log.Println(err)
-}
-// . 1644
-// dev 1644
-// dev/null 0
-// dev/random 0
-// dev/urandom 0
-// dev/zero 0
-// etc 1644
-```
-
-example2:
+`os.ReadDir` reads the directory and returns its entries **sorted by filename**. It replaces the deprecated `ioutil.ReadDir`, and is cheaper because `DirEntry` doesn't call `stat` for every file (call `Info()` only when you need size/mode/time).
 
 ```go
 package main
 
 import (
 	"fmt"
-	"io/ioutil"
+	"log"
+	"os"
+)
+
+func main() {
+	entries, err := os.ReadDir(".")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	for _, e := range entries {
+		if e.IsDir() {
+			fmt.Println(e.Name() + "/")
+			continue
+		}
+		info, err := e.Info()
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Printf("%-20s %8d bytes\n", e.Name(), info.Size())
+	}
+}
+// docs/
+// go.mod                     23 bytes
+// main.go                   412 bytes
+```
+
+### #2: using os.File.ReadDir
+
+If you don't need sorting, or the directory is huge, read it in batches with `File.ReadDir(n)`:
+
+```go
+package main
+
+import (
+	"errors"
+	"fmt"
+	"io"
+	"log"
+	"os"
+)
+
+func main() {
+	f, err := os.Open(".")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer f.Close()
+
+	for {
+		entries, err := f.ReadDir(100) // n > 0: at most 100 entries per call
+		for _, e := range entries {
+			fmt.Println(e.Name())
+		}
+		if errors.Is(err, io.EOF) {
+			break
+		}
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+}
+```
+
+`f.ReadDir(-1)` returns everything at once (unsorted). The old `f.Readdir` returns `[]os.FileInfo` and is slower.
+
+### #3: Visit all files and subfolders in a directory tree with WalkDir
+
+```go
+func WalkDir(root string, fn fs.WalkDirFunc) error
+type WalkDirFunc func(path string, d fs.DirEntry, err error) error
+```
+
+`WalkDir` (Go 1.16) walks the file tree rooted at root, calling `fn` for each file or directory in the tree, including root, in **lexical order**. It is more efficient than the older `filepath.Walk` because it doesn't `stat` every file. It does not follow symbolic links.
+
+- The `path` argument contains `root` as a prefix: with root `"dir"` and a file `a`, `fn` is called with `"dir/a"`.
+- If there was a problem reading a directory, `fn` is called with a non-nil `err`. Return it to stop the walk, or return `nil` to skip and continue.
+- Returning `filepath.SkipDir` on a directory skips its contents; on a file it skips the rest of the files in the same directory. `filepath.SkipAll` (Go 1.20) stops the walk without error.
+
+Example (self-contained: creates a temporary tree first):
+
+```go
+package main
+
+import (
+	"fmt"
+	"io/fs"
+	"log"
 	"os"
 	"path/filepath"
 )
 
-func prepareTestDirTree(tree string) (string, error) {
-	tmpDir, err := ioutil.TempDir("", "")
-	if err != nil {
-		return "", fmt.Errorf("error creating temp directory: %v\n", err)
-	}
-
-	err = os.MkdirAll(filepath.Join(tmpDir, tree), 0755)
-	if err != nil {
-		os.RemoveAll(tmpDir)
-		return "", err
-	}
-
-	return tmpDir, nil
-}
-
 func main() {
-	tmpDir, err := prepareTestDirTree("dir/to/walk/skip")
+	root, err := os.MkdirTemp("", "walkdemo")
 	if err != nil {
-		fmt.Printf("unable to create test dir tree: %v\n", err)
-		return
+		log.Fatal(err)
 	}
-	defer os.RemoveAll(tmpDir)
-	os.Chdir(tmpDir)
+	defer os.RemoveAll(root)
 
-	subDirToSkip := "skip"
-
-	err = filepath.Walk(".", func(path string, info os.FileInfo, err error) error {
-		if err != nil {
-			fmt.Printf("prevent panic by handling failure accessing a path %q: %v\n", path, err)
-			return err
+	// root/dir/to/walk/skip + some files
+	if err := os.MkdirAll(filepath.Join(root, "dir", "to", "walk", "skip"), 0o755); err != nil {
+		log.Fatal(err)
+	}
+	for _, name := range []string{"dir/a.txt", "dir/to/b.go", "dir/to/walk/skip/hidden.txt"} {
+		if err := os.WriteFile(filepath.Join(root, filepath.FromSlash(name)), nil, 0o644); err != nil {
+			log.Fatal(err)
 		}
-		if info.IsDir() && info.Name() == subDirToSkip {
-			fmt.Printf("skipping a dir without errors: %+v \n", info.Name())
+	}
+
+	err = filepath.WalkDir(root, func(path string, d fs.DirEntry, err error) error {
+		if err != nil {
+			return err // e.g. permission denied; return nil to ignore it and keep walking
+		}
+		if d.IsDir() && d.Name() == "skip" {
+			fmt.Println("skipping:", d.Name())
 			return filepath.SkipDir
 		}
-		fmt.Printf("visited file or dir: %q\n", path)
+		rel, err := filepath.Rel(root, path)
+		if err != nil {
+			return err
+		}
+		fmt.Println("visited:", filepath.ToSlash(rel))
 		return nil
 	})
 	if err != nil {
-		fmt.Printf("error walking the path %q: %v\n", tmpDir, err)
-		return
+		log.Fatal(err)
 	}
 }
-// visited file or dir: "."
-// visited file or dir: "dir"
-// visited file or dir: "dir/to"
-// visited file or dir: "dir/to/walk"
-// skipping a dir without errors: skip
-// ```
+// visited: .
+// visited: dir
+// visited: dir/a.txt
+// visited: dir/to
+// visited: dir/to/b.go
+// visited: dir/to/walk
+// skipping: skip
+```
+
+Find all files with an extension (recursive `**/*.go`):
+
+```go
+var goFiles []string
+err := filepath.WalkDir(".", func(path string, d fs.DirEntry, err error) error {
+	if err != nil {
+		return err
+	}
+	if d.IsDir() && (d.Name() == ".git" || d.Name() == "node_modules") {
+		return filepath.SkipDir
+	}
+	if !d.IsDir() && filepath.Ext(path) == ".go" {
+		goFiles = append(goFiles, path)
+	}
+	return nil
+})
+```
+
+### #4: io/fs and os.DirFS
+
+`os.DirFS(dir)` returns an `fs.FS` rooted at `dir`. Code written against `fs.FS` also works with `embed.FS`, zip files and `fstest.MapFS` in tests. Paths inside an `fs.FS` always use `/` and have no leading slash.
+
+```go
+fsys := os.DirFS("snippets")
+
+matches, err := fs.Glob(fsys, "*.md")
+if err != nil {
+	log.Fatal(err)
+}
+fmt.Println(matches) // [cli.md io.md ...]
+
+err = fs.WalkDir(fsys, ".", func(p string, d fs.DirEntry, err error) error {
+	if err != nil {
+		return err
+	}
+	fmt.Println(p) // ".", "cli.md", "files", "files/dir.md", ...
+	return nil
+})
+
+data, err := fs.ReadFile(fsys, "files/dir.md")
+```
+
+Copy a whole tree (Go 1.23, does not overwrite existing files):
+
+```go
+err := os.CopyFS("backup", os.DirFS("snippets"))
+```

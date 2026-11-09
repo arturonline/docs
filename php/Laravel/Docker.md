@@ -1,178 +1,142 @@
 # Docker
 
-## Installation
+Two options:
+
+1. **Laravel Sail**: official, zero config, ideal for development.
+2. **Custom compose** (php-fpm + nginx + MySQL): full control, closer to production.
+
+> Use Docker Compose v2 (`docker compose ...`, not `docker-compose`). The top-level `version:` key is obsolete and must be removed from compose files.
+
+## Option 1: Laravel Sail
+
+```bash
+# New project with MySQL and Redis (also: pgsql, mariadb, redis, valkey, meilisearch, mailpit, selenium...)
+curl -s "https://laravel.build/example-app?with=mysql,redis,mailpit" | bash
+cd example-app
+
+# Existing project
+composer require laravel/sail --dev
+php artisan sail:install          # choose services, generates compose.yaml and updates .env
+
+./vendor/bin/sail up -d           # start (http://localhost)
+./vendor/bin/sail down            # stop
+```
+
+Commands run inside the container:
+
+```bash
+./vendor/bin/sail artisan migrate
+./vendor/bin/sail composer require laravel/telescope
+./vendor/bin/sail npm run dev
+./vendor/bin/sail test
+./vendor/bin/sail shell           # bash in the app container
+./vendor/bin/sail mysql           # MySQL CLI
+
+# Alias (~/.bashrc)
+alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
+```
+
+Mailpit UI: <http://localhost:8025>. Customize the Dockerfiles with `php artisan sail:publish`.
+
+## Option 2: php-fpm + nginx + MySQL
 
 ### 1. Create folders
 
 ```bash
-$ mkdir mysql src nginx
+mkdir src nginx
+# src/   -> Laravel code
+# nginx/ -> nginx config
+```
+
+```text
+.
+├── compose.yaml
+├── Dockerfile
+├── nginx/default.conf
+└── src/
 ```
 
 ### 2. Add files
 
-Version 1:
-
 ```yaml
-# docker-compose.yml
-version: '3'
-
-networks:
-  laravel:
-  
+# compose.yaml
 services:
   nginx:
     image: nginx:stable-alpine
-    container_name: nginx
     depends_on:
       - php
-      - mysql
     ports:
       - "8088:80"
     volumes:
       - ./src:/var/www/html
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    networks:
-      - laravel
-      
-  mysql:
-    image: mysql:5.7.22
-    container_name: mysql
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./mysql:/var/lib/mysql
-    environment:
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: root
-      MYSQL_PASSWORD: qwert
-      MYSQL_ROOT_PASSWORD: qwert
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    networks:
-      - laravel
-      
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+
   php:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: php
-    volumes:
-      - ./src:/var/www/html
-    ports:
-      - "9003:9003"
-    networks:
-      - laravel
-```
-
-Version 2: 
-
-```yaml
-# docker-compose.yml
-version: '3'
-
-networks:
-  laravel:
-  
-services:
-  nginx:
-    image: nginx:stable-alpine
-    container_name: nginx
-    depends_on:
-      - php
-      - mysql
-    ports:
-      - "8088:80"
-    volumes:
-      - ./src:/var/www/html
-      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
-    networks:
-      - laravel
-      
-  mysql:
-    image: mysql:5.7.22
-    container_name: mysql
-    restart: unless-stopped
-    tty: true
-    ports:
-      - "3306:3306"
-    volumes:
-      - ./mysql:/var/lib/mysql
-    environment:
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: root
-      MYSQL_PASSWORD: qwert
-      MYSQL_ROOT_PASSWORD: qwert
-      SERVICE_TAGS: dev
-      SERVICE_NAME: mysql
-    networks:
-      - laravel
-      
-  php:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: php
-    volumes:
-      - ./src:/var/www/html
-    ports:
-      - "9003:9003"
-    networks:
-      - laravel
-
-composer:
-    build:
-      context: ./dockerfiles
-      dockerfile: composer.dockerfile
       args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
-    container_name: composer
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
     volumes:
       - ./src:/var/www/html
-    working_dir: /var/www/html
     depends_on:
-      - php
-    user: laravel
-    entrypoint: ['composer', '--ignore-platform-reqs']
-    networks:
-      - laravel
+      mysql:
+        condition: service_healthy
 
-  npm:
-    image: node:16.14
-    container_name: npm
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: laravel          # must NOT be root
+      MYSQL_PASSWORD: secret
+      MYSQL_ROOT_PASSWORD: rootsecret
+    volumes:
+      - mysql-data:/var/lib/mysql  # named volume (no permission issues)
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      retries: 10
+
+  # Utility containers: only run on demand (docker compose run --rm ...)
+  composer:
+    image: composer:2
+    profiles: [tools]
     volumes:
       - ./src:/var/www/html
-    ports:
-      - 3000:3000
-      - 3001:3001
     working_dir: /var/www/html
-    entrypoint: ['npm']
-    networks:
-      - laravel
+    user: "${UID:-1000}:${GID:-1000}"
+    entrypoint: ["composer", "--ignore-platform-reqs"]
 
   artisan:
-    build:
-      context: ./dockerfiles
-      dockerfile: php.dockerfile
-      args:
-        - UID=${UID:-1000}
-        - GID=${GID:-1000}
-    container_name: artisan
+    build: .
+    profiles: [tools]
     volumes:
-      - ./src:/var/www/html:delegated
+      - ./src:/var/www/html
     depends_on:
       - mysql
     working_dir: /var/www/html
-    entrypoint: ['php', '/var/www/html/artisan']
-    networks:
-      - laravel
+    entrypoint: ["php", "/var/www/html/artisan"]
+
+  npm:
+    image: node:22-alpine
+    profiles: [tools]
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - "5173:5173"                # Vite dev server
+    working_dir: /var/www/html
+    entrypoint: ["npm"]
+
+volumes:
+  mysql-data:
 ```
 
-```yaml
+```nginx
 # nginx/default.conf
-
 server {
     listen 80;
     index index.php index.html;
@@ -180,62 +144,105 @@ server {
     error_log /var/log/nginx/error.log;
     access_log /var/log/nginx/access.log;
     root /var/www/html/public;
-    
+
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }
-    
+
     location ~ \.php$ {
-        try_files $uri = 404;
+        try_files $uri =404;
         fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass php:9000;
+        fastcgi_pass php:9000;          # service name : php-fpm port
         fastcgi_index index.php;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
         fastcgi_param PATH_INFO $fastcgi_path_info;
     }
+
+    location ~ /\.(?!well-known) {
+        deny all;
+    }
 }
 ```
 
-```yaml
+```dockerfile
 # Dockerfile
+FROM php:8.4-fpm-alpine
 
-FROM php:8.1-fpm-alpine
+# Extensions needed by Laravel + MySQL
+RUN apk add --no-cache icu-dev libzip-dev \
+    && docker-php-ext-install pdo_mysql intl zip bcmath opcache
 
-RUN docker-php-ext-install pdo pdo_mysql
+# Composer inside the image (optional, handy for `docker compose exec php composer ...`)
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Run php-fpm with the host user id to avoid permission problems on ./src
+ARG UID=1000
+ARG GID=1000
+RUN apk add --no-cache shadow \
+    && usermod -u ${UID} www-data && groupmod -g ${GID} www-data
+
+WORKDIR /var/www/html
 ```
+
+> Xdebug: add `RUN apk add --no-cache $PHPIZE_DEPS linux-headers && pecl install xdebug && docker-php-ext-enable xdebug`. Xdebug 3 connects *from* the container to your IDE on port 9003, so no port has to be published.
 
 ### 3. Build docker
 
 ```bash
-$ docker-compose up -d --build
+docker compose up -d --build
+docker compose ps             # check services are running/healthy
 ```
 
-⚠️ To bring everything down: `docker-compose down`
+⚠️ To bring everything down: `docker compose down` (add `-v` to also delete the MySQL volume).
 
 ## Install Laravel
 
 ```bash
-$ cd /src
-$ composer create-project laravel/laravel .
-$ sudo chmod o+w ./storage/ -R
+# src/ must be empty
+docker compose run --rm composer create-project laravel/laravel .
 
-# check out localhost:8088
+# check out http://localhost:8088
+```
+
+If you get *"The stream or file storage/logs/laravel.log could not be opened"*:
+
+```bash
+docker compose exec php chown -R www-data:www-data storage bootstrap/cache
 ```
 
 ### Configure DB
 
-```php
-// /scr/.env
-DB_HOST=mysql
-DB_DATABASE=laravel
-DB_USERNAME=root
-DB_PASSWORD=qwert
-```
+Laravel 12 uses SQLite by default; switch to MySQL:
 
-## Run php comands inside the container
+```ini
+# src/.env
+DB_CONNECTION=mysql
+DB_HOST=mysql          # service name in compose.yaml
+DB_PORT=3306
+DB_DATABASE=laravel
+DB_USERNAME=laravel
+DB_PASSWORD=secret
+```
 
 ```bash
-# docker-compose exec <container name> <command>
-$ docker-compose exec php php /var/www/html/artisan migrate
+docker compose run --rm artisan migrate
+#   INFO  Running migrations.
+#   0001_01_01_000000_create_users_table ........ 12.34ms DONE
 ```
+
+## Run php commands inside the container
+
+```bash
+# docker compose exec <service> <command>      (container must be running)
+docker compose exec php php artisan migrate
+docker compose exec php sh                      # shell
+
+# docker compose run --rm <service> <args>     (one-off container, tools profile)
+docker compose run --rm artisan make:model Post -m
+docker compose run --rm composer require laravel/sanctum
+docker compose run --rm npm install
+docker compose run --rm npm run build           # compiled assets in public/build
+```
+
+> For `npm run dev` (Vite HMR) inside Docker, Vite must listen on all interfaces: in `vite.config.js` add `server: { host: '0.0.0.0', hmr: { host: 'localhost' } }` and run `docker compose run --rm --service-ports npm run dev`.

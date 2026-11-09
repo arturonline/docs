@@ -1,295 +1,311 @@
+// JWT authentication example: sign up, sign in and role-protected routes.
+//
+// Requires Go 1.22+ (method and wildcard patterns in http.ServeMux).
+//
+//	go mod init authdemo
+//	go get gorm.io/gorm gorm.io/driver/postgres github.com/golang-jwt/jwt/v5 golang.org/x/crypto/bcrypt
+//	export DATABASE_URL="postgres://postgres:secret@localhost/userdb?sslmode=disable"
+//	export JWT_SECRET="$(openssl rand -hex 32)"
+//	go run .
 package main
 
 import (
+	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
-	"log"
+	"log/slog"
 	"net/http"
+	"os"
+	"os/signal"
+	"slices"
+	"strings"
+	"syscall"
 	"time"
 
-	"github.com/golang-jwt/jwt"
-	"github.com/gorilla/handlers"
-	"github.com/gorilla/mux"
-	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/postgres"
+	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
+	"gorm.io/driver/postgres"
+	"gorm.io/gorm"
 )
 
-//--------GLOBAL VARIABLES---------------
+//------------CONFIG----------------------
 
-var (
-	router    *mux.Router
-	secretkey string = "secretkeyjwt"
+const (
+	bcryptCost    = 12               // ~250ms per hash; raise it as hardware gets faster
+	tokenTTL      = 30 * time.Minute // short-lived access tokens
+	maxBodySize   = 1 << 20          // 1 MiB
+	allowedOrigin = "http://localhost:3000"
 )
 
 //------------STRUCTS---------------------
 
+// User is for storing User details.
 type User struct {
 	gorm.Model
-	Name     string `json:"name"`
-	Email    string `gorm:"unique" json:"email"`
-	Password string `json:"password"`
-	Role     string `json:"role"`
+	Name         string `json:"name"`
+	Email        string `gorm:"uniqueIndex;not null" json:"email"`
+	PasswordHash string `gorm:"not null" json:"-"` // never serialized
+	Role         string `gorm:"not null;default:user" json:"role"`
 }
 
+// SignUpRequest is the sign up payload (the role is NOT accepted from the client).
+type SignUpRequest struct {
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+// Authentication is for login data.
 type Authentication struct {
 	Email    string `json:"email"`
 	Password string `json:"password"`
 }
 
+// Token is returned for correct login credentials.
 type Token struct {
 	Role        string `json:"role"`
 	Email       string `json:"email"`
 	TokenString string `json:"token"`
 }
 
+// Error is the JSON error body.
 type Error struct {
 	IsError bool   `json:"isError"`
 	Message string `json:"message"`
 }
 
-//-------------DATABASE FUNCTIONS---------------------
-
-//returns database connection
-func GetDatabase() *gorm.DB {
-	databasename := "userdb"
-	database := "postgres"
-	databasepassword := "1312"
-	databaseurl := "postgres://postgres:" + databasepassword + "@localhost/" + databasename + "?sslmode=disable"
-
-	connection, err := gorm.Open(database, databaseurl)
-	if err != nil {
-		log.Fatalln("Invalid database url")
-	}
-	sqldb := connection.DB()
-
-	err = sqldb.Ping()
-	if err != nil {
-		log.Fatal("Database connected")
-	}
-	fmt.Println("Database connection successful.")
-	return connection
+// Claims are the fields stored in the JWT.
+type Claims struct {
+	Email string `json:"email"`
+	Role  string `json:"role"`
+	jwt.RegisteredClaims
 }
 
-//create user table in userdb
-func InitialMigration() {
-	connection := GetDatabase()
-	defer CloseDatabase(connection)
-	connection.AutoMigrate(User{})
+// App holds the dependencies shared by the handlers (no globals).
+type App struct {
+	db        *gorm.DB
+	secret    []byte
+	dummyHash []byte
 }
 
-//closes database connection
-func CloseDatabase(connection *gorm.DB) {
-	sqldb := connection.DB()
-	sqldb.Close()
-}
+type ctxKey struct{}
 
 //--------------HELPER FUNCTIONS---------------------
 
-//set error message in Error struct
-func SetError(err Error, message string) Error {
-	err.IsError = true
-	err.Message = message
-	return err
+func writeJSON(w http.ResponseWriter, status int, v any) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(status)
+	if err := json.NewEncoder(w).Encode(v); err != nil {
+		slog.Error("encode response", "err", err)
+	}
 }
 
-//take password as input and generate new hash password from it
-func GeneratehashPassword(password string) (string, error) {
-	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+func writeError(w http.ResponseWriter, status int, message string) {
+	writeJSON(w, status, Error{IsError: true, Message: message})
+}
+
+func decodeJSON(w http.ResponseWriter, r *http.Request, dst any) error {
+	r.Body = http.MaxBytesReader(w, r.Body, maxBodySize)
+	dec := json.NewDecoder(r.Body)
+	dec.DisallowUnknownFields()
+	return dec.Decode(dst)
+}
+
+func normalizeEmail(email string) string {
+	return strings.ToLower(strings.TrimSpace(email))
+}
+
+// GenerateHashPassword hashes a plain password with bcrypt (salt included).
+func GenerateHashPassword(password string) (string, error) {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), bcryptCost)
 	return string(bytes), err
 }
 
-//compare plain password with hash password
+// CheckPasswordHash compares a plain password with a bcrypt hash (constant time).
 func CheckPasswordHash(password, hash string) bool {
-	err := bcrypt.CompareHashAndPassword([]byte(hash), []byte(password))
-	return err == nil
+	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(password)) == nil
 }
 
-//Generate JWT token
-func GenerateJWT(email, role string) (string, error) {
-	var mySigningKey = []byte(secretkey)
-	token := jwt.New(jwt.SigningMethodHS256)
-	claims := token.Claims.(jwt.MapClaims)
-	claims["authorized"] = true
-	claims["email"] = email
-	claims["role"] = role
-	claims["exp"] = time.Now().Add(time.Minute * 30).Unix()
+// GenerateJWT creates a signed HS256 token that expires after tokenTTL.
+func (a *App) GenerateJWT(email, role string) (string, error) {
+	now := time.Now()
+	claims := Claims{
+		Email: email,
+		Role:  role,
+		RegisteredClaims: jwt.RegisteredClaims{
+			Subject:   email,
+			IssuedAt:  jwt.NewNumericDate(now),
+			ExpiresAt: jwt.NewNumericDate(now.Add(tokenTTL)),
+		},
+	}
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	return token.SignedString(a.secret)
+}
 
-	tokenString, err := token.SignedString(mySigningKey)
+// parseJWT validates signature, algorithm and expiration.
+func (a *App) parseJWT(tokenString string) (*Claims, error) {
+	claims := &Claims{}
+	_, err := jwt.ParseWithClaims(tokenString, claims,
+		func(*jwt.Token) (any, error) { return a.secret, nil },
+		jwt.WithValidMethods([]string{jwt.SigningMethodHS256.Alg()}), // reject "none", RS256...
+		jwt.WithExpirationRequired(),
+	)
 	if err != nil {
-		fmt.Errorf("Something went Wrong: %s", err.Error())
-		return "", err
+		return nil, err
 	}
-
-	return tokenString, nil
+	return claims, nil
 }
 
-//---------------------MIDDLEWARE FUNCTION-----------------------
+// claimsFrom returns the claims stored by IsAuthorized.
+func claimsFrom(ctx context.Context) *Claims {
+	c, _ := ctx.Value(ctxKey{}).(*Claims)
+	return c
+}
 
-//check whether user is authorized or not
-func IsAuthorized(handler http.HandlerFunc) http.HandlerFunc {
+//---------------------MIDDLEWARE FUNCTIONS-----------------------
+
+// IsAuthorized checks the "Authorization: Bearer <token>" header and,
+// if roles are given, that the user has one of them.
+func (a *App) IsAuthorized(next http.HandlerFunc, roles ...string) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
-
-		if r.Header["Token"] == nil {
-			var err Error
-			err = SetError(err, "No Token Found")
-			json.NewEncoder(w).Encode(err)
+		tokenString, ok := strings.CutPrefix(r.Header.Get("Authorization"), "Bearer ")
+		if !ok || tokenString == "" {
+			w.Header().Set("WWW-Authenticate", "Bearer")
+			writeError(w, http.StatusUnauthorized, "No token found")
 			return
 		}
 
-		var mySigningKey = []byte(secretkey)
-
-		token, err := jwt.Parse(r.Header["Token"][0], func(token *jwt.Token) (interface{}, error) {
-			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-				return nil, fmt.Errorf("There was an error in parsing token.")
-			}
-			return mySigningKey, nil
-		})
-
+		claims, err := a.parseJWT(tokenString)
+		if errors.Is(err, jwt.ErrTokenExpired) {
+			writeError(w, http.StatusUnauthorized, "Your token has expired")
+			return
+		}
 		if err != nil {
-			var err Error
-			err = SetError(err, "Your Token has been expired.")
-			json.NewEncoder(w).Encode(err)
+			writeError(w, http.StatusUnauthorized, "Invalid token")
 			return
 		}
 
-		if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-			if claims["role"] == "admin" {
-				r.Header.Set("Role", "admin")
-				handler.ServeHTTP(w, r)
-				return
-
-			} else if claims["role"] == "user" {
-				r.Header.Set("Role", "user")
-				handler.ServeHTTP(w, r)
-				return
-
-			}
+		if len(roles) > 0 && !slices.Contains(roles, claims.Role) {
+			writeError(w, http.StatusForbidden, "Not authorized")
+			return
 		}
-		var reserr Error
-		reserr = SetError(reserr, "Not Authorized.")
-		json.NewEncoder(w).Encode(err)
+
+		// Pass the claims in the request context, not in a header the client could forge.
+		ctx := context.WithValue(r.Context(), ctxKey{}, claims)
+		next(w, r.WithContext(ctx))
 	}
 }
 
-//----------------------ROUTES-------------------------------
-//create a mux router
-func CreateRouter() {
-	router = mux.NewRouter()
-}
-
-//initialize all routes
-func InitializeRoute() {
-	router.HandleFunc("/signup", SignUp).Methods("POST")
-	router.HandleFunc("/signin", SignIn).Methods("POST")
-	router.HandleFunc("/admin", IsAuthorized(AdminIndex)).Methods("GET")
-	router.HandleFunc("/user", IsAuthorized(UserIndex)).Methods("GET")
-	router.HandleFunc("/", Index).Methods("GET")
-	router.Methods("OPTIONS").HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "")
-		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-		w.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, Access-Control-Request-Headers, Access-Control-Request-Method, Connection, Host, Origin, User-Agent, Referer, Cache-Control, X-header")
+// cors allows a browser app on allowedOrigin to call the API.
+func cors(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
+		w.Header().Set("Vary", "Origin")
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Authorization, Content-Type")
+		if r.Method == http.MethodOptions { // preflight
+			w.WriteHeader(http.StatusNoContent)
+			return
+		}
+		next.ServeHTTP(w, r)
 	})
 }
 
-//start the server
-func ServerStart() {
-	fmt.Println("Server started at http://localhost:8080")
-	err := http.ListenAndServe(":8080", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Access-Control-Allow-Origin", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(router))
-	if err != nil {
-		log.Fatal(err)
-	}
+//----------------------ROUTES-------------------------------
+
+// Routes registers all the routes.
+func (a *App) Routes() http.Handler {
+	mux := http.NewServeMux()
+	mux.HandleFunc("POST /signup", a.SignUp)
+	mux.HandleFunc("POST /signin", a.SignIn)
+	mux.HandleFunc("GET /admin", a.IsAuthorized(AdminIndex, "admin"))
+	mux.HandleFunc("GET /user", a.IsAuthorized(UserIndex, "user"))
+	mux.HandleFunc("GET /{$}", Index)
+	return cors(mux)
 }
 
-//----------------------ROUTES HANDLER-----------------------
-func SignUp(w http.ResponseWriter, r *http.Request) {
-	connection := GetDatabase()
-	defer CloseDatabase(connection)
+//----------------------ROUTES HANDLERS-----------------------
 
-	var user User
-	err := json.NewDecoder(r.Body).Decode(&user)
-	if err != nil {
-		var err Error
-		err = SetError(err, "Error in reading payload.")
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(err)
+func (a *App) SignUp(w http.ResponseWriter, r *http.Request) {
+	var req SignUpRequest
+	if err := decodeJSON(w, r, &req); err != nil {
+		writeError(w, http.StatusBadRequest, "Error in reading payload")
+		return
+	}
+	req.Email = normalizeEmail(req.Email)
+	if req.Email == "" || len(req.Password) < 8 {
+		writeError(w, http.StatusBadRequest, "Email and a password of at least 8 characters are required")
 		return
 	}
 
-	var dbuser User
-	connection.Where("email = ?", user.Email).First(&dbuser)
-
-	//check email is alredy registered or not
-	if dbuser.Email != "" {
-		var err Error
-		err = SetError(err, "Email already in use")
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(err)
+	hash, err := GenerateHashPassword(req.Password)
+	if errors.Is(err, bcrypt.ErrPasswordTooLong) {
+		writeError(w, http.StatusBadRequest, "Password too long (max 72 bytes)")
+		return
+	}
+	if err != nil {
+		slog.Error("hash password", "err", err)
+		writeError(w, http.StatusInternalServerError, "Internal error")
 		return
 	}
 
-	user.Password, err = GeneratehashPassword(user.Password)
+	// Never trust a role sent by the client: new users are always "user".
+	user := User{Name: req.Name, Email: req.Email, PasswordHash: hash, Role: "user"}
+
+	// The unique index is the real check (no race between "exists?" and "insert").
+	err = a.db.WithContext(r.Context()).Create(&user).Error
+	if errors.Is(err, gorm.ErrDuplicatedKey) { // needs gorm.Config{TranslateError: true}
+		writeError(w, http.StatusConflict, "Email already in use")
+		return
+	}
 	if err != nil {
-		log.Fatalln("Error in password hashing.")
+		slog.Error("create user", "err", err)
+		writeError(w, http.StatusInternalServerError, "Internal error")
+		return
 	}
 
-	//insert user details in database
-	connection.Create(&user)
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(user)
+	writeJSON(w, http.StatusCreated, user) // PasswordHash is not serialized (json:"-")
 }
 
-func SignIn(w http.ResponseWriter, r *http.Request) {
-	connection := GetDatabase()
-	defer CloseDatabase(connection)
-
+func (a *App) SignIn(w http.ResponseWriter, r *http.Request) {
 	var authDetails Authentication
-
-	err := json.NewDecoder(r.Body).Decode(&authDetails)
-	if err != nil {
-		var err Error
-		err = SetError(err, "Error in reading payload.")
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(err)
+	if err := decodeJSON(w, r, &authDetails); err != nil {
+		writeError(w, http.StatusBadRequest, "Error in reading payload")
 		return
 	}
 
 	var authUser User
-	connection.Where("email = 	?", authDetails.Email).First(&authUser)
-
-	if authUser.Email == "" {
-		var err Error
-		err = SetError(err, "Username or Password is incorrect")
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(err)
+	err := a.db.WithContext(r.Context()).
+		Where("email = ?", normalizeEmail(authDetails.Email)).
+		First(&authUser).Error
+	switch {
+	case errors.Is(err, gorm.ErrRecordNotFound):
+		// Spend the same time as a real check so attackers can't detect valid emails.
+		_ = bcrypt.CompareHashAndPassword(a.dummyHash, []byte(authDetails.Password))
+		writeError(w, http.StatusUnauthorized, "Username or Password is incorrect")
+		return
+	case err != nil:
+		slog.Error("find user", "err", err)
+		writeError(w, http.StatusInternalServerError, "Internal error")
 		return
 	}
 
-	check := CheckPasswordHash(authDetails.Password, authUser.Password)
-
-	if !check {
-		var err Error
-		err = SetError(err, "Username or Password is incorrect")
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(err)
+	if !CheckPasswordHash(authDetails.Password, authUser.PasswordHash) {
+		// Same message as above: don't reveal which part was wrong.
+		writeError(w, http.StatusUnauthorized, "Username or Password is incorrect")
 		return
 	}
 
-	validToken, err := GenerateJWT(authUser.Email, authUser.Role)
+	validToken, err := a.GenerateJWT(authUser.Email, authUser.Role)
 	if err != nil {
-		var err Error
-		err = SetError(err, "Failed to generate token")
-		w.Header().Set("Content-Type", "application/json")
-		json.NewEncoder(w).Encode(err)
+		slog.Error("generate token", "err", err)
+		writeError(w, http.StatusInternalServerError, "Failed to generate token")
 		return
 	}
 
-	var token Token
-	token.Email = authUser.Email
-	token.Role = authUser.Role
-	token.TokenString = validToken
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(token)
+	slog.Info("user signed in", "email", authUser.Email) // never log passwords or tokens
+	writeJSON(w, http.StatusOK, Token{Email: authUser.Email, Role: authUser.Role, TokenString: validToken})
 }
 
 func Index(w http.ResponseWriter, r *http.Request) {
@@ -297,24 +313,81 @@ func Index(w http.ResponseWriter, r *http.Request) {
 }
 
 func AdminIndex(w http.ResponseWriter, r *http.Request) {
-	if r.Header.Get("Role") != "admin" {
-		w.Write([]byte("Not authorized."))
-		return
-	}
-	w.Write([]byte("Welcome, Admin."))
+	fmt.Fprintf(w, "Welcome, Admin %s.", claimsFrom(r.Context()).Email)
 }
 
 func UserIndex(w http.ResponseWriter, r *http.Request) {
-	if r.Header.Get("Role") != "user" {
-		w.Write([]byte("Not Authorized."))
-		return
-	}
-	w.Write([]byte("Welcome, User."))
+	fmt.Fprintf(w, "Welcome, User %s.", claimsFrom(r.Context()).Email)
 }
 
+//----------------------MAIN-------------------------------
+
 func main() {
-	InitialMigration()
-	CreateRouter()
-	InitializeRoute()
-	ServerStart()
+	slog.SetDefault(slog.New(slog.NewTextHandler(os.Stderr, nil)))
+	if err := run(); err != nil {
+		slog.Error("fatal", "err", err)
+		os.Exit(1)
+	}
+}
+
+func run() error {
+	// Secrets come from the environment, never from the source code.
+	dsn := os.Getenv("DATABASE_URL")
+	secret := os.Getenv("JWT_SECRET")
+	if dsn == "" || len(secret) < 32 {
+		return errors.New("DATABASE_URL and JWT_SECRET (at least 32 chars) must be set")
+	}
+
+	// Open the database once and share the pool (not once per request).
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{TranslateError: true})
+	if err != nil {
+		return fmt.Errorf("open database: %w", err)
+	}
+	sqlDB, err := db.DB()
+	if err != nil {
+		return err
+	}
+	defer sqlDB.Close()
+
+	// Create/update the users table
+	if err := db.AutoMigrate(&User{}); err != nil {
+		return fmt.Errorf("migrate: %w", err)
+	}
+
+	dummyHash, err := bcrypt.GenerateFromPassword([]byte("dummy-password"), bcryptCost)
+	if err != nil {
+		return err
+	}
+	app := &App{db: db, secret: []byte(secret), dummyHash: dummyHash}
+
+	srv := &http.Server{
+		Addr:              ":8080",
+		Handler:           app.Routes(),
+		ReadHeaderTimeout: 5 * time.Second,
+		ReadTimeout:       10 * time.Second,
+		WriteTimeout:      10 * time.Second,
+		IdleTimeout:       60 * time.Second,
+	}
+
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM)
+	defer stop()
+
+	errCh := make(chan error, 1)
+	go func() {
+		slog.Info("server started", "addr", "http://localhost:8080")
+		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
+			errCh <- err
+		}
+	}()
+
+	select {
+	case err := <-errCh:
+		return err
+	case <-ctx.Done():
+	}
+
+	slog.Info("shutting down")
+	shutdownCtx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+	return srv.Shutdown(shutdownCtx)
 }

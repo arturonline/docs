@@ -1,12 +1,14 @@
 # Permissions and roles
 
-If you want to assign roles and permissions in Laravel 12 you can implement role-based access control by adding a simple role column to your users table and using middleware to restrict access. Here’s a step-by-step guide with examples:
+If you want to assign roles and permissions in Laravel 12 you can implement role-based access control by adding a simple role column to your users table and using middleware (and Gates) to restrict access. Here's a step-by-step guide with examples.
+
+Related: [Policies.md](../Policies.md) (Gates & Policies), [Auth with Breeze.md](../Auth%20with%20Breeze.md).
 
 ---
 
 ## 1. Add a Role Column to the Users Table
 
-First, create a migration to add a `role` column to your `users` table. This can be an enum or a string column. For example, using an enum:
+First, create a migration to add a `role` column to your `users` table. A `string` column is easier to extend than a DB `enum`; the allowed values are controlled by a PHP enum.
 
 ```bash
 php artisan make:migration add_role_to_users_table
@@ -15,10 +17,17 @@ php artisan make:migration add_role_to_users_table
 Edit the migration:
 
 ```php
-public function up()
+public function up(): void
 {
     Schema::table('users', function (Blueprint $table) {
-        $table->enum('role', ['admin', 'editor', 'user'])->default('user');
+        $table->string('role')->default('user')->after('email');
+    });
+}
+
+public function down(): void
+{
+    Schema::table('users', function (Blueprint $table) {
+        $table->dropColumn('role');
     });
 }
 ```
@@ -29,66 +38,109 @@ Apply the migration:
 php artisan migrate
 ```
 
+Create a backed enum and cast the column:
+
+```php
+// app/Enums/Role.php
+namespace App\Enums;
+
+enum Role: string
+{
+    case Admin = 'admin';
+    case Editor = 'editor';
+    case User = 'user';
+}
+```
+
+```php
+// app/Models/User.php
+use App\Enums\Role;
+
+protected function casts(): array
+{
+    return [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'role' => Role::class,
+    ];
+}
+
+public function hasRole(Role|string ...$roles): bool
+{
+    foreach ($roles as $role) {
+        if ($this->role === (is_string($role) ? Role::tryFrom($role) : $role)) {
+            return true;
+        }
+    }
+
+    return false;
+}
+```
+
 ---
 
 ## 2. Update Registration and User Management
 
-When registering users or editing their details, set the appropriate role. For example, in your registration controller:
+New users get the default `user` role from the column default. **Don't** add `role` to `$fillable` or accept it from the registration form, or anyone could register as admin.
 
-```php
-protected function create(array $data)
-{
-    return User::create([
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'password' => Hash::make($data['password']),
-        'role' => $data['role'] ?? 'user', // Default to 'user'
-    ]);
-}
-```
-
-Or, manually assign the role in your admin panel:
+Assign roles from an admin panel, a seeder or tinker:
 
 ```php
 $user = User::find(1);
-$user->role = 'admin';
+$user->role = Role::Admin;
 $user->save();
+
+// or
+User::where('email', 'admin@example.com')->update(['role' => Role::Admin]);
+```
+
+```php
+// database/seeders/DatabaseSeeder.php
+User::factory()->create([
+    'email' => 'admin@example.com',
+    'role' => Role::Admin,   // factories ignore $fillable
+]);
 ```
 
 ---
 
 ## 3. Create Role Middleware
 
-Create a middleware to check the user’s role. For example:
+Create a middleware to check the user's role. With a parameter it works for any role:
 
 ```bash
-php artisan make:middleware AdminMiddleware
+php artisan make:middleware EnsureUserHasRole
 ```
 
 Edit the middleware:
 
 ```php
-public function handle(Request $request, Closure $next)
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+
+class EnsureUserHasRole
 {
-    if (auth()->user()->role !== 'admin') {
-        abort(403, 'Unauthorized action.');
+    // role:admin,editor -> $roles = ['admin', 'editor']
+    public function handle(Request $request, Closure $next, string ...$roles): Response
+    {
+        if (! $request->user()?->hasRole(...$roles)) {
+            abort(403, 'Unauthorized action.');
+        }
+
+        return $next($request);
     }
-    return $next($request);
 }
 ```
 
-Register the middleware in `bootstrap/app.php`:
+Register the alias in `bootstrap/app.php`:
 
 ```php
-php
 ->withMiddleware(function (Middleware $middleware): void {
-    $middleware->web(append: [
-        \App\Http\Middleware\HandleInertiaRequests::class,
-        \Illuminate\Http\Middleware\AddLinkHeadersForPreloadedAssets::class,
-    ]);
-
     $middleware->alias([
-        'admin' => \App\Http\Middleware\AdminMiddleware::class,
+        'role' => \App\Http\Middleware\EnsureUserHasRole::class,
     ]);
 })
 ```
@@ -100,40 +152,94 @@ php
 Protect routes by applying the middleware:
 
 ```php
-Route::middleware(['auth', 'admin'])->group(function () {
-    Route::get('/admin', [AdminController::class, 'index']);
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin.index');
+});
+
+Route::middleware(['auth', 'role:admin,editor'])->group(function () {
+    Route::resource('posts', PostController::class)->except(['index', 'show']);
 });
 ```
 
-You can create similar middleware for other roles (e.g., `editor`) and protect their routes accordingly.
+Result: a logged-in `user` visiting `/admin` gets a **403**; a guest is redirected to `/login` (by `auth`).
 
 ---
 
-## 5. Redirect Users by Role
+## 5. Gates for roles
 
-In your `LoginController`, redirect users to different dashboards based on their role:
+Define a Gate to use the role everywhere (`@can`, `Gate::allows`, `->can()`):
 
 ```php
-public function redirectTo()
+// app/Providers/AppServiceProvider.php
+public function boot(): void
 {
-    if (auth()->user()->role === 'admin') {
-        return '/admin';
-    }
-    return '/dashboard';
+    Gate::define('admin', fn (User $user) => $user->hasRole(Role::Admin));
+
+    // Admins can do everything (also in Policies)
+    Gate::before(fn (User $user) => $user->hasRole(Role::Admin) ? true : null);
 }
 ```
 
+```php
+Route::get('/reports', ReportController::class)->middleware(['auth', 'can:admin']);
+```
 
 ---
 
-## 6. Example: Restricting Access in Views
+## 6. Redirect Users by Role
 
-In your Blade views, you can check the user’s role:
+After login, redirect users to different dashboards based on their role. With Breeze, in `AuthenticatedSessionController::store`:
 
 ```php
-@if(auth()->user()->role === 'admin')
+public function store(LoginRequest $request): RedirectResponse
+{
+    $request->authenticate();
+    $request->session()->regenerate();
+
+    $home = $request->user()->hasRole(Role::Admin)
+        ? route('admin.index', absolute: false)
+        : route('dashboard', absolute: false);
+
+    return redirect()->intended($home);
+}
+```
+
+---
+
+## 7. Example: Restricting Access in Views
+
+In your Blade views, you can check the user's role:
+
+```blade
+@if (auth()->user()?->hasRole('admin'))
     Admin Panel
 @endif
+
+{{-- or with the Gate --}}
+@can('admin')
+    <a href="{{ route('admin.index') }}">Admin Panel</a>
+@endcan
+```
+
+---
+
+## 8. Test (Pest)
+
+```php
+use App\Enums\Role;
+use App\Models\User;
+
+it('blocks non admins', function () {
+    $this->actingAs(User::factory()->create())
+        ->get('/admin')
+        ->assertForbidden();
+});
+
+it('lets admins in', function () {
+    $this->actingAs(User::factory()->create(['role' => Role::Admin]))
+        ->get('/admin')
+        ->assertOk();
+});
 ```
 
 ---
@@ -142,24 +248,36 @@ In your Blade views, you can check the user’s role:
 
 | Step                | Description                                              |
 |---------------------|----------------------------------------------------------|
-| Add role column     | Add `role` to users table                                |
-| Set role on users   | Assign role during registration or via admin panel       |
-| Create middleware   | Make middleware to check roles                           |
+| Add role column     | Add `role` to users table + enum cast                    |
+| Set role on users   | Assign role via admin panel / seeder (never mass assign) |
+| Create middleware   | `role:admin,editor` middleware to check roles            |
 | Protect routes      | Use middleware to restrict access                        |
+| Gates               | `@can('admin')`, `Gate::before` for super admins         |
 | Redirect by role    | Redirect users to appropriate dashboard after login      |
 | Check role in views | Conditionally show content based on user role            |
 
 ---
 
-This approach is **simpler than using Spatie** and works well for applications with a limited number of roles and straightforward permissions. For more complex permission systems, consider upgrading to Jetstream or using a package[1][2].
+This approach is **simpler than using Spatie** and works well for applications with a limited number of roles and straightforward permissions. For more complex permission systems (many roles, per-permission checks, roles stored in tables) use [spatie/laravel-permission](https://spatie.be/docs/laravel-permission).
 
-[1] <https://stackoverflow.com/questions/78924699/how-to-create-an-admin-account-in-laravel-11-using-breeze>
-[2] <https://laraveldaily.com/post/laravel-breeze-user-student-teacher-admin>
-[3] <https://itsolutionstuff.com/post/laravel-12-user-roles-and-permissions-tutorialexample.html>
-[4] <https://www.youtube.com/watch?v=o9PIefA5EdE>
-[5] <https://kritimyantra.com/blogs/laravel-12-admin-panel-roles-permission>
-[6] <https://laravel.com/docs/12.x/authorization>
-[7] <https://www.souysoeng.com/2025/06/laravel-12-roles-and-permissions.html>
-[8] <https://spatie.be/docs/laravel-permission/v6/basic-usage/role-permissions>
-[9] <https://www.infosecinstitute.com/resources/application-security/laravel-authorization-best-practices-and-tips/>
-[10] <https://www.youtube.com/watch?v=EiZPls4UcH4>
+```bash
+composer require spatie/laravel-permission
+php artisan vendor:publish --provider="Spatie\Permission\PermissionServiceProvider"
+php artisan migrate
+```
+
+```php
+// User model: use Spatie\Permission\Traits\HasRoles;
+$user->assignRole('writer');
+$role->givePermissionTo('edit articles');
+$user->can('edit articles');            // works with @can too
+Route::get('/admin', AdminController::class)->middleware('role:admin'); // after registering Spatie's middleware aliases
+```
+
+References:
+
+- <https://laravel.com/docs/12.x/authorization>
+- <https://spatie.be/docs/laravel-permission/v6/basic-usage/role-permissions>
+- <https://laraveldaily.com/post/laravel-breeze-user-student-teacher-admin>
+- <https://itsolutionstuff.com/post/laravel-12-user-roles-and-permissions-tutorialexample.html>
+- <https://www.infosecinstitute.com/resources/application-security/laravel-authorization-best-practices-and-tips/>
